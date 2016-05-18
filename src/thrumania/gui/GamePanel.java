@@ -1,7 +1,9 @@
 package thrumania.gui;
 
 import thrumania.board.Map;
+import thrumania.main.Controller;
 import thrumania.utils.Constants;
+import thrumania.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,12 +24,12 @@ public class GamePanel extends JPanel {
         this.setLayout(null);
         this.setLocation(0, 0);
         this.setSize(d);
-        new Timer().scheduleAtFixedRate(new TimerTask() {
+        new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
                 repaint();
             }
-        }, 1, 1);
+        }, 200);
     }
 
     @Override
@@ -35,8 +37,13 @@ public class GamePanel extends JPanel {
 //        super.paint(g);
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
-                Image image = Toolkit.getDefaultToolkit().getImage("res/images/" + map.getCells()[r][c].getPictureName());
-                g.drawImage(image, map.getCells()[r][c].getPosition().getColumn() * Constants.CELL_SIZE, map.getCells()[r][c].getPosition().getRow() * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                g.drawImage(
+                        ImageUtils.getImage(map.getCells()[r][c].getPictureName()),
+                        map.getCells()[r][c].getPosition().getColumn() * Constants.CELL_SIZE,
+                        map.getCells()[r][c].getPosition().getRow() * Constants.CELL_SIZE,
+                        Constants.CELL_SIZE,
+                        Constants.CELL_SIZE,
+                        null);
             }
         }
     }
