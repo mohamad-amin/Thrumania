@@ -17,7 +17,8 @@ public class GameFrame extends JFrame {
     private BottomPanel bottomPanel;
     private RightPanel rightPanel;
     private MiniMapPanel miniMapPanel;
-    public GameFrame( Map map) {
+
+    public GameFrame(Map map) {
         this.map = map;
         this.setLayout(null);
         this.setLocation(0,0);
