@@ -14,7 +14,7 @@ public class Constants {
     public static int Drawer_HIGHT = 22;
 
     public static void initializeConstants() {
-        if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() > 2000) {
+        if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
             CELL_SIZE = 32;
         } else {
             CELL_SIZE = 40;
