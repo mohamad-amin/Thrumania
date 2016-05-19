@@ -12,7 +12,7 @@ public class ImageUtils {
 
     public static Image getImage(String name) {
         name = "res/images/" + name;
-        Cacher<Image> cacher = Controller.getInstance().getImageCacher();
+        Cacher<String,Image> cacher = Controller.getInstance().getImageCacher();
         Image result = cacher.get(name);
         if (result == null) {
             result = Toolkit.getDefaultToolkit().getImage(name);

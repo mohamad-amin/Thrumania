@@ -13,12 +13,8 @@ import java.awt.*;
 
 public class Controller {
 
-    public static void main(String[] args) {
-        new Controller();
-    }
-
     private static Controller controller;
-    private Cacher<Image> imageCacher;
+    private Cacher<String,Image> imageCacher;
 
     private Controller() {
 
@@ -39,8 +35,10 @@ public class Controller {
         this.imageCacher = new Cacher<>();
     }
 
-    public Cacher<Image> getImageCacher() {
+    public Cacher<String,Image> getImageCacher() {
         return imageCacher;
     }
+
+    public static void main(String[] args) {new Controller();}
 
 }

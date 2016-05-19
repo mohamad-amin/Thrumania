@@ -6,7 +6,9 @@ import thrumania.utils.Constants;
 import thrumania.utils.ImageUtils;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.Timer;
 
@@ -14,7 +16,7 @@ import java.util.Timer;
  * Created by sina on 5/18/16.
  */
 
-public class GamePanel extends JPanel {
+public class GamePanel extends JPanel implements MouseInputListener{
 
     private Map map;
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
@@ -46,5 +48,40 @@ public class GamePanel extends JPanel {
                         null);
             }
         }
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
     }
 }

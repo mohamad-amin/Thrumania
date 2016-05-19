@@ -6,21 +6,21 @@ import java.util.HashMap;
  * Created by mohamadamin on 5/18/16.
  */
 
-public class Cacher<T> {
+public class Cacher<K,T> {
 
-    HashMap<String, T> hashMap;
+    HashMap<K, T> hashMap;
 
     public Cacher() {
         this.hashMap= new HashMap<>();
     }
 
-    public T get(String key) {
+    public T get(K key) {
         if (hashMap.containsKey(key)) {
             return hashMap.get(key);
         } else return null;
     }
 
-    public void insert(String key, T value) {
+    public void insert(K key, T value) {
         hashMap.put(key, value);
     }
 
