@@ -24,7 +24,7 @@ public class BottomPanel extends JPanel {
     private elements selectedElement;
     private int elementsSize = 50;
     private int spaceBetweenElements = 50;
-
+    private boolean alaki = false ;
 
     public BottomPanel() {
         this.setLocation(0, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
