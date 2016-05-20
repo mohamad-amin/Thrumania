@@ -40,13 +40,8 @@ public class BottomPanel extends JPanel {
         this.setSize(d);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
         this.addMouseListener(new MymouseListener());
-        toolkit.getBestCursorSize(1, 11);
-        setCursor(toolkit.createCustomCursor(
-                ImageUtils.getImage("cursorBottomPanel.png"),
-                new Point(0, 0), "custom cursor"));
-
+        this.mouseInitializer();
         //  Button button1 = new Button("sina", "OceanBottomPanel.png", 0 ,100 , new Dimension(50,50));
 //        this.add(button1);
 //        this.add( new ImageIcon(ImageUtils.getImage("rightPanel.jpg")))
@@ -64,7 +59,14 @@ public class BottomPanel extends JPanel {
                 return true;
         return false;
     }
+    private void mouseInitializer(){
+        Toolkit toolkit = Toolkit.getDefaultToolkit();
+        toolkit.getBestCursorSize(1, 11);
+        setCursor(toolkit.createCustomCursor(
+                ImageUtils.getImage("cursorBottomPanel.png"),
+                new Point(0, 0), "custom cursor"));
 
+    }
     private void findingSelectedObject(int mouseXcord, int mouseYcord) {
         int elementCounter = 1;
 
@@ -252,7 +254,7 @@ public class BottomPanel extends JPanel {
         if (!lowLandIsSelected)
             g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanel.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
         else if (lowLandIsSelected)
-            g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanelHoover .png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanelHoover.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
 
 //        repaint();
         //lowAltitdueLandBottomPanel.png

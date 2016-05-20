@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements MouseInputListener{
 
     @Override
     public void paint(Graphics g) {
+        super.paint(g);
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
                 g.drawImage(
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements MouseInputListener{
                         null);
             }
         }
+        repaint();
     }
 
     @Override
