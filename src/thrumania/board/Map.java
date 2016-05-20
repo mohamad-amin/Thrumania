@@ -1,6 +1,7 @@
 package thrumania.board;
 
 import thrumania.board.item.Cell;
+import thrumania.board.item.LowLand;
 import thrumania.board.item.Sea;
 import thrumania.utils.Cacher;
 import thrumania.utils.Coordinate;
@@ -25,7 +26,7 @@ public class Map {
         this.height = height;
         this.cells = new Cell[width][height];
         this.states = new Cacher<>();
-       // stateLoad();
+        stateLoad();
         fillCells();
     }
 
@@ -48,6 +49,21 @@ public class Map {
     }
 
     public void stateLoad(){
+        ArrayList<String> input =fileReader();
+        for (int i=0;i<input.size();i++){
+            String temp=input.get(i);
+            String[] divided = (temp.trim()).split(" ");
+            int [][] doing = new int [(divided.length-1)/2][2];
+            int key = Integer.parseInt(divided[0]);
+            for (int j=0;j<(divided.length-1)/2;j++) {
+                doing[j][0] = Integer.parseInt(divided[j * 2 + 1]);
+                doing[j][1] = Integer.parseInt(divided[j * 2 + 2]);
+            }
+            states.insert(key,doing);
+        }
+    }
+
+    public ArrayList<String> fileReader(){
         ArrayList <String> st = new ArrayList<>();
         File f=null;
         FileInputStream fis=null;
@@ -55,7 +71,7 @@ public class Map {
         BufferedReader br = null;
         try {
             String str;
-            f = new File("map.txt");
+            f = new File("res/otomataStates");
             fis=new FileInputStream(f);
             isr= new InputStreamReader(fis);
             br = new BufferedReader(isr);
@@ -72,13 +88,19 @@ public class Map {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        int [][] maper = new int [st.size()][st.get(0).length()];
-        for (int i=0;i<st.size();i++){
-            char []temp=(st.get(i)).toCharArray();
-            for (int j=0;j<temp.length;j++){
-                maper[i][j]=(temp[j]-48);//
-            }
+        return st;
+    }
+
+    public void changeMap(int i,int j){
+        int number = cells[i][j].getNumberOfCell(cells);
+        int[][] putCell = states.get(number);
+        for (int o=0;o<putCell.length;o++){
+            int row = i+putCell[o][0]/3-1;
+            int column = j+putCell[o][0]%3-1;
+            cells[row][column] = new LowLand(new Coordinate(row,column));
+            cells[row][column].setPictureName(new Integer(putCell[o][1]).toString()+".png");
         }
+
     }
 
     public int getWidth() {

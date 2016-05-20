@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.Map;
+import thrumania.utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -28,14 +29,18 @@ public class GameFrame extends JFrame {
         this.setAlwaysOnTop(true);
         this.setResizable(false);
 
-        gamePanel = new GamePanel(map);
         bottomPanel = new BottomPanel();
-        rightPanel = new RightPanel();
-        miniMapPanel = new MiniMapPanel();
-        this.add(gamePanel);
         this.add(bottomPanel);
+
+        gamePanel = new GamePanel(map);
+        this.add(gamePanel);
+
+        rightPanel = new RightPanel();
         this.add(rightPanel);
+
+        miniMapPanel = new MiniMapPanel();
         this.add(miniMapPanel);
+
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }

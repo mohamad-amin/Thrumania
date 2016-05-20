@@ -22,7 +22,7 @@ public class Controller {
         initializeCachers();
 
         Constants.initializeConstants();
-        new GameFrame(new Map(55, 100));
+        new GameFrame(new Map( Constants.Drawer_HIGHT,Constants.DRAWER_WIDTH));
 
     }
 

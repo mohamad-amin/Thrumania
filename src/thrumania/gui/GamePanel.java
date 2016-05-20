@@ -19,13 +19,14 @@ import java.util.Timer;
 public class GamePanel extends JPanel implements MouseInputListener{
 
     private Map map;
-    private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
+    private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);;
 
     public GamePanel(Map map) {
         this.map = map;
         this.setLayout(null);
-        this.setLocation(0, 0);
+        this.setLocation(0,0);
         this.setSize(d);
+        this.addMouseListener(this);
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -36,7 +37,6 @@ public class GamePanel extends JPanel implements MouseInputListener{
 
     @Override
     public void paint(Graphics g) {
-        super.paint(g);
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
                 g.drawImage(
@@ -48,12 +48,17 @@ public class GamePanel extends JPanel implements MouseInputListener{
                         null);
             }
         }
-        repaint();
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
+        System.out.println("hello");
+        int row = (e.getY()/Constants.CELL_SIZE);
+        int column = (e.getX()/Constants.CELL_SIZE);
+        map.changeMap(row,column);
+        System.out.println(row);
+        System.out.println(column);
+        repaint();                                     /////chera timer kar nemikone??
     }
 
     @Override

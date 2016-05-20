@@ -43,7 +43,7 @@ public abstract class Cell {
         for (int i=-1; i<2; i++) {
             for (int j=-1; j<2; j++) {
                 int row = position.getRow()+i;
-                int column = position.getRow()+i;
+                int column = position.getColumn()+j;
                 if (IntegerUtils.isInRange(0, Constants.MATRIX_SIZE-1, row) && IntegerUtils.isInRange(
                         0, Constants.MATRIX_SIZE-1, column) && !(position.equals(new Coordinate(row, column)))) {
                     cells.add(new Coordinate(row, column));
@@ -55,6 +55,18 @@ public abstract class Cell {
 
     public List<Coordinate> getAdjacentPositions() {
         return this.adjacentPositions;
+    }
+
+    public int getNumberOfCell(Cell [][] cells){
+        int factor =1;
+        int number =0;
+        for (int i=0; i<adjacentPositions.size(); i++){
+            int l=0;
+            if(cells[adjacentPositions.get(i).getRow()][adjacentPositions.get(i).getColumn()] instanceof LowLand) l=1;
+            number += factor * l;
+                    factor*=2;
+        }
+        return number;
     }
 
 }
