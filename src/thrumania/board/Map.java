@@ -4,7 +4,9 @@ import thrumania.board.item.Cell;
 import thrumania.board.item.LowLand;
 import thrumania.board.item.Sea;
 import thrumania.utils.Cacher;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.IntegerUtils;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -92,16 +94,20 @@ public class Map {
     }
 
     public void changeMap(int i,int j){
-        int number = cells[i][j].getNumberOfCell(cells);
+        ArrayList<Coordinate> updatebar= new ArrayList<>();
+        int number = getNumberOfCell(i,j,updatebar);
         int[][] putCell = states.get(number);
-        for (int o=0;o<putCell.length;o++){
-            int row = i+putCell[o][0]/3-1;
-            int column = j+putCell[o][0]%3-1;
-            cells[row][column] = new LowLand(new Coordinate(row,column));
-            cells[row][column].setPictureName(new Integer(putCell[o][1]).toString()+".png");
+        for (int o=0;o<putCell.length;o++) {
+            int row = i + putCell[o][0] / 3 - 1;
+            int column = j + putCell[o][0] % 3 - 1;
+            cells[row][column] = new LowLand(new Coordinate(row, column));
+            cells[row][column].setPictureName(new Integer(putCell[o][1]).toString() + ".png");
         }
-
+        updateAdjecant(updatebar);
+        System.out.println("map");
     }
+
+
 
     public int getWidth() {
         return width;
@@ -118,4 +124,44 @@ public class Map {
     public void setHeight(int height) {
         this.height = height;
     }
+
+    private void updateAdjecant(ArrayList<Coordinate> updatebar) {
+        for (int i=0;i<updatebar.size();i++){
+            int x =checkFourSideAndGiveMeNumber(updatebar.get(i).getRow(),updatebar.get(i).getColumn());
+            cells[updatebar.get(i).getRow()][updatebar.get(i).getColumn()]= new LowLand(new Coordinate(updatebar.get(i).getRow(),updatebar.get(i).getColumn()));
+            cells[updatebar.get(i).getRow()][updatebar.get(i).getColumn()].setPictureName(new Integer(x).toString()+".png");
+        }
+    }
+
+    public int checkFourSideAndGiveMeNumber(int i,int j){
+        int x =cells[i-1][j].getCode()*4+
+                cells[i][j-1].getCode()*2+
+                cells[i][j+1].getCode()*8+
+                cells[i+1][j].getCode()*1;
+        System.out.println(x);
+        return x;
+    }
+
+    public int getNumberOfCell(int x,int y,ArrayList<Coordinate> updatebar){
+        int number=0;
+        int factor=1;
+        for (int i=-1; i<2; i++) {
+            for (int j=-1; j<2; j++) {
+                int row = x+i;
+                int column = y+j;
+                int l=0;
+                if (IntegerUtils.isInRange(0, Constants.MATRIX_SIZE-1, row)
+                        && IntegerUtils.isInRange(0, Constants.MATRIX_SIZE-1, column)
+                        && !(new Coordinate(x,y).equals(new Coordinate(row, column)))
+                        &&cells[row][column] instanceof LowLand ) {
+                    l=1;
+                    updatebar.add(new Coordinate(row,column));
+                }
+                number += factor * l;
+                factor*=2;
+            }
+        }
+        return number;
+    }
+
 }

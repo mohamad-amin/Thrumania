@@ -28,19 +28,22 @@ public class GameFrame extends JFrame {
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
         this.setResizable(false);
+        this.setFocusable(false);
 
         bottomPanel = new BottomPanel();
         this.add(bottomPanel);
 
-        gamePanel = new GamePanel(map);
-        this.add(gamePanel);
-
         rightPanel = new RightPanel();
         this.add(rightPanel);
+
+        gamePanel = new GamePanel(map);
+        this.add(gamePanel);
 
         miniMapPanel = new MiniMapPanel();
         this.add(miniMapPanel);
 
+        gamePanel.setFocusable(true);
+        gamePanel.requestFocus();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
     }

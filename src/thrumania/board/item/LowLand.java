@@ -12,6 +12,7 @@ public class LowLand extends Cell {
 
     public LowLand(Coordinate position) {
         super(position);
+        code=1;
     }
 
     @Override
@@ -34,8 +35,4 @@ public class LowLand extends Cell {
         super.setPictureName(pictureName);
     }
 
-    @Override
-    public List<Coordinate> getAdjacentPositions() {
-        return super.getAdjacentPositions();
-    }
 }

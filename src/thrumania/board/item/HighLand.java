@@ -33,9 +33,5 @@ public class HighLand extends Cell {
         super.setPictureName(pictureName);
     }
 
-    @Override
-    public List<Coordinate> getAdjacentPositions() {
-        return super.getAdjacentPositions();
-    }
 
 }

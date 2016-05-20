@@ -33,6 +33,8 @@ public class GamePanel extends JPanel implements MouseInputListener{
                 repaint();
             }
         }, 200);
+        System.out.println(this.hasFocus());
+
     }
 
     @Override
@@ -40,6 +42,13 @@ public class GamePanel extends JPanel implements MouseInputListener{
         super.paint(g);
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
+                g.drawImage(
+                        ImageUtils.getImage("ocean1.jpg"),
+                        map.getCells()[r][c].getPosition().getColumn() * Constants.CELL_SIZE,
+                        map.getCells()[r][c].getPosition().getRow() * Constants.CELL_SIZE,
+                        Constants.CELL_SIZE,
+                        Constants.CELL_SIZE,
+                        null);
                 g.drawImage(
                         ImageUtils.getImage(map.getCells()[r][c].getPictureName()),
                         map.getCells()[r][c].getPosition().getColumn() * Constants.CELL_SIZE,
@@ -54,13 +63,11 @@ public class GamePanel extends JPanel implements MouseInputListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        System.out.println("hello");
         int row = (e.getY()/Constants.CELL_SIZE);
         int column = (e.getX()/Constants.CELL_SIZE);
         map.changeMap(row,column);
-        System.out.println(row);
-        System.out.println(column);
-        repaint();                                     /////chera timer kar nemikone??
+        System.out.println("panel");
+        repaint();
     }
 
     @Override

@@ -11,6 +11,7 @@ public class Sea extends Cell {
 
     public Sea(Coordinate position) {
         super(position);
+        code= 0;
     }
 
     @Override
@@ -33,8 +34,4 @@ public class Sea extends Cell {
         super.setPictureName(pictureName);
     }
 
-    @Override
-    public List<Coordinate> getAdjacentPositions() {
-        return super.getAdjacentPositions();
-    }
 }
