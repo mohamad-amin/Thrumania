@@ -111,6 +111,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         if((start.getRow()>0) &&
                 IntegerUtils.isInRange(0,Constants.CELL_SIZE, e.getY()))
             start.addRow(-1);
+        repaint();
     }
 
 }

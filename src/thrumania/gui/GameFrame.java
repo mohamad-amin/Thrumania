@@ -29,6 +29,7 @@ public class GameFrame extends JFrame {
         this.setAlwaysOnTop(true);
         this.setResizable(false);
         this.setFocusable(false);
+        Constants.mouseInitializer(this);
 
         bottomPanel = new BottomPanel();
         this.add(bottomPanel);

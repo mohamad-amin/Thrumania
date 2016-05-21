@@ -3,6 +3,7 @@ package thrumania.gui;
 import com.sun.javafx.tk.*;
 import thrumania.utils.Constants;
 import thrumania.utils.ImageUtils;
+import thrumania.utils.IntegerUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,11 +19,8 @@ public class BottomPanel extends JPanel {
 
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, getToolkit().getScreenSize().height - Constants.Drawer_HIGHT * Constants.CELL_SIZE);
 
-    static enum elements {
-        STONE_MINE, GOLD_MINE, HIGH_ALTITTUDE_LAND, LOW_ALTITTUDE_LAND, TREE, FISH, DEEP_SEA, SHALLOW_SEA
-    }
 
-    private elements selectedElement;
+    private Constants.downPanelElements selectedElement;
     private int elementsSize = 50;
     private int spaceBetweenElements = 50;
 
@@ -40,9 +38,8 @@ public class BottomPanel extends JPanel {
         this.setSize(d);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
-        this.setVisible(true);
         this.addMouseListener(new MymouseListener());
-        this.mouseInitializer();
+
         //  Button button1 = new Button("sina", "OceanBottomPanel.png", 0 ,100 , new Dimension(50,50));
 //        this.add(button1);
 //        this.add( new ImageIcon(ImageUtils.getImage("rightPanel.jpg")))
@@ -51,28 +48,18 @@ public class BottomPanel extends JPanel {
 //        label.setIcon(new ImageIcon(ImageUtils.getImage("rightPanel.jpg")));
 //        this.add(label);
 
-    }
 
-    private boolean isInSideTheRange(int elementXcord1, int elementYcord1, int elementXcord2, int elementyCord2, int mouseXcord, int mouseYcord) {
-        if (elementXcord1 <= mouseXcord && elementXcord2 >= mouseXcord)
-            if (elementYcord1 <= mouseYcord && elementyCord2 >= mouseYcord)
-                return true;
-        return false;
-    }
-    private void mouseInitializer(){
-        Toolkit toolkit = Toolkit.getDefaultToolkit();
-        toolkit.getBestCursorSize(1, 11);
-        setCursor(toolkit.createCustomCursor(
-                ImageUtils.getImage("cursorBottomPanel.png"),
-                new Point(0, 0), "custom cursor"));
 
     }
+
+
+
     private void findingSelectedObject(int mouseXcord, int mouseYcord) {
         int elementCounter = 1;
 
         //checking Deep sea
-        if (isInSideTheRange(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.DEEP_SEA;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.DEEP_SEA;
             deepSeaIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -80,14 +67,15 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     deepSeaIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
         }
         // checking shallow sea
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.SHALLOW_SEA;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.SHALLOW_SEA;
             shallowSeaIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -95,14 +83,15 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     shallowSeaIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
         }
         // cehcking small fish
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.FISH;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.FISH;
             smallFishIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -110,6 +99,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     smallFishIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -118,8 +108,8 @@ public class BottomPanel extends JPanel {
         }
         // checking tree
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.TREE;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.TREE;
             treeIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -127,6 +117,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     treeIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -135,8 +126,8 @@ public class BottomPanel extends JPanel {
         // checking stone mine
         elementCounter += 2;
 
-        if (isInSideTheRange(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize + 10, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.STONE_MINE;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize + 10, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.STONE_MINE;
             stoneMineIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -144,6 +135,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     stoneMineIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -151,15 +143,17 @@ public class BottomPanel extends JPanel {
         }
         // checking gold mine
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.GOLD_MINE;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.GOLD_MINE;
             goldMineIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
                 @Override
                 public void run() {
+
                     goldMineIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -167,8 +161,8 @@ public class BottomPanel extends JPanel {
         }
         // chekcing high  land
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.HIGH_ALTITTUDE_LAND;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.HIGH_ALTITTUDE_LAND;
             highLandIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -176,6 +170,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     highLandIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -184,8 +179,8 @@ public class BottomPanel extends JPanel {
         }
         // checking low land
         elementCounter += 2;
-        if (isInSideTheRange(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = elements.LOW_ALTITTUDE_LAND;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            this.selectedElement = Constants.downPanelElements.LOW_ALTITTUDE_LAND;
             lowLandIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -193,6 +188,7 @@ public class BottomPanel extends JPanel {
                 @Override
                 public void run() {
                     lowLandIsSelected = false;
+                    repaint();
                 }
 
             }, 110);
@@ -206,13 +202,13 @@ public class BottomPanel extends JPanel {
         super.paint(g);
         int elementCounter = 1;
 
-        System.out.println("Here");
-
         g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
         if (!deepSeaIsSelected)
             g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (deepSeaIsSelected) {
+
             g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+
             //deapSeaIsSelected = false;
         }
 
@@ -255,14 +251,17 @@ public class BottomPanel extends JPanel {
         else if (lowLandIsSelected)
             g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanelHoover.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
 
+//        repaint();
+        //lowAltitdueLandBottomPanel.png
+//
     }
 
     class MymouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
+
             findingSelectedObject(e.getX(), e.getY());
-            System.out.println(selectedElement);
 
         }
 
