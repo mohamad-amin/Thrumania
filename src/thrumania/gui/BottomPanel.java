@@ -40,6 +40,7 @@ public class BottomPanel extends JPanel {
         this.setSize(d);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
+        this.setVisible(true);
         this.addMouseListener(new MymouseListener());
         this.mouseInitializer();
         //  Button button1 = new Button("sina", "OceanBottomPanel.png", 0 ,100 , new Dimension(50,50));
@@ -49,14 +50,6 @@ public class BottomPanel extends JPanel {
 //        label.setBounds(0,0,d.width , d.height);
 //        label.setIcon(new ImageIcon(ImageUtils.getImage("rightPanel.jpg")));
 //        this.add(label);
-
-        new java.util.Timer().scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                repaint();
-            }
-        }, 200, 300);
-
 
     }
 
@@ -213,13 +206,13 @@ public class BottomPanel extends JPanel {
         super.paint(g);
         int elementCounter = 1;
 
+        System.out.println("Here");
+
         g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
         if (!deepSeaIsSelected)
             g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (deepSeaIsSelected) {
-
             g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
-
             //deapSeaIsSelected = false;
         }
 
@@ -262,9 +255,6 @@ public class BottomPanel extends JPanel {
         else if (lowLandIsSelected)
             g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanelHoover.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
 
-//        repaint();
-        //lowAltitdueLandBottomPanel.png
-//
     }
 
     class MymouseListener implements MouseListener {

@@ -2,6 +2,7 @@ package thrumania.utils;
 
 import thrumania.main.Controller;
 
+import javax.swing.*;
 import java.awt.*;
 
 /**
@@ -15,7 +16,8 @@ public class ImageUtils {
         Cacher<String,Image> cacher = Controller.getInstance().getImageCacher();
         Image result = cacher.get(name);
         if (result == null) {
-            result = Toolkit.getDefaultToolkit().getImage(name);
+//            result = Toolkit.getDefaultToolkit().getImage(name);
+            result = new ImageIcon(name).getImage();
             cacher.insert(name, result);
         }
         return result;
