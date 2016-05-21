@@ -19,7 +19,7 @@ import java.util.Timer;
  * Created by sina on 5/18/16.
  */
 
-public class GamePanel extends JPanel implements MouseInputListener , MouseMotionListener,MouseListener{
+public class GamePanel extends JPanel implements MouseInputListener{
 
     private Map map;
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);;
@@ -30,6 +30,7 @@ public class GamePanel extends JPanel implements MouseInputListener , MouseMotio
         this.setLocation(0,0);
         this.setSize(d);
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
         new Timer().schedule(new TimerTask() {
             @Override
             public void run() {
@@ -94,15 +95,14 @@ public class GamePanel extends JPanel implements MouseInputListener , MouseMotio
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        int row = (e.getY()/Constants.CELL_SIZE);
+        int column = (e.getX()/Constants.CELL_SIZE);
+        boolean repaint = map.changeMap(row,column);
+        if(repaint) repaint();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        int row = (e.getY()/Constants.CELL_SIZE);
-        int column = (e.getX()/Constants.CELL_SIZE);
-        boolean repaint = map.changeMap(row,column);
-        System.out.println("panel");
-        if(repaint) repaint();
+
     }
 }
