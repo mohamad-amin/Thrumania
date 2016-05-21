@@ -350,7 +350,7 @@ public class RightPanel extends JPanel {
         else if ( previewIsSelected)
             g.drawImage(ImageUtils.getImage("previewRightPanelHoover.png"), d.width / 2 , verticalSpaceBetweenElements * elementCounter , elementSize + 10 , elementSize + 10 , null);
 
-        repaint();
+//        repaint();
     }
 
     class MyMouseListener implements MouseListener{

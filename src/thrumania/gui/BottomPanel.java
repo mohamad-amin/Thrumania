@@ -50,6 +50,13 @@ public class BottomPanel extends JPanel {
 //        label.setIcon(new ImageIcon(ImageUtils.getImage("rightPanel.jpg")));
 //        this.add(label);
 
+        new java.util.Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                repaint();
+            }
+        }, 200, 300);
+
 
     }
 
@@ -204,7 +211,6 @@ public class BottomPanel extends JPanel {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
-        repaint();
         int elementCounter = 1;
 
         g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
