@@ -7,7 +7,7 @@ package thrumania.utils;
 public class Coordinate {
 
     private int row, column;
-    private    boolean canAdd = false ;
+    private    int  canAddCounter = 1 ;
 
     public Coordinate(int row, int column) {
         this.row = row;
@@ -15,6 +15,7 @@ public class Coordinate {
     }
 
     public int getRow() {
+
         return row;
     }
 
@@ -23,17 +24,17 @@ public class Coordinate {
     }
 
     public void addRow(int add) {
-        if( canAdd)
+        if( canAddCounter % 4 == 0)
         this.row= this.row+add;
-        canAdd = ! canAdd ;
+        canAddCounter ++;
     }
 
     public void addColumn(int add) {
 
 
-         if ( canAdd)
+         if ( canAddCounter % 4 ==0 )
             this.column = this.column + add;
-        canAdd = ! canAdd ;
+            canAddCounter ++;
 
 
     }

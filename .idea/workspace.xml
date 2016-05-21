@@ -5,27 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$elements.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$rightPanelElements.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$2.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$3.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$4.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$5.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$6.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$7.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$8.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$MymouseListener.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$MymouseListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GameFrame.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GameFrame.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Coordinate.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Coordinate.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/IntegerUtils.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/IntegerUtils.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Coordinate.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Coordinate.java" />
     </list>
     <ignored path="Thrumania.iws" />
@@ -117,8 +97,8 @@
       <file leaf-file-name="Coordinate.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Coordinate.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24064171">
-              <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.88235295">
+              <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -806,7 +786,7 @@
       <workItem from="1463560271051" duration="43028000" />
       <workItem from="1463775323260" duration="3548000" />
       <workItem from="1463863226235" duration="1787000" />
-      <workItem from="1463866194903" duration="4260000" />
+      <workItem from="1463866194903" duration="4501000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -856,11 +836,17 @@
       <option name="project" value="LOCAL" />
       <updated>1463870464259</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="moving some methods to constant and IntegerUtils from right/bottom Panel">
+      <created>1463871531620</created>
+      <option name="number" value="00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1463871531620</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52623000" />
+    <option name="totallyTimeSpent" value="52864000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1232,8 +1218,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Coordinate.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24064171">
-          <caret line="9" column="14" selection-start-line="9" selection-start-column="14" selection-end-line="9" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.88235295">
+          <caret line="36" column="29" selection-start-line="36" selection-start-column="29" selection-end-line="36" selection-end-column="29" />
           <folding />
         </state>
       </provider>
