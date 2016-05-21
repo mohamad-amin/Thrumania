@@ -4,7 +4,9 @@ import thrumania.board.item.Cell;
 import thrumania.board.item.LowLand;
 import thrumania.board.item.Sea;
 import thrumania.utils.Cacher;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.IntegerUtils;
 
 /**
  * Created by mohamadamin on 5/18/16.
@@ -55,7 +57,9 @@ public class Map {
 
     private void updateOutAdjacent(int i, int j) {
         for (int x=-2;x<3;x=x+4){
+            if(IntegerUtils.isInRange(0, Constants.Drawer_HIGHT-1, i+x))
             if(cells[i+x][j].getCode()==1) numberAndLoad(i+x,j);
+            if(IntegerUtils.isInRange(0, Constants.DRAWER_WIDTH-1, j+x))
             if(cells[i][j+x].getCode()==1) numberAndLoad(i,j+x);
         }
     }
@@ -70,7 +74,7 @@ public class Map {
         int adjacent [][] = new int [3][3];
         for (int x = -1 ; x<2;x++){
             for (int y = -1; y<2 ; y++){
-                if(cells[i+x][j+y].getCode()==1 && !(x==0 && y==0)){
+                if(inRange(i+x,j+y) && cells[i+x][j+y].getCode()==1 && !(x==0 && y==0)){
                     if(x*y==0)adjacent[x+1][y+1]=1;
                     else {
                         adjacent[x+1][y+1]=1;
@@ -104,11 +108,21 @@ public class Map {
         }
     }
 
+    public boolean inRange(int i , int j){
+        if(IntegerUtils.isInRange(0, Constants.Drawer_HIGHT-1, i)
+                && IntegerUtils.isInRange(0, Constants.DRAWER_WIDTH-1, j)) return true;
+        return false ;
+    }
+
+    public int inRangeAndCode(int i , int j){
+        if(inRange(i,j)) return cells[i][j].getCode();
+        else return 0;
+    }
     public int checkFourSideAndGiveMeNumber(int i,int j){
-        int x =cells[i-1][j].getCode()*4+
-                cells[i][j-1].getCode()*2+
-                cells[i][j+1].getCode()*8+
-                cells[i+1][j].getCode()*1;
+        int x =inRangeAndCode(i-1,j)*4+
+                inRangeAndCode(i,j-1)*2+
+                inRangeAndCode(i,j+1)*8+
+                inRangeAndCode(i+1,j)*1;
         return x;
     }
 
