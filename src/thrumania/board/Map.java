@@ -57,9 +57,9 @@ public class Map {
 
     private void updateOutAdjacent(int i, int j) {
         for (int x=-2;x<3;x=x+4){
-            if(IntegerUtils.isInRange(0, Constants.Drawer_HIGHT-1, i+x))
+            if(IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT-1, i+x))
             if(cells[i+x][j].getCode()==1) numberAndLoad(i+x,j);
-            if(IntegerUtils.isInRange(0, Constants.DRAWER_WIDTH-1, j+x))
+            if(IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH-1, j+x))
             if(cells[i][j+x].getCode()==1) numberAndLoad(i,j+x);
         }
     }
@@ -109,8 +109,8 @@ public class Map {
     }
 
     public boolean inRange(int i , int j){
-        if(IntegerUtils.isInRange(0, Constants.Drawer_HIGHT-1, i)
-                && IntegerUtils.isInRange(0, Constants.DRAWER_WIDTH-1, j)) return true;
+        if(IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT-1, i)
+                && IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH-1, j)) return true;
         return false ;
     }
 

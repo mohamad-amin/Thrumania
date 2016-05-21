@@ -21,6 +21,10 @@ public class Coordinate {
         this.row = row;
     }
 
+    public void addRow(int add) { this.row= this.row+add; }
+
+    public void addColumn(int add) { this.column = this.column +add;}
+
     public int getColumn() {
         return column;
     }
