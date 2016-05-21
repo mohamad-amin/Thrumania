@@ -20,7 +20,6 @@ public class BottomPanel extends JPanel {
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, getToolkit().getScreenSize().height - Constants.Drawer_HIGHT * Constants.CELL_SIZE);
 
 
-    private Constants.downPanelElements selectedElement;
     private int elementsSize = 50;
     private int spaceBetweenElements = 50;
 
@@ -32,13 +31,15 @@ public class BottomPanel extends JPanel {
     private boolean goldMineIsSelected = false;
     private boolean highLandIsSelected = false;
     private boolean lowLandIsSelected = false;
+    private GamePanel gamePanel ;
 
-    public BottomPanel() {
+    public BottomPanel(GamePanel gamePanel) {
         this.setLocation(0, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
         this.setSize(d);
         this.setBackground(Color.BLACK);
         this.setLayout(null);
         this.addMouseListener(new MymouseListener());
+        this.gamePanel = gamePanel;
 
         //  Button button1 = new Button("sina", "OceanBottomPanel.png", 0 ,100 , new Dimension(50,50));
 //        this.add(button1);
@@ -59,7 +60,7 @@ public class BottomPanel extends JPanel {
 
         //checking Deep sea
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.DEEP_SEA;
+             gamePanel.setSelectedElelements(Constants.Elements.DEEP_SEA);
             deepSeaIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -75,7 +76,7 @@ public class BottomPanel extends JPanel {
         // checking shallow sea
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.SHALLOW_SEA;
+             this.gamePanel.setSelectedElelements(Constants.Elements.SHALLOW_SEA);
             shallowSeaIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -91,7 +92,7 @@ public class BottomPanel extends JPanel {
         // cehcking small fish
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.FISH;
+            gamePanel.setSelectedElelements( Constants.Elements.FISH);
             smallFishIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -109,7 +110,7 @@ public class BottomPanel extends JPanel {
         // checking tree
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.TREE;
+             gamePanel.setSelectedElelements(Constants.Elements.TREE);
             treeIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -127,7 +128,7 @@ public class BottomPanel extends JPanel {
         elementCounter += 2;
 
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize + 10, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.STONE_MINE;
+            gamePanel.setSelectedElelements(Constants.Elements.STONE_MINE);
             stoneMineIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -144,7 +145,7 @@ public class BottomPanel extends JPanel {
         // checking gold mine
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.GOLD_MINE;
+            gamePanel.setSelectedElelements(Constants.Elements.GOLD_MINE);
             goldMineIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -162,7 +163,7 @@ public class BottomPanel extends JPanel {
         // chekcing high  land
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.HIGH_ALTITTUDE_LAND;
+            gamePanel.setSelectedElelements( Constants.Elements.HIGH_ALTITTUDE_LAND);
             highLandIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -180,7 +181,7 @@ public class BottomPanel extends JPanel {
         // checking low land
         elementCounter += 2;
         if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10, d.height / 4, elementCounter * spaceBetweenElements + elementsSize + 10, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
-            this.selectedElement = Constants.downPanelElements.LOW_ALTITTUDE_LAND;
+            gamePanel.setSelectedElelements( Constants.Elements.LOW_ALTITTUDE_LAND);
             lowLandIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {

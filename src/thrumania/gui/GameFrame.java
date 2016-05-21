@@ -31,14 +31,16 @@ public class GameFrame extends JFrame {
         this.setFocusable(false);
         Constants.mouseInitializer(this);
 
-        bottomPanel = new BottomPanel();
-        this.add(bottomPanel);
-
-        rightPanel = new RightPanel();
-        this.add(rightPanel);
-
         gamePanel = new GamePanel(map);
         this.add(gamePanel);
+
+        bottomPanel = new BottomPanel(gamePanel);
+        this.add(bottomPanel);
+
+        rightPanel = new RightPanel(gamePanel);
+        this.add(rightPanel);
+
+
 
         miniMapPanel = new MiniMapPanel();
         this.add(miniMapPanel);

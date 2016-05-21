@@ -24,14 +24,51 @@ public class GamePanel extends JPanel implements MouseInputListener {
     MouseEvent m;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
+    private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZEROSCALE;
+    private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
+
+    public void setSelectedElelements(Constants.Elements selectedElelements) {
+        this.selectedElelements = selectedElelements;
+    }
 
     public GamePanel(Map map) {
         this.map = map;
         this.setLayout(null);
         this.setLocation(0, 0);
+
         this.setSize(d);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
+    }
+    private void zoomIN(){
+        if ( zoomScale == Constants.ZoomScales.NEGATIVEONESCALE){
+            zoomScale = Constants.ZoomScales.ZEROSCALE;
+            //TODO set cell size  and cell numbers for non mac laptops
+            if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
+                Constants.CELL_SIZE = 32;
+            } else {
+                Constants.CELL_SIZE = 40;
+            }
+            Constants.DRAWER_WIDTH = 40 ;
+            Constants.Drawer_HIGHT  = 22;
+        }
+      else  if ( zoomScale == Constants.ZoomScales.ZEROSCALE){
+            zoomScale = Constants.ZoomScales.POSITIVEONESCALE;
+            if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
+                Constants.CELL_SIZE = 45;
+            } else {
+              //  Constants.CELL_SIZE = 45;
+            }
+            Constants.DRAWER_WIDTH = 32 ;
+            Constants.Drawer_HIGHT  = 16;
+
+        }
+
+
+    }
+
+    public Constants.ZoomScales getZoomScale() {
+        return zoomScale;
     }
 
     @Override
@@ -45,6 +82,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         r * Constants.CELL_SIZE,
                         Constants.CELL_SIZE,
                         Constants.CELL_SIZE,
+
                         null);
                 g.drawImage(
                         ImageUtils.getImage(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureName()),
@@ -59,6 +97,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        if (this.selectedElelements == Constants.Elements.ZOOM_IN){
+            zoomIN();
+        }
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
         boolean repaint = map.changeMap(row, column);
