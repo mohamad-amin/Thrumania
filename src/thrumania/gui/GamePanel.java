@@ -24,7 +24,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
     MouseEvent m;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
-    ;
 
     public GamePanel(Map map) {
         this.map = map;
@@ -33,12 +32,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.setSize(d);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-        new Timer().schedule(new TimerTask() {
-            @Override
-            public void run() {
-                repaint();
-            }
-        }, 200);
     }
 
     @Override
@@ -62,7 +55,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         null);
             }
         }
-        repaint();
     }
 
     @Override
