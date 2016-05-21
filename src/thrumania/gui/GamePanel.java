@@ -9,6 +9,9 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.peer.MouseInfoPeer;
 import java.util.*;
 import java.util.Timer;
 
@@ -16,7 +19,7 @@ import java.util.Timer;
  * Created by sina on 5/18/16.
  */
 
-public class GamePanel extends JPanel implements MouseInputListener{
+public class GamePanel extends JPanel implements MouseInputListener , MouseMotionListener,MouseListener{
 
     private Map map;
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);;
@@ -65,9 +68,8 @@ public class GamePanel extends JPanel implements MouseInputListener{
     public void mouseClicked(MouseEvent e) {
         int row = (e.getY()/Constants.CELL_SIZE);
         int column = (e.getX()/Constants.CELL_SIZE);
-        map.changeMap(row,column);
-        System.out.println("panel");
-        repaint();
+        boolean repaint = map.changeMap(row,column);
+        if(repaint) repaint();
     }
 
     @Override
@@ -97,6 +99,10 @@ public class GamePanel extends JPanel implements MouseInputListener{
 
     @Override
     public void mouseMoved(MouseEvent e) {
-
+        int row = (e.getY()/Constants.CELL_SIZE);
+        int column = (e.getX()/Constants.CELL_SIZE);
+        boolean repaint = map.changeMap(row,column);
+        System.out.println("panel");
+        if(repaint) repaint();
     }
 }
