@@ -7,8 +7,6 @@
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -720,7 +718,7 @@
       <workItem from="1463866194903" duration="8308000" />
       <workItem from="1463882849004" duration="511000" />
       <workItem from="1463886743545" duration="17224000" />
-      <workItem from="1463911902276" duration="6470000" />
+      <workItem from="1463911902276" duration="6492000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -820,11 +818,18 @@
       <option name="project" value="LOCAL" />
       <updated>1463910209349</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="again push">
+      <created>1463920212722</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1463920212722</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80876000" />
+    <option name="totallyTimeSpent" value="80898000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
