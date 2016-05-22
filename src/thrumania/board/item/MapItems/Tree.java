@@ -9,10 +9,10 @@ public class Tree extends  MapElement{
     public Tree(boolean canPutOnLowLand) {
 
         super.canPutOnLowLand = canPutOnLowLand;
-        super.springPictureName = "";
-        super.summerPictureName = "";
-        super.autmnPictureName = "";
-        super.winterPictureName = "";
+        super.springPictureName = "tree1.png";
+        super.summerPictureName = "tree3.png";
+        super.autmnPictureName = "tree5.png";
+        super.winterPictureName = "tree7.png";
 
     }
 }

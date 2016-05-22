@@ -31,6 +31,8 @@ public class BottomPanel extends JPanel {
     private boolean goldMineIsSelected = false;
     private boolean highLandIsSelected = false;
     private boolean lowLandIsSelected = false;
+    private  boolean aglicultureIsSelected = false;
+
     private GamePanel gamePanel ;
 
     public BottomPanel(GamePanel gamePanel) {
@@ -49,7 +51,11 @@ public class BottomPanel extends JPanel {
 //        label.setIcon(new ImageIcon(ImageUtils.getImage("rightPanel.jpg")));
 //        this.add(label);
 
+
+
     }
+
+
 
     private void findingSelectedObject(int mouseXcord, int mouseYcord) {
         int elementCounter = 1;
@@ -66,6 +72,7 @@ public class BottomPanel extends JPanel {
                     deepSeaIsSelected = false;
                     repaint();
                 }
+
             }, 110);
         }
         // checking shallow sea
@@ -190,6 +197,23 @@ public class BottomPanel extends JPanel {
             }, 110);
 
         }
+        elementCounter +=2;
+        if( IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements + 10 , d.height /4 , elementCounter * spaceBetweenElements + elementsSize , d.height / 4 + elementsSize , mouseXcord , mouseYcord)){
+            gamePanel.setSelectedElelements( Constants.Elements.AGRICULTURE);
+            aglicultureIsSelected = true;
+            repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    aglicultureIsSelected = false;
+                    repaint();
+                }
+
+            }, 110);
+
+        }
+
     }
 
 
@@ -246,6 +270,11 @@ public class BottomPanel extends JPanel {
             g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanel.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
         else if (lowLandIsSelected)
             g.drawImage(ImageUtils.getImage("lowAltitdueLandBottomPanelHoover.png"), elementCounter * spaceBetweenElements + 10, d.height / 4, elementsSize, elementsSize, null);
+        elementCounter +=2;
+        if( ! aglicultureIsSelected)
+            g.drawImage(ImageUtils.getImage("aglicultureBottomPanel.png"),elementCounter * spaceBetweenElements + 10 , d.height / 4 , elementsSize , elementsSize , null );
+        else if( aglicultureIsSelected)
+            g.drawImage(ImageUtils.getImage("aglicultureBottomPanelHoover.png"),elementCounter * spaceBetweenElements + 10 , d.height / 4 , elementsSize , elementsSize , null );
 
 //        repaint();
         //lowAltitdueLandBottomPanel.png

@@ -9,7 +9,7 @@ public class StoneMine extends  MapElement{
     public StoneMine(boolean canPutOnLowLand) {
 
         super.canPutOnLowLand = canPutOnLowLand;
-        super.springPictureName = "";
+        super.springPictureName = "Stone.png";
 
 
 

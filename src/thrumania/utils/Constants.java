@@ -1,5 +1,7 @@
 package thrumania.utils;
 
+import thrumania.board.item.MapItems.MapElement;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,6 +16,7 @@ public class Constants {
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
     public static int CELL_SIZE = 40;
+    public static int INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
 
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;
@@ -28,13 +31,16 @@ public class Constants {
 
     public static enum Elements {
             ZOOM_IN, ZOOM_OUT, SAVE, LOAD, RIGHT_ARROW, LEFT_ARROW, DOWN_ARROW, UP_ARROW, PREVIEW, EXIT, UNDO, REDO,
-            STONE_MINE, GOLD_MINE, HIGH_ALTITTUDE_LAND, LOW_ALTITTUDE_LAND, TREE, FISH, DEEP_SEA, SHALLOW_SEA, EMPTY, FARM
+                STONE_MINE, GOLD_MINE, HIGH_ALTITTUDE_LAND, LOW_ALTITTUDE_LAND, TREE, FISH, DEEP_SEA, SHALLOW_SEA, AGRICULTURE,  EMPTY
         }
 
         public static enum ZoomScales {
-            NEEGATIVE_TWO_SCALE, NEGATIVE_ONE_SCALE, ZERO_SCALE, POSITIVE_ONE_SCALE, POSITIVE_TWO_SCALE,
+            NEEGATIVE_TWO_SCALE, NEGATIVE_ONE_SCALE, ZERO_SCALE, POSITIVE_ONE_SCALE, POSITIVE_TWO_SCALE, ZoomScales;
         }
 
+    public static enum Seasons {
+        SPRING , SUMMER , AUTMN , WINTER
+    }
 
     public static void mouseInitializer(JFrame frame) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -48,11 +54,13 @@ public class Constants {
     public static void initializeConstants() {
         if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
             CELL_SIZE = 32;
+            INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
             MATRIX_HEIGHT = 98;
             MATRIX_WIDTH = 80;
             isMac= true;
         } else {
             CELL_SIZE = 40;
+            INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
         }
     }
 
@@ -80,6 +88,7 @@ public class Constants {
             else Constants.CELL_SIZE =  zoomNumbers[num+3][1];
             Constants.DRAWER_WIDTH = zoomNumbers[num+3][2];
             Constants.Drawer_HIGHT = zoomNumbers[num+3][3];
+            INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
             return findZoomScaleElement(num+1);
         }
         return findZoomScaleElement(num);
@@ -87,15 +96,26 @@ public class Constants {
     public static ZoomScales decScale(ZoomScales zoomScale) {
         int num = findZoomScaleNumber(zoomScale);
         
-        System.out.println("num is "+ num);
+//        System.out.println("num is "+ num);
         if(num>-2){
             if(isMac) Constants.CELL_SIZE =  zoomNumbers[num+1][0];
             else Constants.CELL_SIZE =  zoomNumbers[num+1][1];
             Constants.DRAWER_WIDTH = zoomNumbers[num+1][2];
             Constants.Drawer_HIGHT = zoomNumbers[num+1][3];
+            INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
             return findZoomScaleElement(num-1);
         }
         return findZoomScaleElement(num);
+    }
+    public static String getPictureNameAccordingToSeason(Seasons season , MapElement mapElement){
+        if ( season.equals( Seasons.SPRING))
+            return mapElement.getSpringPictureName();
+        else if ( season.equals( Seasons.SUMMER))
+            return  mapElement.getSummerPictureName();
+        else if ( season.equals( Seasons.AUTMN) )
+            return  mapElement.getAutmnPictureName();
+        else
+            return  mapElement.getWinterPictureName();
     }
 
 }

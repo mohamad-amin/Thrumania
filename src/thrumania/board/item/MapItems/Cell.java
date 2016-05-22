@@ -17,6 +17,17 @@ public abstract class Cell {
     private Coordinate position;
     private MapElement insideMapElemetn;
 
+    public boolean isCompeleteLand() {
+        return isCompeleteLand;
+    }
+
+    public void setCompeleteLand(boolean compeleteLand) {
+        isCompeleteLand = compeleteLand;
+    }
+
+    protected boolean isCompeleteLand;
+
+
 
     int code;
 

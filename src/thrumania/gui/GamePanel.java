@@ -1,6 +1,8 @@
 package thrumania.gui;
 
+import thrumania.board.item.MapItems.Cell;
 import thrumania.board.item.MapItems.Map;
+import thrumania.board.item.MapItems.Tree;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -23,8 +25,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private MiniMapPanel miniMap;
+    private  Constants.Seasons season  ;
 
-//    private int CellSize_Zero_Scale
+
+    //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
         this.selectedElelements = selectedElelements;
     }
@@ -43,6 +47,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.addMouseListener(this);
         this.miniMap.setGamePanel(this);
         this.addMouseMotionListener(this);
+        this.season = Constants.Seasons.SPRING;
+
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -68,6 +74,12 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         Constants.CELL_SIZE,
                         Constants.CELL_SIZE,
                         null);
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
+                    System.out.println("Nooo");
+                    System.out.println(map.getCells()[r+start.getRow()][c + start.getColumn()].getInsideMapElemetn());
+                    g.drawImage(ImageUtils.getImage(Constants.getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE- Constants.INSIDE_CELL_ELEMENT_SIZE,
+                            Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                }
             }
         }
     }
@@ -89,14 +101,26 @@ public class GamePanel extends JPanel implements MouseInputListener {
         } else if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row,column);
         } else if (this.selectedElelements == Constants.Elements.TREE) {
+            System.out.println("here tree");
+            Cell temp;
+            Tree tempTree = new Tree(true);
+            temp = map.getCell(row, column);
+            if (temp.isCompeleteLand()) {
+                if (tempTree.isCanPutOnLowLand()) {
+                    temp.setInsideMapElemetn(tempTree);
+                    repaint();
+                }
+            }
 
-        } else if (this.selectedElelements == Constants.Elements.FISH) {
+        }
+
+        else if (this.selectedElelements == Constants.Elements.FISH) {
 
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
 
         } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
 
-        } else if (this.selectedElelements == Constants.Elements.FARM) {
+        } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
 
         }
     }
