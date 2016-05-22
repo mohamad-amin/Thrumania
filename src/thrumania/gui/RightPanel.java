@@ -22,6 +22,7 @@ public class RightPanel extends JPanel {
     private int verticalSpaceBetweenElements = 40;
     private int horizontalSpaceBetweenElements = 45;
     private int initialPlace  =50;
+    private GamePanel gamePanel;
     private String playerName ;
     private boolean zoomInIsSelected = false;
     private boolean zoomOutIsSelected = false;
@@ -38,9 +39,10 @@ public class RightPanel extends JPanel {
 
 
 
-    private Constants.rightPanelElements controlElements;
+//    private Constants.Elements controlElements;
 
-    public RightPanel() {
+    public RightPanel(GamePanel gamePanel) {
+        this.gamePanel = gamePanel;
 
         this.setLocation(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, 0);
         this.setSize(d);
@@ -52,9 +54,9 @@ public class RightPanel extends JPanel {
 
     }
 
-    public Constants.rightPanelElements getControlElements() {
-        return controlElements;
-    }
+//    public Constants.Elements getControlElements() {
+//        return Constants;
+//    }
 
     // TODO : refactoring : utilities
 
@@ -64,7 +66,7 @@ public class RightPanel extends JPanel {
         int elementCounter = 1;
         // upArrow :
         if (IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2, verticalSpaceBetweenElements * elementCounter, d.width + elementSize, verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord, mouseYcord)) {
-            this.controlElements = Constants.rightPanelElements.UP_ARROW;
+            gamePanel.setSelectedElelements(Constants.Elements.UP_ARROW);
             this.upArrowIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -85,7 +87,8 @@ public class RightPanel extends JPanel {
         //  right Arrow :
         elementCounter++;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 + horizontalSpaceBetweenElements  , verticalSpaceBetweenElements * elementCounter , d.width / 2  + horizontalSpaceBetweenElements   + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.RIGHT_ARROW;
+           // Constants.selectedElement = Constants.Elements.RIGHT_ARROW;
+            gamePanel.setSelectedElelements(Constants.Elements.RIGHT_ARROW);
             rightArrowIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -103,7 +106,8 @@ public class RightPanel extends JPanel {
         }
         // left  arrow :
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 - horizontalSpaceBetweenElements  , verticalSpaceBetweenElements * elementCounter , d.width / 2  - horizontalSpaceBetweenElements   + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)) {
-            controlElements = Constants.rightPanelElements.LEFT_ARROW;
+
+            gamePanel.setSelectedElelements( Constants.Elements.LEFT_ARROW);
             leftArrowIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -122,7 +126,8 @@ public class RightPanel extends JPanel {
         // down arrow :
         elementCounter ++ ;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 , verticalSpaceBetweenElements * elementCounter , d.width/2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord )) {
-            controlElements = Constants.rightPanelElements.DOWN_ARROW;
+
+            gamePanel.setSelectedElelements(  Constants.Elements.DOWN_ARROW);
             downArrowIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -140,7 +145,7 @@ public class RightPanel extends JPanel {
         // save :
         elementCounter +=2 ;
         if(IntegerUtils.isInSideTheRangeOfCordinates(d.width/2  - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter, d.width / 2 - horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord  , mouseYcord)){
-            controlElements = Constants.rightPanelElements.SAVE;
+           gamePanel.setSelectedElelements(Constants.Elements.SAVE);
             saveIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -157,7 +162,7 @@ public class RightPanel extends JPanel {
         }
         // load :
         if(IntegerUtils.isInSideTheRangeOfCordinates(d.width/2  + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter, d.width / 2 + horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord  , mouseYcord)){
-            controlElements = Constants.rightPanelElements.LOAD;
+           gamePanel.setSelectedElelements(Constants.Elements.LOAD);
             loadIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -175,7 +180,7 @@ public class RightPanel extends JPanel {
         // zoom in  :
         elementCounter += 2;
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements / 2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 - horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.ZOOM_IN;
+            gamePanel.setSelectedElelements(Constants.Elements.ZOOM_IN);
             zoomInIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -192,7 +197,7 @@ public class RightPanel extends JPanel {
         }
         // zoom out :
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 + horizontalSpaceBetweenElements / 2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.ZOOM_OUT;
+            gamePanel.setSelectedElelements(Constants.Elements.ZOOM_OUT);
             zoomOutIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -209,7 +214,7 @@ public class RightPanel extends JPanel {
         // undo :
         elementCounter +=2;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , d.width /2 - horizontalSpaceBetweenElements /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.UNDO;
+             gamePanel.setSelectedElelements(Constants.Elements.UNDO);
             undoIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -226,7 +231,7 @@ public class RightPanel extends JPanel {
         }
         // rodo:
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , d.width /2 + horizontalSpaceBetweenElements /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.REDO;
+            gamePanel.setSelectedElelements(Constants.Elements.REDO);
             redoIsSelelcted = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -245,7 +250,7 @@ public class RightPanel extends JPanel {
         // exit :
         elementCounter +=2;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width /2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.EXIT;
+            gamePanel.setSelectedElelements(Constants.Elements.EXIT);
             exitIsSelected  = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -264,7 +269,7 @@ public class RightPanel extends JPanel {
         //preview :
         elementCounter +=2;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2  , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-            controlElements = Constants.rightPanelElements.PREVIEW;
+            gamePanel.setSelectedElelements(Constants.Elements.PREVIEW);
             previewIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
