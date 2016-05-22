@@ -9,8 +9,8 @@ import java.awt.*;
 
 public class Constants {
 
-    public static int MATRIX_WIDTH = 100;
-    public static int MATRIX_HEIGHT = 75;
+    public static int MATRIX_WIDTH = 80;
+    public static int MATRIX_HEIGHT = 50;
     public static int CELL_SIZE = 40;
     public static int MATRIX_SIZE = 100;
     public static int DRAWER_WIDTH = 40;

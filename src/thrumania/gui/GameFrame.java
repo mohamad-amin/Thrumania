@@ -31,7 +31,11 @@ public class GameFrame extends JFrame {
         this.setFocusable(false);
         Constants.mouseInitializer(this);
 
-        gamePanel = new GamePanel(map);
+        miniMapPanel = new MiniMapPanel(map);
+        this.add(miniMapPanel);
+        map.setMiniMap(miniMapPanel);
+
+        gamePanel = new GamePanel(map, miniMapPanel);
         this.add(gamePanel);
 
         bottomPanel = new BottomPanel(gamePanel);
@@ -40,15 +44,11 @@ public class GameFrame extends JFrame {
         rightPanel = new RightPanel(gamePanel);
         this.add(rightPanel);
 
-
-
-        miniMapPanel = new MiniMapPanel(map);
-        this.add(miniMapPanel);
-
         gamePanel.setFocusable(true);
         gamePanel.requestFocus();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
+
     }
 
 

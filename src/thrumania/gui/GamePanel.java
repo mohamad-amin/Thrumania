@@ -26,12 +26,15 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
+    MiniMapPanel miniMap;
+
 //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
         this.selectedElelements = selectedElelements;
     }
 
-    public GamePanel(Map map) {
+    public GamePanel(Map map, MiniMapPanel panel) {
+        this.miniMap = panel;
         this.map = map;
         this.setLayout(null);
         this.setLocation(0, 0);
@@ -163,6 +166,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         if((start.getRow()>0) &&
                 IntegerUtils.isInRange(0,Constants.CELL_SIZE, e.getY()))
             start.addRow(-1);
+        this.miniMap.updateFocus(start);
         repaint();
     }
 
