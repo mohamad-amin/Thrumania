@@ -21,7 +21,7 @@ public class RightPanel extends JPanel {
     private int elementSize = 40;
     private int verticalSpaceBetweenElements = 40;
     private int horizontalSpaceBetweenElements = 45;
-    private int initialPlace  =50;
+    private int initialPlace = 50;
     private GamePanel gamePanel;
     private String playerName ;
     private boolean zoomInIsSelected = false;
@@ -50,7 +50,6 @@ public class RightPanel extends JPanel {
         this.setLayout(null);
 
         this.addMouseListener(new MyMouseListener1());
-
 
     }
 

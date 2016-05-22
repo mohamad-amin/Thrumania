@@ -22,11 +22,16 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
-    MiniMapPanel miniMap;
+    private MiniMapPanel miniMap;
 
 //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
         this.selectedElelements = selectedElelements;
+    }
+
+    public void setStart(Coordinate start) {
+        this.start = start;
+        repaint();
     }
 
     public GamePanel(Map map, MiniMapPanel panel) {
@@ -34,9 +39,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.map = map;
         this.setLayout(null);
         this.setLocation(0, 0);
-
         this.setSize(d);
         this.addMouseListener(this);
+        this.miniMap.setGamePanel(this);
         this.addMouseMotionListener(this);
     }
 
@@ -55,7 +60,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         r * Constants.CELL_SIZE,
                         Constants.CELL_SIZE,
                         Constants.CELL_SIZE,
-
                         null);
                 g.drawImage(
                         ImageUtils.getImage(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureName()),
@@ -77,15 +81,23 @@ public class GamePanel extends JPanel implements MouseInputListener {
             fixingStartInZoom(row,column);
             repaint();
             this.miniMap.updateFocus(start);
-        }
-        if(this.selectedElelements == Constants.Elements.ZOOM_OUT){
+        } else if (this.selectedElelements == Constants.Elements.ZOOM_OUT){
             zoomScale=Constants.decScale(zoomScale);
             fixingStartInZoom(row,column);
             repaint();
             this.miniMap.updateFocus(start);
-        }
-        if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND){
+        } else if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row,column);
+        } else if (this.selectedElelements == Constants.Elements.TREE) {
+
+        } else if (this.selectedElelements == Constants.Elements.FISH) {
+
+        } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
+
+        } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
+
+        } else if (this.selectedElelements == Constants.Elements.FARM) {
+
         }
     }
 

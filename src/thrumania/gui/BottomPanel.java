@@ -49,11 +49,7 @@ public class BottomPanel extends JPanel {
 //        label.setIcon(new ImageIcon(ImageUtils.getImage("rightPanel.jpg")));
 //        this.add(label);
 
-
-
     }
-
-
 
     private void findingSelectedObject(int mouseXcord, int mouseYcord) {
         int elementCounter = 1;
@@ -70,7 +66,6 @@ public class BottomPanel extends JPanel {
                     deepSeaIsSelected = false;
                     repaint();
                 }
-
             }, 110);
         }
         // checking shallow sea
