@@ -18,7 +18,7 @@ public class Constants {
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;
     public static int [][] zoomNumbers={
-            {20,26,62,35},
+            {21,26,62,35},
             {26,32,50,28},
             {32,40,40,22},
             {40,50,32,18},
@@ -78,8 +78,9 @@ public class Constants {
             else Constants.CELL_SIZE =  zoomNumbers[num+3][1];
             Constants.DRAWER_WIDTH = zoomNumbers[num+3][2];
             Constants.Drawer_HIGHT = zoomNumbers[num+3][3];
+            return findZoomScaleElement(num+1);
         }
-        return findZoomScaleElement(num+1);
+        return findZoomScaleElement(num);
     }
     public static ZoomScales decScale(ZoomScales zoomScale) {
         int num = findZoomScaleNumber(zoomScale);
@@ -88,8 +89,9 @@ public class Constants {
             else Constants.CELL_SIZE =  zoomNumbers[num+1][1];
             Constants.DRAWER_WIDTH = zoomNumbers[num+1][2];
             Constants.Drawer_HIGHT = zoomNumbers[num+1][3];
+            return findZoomScaleElement(num-1);
         }
-        return findZoomScaleElement(num-1);
+        return findZoomScaleElement(num);
     }
 
 }

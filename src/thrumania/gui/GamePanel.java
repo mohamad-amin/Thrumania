@@ -73,16 +73,22 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
+        int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
+        int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
         if (this.selectedElelements == Constants.Elements.ZOOM_IN){
             zoomScale=Constants.incScale(zoomScale);
+            fixingStartInZoom(row,column);
             repaint();
+            this.miniMap.updateFocus(start);
         }
         if(this.selectedElelements == Constants.Elements.ZOOM_OUT){
             zoomScale=Constants.decScale(zoomScale);
+            fixingStartInZoom(row,column);
             repaint();
+            this.miniMap.updateFocus(start);
         }
         if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND){
-            changingMap(e);
+            changingMap(row,column);
         }
     }
 
@@ -109,7 +115,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
     @Override
     public void mouseDragged(MouseEvent e) {
         if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
-            changingMap(e);
+            int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
+            int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
+            changingMap(row,column);
         }
     }
 
@@ -163,11 +171,19 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.miniMap.updateFocus(start);
     }
 
-    public void changingMap(MouseEvent e){
-            int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
-            int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
+    public void changingMap(int row,int column){
             boolean repaint = map.changeMap(row, column);
             if (repaint) repaint();
+    }
+
+    public void fixingStartInZoom(int x,int y){
+        int startX=x-((Constants.Drawer_HIGHT/2)+(Constants.Drawer_HIGHT%2));
+        int startY=y-((Constants.DRAWER_WIDTH/2)+(Constants.DRAWER_WIDTH%2));
+        if(startX<0) startX=0;
+        if(startY<0) startY=0;
+        if(startX+Constants.Drawer_HIGHT>Constants.MATRIX_HEIGHT) startX = Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT;
+        if(startY+Constants.DRAWER_WIDTH>Constants.MATRIX_WIDTH) startY = Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH;
+        start = new Coordinate(startX,startY);
     }
 
 }
