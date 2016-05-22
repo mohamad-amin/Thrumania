@@ -10,9 +10,6 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.*;
-import java.util.Timer;
 
 /**
  * Created by sina on 5/18/16.
@@ -21,15 +18,17 @@ import java.util.Timer;
 public class GamePanel extends JPanel implements MouseInputListener {
 
     private Map map;
-    MouseEvent m;
+    private MouseEvent m;
+    private MiniMapPanel miniMap;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
 
-    public GamePanel(Map map) {
+    public GamePanel(Map map, MiniMapPanel miniMap) {
+        this.miniMap = miniMap;
         this.map = map;
+        this.setSize(d);
         this.setLayout(null);
         this.setLocation(0, 0);
-        this.setSize(d);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
@@ -111,6 +110,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         if((start.getRow()>0) &&
                 IntegerUtils.isInRange(0,Constants.CELL_SIZE, e.getY()))
             start.addRow(-1);
+        miniMap.updateFocus(start);
         repaint();
     }
 

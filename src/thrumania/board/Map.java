@@ -3,6 +3,7 @@ package thrumania.board;
 import thrumania.board.item.Cell;
 import thrumania.board.item.LowLand;
 import thrumania.board.item.Sea;
+import thrumania.gui.MiniMapPanel;
 import thrumania.utils.Cacher;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -16,6 +17,7 @@ import thrumania.utils.IntegerUtils;
 
 public class Map {
 
+    private MiniMapPanel miniMap;
     private Cell[][] cells;
     private int width, height;
     Cacher<Integer,int[][]> states;
@@ -27,6 +29,10 @@ public class Map {
         this.states = new Cacher<>();
 //        stateLoad();
         fillCells();
+    }
+
+    public void setMiniMap(MiniMapPanel miniMap) {
+        this.miniMap = miniMap;
     }
 
     public Cell[][] getCells() {
@@ -41,6 +47,7 @@ public class Map {
                 cells[i][j] = cell;
             }
         }
+        if (miniMap != null) miniMap.updateMap();
     }
 
     public boolean changeMap(int i , int j){
@@ -50,6 +57,7 @@ public class Map {
             checkMiddleCell(adjacent,i,j);
             updateAdjecant(adjacent,i,j);
             updateOutAdjacent(i,j);
+            if (miniMap != null) miniMap.updateMap();
             return true;
         }
         return false;
@@ -58,9 +66,9 @@ public class Map {
     private void updateOutAdjacent(int i, int j) {
         for (int x=-2;x<3;x=x+4){
             if(IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT-1, i+x))
-            if(cells[i+x][j].getCode()==1) numberAndLoad(i+x,j);
+                if(cells[i+x][j].getCode()==1) numberAndLoad(i+x,j);
             if(IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH-1, j+x))
-            if(cells[i][j+x].getCode()==1) numberAndLoad(i,j+x);
+                if(cells[i][j+x].getCode()==1) numberAndLoad(i,j+x);
         }
     }
 
@@ -127,7 +135,7 @@ public class Map {
     }
 
     public void checkMiddleCell(int [][] adjacent,int i , int j){
-        int x =adjacent[0][1]*4+
+        int x = adjacent[0][1]*4+
                 adjacent[1][0]*2+
                 adjacent[1][2]*8+
                 adjacent[2][1]*1;
