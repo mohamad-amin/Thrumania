@@ -79,8 +79,10 @@ public class Map {
 
     private void numberAndLoad(int i, int j) {
         int n = checkFourSideAndGiveMeNumber(i, j);
+        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
         cells[i][j] = new LowLand(new Coordinate(i, j));
         cells[i][j].setPictureName(new Integer(n).toString() + ".png");
+        cells[i][j].setInsideMapElemetn(element);
         if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10)
             cells[i][j].setCompeleteLand(false);
         else cells[i][j].setCompeleteLand(true);
@@ -107,8 +109,10 @@ public class Map {
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
                 if (adjacent[x + 1][y + 1] == 1) {
+                    MapElement element = (cells[i+x][j+y] == null) ? null : cells[i+x][j+y].getInsideMapElemetn();
                     cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
                     cells[i + x][j + y].setPictureName("0.png");
+                    cells[i + x][j + y].setInsideMapElemetn(element);
                 }
             }
         }
@@ -148,8 +152,10 @@ public class Map {
                 adjacent[1][0] * 2 +
                 adjacent[1][2] * 8 +
                 adjacent[2][1] * 1;
+        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
         cells[i][j] = new LowLand(new Coordinate(i, j));
         cells[i][j].setPictureName(new Integer(x).toString() + ".png");
+        cells[i][j].setInsideMapElemetn(element);
         if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10)
             cells[i][j].setCompeleteLand(false);
         else cells[i][j].setCompeleteLand(true);
