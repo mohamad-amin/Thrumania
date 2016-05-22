@@ -15,6 +15,9 @@ public abstract class Cell {
 
     private String pictureName;
     private Coordinate position;
+    private MapElement insideMapElemetn;
+
+
     int code;
 
     public Cell(Coordinate position) {
@@ -40,4 +43,13 @@ public abstract class Cell {
     public int getCode() {
         return code;
     }
+
+    public MapElement getInsideMapElemetn() {
+        return insideMapElemetn;
+    }
+
+    public void setInsideMapElemetn(MapElement insideMapElemetn) {
+        this.insideMapElemetn = insideMapElemetn;
+    }
+
 }

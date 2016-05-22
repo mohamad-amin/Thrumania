@@ -1,12 +1,11 @@
 package thrumania.board.item.MapItems;
 
 /**
- * Created by sina on 5/18/16.
+ * Created by sina on 5/22/16.
  */
-public class Tree extends  MapElement{
+public class Agliculture extends MapElement {
 
-
-    public Tree(boolean canPutOnLowLand) {
+    public Agliculture(boolean canPutOnLowLand) {
 
         super.canPutOnLowLand = canPutOnLowLand;
         super.springPictureName = "";
