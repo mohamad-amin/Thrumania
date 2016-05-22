@@ -1,16 +1,17 @@
-package thrumania.board.item;
+package thrumania.board.item.MapItems;
 
+import thrumania.board.item.MapItems.Cell;
 import thrumania.utils.Coordinate;
-
-import java.util.List;
 
 /**
  * Created by mohamadamin on 5/18/16.
  */
-public class HighLand extends Cell {
 
-    public HighLand(Coordinate position) {
+public class LowLand extends Cell {
+
+    public LowLand(Coordinate position) {
         super(position);
+        code=1;
     }
 
     @Override
@@ -32,6 +33,5 @@ public class HighLand extends Cell {
     public void setPictureName(String pictureName) {
         super.setPictureName(pictureName);
     }
-
 
 }

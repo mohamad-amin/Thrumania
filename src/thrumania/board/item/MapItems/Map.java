@@ -1,8 +1,8 @@
-package thrumania.board;
+package thrumania.board.item.MapItems;
 
-import thrumania.board.item.Cell;
-import thrumania.board.item.LowLand;
-import thrumania.board.item.Sea;
+import thrumania.board.item.MapItems.Cell;
+import thrumania.board.item.MapItems.LowLand;
+import thrumania.board.item.MapItems.Sea;
 import thrumania.gui.MiniMapPanel;
 import thrumania.utils.Cacher;
 import thrumania.utils.Constants;

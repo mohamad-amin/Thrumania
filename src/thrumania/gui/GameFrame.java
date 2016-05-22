@@ -1,6 +1,6 @@
 package thrumania.gui;
 
-import thrumania.board.Map;
+import thrumania.board.item.MapItems.Map;
 import thrumania.utils.Constants;
 
 import javax.swing.*;

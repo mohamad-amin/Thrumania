@@ -1,7 +1,7 @@
 package thrumania.gui;
 
-import thrumania.board.Map;
-import thrumania.board.item.Cell;
+import thrumania.board.item.MapItems.Map;
+import thrumania.board.item.MapItems.Cell;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;

@@ -1,4 +1,4 @@
-package thrumania.board.item;
+package thrumania.board.item.MapItems;
 
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;

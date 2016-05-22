@@ -1,6 +1,6 @@
 package thrumania.gui;
 
-import thrumania.board.Map;
+import thrumania.board.item.MapItems.Map;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -10,9 +10,6 @@ import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.*;
-import java.util.Timer;
 
 /**
  * Created by sina on 5/18/16.
@@ -24,7 +21,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
-    private Constants.Elements selectedElelements = Constants.Elements.LOW_ALTITTUDE_LAND;
+    private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     MiniMapPanel miniMap;
 
 //    private int CellSize_Zero_Scale

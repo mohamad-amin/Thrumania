@@ -1,18 +1,16 @@
-package thrumania.board.item;
+package thrumania.board.item.MapItems;
 
+import thrumania.board.item.MapItems.Cell;
 import thrumania.utils.Coordinate;
-
-import java.util.List;
 
 /**
  * Created by mohamadamin on 5/18/16.
  */
+public class Sea extends Cell {
 
-public class LowLand extends Cell {
-
-    public LowLand(Coordinate position) {
+    public Sea(Coordinate position) {
         super(position);
-        code=1;
+        code= 0;
     }
 
     @Override

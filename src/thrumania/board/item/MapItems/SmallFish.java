@@ -1,4 +1,4 @@
-package thrumania.board.item;
+package thrumania.board.item.MapItems;
 
 /**
  * Created by sina on 5/18/16.

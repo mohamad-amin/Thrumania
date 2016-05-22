@@ -14,7 +14,7 @@ public class Constants {
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
     public static int CELL_SIZE = 40;
-    public static int MATRIX_SIZE = 100;
+
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;
     public static int [][] zoomNumbers={
@@ -48,6 +48,8 @@ public class Constants {
     public static void initializeConstants() {
         if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
             CELL_SIZE = 32;
+            MATRIX_HEIGHT = 98;
+            MATRIX_WIDTH = 80;
             isMac= true;
         } else {
             CELL_SIZE = 40;
@@ -84,6 +86,8 @@ public class Constants {
     }
     public static ZoomScales decScale(ZoomScales zoomScale) {
         int num = findZoomScaleNumber(zoomScale);
+        
+        System.out.println("num is "+ num);
         if(num>-2){
             if(isMac) Constants.CELL_SIZE =  zoomNumbers[num+1][0];
             else Constants.CELL_SIZE =  zoomNumbers[num+1][1];

@@ -1,6 +1,6 @@
 package thrumania.main;
 
-import thrumania.board.Map;
+import thrumania.board.item.MapItems.Map;
 import thrumania.gui.GameFrame;
 import thrumania.utils.Cacher;
 import thrumania.utils.Constants;
