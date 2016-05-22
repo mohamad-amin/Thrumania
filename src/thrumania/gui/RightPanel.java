@@ -68,6 +68,8 @@ public class RightPanel extends JPanel {
         if (IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2, verticalSpaceBetweenElements * elementCounter, d.width + elementSize, verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord, mouseYcord)) {
             gamePanel.setSelectedElelements(Constants.Elements.UP_ARROW);
             this.upArrowIsSelected = true;
+            gamePanel.scrollUp();
+            System.out.println("nonononononononononononononononon");
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -90,6 +92,7 @@ public class RightPanel extends JPanel {
            // Constants.selectedElement = Constants.Elements.RIGHT_ARROW;
             gamePanel.setSelectedElelements(Constants.Elements.RIGHT_ARROW);
             rightArrowIsSelected = true;
+            gamePanel.scrollRight();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -109,6 +112,7 @@ public class RightPanel extends JPanel {
 
             gamePanel.setSelectedElelements( Constants.Elements.LEFT_ARROW);
             leftArrowIsSelected = true;
+            gamePanel.scrollLeft();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -129,6 +133,7 @@ public class RightPanel extends JPanel {
 
             gamePanel.setSelectedElelements(  Constants.Elements.DOWN_ARROW);
             downArrowIsSelected = true;
+            gamePanel.scrollDown();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -374,9 +379,7 @@ public class RightPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("here33");
             findingSelectedObject1(e.getX() , e.getY());
-
         }
 
         @Override

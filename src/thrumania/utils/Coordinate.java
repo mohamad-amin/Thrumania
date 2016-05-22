@@ -24,17 +24,17 @@ public class Coordinate {
     }
 
     public void addRow(int add) {
-        if( canAddCounter % 4 == 0)
+ //       if( canAddCounter % 4 == 0)    /////
         this.row= this.row+add;
-        canAddCounter ++;
+ //       canAddCounter ++;
     }
 
     public void addColumn(int add) {
 
 
-         if ( canAddCounter % 4 ==0 )
+//         if ( canAddCounter % 4 ==0 )
             this.column = this.column + add;
-            canAddCounter ++;
+//            canAddCounter ++;
 
 
     }

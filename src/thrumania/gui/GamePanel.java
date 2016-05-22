@@ -21,11 +21,10 @@ import java.util.Timer;
 public class GamePanel extends JPanel implements MouseInputListener {
 
     private Map map;
-    MouseEvent m;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
-    private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
+    private Constants.Elements selectedElelements = Constants.Elements.LOW_ALTITTUDE_LAND;
     MiniMapPanel miniMap;
 
 //    private int CellSize_Zero_Scale
@@ -42,43 +41,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.setSize(d);
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
-    }
-    private void zoomIN(){
-        if( zoomScale == Constants.ZoomScales.NEEGATIVE_TWO_SCALE){
-            zoomScale = Constants.ZoomScales.NEGATIVE_ONE_SCALE;
-            //TODO set cell size  and cell numbers for none mac laptops
-            if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
-                Constants.CELL_SIZE = 32;
-            } else {
-                Constants.CELL_SIZE = 40;
-            }
-            Constants.DRAWER_WIDTH = 40 ;
-            Constants.Drawer_HIGHT  = 22;
-        }
-        else if ( zoomScale == Constants.ZoomScales.NEGATIVE_ONE_SCALE){
-            zoomScale = Constants.ZoomScales.ZERO_SCALE;
-            //TODO set cell size  and cell numbers for none mac laptops
-            if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
-                Constants.CELL_SIZE = 32;
-            } else {
-                Constants.CELL_SIZE = 40;
-            }
-            Constants.DRAWER_WIDTH = 40 ;
-            Constants.Drawer_HIGHT  = 22;
-        }
-      else  if ( zoomScale == Constants.ZoomScales.ZERO_SCALE){
-            zoomScale = Constants.ZoomScales.POSITIVE_ONE_SCALE;
-            if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
-                Constants.CELL_SIZE = 45;
-            } else {
-              //  Constants.CELL_SIZE = 45;
-            }
-            Constants.DRAWER_WIDTH = 32 ;
-            Constants.Drawer_HIGHT  = 16;
-
-        }
-
-
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -112,12 +74,16 @@ public class GamePanel extends JPanel implements MouseInputListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         if (this.selectedElelements == Constants.Elements.ZOOM_IN){
-            zoomIN();
+            zoomScale=Constants.incScale(zoomScale);
+            repaint();
         }
-        int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
-        int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        boolean repaint = map.changeMap(row, column);
-        if (repaint) repaint();
+        if(this.selectedElelements == Constants.Elements.ZOOM_OUT){
+            zoomScale=Constants.decScale(zoomScale);
+            repaint();
+        }
+        if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND){
+            changingMap(e);
+        }
     }
 
     @Override
@@ -142,10 +108,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
-        int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        boolean repaint = map.changeMap(row, column);
-        if (repaint) repaint();
+        if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
+            changingMap(e);
+        }
     }
 
     @Override
@@ -170,5 +135,39 @@ public class GamePanel extends JPanel implements MouseInputListener {
         repaint();
     }
 
+    public void scrollUp(){
+        if(start.getRow()>0) {
+            start.addRow(-1);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollDown(){
+        if(start.getRow()<Constants.MATRIX_HEIGHT- Constants.Drawer_HIGHT) {
+            start.addRow(1);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollRight() {
+        if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) start.addColumn(1);
+        repaint();
+        this.miniMap.updateFocus(start);
+    }
+
+    public void scrollLeft(){
+        if(start.getColumn()>0) start.addColumn(-1);
+        repaint();
+        this.miniMap.updateFocus(start);
+    }
+
+    public void changingMap(MouseEvent e){
+            int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
+            int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
+            boolean repaint = map.changeMap(row, column);
+            if (repaint) repaint();
+    }
 
 }
