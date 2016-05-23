@@ -5,13 +5,13 @@ package thrumania.board.item.MapItems;
  */
 public class Agliculture extends MapElement {
 
-    public Agliculture(boolean canPutOnLowLand) {
+    public Agliculture() {
 
-        super.canPutOnLowLand = canPutOnLowLand;
-        super.springPictureName = "";
-        super.summerPictureName = "";
-        super.autmnPictureName = "";
-        super.winterPictureName = "";
+
+        super.springPictureName = "agriculture.png";
+        super.summerPictureName = "agriculture.png";
+        super.autmnPictureName = "agriculture.png";
+        super.winterPictureName = "agriculture.png";
 
     }
 }

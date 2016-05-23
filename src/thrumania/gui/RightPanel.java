@@ -63,7 +63,7 @@ public class RightPanel extends JPanel {
 
 
     private void findingSelectedObject1(int mouseXcord, int mouseYcord) {
-        System.out.println("i am here");
+
         int elementCounter = 1;
         // upArrow :
         if (IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2, verticalSpaceBetweenElements * elementCounter, d.width + elementSize, verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord, mouseYcord)) {
@@ -304,7 +304,7 @@ public class RightPanel extends JPanel {
         int elementCounter = 1;
         // impelenting arrow keys
         // Up :
-        System.out.println(" this is \t"+ upArrowIsSelected);
+
         if( ! upArrowIsSelected)
             g.drawImage(ImageUtils.getImage("upArrowKeyRightPanel.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter , elementSize, elementSize, null);
         else if( upArrowIsSelected)

@@ -6,10 +6,13 @@ package thrumania.board.item.MapItems;
 public class StoneMine extends  MapElement{
 //
 
-    public StoneMine(boolean canPutOnLowLand) {
+    public StoneMine() {
 
-        super.canPutOnLowLand = canPutOnLowLand;
+
         super.springPictureName = "Stone.png";
+        super.summerPictureName = "Stone.png";
+        super.autmnPictureName = "Stone.png";
+        super.winterPictureName = "Stone.png";
 
 
 

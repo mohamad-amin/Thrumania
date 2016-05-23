@@ -102,32 +102,24 @@ public class GamePanel extends JPanel implements MouseInputListener {
         } else if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row,column);
         } else if (this.selectedElelements == Constants.Elements.TREE) {
-            Cell temp;
-            Tree tempTree = new Tree(true);
-            temp = map.getCell(row, column);
-            if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null) {
-                if (tempTree.isCanPutOnLowLand()) {
-                    temp.setInsideMapElemetn(tempTree);
-                    repaint();
-                }
-            }
+            this.treeSetterToCell(row, column );
 
         }
 
         else if (this.selectedElelements == Constants.Elements.FISH) {
-            Cell temp;
-            SmallFish smallFishTemp = new SmallFish(false);
-            temp = map.getCell(row , column);
-            if( ! temp.isLand() && temp.getInsideMapElemetn() == null){
-                temp.setInsideMapElemetn(smallFishTemp);
-                repaint();
-            }
+
+            this.fishSetterToCell(row, column);
+
+
 
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
+            this.goldSetterToCell(row , column);
 
         } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
+            this.stoneSetterToCell(row ,column);
 
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
+            this.agricultureSetterToCell(row , column);
 
         }
     }
@@ -235,6 +227,57 @@ public class GamePanel extends JPanel implements MouseInputListener {
         else
             return  mapElement.getWinterPictureName();
     }
+    private void treeSetterToCell( int row , int column ){
+        Cell temp;
+        Tree tempTree = new Tree();
+        temp = map.getCell(row, column);
+        if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1) {
+
+                temp.setInsideMapElemetn(tempTree);
+                repaint();
+
+        }
+
+    }
+    private void fishSetterToCell(int row  , int column) {
+        Cell temp;
+        SmallFish smallFishTemp = new SmallFish();
+        temp = map.getCell(row, column);
+        if (!temp.isLand() && temp.getInsideMapElemetn() == null) {
+            temp.setInsideMapElemetn(smallFishTemp);
+            repaint();
+        }
+    }
+    private void goldSetterToCell ( int row , int col){
+        Cell temp ;
+        GoldMine goldMineTemp = new GoldMine();
+        temp = map.getCell(row, col);
+        if( temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() != 1){
+            temp.setInsideMapElemetn(goldMineTemp);
+            repaint();
+        }
+    }
+    private void stoneSetterToCell ( int row , int col){
+        Cell temp ;
+        StoneMine stoneMineTemp = new StoneMine();
+        temp = map.getCell(row , col);
+        if ( temp.isLand() && temp.getCode() != 1 && temp.getInsideMapElemetn() == null){
+            temp.setInsideMapElemetn(stoneMineTemp);
+            repaint();
+        }
+
+    }
+
+    private  void agricultureSetterToCell(int row , int col){
+        Cell temp;
+        Agliculture aglicultureTemp = new Agliculture();
+        temp = map.getCell(row , col);
+        if (  temp.isLand() && temp.getCode()==1 && temp.getInsideMapElemetn() == null){
+            temp.setInsideMapElemetn(aglicultureTemp);
+            repaint();
+        }
+    }
+
 
 
 }

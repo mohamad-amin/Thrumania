@@ -5,10 +5,10 @@ package thrumania.board.item.MapItems;
  */
 public class GoldMine extends  MapElement{
 
-    public GoldMine(boolean CanPutOnLowLand) {
+    public GoldMine() {
 
 
-        super.canPutOnLowLand = canPutOnLowLand;
+
         super.springPictureName = "gold.png";
         super.summerPictureName = "gold.png";
         super.autmnPictureName = "gold.png";

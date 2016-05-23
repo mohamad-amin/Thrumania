@@ -175,7 +175,7 @@ public class Map {
             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
 //might get problem here
 
-//                cells[i][j].setInsideMapElemetn(element);
+             //   cells[i][j].setInsideMapElemetn(element);
             }
         }else  cells[i][j].setInsideMapElemetn(element);
         cells[i][j].setLand(true);

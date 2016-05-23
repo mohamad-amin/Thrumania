@@ -6,9 +6,9 @@ package thrumania.board.item.MapItems;
 public class Tree extends  MapElement{
 
 
-    public Tree(boolean canPutOnLowLand ) {
+    public Tree() {
 
-        super.canPutOnLowLand = canPutOnLowLand;
+
 
         super.springPictureName = "tree1.png";
         super.summerPictureName = "tree3.png";

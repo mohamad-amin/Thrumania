@@ -8,7 +8,7 @@ public  abstract  class MapElement {
     protected String summerPictureName ;
     protected String autmnPictureName;
     protected String winterPictureName;
-    protected   boolean canPutOnLowLand;
+
 
 
     public String getAutmnPictureName() {
@@ -25,10 +25,7 @@ public  abstract  class MapElement {
         return springPictureName;
     }
 
-    public boolean isCanPutOnLowLand() {
 
-        return canPutOnLowLand;
-    }
 
     public String getWinterPictureName() {
         return winterPictureName;
