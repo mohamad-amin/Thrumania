@@ -107,15 +107,5 @@ public class Constants {
         }
         return findZoomScaleElement(num);
     }
-    public static String getPictureNameAccordingToSeason(Seasons season , MapElement mapElement){
-        if ( season.equals( Seasons.SPRING))
-            return mapElement.getSpringPictureName();
-        else if ( season.equals( Seasons.SUMMER))
-            return  mapElement.getSummerPictureName();
-        else if ( season.equals( Seasons.AUTMN) )
-            return  mapElement.getAutmnPictureName();
-        else
-            return  mapElement.getWinterPictureName();
-    }
 
 }

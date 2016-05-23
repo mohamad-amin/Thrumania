@@ -8,6 +8,8 @@ public  abstract  class MapElement {
     protected String summerPictureName ;
     protected String autmnPictureName;
     protected String winterPictureName;
+    protected   boolean canPutOnLowLand;
+
 
     public String getAutmnPictureName() {
         return autmnPictureName;
@@ -32,6 +34,6 @@ public  abstract  class MapElement {
         return winterPictureName;
     }
 
-    protected   boolean canPutOnLowLand;
+
 
 }

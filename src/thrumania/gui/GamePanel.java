@@ -1,8 +1,6 @@
 package thrumania.gui;
 
-import thrumania.board.item.MapItems.Cell;
-import thrumania.board.item.MapItems.Map;
-import thrumania.board.item.MapItems.Tree;
+import thrumania.board.item.MapItems.*;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -77,7 +75,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
                     System.out.println("Nooo");
                     System.out.println(map.getCells()[r+start.getRow()][c + start.getColumn()].getInsideMapElemetn());
-                    g.drawImage(ImageUtils.getImage(Constants.getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE- Constants.INSIDE_CELL_ELEMENT_SIZE,
+                    if( map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getAutmnPictureName().equals("tree5.png") )
+                    g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE- Constants.INSIDE_CELL_ELEMENT_SIZE,
+                            Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                    else g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE,
                             Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                 }
             }
@@ -101,11 +102,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
         } else if(this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row,column);
         } else if (this.selectedElelements == Constants.Elements.TREE) {
-            System.out.println("here tree");
             Cell temp;
             Tree tempTree = new Tree(true);
             temp = map.getCell(row, column);
-            if (temp.isCompeleteLand()) {
+            if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null) {
                 if (tempTree.isCanPutOnLowLand()) {
                     temp.setInsideMapElemetn(tempTree);
                     repaint();
@@ -115,6 +115,13 @@ public class GamePanel extends JPanel implements MouseInputListener {
         }
 
         else if (this.selectedElelements == Constants.Elements.FISH) {
+            Cell temp;
+            SmallFish smallFishTemp = new SmallFish(false);
+            temp = map.getCell(row , column);
+            if( ! temp.isLand() && temp.getInsideMapElemetn() == null){
+                temp.setInsideMapElemetn(smallFishTemp);
+                repaint();
+            }
 
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
 
@@ -218,5 +225,16 @@ public class GamePanel extends JPanel implements MouseInputListener {
         if(startY+Constants.DRAWER_WIDTH>Constants.MATRIX_WIDTH) startY = Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH;
         start = new Coordinate(startX,startY);
     }
+    private  String getPictureNameAccordingToSeason(Constants.Seasons season , MapElement mapElement){
+        if ( season.equals( Constants.Seasons.SPRING))
+            return mapElement.getSpringPictureName();
+        else if ( season.equals( Constants.Seasons.SUMMER))
+            return  mapElement.getSummerPictureName();
+        else if ( season.equals( Constants.Seasons.AUTMN) )
+            return  mapElement.getAutmnPictureName();
+        else
+            return  mapElement.getWinterPictureName();
+    }
+
 
 }

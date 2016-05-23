@@ -16,6 +16,7 @@ public abstract class Cell {
     private String pictureName;
     private Coordinate position;
     private MapElement insideMapElemetn;
+    private boolean isLand ;
 
     public boolean isCompeleteLand() {
         return isCompeleteLand;
@@ -25,7 +26,7 @@ public abstract class Cell {
         isCompeleteLand = compeleteLand;
     }
 
-    protected boolean isCompeleteLand;
+    protected boolean isCompeleteLand = false;
 
 
 
@@ -63,4 +64,11 @@ public abstract class Cell {
         this.insideMapElemetn = insideMapElemetn;
     }
 
+    public boolean isLand() {
+        return isLand;
+    }
+
+    public void setLand(boolean land) {
+        isLand = land;
+    }
 }

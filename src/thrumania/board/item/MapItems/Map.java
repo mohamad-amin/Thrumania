@@ -82,7 +82,15 @@ public class Map {
         MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
         cells[i][j] = new LowLand(new Coordinate(i, j));
         cells[i][j].setPictureName(new Integer(n).toString() + ".png");
-        cells[i][j].setInsideMapElemetn(element);
+        if ( element != null) {
+            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+
+
+                cells[i][j].setInsideMapElemetn(element);
+            }
+        }else  cells[i][j].setInsideMapElemetn(element);
+        cells[i][j].setLand(true);
+
         if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10)
             cells[i][j].setCompeleteLand(false);
         else cells[i][j].setCompeleteLand(true);
@@ -112,6 +120,14 @@ public class Map {
                     MapElement element = (cells[i+x][j+y] == null) ? null : cells[i+x][j+y].getInsideMapElemetn();
                     cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
                     cells[i + x][j + y].setPictureName("0.png");
+                    if ( element != null) {
+                        if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+
+
+                            cells[i][j].setInsideMapElemetn(element);
+                        }
+                    }else  cells[i][j].setInsideMapElemetn(element);
+                    cells[i][j].setLand(true);
                     cells[i + x][j + y].setInsideMapElemetn(element);
                 }
             }
@@ -155,7 +171,15 @@ public class Map {
         MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
         cells[i][j] = new LowLand(new Coordinate(i, j));
         cells[i][j].setPictureName(new Integer(x).toString() + ".png");
-        cells[i][j].setInsideMapElemetn(element);
+        if ( element != null) {
+            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+
+
+                cells[i][j].setInsideMapElemetn(element);
+            }
+        }else  cells[i][j].setInsideMapElemetn(element);
+        cells[i][j].setLand(true);
+
         if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10)
             cells[i][j].setCompeleteLand(false);
         else cells[i][j].setCompeleteLand(true);
