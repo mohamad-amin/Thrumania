@@ -2,16 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Agliculture.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Agliculture.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/GoldMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/GoldMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/SmallFish.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/SmallFish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Tree.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Tree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -886,7 +879,7 @@
       <workItem from="1463954579436" duration="193000" />
       <workItem from="1463954773888" duration="492000" />
       <workItem from="1463955295061" duration="1956000" />
-      <workItem from="1463958911560" duration="7603000" />
+      <workItem from="1463958911560" duration="7733000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1002,11 +995,17 @@
       <option name="project" value="LOCAL" />
       <updated>1463983195390</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="handling inside cell elements">
+      <created>1464010349000</created>
+      <option name="number" value="00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1464010349000</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="99324000" />
+    <option name="totallyTimeSpent" value="99454000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1089,7 +1088,8 @@
     <MESSAGE value="adding tree to game panel ( still with one bug)" />
     <MESSAGE value="implementing fish" />
     <MESSAGE value="fixing bugs of drawing trees and adding picture of gold mine" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixing bugs of drawing trees and adding picture of gold mine" />
+    <MESSAGE value="handling inside cell elements" />
+    <option name="LAST_COMMIT_MESSAGE" value="handling inside cell elements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1128,6 +1128,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="183" column="82" selection-start-line="183" selection-start-column="82" selection-end-line="183" selection-end-column="82" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1174,6 +1175,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="19" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1232,6 +1234,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="202" column="0" selection-start-line="202" selection-start-column="0" selection-end-line="202" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1279,6 +1282,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="201" column="75" selection-start-line="201" selection-start-column="75" selection-end-line="201" selection-end-column="75" />
+          <folding />
         </state>
       </provider>
     </entry>
