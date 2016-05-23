@@ -74,16 +74,24 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         null);
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
                     System.out.println("Nooo");
-                    System.out.println(map.getCells()[r+start.getRow()][c + start.getColumn()].getInsideMapElemetn());
-                    if( map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getAutmnPictureName().equals("tree5.png") )
-                    g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE- Constants.INSIDE_CELL_ELEMENT_SIZE,
-                            Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-                    else g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season , map.getCells()[r+start.getRow()][c+start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE  , r * Constants.CELL_SIZE,
-                            Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                    System.out.println(map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn());
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Tree"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("StoneMine"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                                Constants.CELL_SIZE + 10, Constants.CELL_SIZE + 10, null);
+
+
+                    else {
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+                    }
                 }
             }
+            }
         }
-    }
+
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -252,7 +260,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp ;
         GoldMine goldMineTemp = new GoldMine();
         temp = map.getCell(row, col);
-        if( temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() != 1){
+        if( temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1){
             temp.setInsideMapElemetn(goldMineTemp);
             repaint();
         }
@@ -261,7 +269,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp ;
         StoneMine stoneMineTemp = new StoneMine();
         temp = map.getCell(row , col);
-        if ( temp.isLand() && temp.getCode() != 1 && temp.getInsideMapElemetn() == null){
+        if ( temp.isLand() && temp.getCode() != 1 && temp.getInsideMapElemetn() != null){
             temp.setInsideMapElemetn(stoneMineTemp);
             repaint();
         }
