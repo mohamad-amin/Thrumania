@@ -9,7 +9,10 @@ public class GoldMine extends  MapElement{
 
 
         super.canPutOnLowLand = canPutOnLowLand;
-        super.springPictureName = "";
+        super.springPictureName = "gold.png";
+        super.summerPictureName = "gold.png";
+        super.autmnPictureName = "gold.png";
+        super.winterPictureName = "gold.png";
 
     }
 }
