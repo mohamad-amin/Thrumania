@@ -41,6 +41,9 @@ public class Constants {
     public static enum Seasons {
         SPRING , SUMMER , AUTMN , WINTER
     }
+    public static enum DayTime {
+        MORNING , NIGHT
+    }
 
     public static void mouseInitializer(JFrame frame) {
         Toolkit toolkit = Toolkit.getDefaultToolkit();
@@ -50,6 +53,7 @@ public class Constants {
                 new Point(0, 0), "custom cursor"));
 
     }
+
 
     public static void initializeConstants() {
         if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
