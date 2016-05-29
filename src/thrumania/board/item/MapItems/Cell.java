@@ -16,25 +16,34 @@ public abstract class Cell {
     private String pictureName;
     private Coordinate position;
     private MapElement insideMapElemetn;
+
+
+    int code;
+
+    private boolean canDrawStoneOrGold = false ;
+
     private boolean isLand ;
-
-    public boolean isCompeleteLand() {
-        return isCompeleteLand;
-    }
-
-    public void setCompeleteLand(boolean compeleteLand) {
-        isCompeleteLand = compeleteLand;
-    }
 
     protected boolean isCompeleteLand = false;
 
 
 
-    int code;
-
     public Cell(Coordinate position) {
+
         this.position = position;
     }
+
+    public boolean isCompeleteLand() {
+        return isCompeleteLand;
+    }
+
+
+
+    public void setCompeleteLand(boolean compeleteLand) {
+        isCompeleteLand = compeleteLand;
+    }
+
+
 
     public Coordinate getPosition() {
         return position;
@@ -71,4 +80,8 @@ public abstract class Cell {
     public void setLand(boolean land) {
         isLand = land;
     }
+
+
+
+
 }

@@ -15,6 +15,8 @@ import thrumania.utils.IntegerUtils;
 
 // Row, Column
 
+    // TODO : should handle drawing land next to stone_mine && Gold_mine : h}
+
 public class Map {
 
     private MiniMapPanel miniMap;
@@ -78,12 +80,17 @@ public class Map {
     }
 
     private void numberAndLoad(int i, int j) {
+        int row =-1, col =-1;
+        boolean shouldDraw = true;
         int n = checkFourSideAndGiveMeNumber(i, j);
         MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+
         cells[i][j] = new LowLand(new Coordinate(i, j));
         cells[i][j].setPictureName(new Integer(n).toString() + ".png");
         if ( element != null) {
             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+
+
 
 
                 cells[i][j].setInsideMapElemetn(element);
@@ -91,9 +98,16 @@ public class Map {
         }else  cells[i][j].setInsideMapElemetn(element);
         cells[i][j].setLand(true);
 
-        if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10)
+        if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
             cells[i][j].setCompeleteLand(false);
-        else cells[i][j].setCompeleteLand(true);
+
+
+        }
+        else {
+            cells[i][j].setCompeleteLand(true);
+
+
+        }
     }
 
     private int[][] createAdjecant(int i, int j) {
@@ -180,9 +194,14 @@ public class Map {
         }else  cells[i][j].setInsideMapElemetn(element);
         cells[i][j].setLand(true);
 
-        if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10)
+        if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {
             cells[i][j].setCompeleteLand(false);
-        else cells[i][j].setCompeleteLand(true);
+
+        } else {
+            cells[i][j].setCompeleteLand(true);
+
+
+        }
     }
 
 
