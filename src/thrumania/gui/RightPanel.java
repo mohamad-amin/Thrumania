@@ -37,6 +37,7 @@ public class RightPanel extends JPanel {
     private boolean undoIsSelected = false;
     private  boolean redoIsSelelcted =  false;
     private boolean isOnPreview = false;
+    private boolean eraserIsSelected = false;
 
 
 
@@ -292,6 +293,23 @@ public class RightPanel extends JPanel {
 
 
         }
+        // eraser :
+        if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 , verticalSpaceBetweenElements * elementCounter , d.width /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
+            gamePanel.setSelectedElelements(Constants.Elements.Eraser);
+            eraserIsSelected = true;
+            repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+
+                @Override
+                public void run() {
+                    eraserIsSelected = false;
+                    repaint();
+                }
+
+            }, 110);
+//
+
+        }
 
 
 
@@ -374,6 +392,13 @@ public class RightPanel extends JPanel {
             g.drawImage(ImageUtils.getImage("previewRightPanel.png"), d.width / 2 , verticalSpaceBetweenElements * elementCounter , elementSize + 10 , elementSize + 10 , null);
         else if ( previewIsSelected)
             g.drawImage(ImageUtils.getImage("previewRightPanelHoover.png"), d.width / 2 , verticalSpaceBetweenElements * elementCounter , elementSize + 10 , elementSize + 10 , null);
+        // easer:
+        elementCounter +=2;
+        if( ! eraserIsSelected)
+            g.drawImage(ImageUtils.getImage("eraserRightPanel.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
+        else if( eraserIsSelected)
+            //TODO : handle selected image
+            g.drawImage(ImageUtils.getImage("eraserRightPanel.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
 
 //        repaint();
     }
