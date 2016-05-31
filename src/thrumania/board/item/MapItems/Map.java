@@ -52,17 +52,13 @@ public class Map {
         if (miniMap != null) miniMap.updateMap();
     }
 
-    public boolean changeMap(int i, int j) {
-        if (cells[i][j].getCode() == 0) {
-            int[][] adjacent = createAdjecant(i, j);
-            intilizeAdjacent(adjacent, i, j);
-            checkMiddleCell(adjacent, i, j);
-            updateAdjecant(adjacent, i, j);
-            updateOutAdjacent(i, j);
+    public void changeMap(int i, int j,int type) {
+            int[][] adjacent = createAdjecant(i,j,type);
+            intilizeAdjacent(adjacent,i,j,type);
+            checkMiddleCell(adjacent,i,j,type);
+            updateAdjecant(adjacent, i,j,type);
+            updateOutAdjacent(i,j,type);
             if (miniMap != null) miniMap.updateMap();
-            return true;
-        }
-        return false;
     }
 
     public Cell getCell(int row, int column) {
@@ -70,7 +66,7 @@ public class Map {
 
     }
 
-    private void updateOutAdjacent(int i, int j) {
+    private void updateOutAdjacent(int i, int j,int type) {
         for (int x = -2; x < 3; x = x + 4) {
             if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x))
                 if (cells[i + x][j].getCode() == 1) numberAndLoad(i + x, j);
@@ -89,10 +85,6 @@ public class Map {
         cells[i][j].setPictureName(new Integer(n).toString() + ".png");
         if ( element != null) {
             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-
-
-
-
                 cells[i][j].setInsideMapElemetn(element);
             }
         }else  cells[i][j].setInsideMapElemetn(element);
@@ -100,26 +92,28 @@ public class Map {
 
         if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
             cells[i][j].setCompeleteLand(false);
-
-
         }
         else {
             cells[i][j].setCompeleteLand(true);
-
-
         }
     }
 
-    private int[][] createAdjecant(int i, int j) {
+    ///diferent kind of kind lowland=1 sea=0 for
+    private int[][] createAdjecant(int i, int j,int type) {
         int adjacent[][] = new int[3][3];
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
                 if (inRange(i + x, j + y) && cells[i + x][j + y].getCode() == 1 && !(x == 0 && y == 0)) {
-                    if (x * y == 0) adjacent[x + 1][y + 1] = 1;
-                    else {
+                    if(type==1) {
+                        if (x * y == 0) adjacent[x + 1][y + 1] = 1;
+                        else {
+                            adjacent[x + 1][y + 1] = 1;
+                            adjacent[1][y + 1] = 1;
+                            adjacent[x + 1][1] = 1;
+                        }
+                    }
+                    else{
                         adjacent[x + 1][y + 1] = 1;
-                        adjacent[1][y + 1] = 1;
-                        adjacent[x + 1][1] = 1;
                     }
                 }
             }
@@ -127,28 +121,28 @@ public class Map {
         return adjacent;
     }
 
-    public void intilizeAdjacent(int[][] adjacent, int i, int j) {
-        for (int x = -1; x < 2; x++) {
-            for (int y = -1; y < 2; y++) {
-                if (adjacent[x + 1][y + 1] == 1) {
-                    MapElement element = (cells[i+x][j+y] == null) ? null : cells[i+x][j+y].getInsideMapElemetn();
-                    cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
-                    cells[i + x][j + y].setPictureName("0.png");
-                    if ( element != null) {
-                        if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-
-
-                            cells[i][j].setInsideMapElemetn(element);
-                        }
-                    }else  cells[i][j].setInsideMapElemetn(element);
-                    cells[i][j].setLand(true);
-                    cells[i + x][j + y].setInsideMapElemetn(element);
+    public void intilizeAdjacent(int[][] adjacent, int i, int j, int type) {
+        if (type==1) {
+            for (int x = -1; x < 2; x++) {
+                for (int y = -1; y < 2; y++) {
+                    if (adjacent[x + 1][y + 1] == 1) {
+                        MapElement element = (cells[i + x][j + y] == null) ? null : cells[i + x][j + y].getInsideMapElemetn();
+                        cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
+                        cells[i + x][j + y].setPictureName("0.png");
+                        if (element != null) {
+                            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+                                cells[i][j].setInsideMapElemetn(element);
+                            }
+                        } else cells[i][j].setInsideMapElemetn(element);
+                        cells[i][j].setLand(true);
+                        cells[i + x][j + y].setInsideMapElemetn(element);
+                    }
                 }
             }
         }
     }
 
-    private void updateAdjecant(int[][] adjacent, int x, int y) {
+    private void updateAdjecant(int[][] adjacent, int x, int y,int type) {
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if (adjacent[i + 1][j + 1] == 1) {
@@ -177,30 +171,33 @@ public class Map {
         return x;
     }
 
-    public void checkMiddleCell(int[][] adjacent, int i, int j) {
-        int x = adjacent[0][1] * 4 +
-                adjacent[1][0] * 2 +
-                adjacent[1][2] * 8 +
-                adjacent[2][1] * 1;
-        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
-        cells[i][j] = new LowLand(new Coordinate(i, j));
-        cells[i][j].setPictureName(new Integer(x).toString() + ".png");
-        if ( element != null) {
-            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-//might get problem here
+    public void checkMiddleCell(int[][] adjacent, int i, int j, int type) {
+        if(type==1) {
+            int x = adjacent[0][1] * 4 +
+                    adjacent[1][0] * 2 +
+                    adjacent[1][2] * 8 +
+                    adjacent[2][1] * 1;
+            MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+            cells[i][j] = new LowLand(new Coordinate(i, j));
+            cells[i][j].setPictureName(new Integer(x).toString() + ".png");
+            if (element != null) {
+                if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+                    //might get problem here
+                    //   cells[i][j].setInsideMapElemetn(element);
+                }
+            } else cells[i][j].setInsideMapElemetn(element);
+            cells[i][j].setLand(true);
 
-             //   cells[i][j].setInsideMapElemetn(element);
+            if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {
+                cells[i][j].setCompeleteLand(false);
+
+            } else {
+                cells[i][j].setCompeleteLand(true);
             }
-        }else  cells[i][j].setInsideMapElemetn(element);
-        cells[i][j].setLand(true);
-
-        if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {
-            cells[i][j].setCompeleteLand(false);
-
-        } else {
-            cells[i][j].setCompeleteLand(true);
-
-
+        }
+        else {
+            cells[i][j] = new Sea(new Coordinate(i, j));
+            cells[i][j].setPictureName("ocean1.jpg");
         }
     }
 

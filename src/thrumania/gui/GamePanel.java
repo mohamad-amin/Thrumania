@@ -113,24 +113,19 @@ public class GamePanel extends JPanel implements MouseInputListener {
             repaint();
             this.miniMap.updateFocus(start);
         } else if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
-            changingMap(row, column);
+            changingMap(row, column, "lowland");
+        }else if (this.selectedElelements == Constants.Elements.DEEP_SEA){
+            changingMap(row, column, "sea");
         } else if (this.selectedElelements == Constants.Elements.TREE) {
             this.treeSetterToCell(row, column);
-
         } else if (this.selectedElelements == Constants.Elements.FISH) {
-
             this.fishSetterToCell(row, column);
-
-
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
             this.goldSetterToCell(row, column);
-
         } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
             this.stoneSetterToCell(row, column);
-
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
             this.agricultureSetterToCell(row, column);
-
         }
     }
 
@@ -159,9 +154,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
         if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND)
-
-            changingMap(row, column);
-
+            changingMap(row, column,"lowland");
+        else if ( this.selectedElelements == Constants.Elements.DEEP_SEA)
+            changingMap(row, column,"sea");
         else if( this.selectedElelements == Constants.Elements.TREE)
             this.treeSetterToCell(row, column);
          else if( this.selectedElelements == Constants.Elements.AGRICULTURE)
@@ -224,9 +219,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.miniMap.updateFocus(start);
     }
 
-    public void changingMap(int row, int column) {
-        boolean repaint = map.changeMap(row, column);
-        if (repaint) repaint();
+    public void changingMap(int row, int column,String type) {
+        if ("sea".equals(type)) map.changeMap(row, column,0);
+        if ("lowland".equals(type)) map.changeMap(row, column,1);
+        repaint();
     }
 
     public void fixingStartInZoom(int x, int y) {
