@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Constants.Seasons season;
 
 
+
     //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
         this.selectedElelements = selectedElelements;
@@ -46,7 +47,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.miniMap.setGamePanel(this);
         this.addMouseMotionListener(this);
         this.season = Constants.Seasons.SPRING;
-
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -56,6 +56,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        int seasonnum = giveMeSeasonNum();
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
 
@@ -66,13 +67,16 @@ public class GamePanel extends JPanel implements MouseInputListener {
                             Constants.CELL_SIZE,
                             Constants.CELL_SIZE,
                             null);
-                    g.drawImage(
-                            ImageUtils.getImage(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureName()),
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getCode()==1) {
+                    System.out.println(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png");
+                            g.drawImage(
+                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
                             c * Constants.CELL_SIZE,
                             r * Constants.CELL_SIZE,
                             Constants.CELL_SIZE,
                             Constants.CELL_SIZE,
                             null);
+                }
 
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
                     System.out.println("Nooo");
@@ -97,6 +101,30 @@ public class GamePanel extends JPanel implements MouseInputListener {
         }
     }
 
+    private int giveMeSeasonNum() {
+        if(season.equals(Constants.Seasons.SPRING)) return 0;
+        else if(season.equals(Constants.Seasons.SUMMER))return 1;
+        else if(season.equals(Constants.Seasons.AUTMN))return 2;
+        else if(season.equals(Constants.Seasons.WINTER))return 3;
+        return 4;
+    }
+
+
+
+    private void nextSeason() {
+        int x = giveMeSeasonNum();
+        season = giveMeSeasonConstant(x+1);
+        repaint();
+    }
+
+    private Constants.Seasons giveMeSeasonConstant(int i) {
+        i=i%4;
+        System.out.println(i);
+        if(i==0) return Constants.Seasons.SPRING;
+        else if(i==1) return Constants.Seasons.SUMMER;
+        else if(i==2) return Constants.Seasons.AUTMN;
+        else return Constants.Seasons.WINTER;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -114,7 +142,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
             this.miniMap.updateFocus(start);
         } else if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row, column, "lowland");
-        }else if (this.selectedElelements == Constants.Elements.DEEP_SEA){
+        }else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA){
             changingMap(row, column, "sea");
         } else if (this.selectedElelements == Constants.Elements.TREE) {
             this.treeSetterToCell(row, column);
@@ -126,6 +154,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
             this.stoneSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
             this.agricultureSetterToCell(row, column);
+        }else if (this.selectedElelements == Constants.Elements.PREVIEW){
+            nextSeason();
         }
     }
 
@@ -155,7 +185,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
         if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND)
             changingMap(row, column,"lowland");
-        else if ( this.selectedElelements == Constants.Elements.DEEP_SEA)
+        else if ( this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA)
             changingMap(row, column,"sea");
         else if( this.selectedElelements == Constants.Elements.TREE)
             this.treeSetterToCell(row, column);

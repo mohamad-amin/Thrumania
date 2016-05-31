@@ -57,6 +57,10 @@ public abstract class Cell {
         return pictureName;
     }
 
+    public String getPictureNameWithoutExtension() {
+        return pictureName.substring(0,pictureName.length()-4);
+    }
+
     public void setPictureName(String pictureName) {
         this.pictureName = pictureName;
     }
