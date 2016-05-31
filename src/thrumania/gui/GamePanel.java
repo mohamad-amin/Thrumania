@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.item.MapItems.*;
+import thrumania.messages.Messages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -9,6 +10,7 @@ import thrumania.utils.IntegerUtils;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 
 /**
@@ -311,5 +313,20 @@ if ( currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == 
             repaint();
         }
 
+    }
+    public Constants.Seasons getSeason() {
+        return season;
+    }
+
+    public void setSeason(Constants.Seasons season) {
+        this.season = season;
+    }
+
+
+
+    @Override
+    protected void processComponentEvent(ComponentEvent e) {
+        if( e.getID() == Messages.REPAINT) this.repaint();
+        super.processComponentEvent(e);
     }
 }

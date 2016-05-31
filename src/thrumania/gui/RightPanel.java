@@ -36,7 +36,7 @@ public class RightPanel extends JPanel {
     private boolean exitIsSelected = false;
     private boolean undoIsSelected = false;
     private  boolean redoIsSelelcted =  false;
-    private boolean aglicultureIsSelected = false;
+    private boolean isOnPreview = false;
 
 
 
@@ -287,6 +287,8 @@ public class RightPanel extends JPanel {
                 }
 
             }, 110);
+//            if( )
+            new Preview(gamePanel);
 
 
         }

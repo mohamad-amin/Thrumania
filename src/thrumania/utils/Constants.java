@@ -39,9 +39,21 @@ public class Constants {
         }
 
     public static enum Seasons {
-        SPRING , SUMMER , AUTMN , WINTER
+        SPRING(0),
+        SUMMER(1),
+        AUTMN(2),
+        WINTER(3);
+        private int value;
+
+        private Seasons(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
-    public static enum DayTime {
+        public static enum DayTime {
         MORNING , NIGHT
     }
 

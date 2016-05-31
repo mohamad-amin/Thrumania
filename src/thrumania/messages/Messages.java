@@ -10,6 +10,6 @@ import java.awt.*;
  * we must declare constants here
  */
 public class Messages {
-    public static int drawStoneMine = AWTEvent.RESERVED_ID_MAX +1;
+    public static int REPAINT = AWTEvent.RESERVED_ID_MAX +1;
 
 }

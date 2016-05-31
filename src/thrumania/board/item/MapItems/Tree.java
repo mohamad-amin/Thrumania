@@ -10,8 +10,8 @@ public class Tree extends  MapElement{
 
 
 
-        super.springPictureName = "tree1.png";
-        super.summerPictureName = "tree3.png";
+        super.springPictureName = "tree2.png";
+        super.summerPictureName = "tree4.png";
         super.autmnPictureName = "tree5.png";
         super.winterPictureName = "tree7.png";
 
