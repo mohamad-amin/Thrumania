@@ -2,9 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$10.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$11.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$11.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$3.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$4.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$5.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$6.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$7.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$8.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$9.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -86,8 +100,8 @@
       <file leaf-file-name="RightPanel.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.35344827">
-              <caret line="304" column="36" selection-start-line="304" selection-start-column="36" selection-end-line="304" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.51724136">
+              <caret line="294" column="32" selection-start-line="294" selection-start-column="32" selection-end-line="294" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -821,7 +835,7 @@
       <workItem from="1464413388101" duration="1127000" />
       <workItem from="1464708350174" duration="3895000" />
       <workItem from="1464714231916" duration="10692000" />
-      <workItem from="1464725636240" duration="1023000" />
+      <workItem from="1464725636240" duration="1960000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -985,11 +999,17 @@
       <option name="project" value="LOCAL" />
       <updated>1464726028512</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="handling preview">
+      <created>1464726833976</created>
+      <option name="number" value="00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1464726833976</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129388000" />
+    <option name="totallyTimeSpent" value="130325000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1450,8 +1470,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.35344827">
-          <caret line="304" column="36" selection-start-line="304" selection-start-column="36" selection-end-line="304" selection-end-column="36" />
+        <state vertical-scroll-proportion="0.51724136">
+          <caret line="294" column="32" selection-start-line="294" selection-start-column="32" selection-end-line="294" selection-end-column="32" />
           <folding />
         </state>
       </provider>

@@ -38,6 +38,7 @@ public class RightPanel extends JPanel {
     private  boolean redoIsSelelcted =  false;
     private boolean isOnPreview = false;
     private boolean eraserIsSelected = false;
+   private Preview preview;
 
 
 
@@ -276,6 +277,7 @@ public class RightPanel extends JPanel {
         //preview :
         elementCounter +=2;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2  , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
+
             gamePanel.setSelectedElelements(Constants.Elements.PREVIEW);
             previewIsSelected = true;
             repaint();
@@ -288,8 +290,16 @@ public class RightPanel extends JPanel {
                 }
 
             }, 110);
-//            if( )
-            new Preview(gamePanel);
+            if( ! isOnPreview) {
+              preview =  new Preview(gamePanel);
+                isOnPreview = ! isOnPreview;
+            }
+            else if( isOnPreview ){
+                preview.cancel();
+                preview.purge();
+                isOnPreview = !isOnPreview;
+
+            }
 
 
         }
