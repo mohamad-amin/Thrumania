@@ -304,8 +304,10 @@ public class RightPanel extends JPanel {
 
         }
         // eraser :
+        elementCounter +=2;
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 , verticalSpaceBetweenElements * elementCounter , d.width /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
             gamePanel.setSelectedElelements(Constants.Elements.Eraser);
+            System.out.println("eraser selected" );
             eraserIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
