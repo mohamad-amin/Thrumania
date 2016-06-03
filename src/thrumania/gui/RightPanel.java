@@ -1,5 +1,7 @@
 package thrumania.gui;
 
+import thrumania.messages.Messages;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.ImageUtils;
 import thrumania.utils.IntegerUtils;
@@ -297,6 +299,11 @@ public class RightPanel extends JPanel {
             else if( isOnPreview ){
                 preview.cancel();
                 preview.purge();
+                gamePanel.setSeason(Constants.Seasons.SPRING);
+                gamePanel.setDayTime(Constants.DayTime.MORNING);
+                gamePanel.dispatchEvent(new SimpleMessages(gamePanel , Messages.REPAINT ));
+
+
                 isOnPreview = !isOnPreview;
 
             }
