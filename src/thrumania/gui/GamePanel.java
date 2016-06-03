@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.item.MapItems.*;
+import thrumania.board.item.MapItems.Map;
 import thrumania.messages.Messages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -12,6 +13,8 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
+import java.util.*;
+import java.util.Timer;
 
 /**
  * Created by sina on 5/18/16.
@@ -26,8 +29,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private MiniMapPanel miniMap;
     private Constants.Seasons season;
-
-
+    private Constants.DayTime dayTime;
+    int yStart =0;
+    int xStart =0;
 
     //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
@@ -49,6 +53,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.miniMap.setGamePanel(this);
         this.addMouseMotionListener(this);
         this.season = Constants.Seasons.SPRING;
+        this.dayTime = Constants.DayTime.MORNING;
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -57,21 +62,21 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void paint(Graphics g) {
+
         super.paint(g);
         int seasonnum = giveMeSeasonNum();
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
 
-                    g.drawImage(
-                            ImageUtils.getImage("ocean1.jpg"),
-                            c * Constants.CELL_SIZE,
-                            r * Constants.CELL_SIZE,
-                            Constants.CELL_SIZE,
-                            Constants.CELL_SIZE,
-                            null);
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getCode()==1) {
+               this.drawingOcean(r, c, g);
+//                if( this.season == Constants.Seasons.WINTER){
+//                    this.drawingSnowFlake(xStart , yStart ,g);
+//                    this.xStart +=10;
+//                    this.yStart+=20;
+//                }
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getCode() == 1) {
                     System.out.println(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png");
-                            g.drawImage(
+                    g.drawImage(
                             ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
                             c * Constants.CELL_SIZE,
                             r * Constants.CELL_SIZE,
@@ -87,8 +92,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("StoneMine"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,
-                                Constants.CELL_SIZE  , Constants.CELL_SIZE +10 , null);
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
 //                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
 
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Agliculture"))
@@ -104,27 +109,26 @@ public class GamePanel extends JPanel implements MouseInputListener {
     }
 
     private int giveMeSeasonNum() {
-        if(season.equals(Constants.Seasons.SPRING)) return 0;
-        else if(season.equals(Constants.Seasons.SUMMER))return 1;
-        else if(season.equals(Constants.Seasons.AUTMN))return 2;
-        else if(season.equals(Constants.Seasons.WINTER))return 3;
+        if (season.equals(Constants.Seasons.SPRING)) return 0;
+        else if (season.equals(Constants.Seasons.SUMMER)) return 1;
+        else if (season.equals(Constants.Seasons.AUTMN)) return 2;
+        else if (season.equals(Constants.Seasons.WINTER)) return 3;
         return 4;
     }
 
 
-
     private void nextSeason() {
         int x = giveMeSeasonNum();
-        season = giveMeSeasonConstant(x+1);
+        season = giveMeSeasonConstant(x + 1);
         repaint();
     }
 
     private Constants.Seasons giveMeSeasonConstant(int i) {
-        i=i%4;
+        i = i % 4;
         System.out.println(i);
-        if(i==0) return Constants.Seasons.SPRING;
-        else if(i==1) return Constants.Seasons.SUMMER;
-        else if(i==2) return Constants.Seasons.AUTMN;
+        if (i == 0) return Constants.Seasons.SPRING;
+        else if (i == 1) return Constants.Seasons.SUMMER;
+        else if (i == 2) return Constants.Seasons.AUTMN;
         else return Constants.Seasons.WINTER;
     }
 
@@ -144,7 +148,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
             this.miniMap.updateFocus(start);
         } else if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
             changingMap(row, column, "lowland");
-        }else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA){
+        } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
             changingMap(row, column, "sea");
         } else if (this.selectedElelements == Constants.Elements.TREE) {
             this.treeSetterToCell(row, column);
@@ -156,7 +160,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
             this.stoneSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
             this.agricultureSetterToCell(row, column);
-        }else if (this.selectedElelements == Constants.Elements.PREVIEW){
+        } else if (this.selectedElelements == Constants.Elements.PREVIEW) {
             nextSeason();
         }
     }
@@ -186,20 +190,20 @@ public class GamePanel extends JPanel implements MouseInputListener {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
         if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND)
-            changingMap(row, column,"lowland");
-        else if ( this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA)
-            changingMap(row, column,"sea");
-        else if( this.selectedElelements == Constants.Elements.TREE)
+            changingMap(row, column, "lowland");
+        else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA)
+            changingMap(row, column, "sea");
+        else if (this.selectedElelements == Constants.Elements.TREE)
             this.treeSetterToCell(row, column);
-         else if( this.selectedElelements == Constants.Elements.AGRICULTURE)
+        else if (this.selectedElelements == Constants.Elements.AGRICULTURE)
             this.agricultureSetterToCell(row, column);
-         else if( this.selectedElelements == Constants.Elements.FISH)
+        else if (this.selectedElelements == Constants.Elements.FISH)
             this.fishSetterToCell(row, column);
-         else if( this.selectedElelements == Constants.Elements.GOLD_MINE)
+        else if (this.selectedElelements == Constants.Elements.GOLD_MINE)
             this.goldSetterToCell(row, column);
-        else if( this.selectedElelements == Constants.Elements.STONE_MINE)
-            this.stoneSetterToCell(row , column);
-            }
+        else if (this.selectedElelements == Constants.Elements.STONE_MINE)
+            this.stoneSetterToCell(row, column);
+    }
 
     @Override
     public void mouseMoved(MouseEvent e) {
@@ -251,9 +255,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.miniMap.updateFocus(start);
     }
 
-    public void changingMap(int row, int column,String type) {
-        if ("sea".equals(type)) map.changeMap(row, column,0);
-        if ("lowland".equals(type)) map.changeMap(row, column,1);
+    public void changingMap(int row, int column, String type) {
+        if ("sea".equals(type)) map.changeMap(row, column, 0);
+        if ("lowland".equals(type)) map.changeMap(row, column, 1);
         repaint();
     }
 
@@ -298,7 +302,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         SmallFish smallFishTemp = new SmallFish();
         temp = map.getCell(row, column);
 
-        if (!temp.isLand() && temp.getInsideMapElemetn() == null ) {
+        if (!temp.isLand() && temp.getInsideMapElemetn() == null) {
 
 
             temp.setInsideMapElemetn(smallFishTemp);
@@ -310,24 +314,23 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         GoldMine goldMineTemp = new GoldMine();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1 ) {
+        if (temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1) {
             temp.setInsideMapElemetn(goldMineTemp);
             repaint();
         }
     }
 
     public void stoneSetterToCell(int row, int col) {
-        Cell currentTempCell ,rightTempCell , downRightTempCell , downTempCell   ;
+        Cell currentTempCell, rightTempCell, downRightTempCell, downTempCell;
         StoneMine stoneMineTemp = new StoneMine();
         currentTempCell = map.getCell(row, col);
 
-if ( currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == null) {
+        if (currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == null) {
 
-                currentTempCell.setInsideMapElemetn(stoneMineTemp);
+            currentTempCell.setInsideMapElemetn(stoneMineTemp);
 
 
-
-                repaint();
+            repaint();
 
         }
     }
@@ -337,13 +340,48 @@ if ( currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == 
         Cell temp;
         Agliculture aglicultureTemp = new Agliculture();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getCode() == 1 && temp.getInsideMapElemetn() == null ) {
+        if (temp.isLand() && temp.getCode() == 1 && temp.getInsideMapElemetn() == null) {
             temp.setInsideMapElemetn(aglicultureTemp);
 
             repaint();
         }
 
     }
+
+    private void drawingOcean(int row, int column, Graphics g) {
+        if (this.dayTime == Constants.DayTime.MORNING) {
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"), column * Constants.CELL_SIZE,
+                    row * Constants.CELL_SIZE,
+                    Constants.CELL_SIZE,
+                    Constants.CELL_SIZE,
+                    null);
+        } else {
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
+                    row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+        }
+
+    }
+    private void drawingSnowFlake(int xStart , int yStart , Graphics g) {
+        if (xStart + 30 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE && yStart + 30 < Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
+            TimerTask t = new TimerTask() {
+                @Override
+                public void run() {
+                    g.drawImage(ImageUtils.getImage("snowFlake.png"), xStart, yStart, 30, 30, null);
+                }
+            };
+
+
+
+
+        }
+        else {
+            this.xStart =0;
+            this.yStart=0;
+        }
+
+
+    }
+
     public Constants.Seasons getSeason() {
         return season;
     }
@@ -352,11 +390,17 @@ if ( currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == 
         this.season = season;
     }
 
+    public Constants.DayTime getDayTime() {
+        return dayTime;
+    }
 
+    public void setDayTime(Constants.DayTime dayTime) {
+        this.dayTime = dayTime;
+    }
 
     @Override
     protected void processComponentEvent(ComponentEvent e) {
-        if( e.getID() == Messages.REPAINT) this.repaint();
+        if (e.getID() == Messages.REPAINT) this.repaint();
         super.processComponentEvent(e);
     }
 }

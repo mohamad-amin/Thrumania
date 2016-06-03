@@ -54,7 +54,17 @@ public class Constants {
         }
     }
         public static enum DayTime {
-        MORNING , NIGHT
+            MORNING (0) ,
+            NIGHT(1);
+
+            private  int value;
+            private DayTime( int value){
+                this.value = value;
+            }
+            public int getValue(){
+                return  value;
+            }
+
     }
 
     public static void mouseInitializer(JFrame frame) {
