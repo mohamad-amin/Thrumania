@@ -14,13 +14,14 @@ public class Preview extends Timer {
 
     private  GamePanel gamePanel;
     private  TimerTask timerTask;
-    private  Integer time = 10000;
+    private  int time ;
     private Constants.Seasons seasons;
 
 
 
-    public Preview( GamePanel gamePanel) {
+    public Preview( GamePanel gamePanel , int time) {
         this.gamePanel = gamePanel;
+        this.time = time;
         this.dayTimer();
         this.seasonalTimer();
     }

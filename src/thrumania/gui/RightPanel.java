@@ -291,7 +291,7 @@ public class RightPanel extends JPanel {
 
             }, 110);
             if( ! isOnPreview) {
-              preview =  new Preview(gamePanel);
+              preview =  new Preview(gamePanel , 10000);
                 isOnPreview = ! isOnPreview;
             }
             else if( isOnPreview ){
