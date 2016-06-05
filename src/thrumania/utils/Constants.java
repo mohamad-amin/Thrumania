@@ -20,23 +20,23 @@ public class Constants {
 
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;
-    public static int [][] zoomNumbers={
+    public static int [][] zoomNumbers= {
             {21,26,62,35},
             {26,32,50,28},
             {32,40,40,22},
             {40,50,32,18},
             {50,62,26,15}
-       };
+    };
 
 
     public static enum Elements {
-            ZOOM_IN, ZOOM_OUT, SAVE, LOAD, RIGHT_ARROW, LEFT_ARROW, DOWN_ARROW, UP_ARROW, PREVIEW, EXIT, UNDO, REDO,
-                STONE_MINE, GOLD_MINE, HIGH_ALTITTUDE_LAND, LOW_ALTITTUDE_LAND, TREE, FISH, DEEP_SEA, SHALLOW_SEA, AGRICULTURE, Eraser ,  EMPTY
-        }
+        ZOOM_IN, ZOOM_OUT, SAVE, LOAD, RIGHT_ARROW, LEFT_ARROW, DOWN_ARROW, UP_ARROW, PREVIEW, EXIT, UNDO, REDO,
+        STONE_MINE, GOLD_MINE, HIGH_ALTITTUDE_LAND, LOW_ALTITTUDE_LAND, TREE, FISH, DEEP_SEA, SHALLOW_SEA, AGRICULTURE, Eraser ,  EMPTY
+    }
 
-        public static enum ZoomScales {
-            NEEGATIVE_TWO_SCALE, NEGATIVE_ONE_SCALE, ZERO_SCALE, POSITIVE_ONE_SCALE, POSITIVE_TWO_SCALE, ZoomScales;
-        }
+    public static enum ZoomScales {
+        NEEGATIVE_TWO_SCALE, NEGATIVE_ONE_SCALE, ZERO_SCALE, POSITIVE_ONE_SCALE, POSITIVE_TWO_SCALE, ZoomScales;
+    }
 
     public static enum Seasons {
         SPRING(0),
@@ -53,18 +53,8 @@ public class Constants {
             return value;
         }
     }
-        public static enum DayTime {
-            MORNING (0) ,
-            NIGHT(1);
-
-            private  int value;
-            private DayTime( int value){
-                this.value = value;
-            }
-            public int getValue(){
-                return  value;
-            }
-
+    public static enum DayTime {
+        MORNING , NIGHT
     }
 
     public static void mouseInitializer(JFrame frame) {
@@ -121,7 +111,7 @@ public class Constants {
     }
     public static ZoomScales decScale(ZoomScales zoomScale) {
         int num = findZoomScaleNumber(zoomScale);
-        
+
 //        System.out.println("num is "+ num);
         if(num>-2){
             if(isMac) Constants.CELL_SIZE =  zoomNumbers[num+1][0];
@@ -133,5 +123,9 @@ public class Constants {
         }
         return findZoomScaleElement(num);
     }
+
+    public static byte
+            SEA_ID=0, LOW_LAND_ID=1, HIGH_LAND_ID=2, DEEP_SEA_ID=3,
+            FISH_ID=4, TREE_ID=5, STONE_ID=6, GOLD_ID=7, AGRICULTURE_ID=8;
 
 }

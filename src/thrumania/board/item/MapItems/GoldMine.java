@@ -7,8 +7,6 @@ public class GoldMine extends  MapElement{
 
     public GoldMine() {
 
-
-
         super.springPictureName = "gold.png";
         super.summerPictureName = "gold.png";
         super.autmnPictureName = "gold.png";

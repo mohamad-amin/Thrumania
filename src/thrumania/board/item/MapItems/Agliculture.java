@@ -14,4 +14,5 @@ public class Agliculture extends MapElement {
         super.winterPictureName = "agriculture.png";
 
     }
+
 }

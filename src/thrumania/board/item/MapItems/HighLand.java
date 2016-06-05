@@ -1,11 +1,13 @@
 package thrumania.board.item.MapItems;
 
 import thrumania.board.item.MapItems.Cell;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 
 /**
  * Created by mohamadamin on 5/18/16.
  */
+
 public class HighLand extends Cell {
 
     public HighLand(Coordinate position) {
@@ -32,5 +34,13 @@ public class HighLand extends Cell {
         super.setPictureName(pictureName);
     }
 
+    @Override
+    public byte getId() {
+        if (getInsideMapElemetn() instanceof StoneMine) {
+            return Constants.STONE_ID;
+        } else if (getInsideMapElemetn() instanceof GoldMine) {
+            return Constants.GOLD_ID;
+        } else return Constants.HIGH_LAND_ID;
+    }
 
 }

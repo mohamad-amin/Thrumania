@@ -3,10 +3,7 @@ package thrumania.gui;
 import thrumania.board.item.MapItems.*;
 import thrumania.board.item.MapItems.Map;
 import thrumania.messages.Messages;
-import thrumania.utils.Constants;
-import thrumania.utils.Coordinate;
-import thrumania.utils.ImageUtils;
-import thrumania.utils.IntegerUtils;
+import thrumania.utils.*;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -36,6 +33,13 @@ public class GamePanel extends JPanel implements MouseInputListener {
     //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
         this.selectedElelements = selectedElelements;
+        switch (selectedElelements) {
+            case SAVE:
+                saveMapToFile();
+                break;
+            default:
+                break;
+        }
     }
 
     public void setStart(Coordinate start) {
@@ -106,6 +110,23 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 }
             }
         }
+    }
+
+    private void saveMapToFile() {
+        Cell[][] cells = map.getCells();
+        byte[][] ids = new byte[cells.length][cells[0].length];
+        for (int i=0; i<ids.length; i++) {
+            for (int j=0; j<ids[0].length; j++) {
+                ids[i][j] = cells[i][j].getId();
+            }
+        }
+        HashMap<Integer, Object> map = new HashMap<>();
+        map.put(0, start.getRow());
+        map.put(1, start.getColumn());
+        map.put(2, ids);
+        if (FileUtils.saveHashMapToFile(map, "data.thr")) {
+            System.out.println("Save successful :)");
+        } else System.err.println("Couldn't save :(");
     }
 
     private int giveMeSeasonNum() {

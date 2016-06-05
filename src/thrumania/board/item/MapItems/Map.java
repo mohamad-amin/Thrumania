@@ -22,7 +22,7 @@ public class Map {
     private MiniMapPanel miniMap;
     private Cell[][] cells;
     private int width, height;
-    Cacher<Integer, int[][]> states;
+    private Cacher<Integer, int[][]> states;
 
     public Map(int width, int height) {
         this.width = width;

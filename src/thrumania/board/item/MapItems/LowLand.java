@@ -1,6 +1,7 @@
 package thrumania.board.item.MapItems;
 
 import thrumania.board.item.MapItems.Cell;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 
 /**
@@ -34,4 +35,12 @@ public class LowLand extends Cell {
         super.setPictureName(pictureName);
     }
 
+    @Override
+    public byte getId() {
+        if (getInsideMapElemetn() instanceof Tree) {
+            return Constants.TREE_ID;
+        } else if (getInsideMapElemetn() instanceof Agliculture) {
+            return Constants.AGRICULTURE_ID;
+        } else return Constants.LOW_LAND_ID;
+    }
 }

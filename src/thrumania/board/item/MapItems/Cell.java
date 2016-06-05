@@ -27,7 +27,6 @@ public abstract class Cell {
     protected boolean isCompeleteLand = false;
 
 
-
     public Cell(Coordinate position) {
 
         this.position = position;
@@ -85,7 +84,8 @@ public abstract class Cell {
         isLand = land;
     }
 
-
-
+    public byte getId() {
+        return Constants.SEA_ID;
+    }
 
 }
