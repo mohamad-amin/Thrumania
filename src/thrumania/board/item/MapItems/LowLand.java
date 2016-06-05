@@ -53,9 +53,14 @@ public class LowLand extends Cell {
     @Override
     public byte getId() {
         if (getInsideMapElemetn() instanceof Tree) {
+        //Todo: @Amirhosein: // FIXME: 6/5/16 with highland
             return Constants.TREE_ID;
         } else if (getInsideMapElemetn() instanceof Agliculture) {
             return Constants.AGRICULTURE_ID;
+        } else if (getInsideMapElemetn() instanceof StoneMine) {
+            return Constants.STONE_ID;
+        } else if (getInsideMapElemetn() instanceof GoldMine) {
+            return Constants.GOLD_ID;
         } else return Constants.LOW_LAND_ID;
     }
 }

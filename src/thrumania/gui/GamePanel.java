@@ -127,6 +127,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         HashMap<Integer, Object> map = new HashMap<>();
         map.put(0, start.getRow());
         map.put(1, start.getColumn());
+        this.miniMap.updateFocus(start);
         map.put(2, ids);
         String fileName = "";
         fileName = JOptionPane.showInputDialog(this, "Please enter your map's name:", "Save Map",
@@ -164,7 +165,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
                     if (ids[i][j] < 3) {
                         changingMap(i, j, "lowland");
                     } else if (ids[i][j] < 6) {
-                        changingMap(i, j, "highland");
+//                        Todo: @Amirhosein: // FIXME: 6/5/16 with highland
+//                        changingMap(i, j, "highland");
+                        changingMap(i, j, "lowland");
                     } else if (ids[i][j] < 8) {
                         changingMap(i, j, "sea");
                     } else {
