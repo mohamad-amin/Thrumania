@@ -124,8 +124,8 @@ public class Constants {
         return findZoomScaleElement(num);
     }
 
-    public static byte
-            SEA_ID=0, LOW_LAND_ID=1, HIGH_LAND_ID=2, DEEP_SEA_ID=3,
-            FISH_ID=4, TREE_ID=5, STONE_ID=6, GOLD_ID=7, AGRICULTURE_ID=8;
+    public static final byte
+            SEA_ID=6, LOW_LAND_ID=0, HIGH_LAND_ID=3, DEEP_SEA_ID=8,
+            FISH_ID=7, TREE_ID=1, STONE_ID=4, GOLD_ID=5, AGRICULTURE_ID=2;
 
 }

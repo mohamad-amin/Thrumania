@@ -10,6 +10,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.util.*;
 import java.util.Timer;
 
@@ -36,6 +37,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         switch (selectedElelements) {
             case SAVE:
                 saveMapToFile();
+                break;
+            case LOAD:
+                loadMapFromFile();
                 break;
             default:
                 break;
@@ -124,9 +128,73 @@ public class GamePanel extends JPanel implements MouseInputListener {
         map.put(0, start.getRow());
         map.put(1, start.getColumn());
         map.put(2, ids);
-        if (FileUtils.saveHashMapToFile(map, "data.thr")) {
-            System.out.println("Save successful :)");
-        } else System.err.println("Couldn't save :(");
+        String fileName = "";
+        fileName = JOptionPane.showInputDialog(this, "Please enter your map's name:", "Save Map",
+                JOptionPane.INFORMATION_MESSAGE);
+        if (fileName == null || fileName.trim().length()==0) {
+            JOptionPane.showMessageDialog(this, "Not a valid file name:(", "Save Map", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            if (FileUtils.saveHashMapToFile(map, fileName + ".tmap")) {
+                JOptionPane.showMessageDialog(this, "Map saved successfully :)", "Save Map", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Couldn't save map :(", "Save Map", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+    }
+
+    private void loadMapFromFile() {
+        String mapFilePath = "";
+        JOptionPane.showMessageDialog(this, "Choose map file", "Load Map", JOptionPane.INFORMATION_MESSAGE);
+        mapFilePath = FileUtils.chooseFile(this, "data/map");
+        if  (!FileUtils.isMapFile(mapFilePath)) {
+            JOptionPane.showMessageDialog(this,
+                    "The selected file isn't a valid file :(", "Load Map", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+        HashMap<Integer, Object> loadedMap = FileUtils.getHashMapFromFile(mapFilePath);
+        if (loadedMap == null) {
+            JOptionPane.showMessageDialog(this,
+                    "Corrupted map, couldn't load :(", "Load Map", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            start.setRow((Integer) loadedMap.get(0));
+            start.setColumn((Integer) loadedMap.get(1));
+            byte[][] ids = (byte[][]) loadedMap.get(2);
+            for (int i=0; i<ids.length; i++) {
+                for (int j=0; j<ids[0].length; j++) {
+                    if (ids[i][j] < 3) {
+                        changingMap(i, j, "lowland");
+                    } else if (ids[i][j] < 6) {
+                        changingMap(i, j, "highland");
+                    } else if (ids[i][j] < 8) {
+                        changingMap(i, j, "sea");
+                    } else {
+                        // Todo: handle deep sea maybe?
+                    }
+                    switch (ids[i][j]) {
+                        case Constants.AGRICULTURE_ID:
+                            agricultureSetterToCell(i, j);
+                            break;
+                        case Constants.TREE_ID:
+                            treeSetterToCell(i, j);
+                            break;
+                        case Constants.STONE_ID:
+                            stoneSetterToCell(i, j);
+                            break;
+                        case Constants.GOLD_ID:
+                            goldSetterToCell(i, j);
+                            break;
+                        case Constants.FISH_ID:
+                            fishSetterToCell(i, j);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            repaint();
+        }
+        JOptionPane.showMessageDialog(this,
+                "Map loaded successfully :D", "Load Map", JOptionPane.INFORMATION_MESSAGE);
     }
 
     private int giveMeSeasonNum() {
@@ -390,10 +458,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                     g.drawImage(ImageUtils.getImage("snowFlake.png"), xStart, yStart, 30, 30, null);
                 }
             };
-
-
-
-
         }
         else {
             this.xStart =0;

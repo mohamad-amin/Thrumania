@@ -14,6 +14,18 @@ public class Sea extends Cell {
         code= 0;
     }
 
+    public Sea(Coordinate position, byte id) {
+        super(position);
+        code = 1;
+        switch (id) {
+            case Constants.FISH_ID:
+                setInsideMapElemetn(new SmallFish());
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public Coordinate getPosition() {
         return super.getPosition();

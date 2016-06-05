@@ -14,6 +14,20 @@ public class HighLand extends Cell {
         super(position);
     }
 
+    public HighLand(Coordinate position, byte id) {
+        super(position);
+        switch (id) {
+            case Constants.STONE_ID:
+                setInsideMapElemetn(new StoneMine());
+                break;
+            case Constants.GOLD_ID:
+                setInsideMapElemetn(new GoldMine());
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public Coordinate getPosition() {
         return super.getPosition();

@@ -12,7 +12,22 @@ public class LowLand extends Cell {
 
     public LowLand(Coordinate position) {
         super(position);
-        code=1;
+        code = 1;
+    }
+
+    public LowLand(Coordinate position, byte id) {
+        super(position);
+        code = 1;
+        switch (id) {
+            case Constants.TREE_ID:
+                setInsideMapElemetn(new Tree());
+                break;
+            case Constants.AGRICULTURE_ID:
+                setInsideMapElemetn(new Agliculture());
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
