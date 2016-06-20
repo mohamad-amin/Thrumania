@@ -60,6 +60,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.addMouseListener(this);
         this.miniMap.setGamePanel(this);
         this.addMouseMotionListener(this);
+        miniMap.updateMap();
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
     }
@@ -70,7 +71,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void paint(Graphics g) {
-
         super.paint(g);
         int seasonnum = giveMeSeasonNum();
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
@@ -219,6 +219,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 }
             }
             map.setCells(cells);
+            miniMap.updateMap();
             repaint();
         }
         JOptionPane.showMessageDialog(this,
@@ -441,7 +442,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell currentTempCell, rightTempCell, downRightTempCell, downTempCell;
         StoneMine stoneMineTemp = new StoneMine();
         currentTempCell = map.getCell(row, col);
-
         if (currentTempCell instanceof LowLand && currentTempCell.getInsideMapElemetn() == null) {
             currentTempCell.setInsideMapElemetn(stoneMineTemp);
             repaint();
@@ -455,7 +455,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         temp = map.getCell(row, col);
         if (temp.isLand() && temp instanceof LowLand && temp.getInsideMapElemetn() == null) {
             temp.setInsideMapElemetn(aglicultureTemp);
-
             repaint();
         }
 
