@@ -12,12 +12,10 @@ public class LowLand extends Cell {
 
     public LowLand(Coordinate position) {
         super(position);
-        code = 1;
     }
 
     public LowLand(Coordinate position, byte id) {
         super(position);
-        code = 1;
         switch (id) {
             case Constants.TREE_ID:
                 setInsideMapElemetn(new Tree());
@@ -63,4 +61,5 @@ public class LowLand extends Cell {
             return Constants.GOLD_ID;
         } else return Constants.LOW_LAND_ID;
     }
+
 }

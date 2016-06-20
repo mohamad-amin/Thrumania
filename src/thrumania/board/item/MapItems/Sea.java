@@ -11,12 +11,10 @@ public class Sea extends Cell {
 
     public Sea(Coordinate position) {
         super(position);
-        code= 0;
     }
 
     public Sea(Coordinate position, byte id) {
         super(position);
-        code = 1;
         switch (id) {
             case Constants.FISH_ID:
                 setInsideMapElemetn(new SmallFish());
@@ -48,7 +46,6 @@ public class Sea extends Cell {
 
     @Override
     public byte getId() {
-
         if (getInsideMapElemetn() instanceof SmallFish) {
             return Constants.FISH_ID;
         } else return Constants.SEA_ID;

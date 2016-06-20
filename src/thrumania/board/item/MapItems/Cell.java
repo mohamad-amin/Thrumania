@@ -15,20 +15,14 @@ public abstract class Cell {
 
     private String pictureName;
     private Coordinate position;
-    private MapElement insideMapElemetn;
+    private MapElement insideMapElement;
 
-
-    int code;
-
+    private boolean isLand;
     private boolean canDrawStoneOrGold = false ;
-
-    private boolean isLand ;
 
     protected boolean isCompeleteLand = false;
 
-
     public Cell(Coordinate position) {
-
         this.position = position;
     }
 
@@ -36,13 +30,9 @@ public abstract class Cell {
         return isCompeleteLand;
     }
 
-
-
     public void setCompeleteLand(boolean compeleteLand) {
         isCompeleteLand = compeleteLand;
     }
-
-
 
     public Coordinate getPosition() {
         return position;
@@ -64,16 +54,12 @@ public abstract class Cell {
         this.pictureName = pictureName;
     }
 
-    public int getCode() {
-        return code;
-    }
-
     public MapElement getInsideMapElemetn() {
-        return insideMapElemetn;
+        return insideMapElement;
     }
 
     public void setInsideMapElemetn(MapElement insideMapElemetn) {
-        this.insideMapElemetn = insideMapElemetn;
+        this.insideMapElement = insideMapElemetn;
     }
 
     public boolean isLand() {

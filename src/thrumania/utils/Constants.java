@@ -127,5 +127,4 @@ public class Constants {
     public static final byte
             SEA_ID=6, LOW_LAND_ID=0, HIGH_LAND_ID=3, DEEP_SEA_ID=8,
             FISH_ID=7, TREE_ID=1, STONE_ID=4, GOLD_ID=5, AGRICULTURE_ID=2;
-
 }

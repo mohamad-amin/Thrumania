@@ -69,9 +69,9 @@ public class Map {
     private void updateOutAdjacent(int i, int j,int type) {
         for (int x = -2; x < 3; x = x + 4) {
             if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x))
-                if (cells[i + x][j].getCode() == 1) numberAndLoad(i + x, j);
+                if (cells[i + x][j] instanceof LowLand) numberAndLoad(i + x, j);
             if (IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + x))
-                if (cells[i][j + x].getCode() == 1) numberAndLoad(i, j + x);
+                if (cells[i][j + x] instanceof LowLand) numberAndLoad(i, j + x);
         }
     }
 
@@ -82,12 +82,12 @@ public class Map {
         MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
 
         cells[i][j] = new LowLand(new Coordinate(i, j));
-        cells[i][j].setPictureName(new Integer(n).toString() + ".png");
+        cells[i][j].setPictureName(n+".png");
         if ( element != null) {
             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
                 cells[i][j].setInsideMapElemetn(element);
             }
-        }else  cells[i][j].setInsideMapElemetn(element);
+        }
         cells[i][j].setLand(true);
 
         if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
@@ -103,7 +103,7 @@ public class Map {
         int adjacent[][] = new int[3][3];
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
-                if (inRange(i + x, j + y) && cells[i + x][j + y].getCode() == 1 && !(x == 0 && y == 0)) {
+                if (inRange(i + x, j + y) && cells[i + x][j + y] instanceof LowLand && !(x == 0 && y == 0)) {
                     if(type==1) {
                         if (x * y == 0) adjacent[x + 1][y + 1] = 1;
                         else {
@@ -159,7 +159,7 @@ public class Map {
     }
 
     public int inRangeAndCode(int i, int j) {
-        if (inRange(i, j)) return cells[i][j].getCode();
+        if (inRange(i, j)) return (cells[i][j] instanceof LowLand) ? 1 : 0;
         else return 0;
     }
 

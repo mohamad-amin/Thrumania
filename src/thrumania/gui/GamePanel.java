@@ -82,7 +82,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
 //                    this.xStart +=10;
 //                    this.yStart+=20;
 //                }
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getCode() == 1) {
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand) {
                     System.out.println(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png");
                     g.drawImage(
                             ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
@@ -119,16 +119,19 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private void saveMapToFile() {
         Cell[][] cells = map.getCells();
         byte[][] ids = new byte[cells.length][cells[0].length];
+        String[][] pictureNames = new String[cells.length][cells[0].length];
         for (int i=0; i<ids.length; i++) {
             for (int j=0; j<ids[0].length; j++) {
                 ids[i][j] = cells[i][j].getId();
+                pictureNames[i][j] = cells[i][j].getPictureName();
             }
         }
         HashMap<Integer, Object> map = new HashMap<>();
         map.put(0, start.getRow());
         map.put(1, start.getColumn());
-        this.miniMap.updateFocus(start);
         map.put(2, ids);
+        map.put(3, pictureNames);
+        this.miniMap.updateFocus(start);
         String fileName = "";
         fileName = JOptionPane.showInputDialog(this, "Please enter your map's name:", "Save Map",
                 JOptionPane.INFORMATION_MESSAGE);
@@ -157,43 +160,65 @@ public class GamePanel extends JPanel implements MouseInputListener {
             JOptionPane.showMessageDialog(this,
                     "Corrupted map, couldn't load :(", "Load Map", JOptionPane.INFORMATION_MESSAGE);
         } else {
+
             start.setRow((Integer) loadedMap.get(0));
             start.setColumn((Integer) loadedMap.get(1));
             byte[][] ids = (byte[][]) loadedMap.get(2);
+
+            String[][] pictureNames = (String[][]) loadedMap.get(3);
+            Cell cell = null;
+            Coordinate position;
+            Cell[][] cells = new Cell[ids.length][ids[0].length];
             for (int i=0; i<ids.length; i++) {
                 for (int j=0; j<ids[0].length; j++) {
-                    if (ids[i][j] < 3) {
-                        changingMap(i, j, "lowland");
-                    } else if (ids[i][j] < 6) {
-//                        Todo: @Amirhosein: // FIXME: 6/5/16 with highland
-//                        changingMap(i, j, "highland");
-                        changingMap(i, j, "lowland");
-                    } else if (ids[i][j] < 8) {
-                        changingMap(i, j, "sea");
-                    } else {
-                        // Todo: handle deep sea maybe?
-                    }
+                    position = new Coordinate(i, j);
                     switch (ids[i][j]) {
+                        case Constants.LOW_LAND_ID:
+                            cell = new LowLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.HIGH_LAND_ID:
+                            cell = new HighLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.SEA_ID:
+                            cell = new Sea(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.DEEP_SEA_ID:
+                            // Todo: deep sea
+                            break;
                         case Constants.AGRICULTURE_ID:
-                            agricultureSetterToCell(i, j);
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new Agliculture());
+                            cell.setPictureName(pictureNames[i][j]);
                             break;
                         case Constants.TREE_ID:
-                            treeSetterToCell(i, j);
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new Tree());
+                            cell.setPictureName(pictureNames[i][j]);
                             break;
                         case Constants.STONE_ID:
-                            stoneSetterToCell(i, j);
+                            // Todo: fix it when highland is added
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new StoneMine());
+                            cell.setPictureName(pictureNames[i][j]);
                             break;
                         case Constants.GOLD_ID:
-                            goldSetterToCell(i, j);
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new GoldMine());
+                            cell.setPictureName(pictureNames[i][j]);
                             break;
                         case Constants.FISH_ID:
-                            fishSetterToCell(i, j);
-                            break;
-                        default:
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new SmallFish());
+                            cell.setPictureName(pictureNames[i][j]);
                             break;
                     }
+                    cells[i][j] = cell;
                 }
             }
+            map.setCells(cells);
             repaint();
         }
         JOptionPane.showMessageDialog(this,
@@ -380,7 +405,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         Tree tempTree = new Tree();
         temp = map.getCell(row, column);
-        if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1) {
+        if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null && temp instanceof LowLand) {
 
             temp.setInsideMapElemetn(tempTree);
             repaint();
@@ -406,7 +431,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         GoldMine goldMineTemp = new GoldMine();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getInsideMapElemetn() == null && temp.getCode() == 1) {
+        if (temp.isLand() && temp.getInsideMapElemetn() == null && temp instanceof LowLand) {
             temp.setInsideMapElemetn(goldMineTemp);
             repaint();
         }
@@ -417,13 +442,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         StoneMine stoneMineTemp = new StoneMine();
         currentTempCell = map.getCell(row, col);
 
-        if (currentTempCell.getCode() == 1 && currentTempCell.getInsideMapElemetn() == null) {
-
+        if (currentTempCell instanceof LowLand && currentTempCell.getInsideMapElemetn() == null) {
             currentTempCell.setInsideMapElemetn(stoneMineTemp);
-
-
             repaint();
-
         }
     }
 
@@ -432,7 +453,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         Agliculture aglicultureTemp = new Agliculture();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getCode() == 1 && temp.getInsideMapElemetn() == null) {
+        if (temp.isLand() && temp instanceof LowLand && temp.getInsideMapElemetn() == null) {
             temp.setInsideMapElemetn(aglicultureTemp);
 
             repaint();
