@@ -17,6 +17,7 @@ public class Constants {
     public static int MATRIX_HEIGHT = 50;
     public static int CELL_SIZE = 40;
     public static int INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
+    public static int STATE_QUEUE_SIZE = 50;
 
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;

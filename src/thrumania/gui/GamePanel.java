@@ -21,6 +21,7 @@ import java.util.Timer;
 public class GamePanel extends JPanel implements MouseInputListener {
 
     private Map map;
+    private FixedQueue<HashMap<Integer, Object>> stateQueue;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
@@ -41,6 +42,12 @@ public class GamePanel extends JPanel implements MouseInputListener {
             case LOAD:
                 loadMapFromFile();
                 break;
+            case UNDO:
+                undo();
+                break;
+            case REDO:
+                redo();
+                break;
             default:
                 break;
         }
@@ -59,8 +66,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.setSize(d);
         this.addMouseListener(this);
         this.miniMap.setGamePanel(this);
-        this.addMouseMotionListener(this);
         miniMap.updateMap();
+        this.addMouseMotionListener(this);
+        stateQueue = new FixedQueue<>(Constants.STATE_QUEUE_SIZE);
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
     }
@@ -75,7 +83,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         int seasonnum = giveMeSeasonNum();
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
-
                this.drawingOcean(r, c, g);
 //                if( this.season == Constants.Seasons.WINTER){
 //                    this.drawingSnowFlake(xStart , yStart ,g);
@@ -83,7 +90,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
 //                    this.yStart+=20;
 //                }
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand) {
-                    System.out.println(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png");
                     g.drawImage(
                             ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
                             c * Constants.CELL_SIZE,
@@ -94,8 +100,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 }
 
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
-                    System.out.println("Nooo");
-                    System.out.println(map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn());
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Tree"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
@@ -113,6 +117,44 @@ public class GamePanel extends JPanel implements MouseInputListener {
                     }
                 }
             }
+        }
+    }
+
+    private void saveState() {
+        stateQueue.add(getStateHashMap());
+    }
+
+    private HashMap<Integer, Object> getStateHashMap() {
+        Cell[][] cells = map.getCells();
+        byte[][] ids = new byte[cells.length][cells[0].length];
+        String[][] pictureNames = new String[cells.length][cells[0].length];
+        for (int i=0; i<ids.length; i++) {
+            for (int j=0; j<ids[0].length; j++) {
+                ids[i][j] = cells[i][j].getId();
+                pictureNames[i][j] = cells[i][j].getPictureName();
+            }
+        }
+        HashMap<Integer, Object> state = new HashMap<>();
+        state.put(2, ids);
+        state.put(3, pictureNames);
+        return state;
+    }
+
+    private void undo() {
+        HashMap<Integer, Object> hashMap = stateQueue.getPrevious(getStateHashMap());
+        if (hashMap == null) {
+            JOptionPane.showMessageDialog(this, "Previous step isn't available :(", "Undo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            loadMapFromHash(hashMap);
+        }
+    }
+
+    private void redo() {
+        HashMap<Integer, Object> hashMap = stateQueue.getNext(getStateHashMap());
+        if (hashMap == null) {
+            JOptionPane.showMessageDialog(this, "No next step is available :(", "Redo", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            loadMapFromHash(hashMap);
         }
     }
 
@@ -160,70 +202,73 @@ public class GamePanel extends JPanel implements MouseInputListener {
             JOptionPane.showMessageDialog(this,
                     "Corrupted map, couldn't load :(", "Load Map", JOptionPane.INFORMATION_MESSAGE);
         } else {
-
             start.setRow((Integer) loadedMap.get(0));
             start.setColumn((Integer) loadedMap.get(1));
-            byte[][] ids = (byte[][]) loadedMap.get(2);
-
-            String[][] pictureNames = (String[][]) loadedMap.get(3);
-            Cell cell = null;
-            Coordinate position;
-            Cell[][] cells = new Cell[ids.length][ids[0].length];
-            for (int i=0; i<ids.length; i++) {
-                for (int j=0; j<ids[0].length; j++) {
-                    position = new Coordinate(i, j);
-                    switch (ids[i][j]) {
-                        case Constants.LOW_LAND_ID:
-                            cell = new LowLand(position);
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.HIGH_LAND_ID:
-                            cell = new HighLand(position);
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.SEA_ID:
-                            cell = new Sea(position);
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.DEEP_SEA_ID:
-                            // Todo: deep sea
-                            break;
-                        case Constants.AGRICULTURE_ID:
-                            cell = new LowLand(position);
-                            cell.setInsideMapElemetn(new Agliculture());
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.TREE_ID:
-                            cell = new LowLand(position);
-                            cell.setInsideMapElemetn(new Tree());
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.STONE_ID:
-                            // Todo: fix it when highland is added
-                            cell = new LowLand(position);
-                            cell.setInsideMapElemetn(new StoneMine());
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.GOLD_ID:
-                            cell = new LowLand(position);
-                            cell.setInsideMapElemetn(new GoldMine());
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                        case Constants.FISH_ID:
-                            cell = new LowLand(position);
-                            cell.setInsideMapElemetn(new SmallFish());
-                            cell.setPictureName(pictureNames[i][j]);
-                            break;
-                    }
-                    cells[i][j] = cell;
-                }
-            }
-            map.setCells(cells);
-            miniMap.updateMap();
-            repaint();
+            loadMapFromHash(loadedMap);
         }
         JOptionPane.showMessageDialog(this,
                 "Map loaded successfully :D", "Load Map", JOptionPane.INFORMATION_MESSAGE);
+    }
+
+    private void loadMapFromHash(HashMap<Integer, Object> hashMap) {
+
+        byte[][] ids = (byte[][]) hashMap.get(2);
+        String[][] pictureNames = (String[][]) hashMap.get(3);
+        Cell cell = null;
+        Coordinate position;
+        Cell[][] cells = new Cell[ids.length][ids[0].length];
+        for (int i=0; i<ids.length; i++) {
+            for (int j=0; j<ids[0].length; j++) {
+                position = new Coordinate(i, j);
+                switch (ids[i][j]) {
+                    case Constants.LOW_LAND_ID:
+                        cell = new LowLand(position);
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.HIGH_LAND_ID:
+                        cell = new HighLand(position);
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.SEA_ID:
+                        cell = new Sea(position);
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.DEEP_SEA_ID:
+                        // Todo: deep sea
+                        break;
+                    case Constants.AGRICULTURE_ID:
+                        cell = new LowLand(position);
+                        cell.setInsideMapElemetn(new Agliculture());
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.TREE_ID:
+                        cell = new LowLand(position);
+                        cell.setInsideMapElemetn(new Tree());
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.STONE_ID:
+                        // Todo: fix it when highland is added
+                        cell = new LowLand(position);
+                        cell.setInsideMapElemetn(new StoneMine());
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.GOLD_ID:
+                        cell = new LowLand(position);
+                        cell.setInsideMapElemetn(new GoldMine());
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                    case Constants.FISH_ID:
+                        cell = new LowLand(position);
+                        cell.setInsideMapElemetn(new SmallFish());
+                        cell.setPictureName(pictureNames[i][j]);
+                        break;
+                }
+                cells[i][j] = cell;
+            }
+        }
+        map.setCells(cells);
+        miniMap.updateMap();
+        repaint();
     }
 
     private int giveMeSeasonNum() {
@@ -243,7 +288,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     private Constants.Seasons giveMeSeasonConstant(int i) {
         i = i % 4;
-        System.out.println(i);
         if (i == 0) return Constants.Seasons.SPRING;
         else if (i == 1) return Constants.Seasons.SUMMER;
         else if (i == 2) return Constants.Seasons.AUTMN;
@@ -265,18 +309,25 @@ public class GamePanel extends JPanel implements MouseInputListener {
             repaint();
             this.miniMap.updateFocus(start);
         } else if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
+            saveState();
             changingMap(row, column, "lowland");
         } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
+            saveState();
             changingMap(row, column, "sea");
         } else if (this.selectedElelements == Constants.Elements.TREE) {
+            saveState();
             this.treeSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.FISH) {
+            saveState();
             this.fishSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
+            saveState();
             this.goldSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
+            saveState();
             this.stoneSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
+            saveState();
             this.agricultureSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.PREVIEW) {
             nextSeason();
@@ -307,20 +358,28 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void mouseDragged(MouseEvent e) {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND)
+        if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
+            saveState();
             changingMap(row, column, "lowland");
-        else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA)
+        } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
+            saveState();
             changingMap(row, column, "sea");
-        else if (this.selectedElelements == Constants.Elements.TREE)
+        } else if (this.selectedElelements == Constants.Elements.TREE) {
+            saveState();
             this.treeSetterToCell(row, column);
-        else if (this.selectedElelements == Constants.Elements.AGRICULTURE)
+        } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
+            saveState();
             this.agricultureSetterToCell(row, column);
-        else if (this.selectedElelements == Constants.Elements.FISH)
+        } else if (this.selectedElelements == Constants.Elements.FISH) {
+            saveState();
             this.fishSetterToCell(row, column);
-        else if (this.selectedElelements == Constants.Elements.GOLD_MINE)
+        } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
+            saveState();
             this.goldSetterToCell(row, column);
-        else if (this.selectedElelements == Constants.Elements.STONE_MINE)
+        } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
+            saveState();
             this.stoneSetterToCell(row, column);
+        }
     }
 
     @Override
