@@ -1,5 +1,7 @@
 package thrumania.gui;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import com.sun.xml.internal.bind.v2.TODO;
 import thrumania.board.item.MapItems.*;
 import thrumania.board.item.MapItems.Map;
 import thrumania.messages.Messages;
@@ -21,7 +23,6 @@ import java.util.Timer;
 public class GamePanel extends JPanel implements MouseInputListener {
 
     private Map map;
-    private FixedQueue<HashMap<Integer, Object>> stateQueue;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
@@ -31,6 +32,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
     private Constants.DayTime dayTime;
     int yStart =0;
     int xStart =0;
+    private boolean isScoralling= false;
+    int scoralSide=4;
+    FloatingCoordinate continuousMovement = new FloatingCoordinate(0,0);
 
     //    private int CellSize_Zero_Scale
     public void setSelectedElelements(Constants.Elements selectedElelements) {
@@ -41,12 +45,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 break;
             case LOAD:
                 loadMapFromFile();
-                break;
-            case UNDO:
-                undo();
-                break;
-            case REDO:
-                redo();
                 break;
             default:
                 break;
@@ -66,9 +64,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
         this.setSize(d);
         this.addMouseListener(this);
         this.miniMap.setGamePanel(this);
-        miniMap.updateMap();
         this.addMouseMotionListener(this);
-        stateQueue = new FixedQueue<>(Constants.STATE_QUEUE_SIZE);
+        miniMap.updateMap();
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
     }
@@ -81,80 +78,41 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void paint(Graphics g) {
         super.paint(g);
         int seasonnum = giveMeSeasonNum();
-        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
-            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
+        int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
+        int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
+        int r=-1; if (start.getRow()==0) r=0;
+        for (; r < re; r++) {
+            int c=-1; if (start.getColumn()==0) c=0;
+            for (; c < ce; c++) {
                this.drawingOcean(r, c, g);
-//                if( this.season == Constants.Seasons.WINTER){
-//                    this.drawingSnowFlake(xStart , yStart ,g);
-//                    this.xStart +=10;
-//                    this.yStart+=20;
-//                }
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand) {
-                    g.drawImage(
-                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-                            c * Constants.CELL_SIZE,
-                            r * Constants.CELL_SIZE,
-                            Constants.CELL_SIZE,
-                            Constants.CELL_SIZE,
-                            null);
-                }
-
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
+                        g.drawImage(
+                                ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
+                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                Constants.CELL_SIZE,
+                                Constants.CELL_SIZE,
+                                null);
+                    }
+                //TODO SINA CONTINUOUS MOVEMENT
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Tree"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE), r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE+ (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("StoneMine"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE), r * Constants.CELL_SIZE+ (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
 //                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
 
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Agliculture"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE), r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE+ (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                     else {
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE), r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE+ (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
                     }
                 }
             }
-        }
-    }
-
-    private void saveState() {
-        stateQueue.add(getStateHashMap());
-    }
-
-    private HashMap<Integer, Object> getStateHashMap() {
-        Cell[][] cells = map.getCells();
-        byte[][] ids = new byte[cells.length][cells[0].length];
-        String[][] pictureNames = new String[cells.length][cells[0].length];
-        for (int i=0; i<ids.length; i++) {
-            for (int j=0; j<ids[0].length; j++) {
-                ids[i][j] = cells[i][j].getId();
-                pictureNames[i][j] = cells[i][j].getPictureName();
-            }
-        }
-        HashMap<Integer, Object> state = new HashMap<>();
-        state.put(2, ids);
-        state.put(3, pictureNames);
-        return state;
-    }
-
-    private void undo() {
-        HashMap<Integer, Object> hashMap = stateQueue.getPrevious(getStateHashMap());
-        if (hashMap == null) {
-            JOptionPane.showMessageDialog(this, "Previous step isn't available :(", "Undo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            loadMapFromHash(hashMap);
-        }
-    }
-
-    private void redo() {
-        HashMap<Integer, Object> hashMap = stateQueue.getNext(getStateHashMap());
-        if (hashMap == null) {
-            JOptionPane.showMessageDialog(this, "No next step is available :(", "Redo", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            loadMapFromHash(hashMap);
         }
     }
 
@@ -202,73 +160,70 @@ public class GamePanel extends JPanel implements MouseInputListener {
             JOptionPane.showMessageDialog(this,
                     "Corrupted map, couldn't load :(", "Load Map", JOptionPane.INFORMATION_MESSAGE);
         } else {
+
             start.setRow((Integer) loadedMap.get(0));
             start.setColumn((Integer) loadedMap.get(1));
-            loadMapFromHash(loadedMap);
+            byte[][] ids = (byte[][]) loadedMap.get(2);
+
+            String[][] pictureNames = (String[][]) loadedMap.get(3);
+            Cell cell = null;
+            Coordinate position;
+            Cell[][] cells = new Cell[ids.length][ids[0].length];
+            for (int i=0; i<ids.length; i++) {
+                for (int j=0; j<ids[0].length; j++) {
+                    position = new Coordinate(i, j);
+                    switch (ids[i][j]) {
+                        case Constants.LOW_LAND_ID:
+                            cell = new LowLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.HIGH_LAND_ID:
+                            cell = new HighLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.SEA_ID:
+                            cell = new Sea(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.DEEP_SEA_ID:
+                            // Todo: deep sea
+                            break;
+                        case Constants.AGRICULTURE_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new Agliculture());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.TREE_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new Tree());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.STONE_ID:
+                            // Todo: fix it when highland is added
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new StoneMine());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.GOLD_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new GoldMine());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.FISH_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideMapElemetn(new SmallFish());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                    }
+                    cells[i][j] = cell;
+                }
+            }
+            map.setCells(cells);
+            miniMap.updateMap();
+            repaint();
         }
         JOptionPane.showMessageDialog(this,
                 "Map loaded successfully :D", "Load Map", JOptionPane.INFORMATION_MESSAGE);
-    }
-
-    private void loadMapFromHash(HashMap<Integer, Object> hashMap) {
-
-        byte[][] ids = (byte[][]) hashMap.get(2);
-        String[][] pictureNames = (String[][]) hashMap.get(3);
-        Cell cell = null;
-        Coordinate position;
-        Cell[][] cells = new Cell[ids.length][ids[0].length];
-        for (int i=0; i<ids.length; i++) {
-            for (int j=0; j<ids[0].length; j++) {
-                position = new Coordinate(i, j);
-                switch (ids[i][j]) {
-                    case Constants.LOW_LAND_ID:
-                        cell = new LowLand(position);
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.HIGH_LAND_ID:
-                        cell = new HighLand(position);
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.SEA_ID:
-                        cell = new Sea(position);
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.DEEP_SEA_ID:
-                        // Todo: deep sea
-                        break;
-                    case Constants.AGRICULTURE_ID:
-                        cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new Agliculture());
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.TREE_ID:
-                        cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new Tree());
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.STONE_ID:
-                        // Todo: fix it when highland is added
-                        cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new StoneMine());
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.GOLD_ID:
-                        cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new GoldMine());
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                    case Constants.FISH_ID:
-                        cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new SmallFish());
-                        cell.setPictureName(pictureNames[i][j]);
-                        break;
-                }
-                cells[i][j] = cell;
-            }
-        }
-        map.setCells(cells);
-        miniMap.updateMap();
-        repaint();
     }
 
     private int giveMeSeasonNum() {
@@ -288,6 +243,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     private Constants.Seasons giveMeSeasonConstant(int i) {
         i = i % 4;
+        System.out.println(i);
         if (i == 0) return Constants.Seasons.SPRING;
         else if (i == 1) return Constants.Seasons.SUMMER;
         else if (i == 2) return Constants.Seasons.AUTMN;
@@ -309,25 +265,20 @@ public class GamePanel extends JPanel implements MouseInputListener {
             repaint();
             this.miniMap.updateFocus(start);
         } else if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
-            saveState();
             changingMap(row, column, "lowland");
         } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
-            saveState();
             changingMap(row, column, "sea");
+        }else if (this.selectedElelements == Constants.Elements.HIGH_ALTITTUDE_LAND){
+            changingMap(row, column, "highland");
         } else if (this.selectedElelements == Constants.Elements.TREE) {
-            saveState();
             this.treeSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.FISH) {
-            saveState();
             this.fishSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
-            saveState();
             this.goldSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
-            saveState();
             this.stoneSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
-            saveState();
             this.agricultureSetterToCell(row, column);
         } else if (this.selectedElelements == Constants.Elements.PREVIEW) {
             nextSeason();
@@ -351,102 +302,93 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        isScoralling = false ;
+        scoralSide = 4;
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
-            saveState();
-            changingMap(row, column, "lowland");
-        } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
-            saveState();
-            changingMap(row, column, "sea");
-        } else if (this.selectedElelements == Constants.Elements.TREE) {
-            saveState();
-            this.treeSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
-            saveState();
-            this.agricultureSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.FISH) {
-            saveState();
-            this.fishSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
-            saveState();
-            this.goldSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
-            saveState();
-            this.stoneSetterToCell(row, column);
+        if(row<Constants.Drawer_HIGHT+start.getRow() && column<Constants.DRAWER_WIDTH+start.getColumn()) {
+            if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND)
+                changingMap(row, column, "lowland");
+            else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA)
+                changingMap(row, column, "sea");
+            else if (this.selectedElelements == Constants.Elements.HIGH_ALTITTUDE_LAND)
+                changingMap(row, column, "highland");
+            else if (this.selectedElelements == Constants.Elements.TREE)
+                this.treeSetterToCell(row, column);
+            else if (this.selectedElelements == Constants.Elements.AGRICULTURE)
+                this.agricultureSetterToCell(row, column);
+            else if (this.selectedElelements == Constants.Elements.FISH)
+                this.fishSetterToCell(row, column);
+            else if (this.selectedElelements == Constants.Elements.GOLD_MINE)
+                this.goldSetterToCell(row, column);
+            else if (this.selectedElelements == Constants.Elements.STONE_MINE)
+                this.stoneSetterToCell(row, column);
         }
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        int scoralSidetemp ;
         if ((start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) &&
-                IntegerUtils.isInRange((Constants.DRAWER_WIDTH - 1) * Constants.CELL_SIZE,
+                IntegerUtils.isInRange((Constants.DRAWER_WIDTH  * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
                         (Constants.DRAWER_WIDTH) * Constants.CELL_SIZE,
                         e.getX()))
-            start.addColumn(1);
-        if ((start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) &&
-                IntegerUtils.isInRange((Constants.Drawer_HIGHT - 1) * Constants.CELL_SIZE,
+            scoralSidetemp = 2;
+        else if ((start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) &&
+                IntegerUtils.isInRange((Constants.Drawer_HIGHT * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
                         (Constants.Drawer_HIGHT) * Constants.CELL_SIZE,
                         e.getY()))
-            start.addRow(1);
-        if ((start.getColumn() > 0) &&
-                IntegerUtils.isInRange(0, Constants.CELL_SIZE, e.getX()))
-            start.addColumn(-1);
-        if ((start.getRow() > 0) &&
-                IntegerUtils.isInRange(0, Constants.CELL_SIZE, e.getY()))
-            start.addRow(-1);
-        this.miniMap.updateFocus(start);
-        repaint();
-    }
-
-    public void scrollUp() {
-        if (start.getRow() > 0) {
-            start.addRow(-1);
+            scoralSidetemp = 1;
+        else if ((start.getColumn() > 0) &&
+                IntegerUtils.isInRange(0, Constants.RANGEOFSCROLL, e.getX()))
+            scoralSidetemp = 0;
+        else if ((start.getRow() > 0) &&
+                IntegerUtils.isInRange(0, Constants.RANGEOFSCROLL, e.getY()))
+            scoralSidetemp = 3;
+        else scoralSidetemp =4;
+        if (scoralSide ==4){
+            if(scoralSidetemp!=4) {
+                scoralSide = scoralSidetemp;
+                isScoralling = true;
+                scoral();
+            }
+        }else {
+            if(scoralSidetemp==4) {
+                scoralSide = 4;
+                isScoralling = false;
+            }
+            else if(scoralSidetemp!=scoralSide){
+                scoralSide = scoralSidetemp;
+                continuousMovement.setColumn(0);
+                continuousMovement.setRow(0);
+            }
         }
-        this.miniMap.updateFocus(start);
-        repaint();
     }
 
-    public void scrollDown() {
-        if (start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) {
-            start.addRow(1);
-        }
-        this.miniMap.updateFocus(start);
-        repaint();
-    }
 
-    public void scrollRight() {
-        if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) start.addColumn(1);
-        repaint();
-        this.miniMap.updateFocus(start);
-    }
-
-    public void scrollLeft() {
-        if (start.getColumn() > 0) start.addColumn(-1);
-        repaint();
-        this.miniMap.updateFocus(start);
-    }
 
     public void changingMap(int row, int column, String type) {
         if ("sea".equals(type)) map.changeMap(row, column, 0);
         if ("lowland".equals(type)) map.changeMap(row, column, 1);
+        if ("highland".equals(type)) map.changeMap (row, column , 2);
         repaint();
     }
 
     public void fixingStartInZoom(int x, int y) {
         int startX = x - ((Constants.Drawer_HIGHT / 2) + (Constants.Drawer_HIGHT % 2));
         int startY = y - ((Constants.DRAWER_WIDTH / 2) + (Constants.DRAWER_WIDTH % 2));
-        if (startX < 0) startX = 0;
-        if (startY < 0) startY = 0;
+        if (startX < 0)
+            startX = 1;
+        if (startY < 0)
+            startY = 1;
         if (startX + Constants.Drawer_HIGHT > Constants.MATRIX_HEIGHT)
-            startX = Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT;
+            startX = Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT-1;
         if (startY + Constants.DRAWER_WIDTH > Constants.MATRIX_WIDTH)
-            startY = Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH;
+            startY = Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH-1;
         start = new Coordinate(startX, startY);
     }
 
@@ -521,14 +463,15 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     private void drawingOcean(int row, int column, Graphics g) {
         if (this.dayTime == Constants.DayTime.MORNING) {
-            g.drawImage(ImageUtils.getImage("ocean1.jpg"), column * Constants.CELL_SIZE,
-                    row * Constants.CELL_SIZE,
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+                    column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
+                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE),
                     Constants.CELL_SIZE,
                     Constants.CELL_SIZE,
                     null);
         } else {
-            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
-                    row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
+                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE) , Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
 
     }
@@ -569,5 +512,107 @@ public class GamePanel extends JPanel implements MouseInputListener {
     protected void processComponentEvent(ComponentEvent e) {
         if (e.getID() == Messages.REPAINT) this.repaint();
         super.processComponentEvent(e);
+    }
+
+    public void scoral(){
+        new Thread(() -> {
+            while (isScoralling) {
+                changeColOrRow();
+            }}).start();
+    }
+
+    private void changeColOrRow() {
+        switch (scoralSide) {
+            case 0:
+                scrollLeft();
+                break;
+            case 1:
+                scrollDown();
+                break;
+            case 2:
+                scrollRight();
+                break;
+            case 3:
+                scrollUp();
+                break;
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollUp(){
+        if (start.getRow() > 0) {
+            for (int j = 1 ; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addRow(((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addRow(-1);
+            continuousMovement.setRow(0);
+            continuousMovement.setColumn(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollDown() {
+        if (start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) {
+            for (int j =1 ; j < Constants.RATEOFSCROLL && isScoralling;j++) {
+                continuousMovement.addRow(-((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addRow(1);
+            continuousMovement.setRow(0);
+            continuousMovement.setColumn(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollRight() {
+        if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) {
+                for (int j =1 ;j<Constants.RATEOFSCROLL & isScoralling;j++) {
+                    continuousMovement.addColumn(-((float)1/(float)Constants.RATEOFSCROLL));
+                    try {
+                        Thread.sleep(Constants.scrollSpeed);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    repaint();
+                }
+                start.addColumn(1);
+                continuousMovement.setColumn(0);
+                continuousMovement.setRow(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollLeft() {
+        if (start.getColumn() > 0) {
+            for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addColumn(((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addColumn(-1);
+            continuousMovement.setColumn(0);
+            continuousMovement.setRow(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
     }
 }

@@ -12,6 +12,8 @@ import java.awt.*;
 public class Constants {
 
 
+    public static final int RANGEOFSCROLL = 80;
+    public static final int RATEOFSCROLL = 20;
     public static boolean isMac = false;
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
@@ -28,6 +30,7 @@ public class Constants {
             {40,50,32,18},
             {50,62,26,15}
     };
+    public static long scrollSpeed = 20;
 
 
     public static enum Elements {

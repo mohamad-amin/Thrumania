@@ -53,12 +53,29 @@ public class Map {
     }
 
     public void changeMap(int i, int j,int type) {
-            int[][] adjacent = createAdjecant(i,j,type);
-            intilizeAdjacent(adjacent,i,j,type);
-            checkMiddleCell(adjacent,i,j,type);
-            updateAdjecant(adjacent, i,j,type);
-            updateOutAdjacent(i,j,type);
+        boolean valid = checkvalid(i , j ,type);
+        if(valid) {
+            int[][] adjacent = createAdjecant(i, j, type);
+            intilizeAdjacent(adjacent, i, j, type);
+            checkMiddleCell(adjacent, i, j, type);
+            updateAdjecant(adjacent, i, j, type);
+            updateOutAdjacent(i, j, type);
             if (miniMap != null) miniMap.updateMap();
+        }
+    }
+
+    private boolean checkvalid(int i , int j , int type) {
+        if(type == 2){
+            boolean valid =true;
+            for (int x = -1; x < 2; x++) {
+                for (int y = -1; y < 2; y++) {
+                    if (inRange(i + x, j + y) && (cells[i + x][j + y] instanceof Sea)) {
+                        valid =false ;
+                    }
+                }
+            }
+            return valid;
+        }else return true;
     }
 
     public Cell getCell(int row, int column) {
@@ -67,53 +84,64 @@ public class Map {
     }
 
     private void updateOutAdjacent(int i, int j,int type) {
-        for (int x = -2; x < 3; x = x + 4) {
-            if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x))
-                if (cells[i + x][j] instanceof LowLand) numberAndLoad(i + x, j);
-            if (IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + x))
-                if (cells[i][j + x] instanceof LowLand) numberAndLoad(i, j + x);
-        }
-    }
-
-    private void numberAndLoad(int i, int j) {
-        int row =-1, col =-1;
-        boolean shouldDraw = true;
-        int n = checkFourSideAndGiveMeNumber(i, j);
-        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
-
-        cells[i][j] = new LowLand(new Coordinate(i, j));
-        cells[i][j].setPictureName(n+".png");
-        if ( element != null) {
-            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                cells[i][j].setInsideMapElemetn(element);
+        if(type!=2) {
+            for (int x = -2; x < 3; x = x + 4) {
+                if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x))
+                    if (cells[i + x][j] instanceof LowLand) numberAndLoad(i + x, j, type);
+                if (IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + x))
+                    if (cells[i][j + x] instanceof LowLand) numberAndLoad(i, j + x, type);
             }
         }
-        cells[i][j].setLand(true);
+    }
 
-        if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
-            cells[i][j].setCompeleteLand(false);
-        }
-        else {
-            cells[i][j].setCompeleteLand(true);
+    private void numberAndLoad(int i, int j, int type) {
+        int n = checkFourSideAndGiveMeNumber(i, j, type);
+        if(type !=2) {
+            cells[i][j] = new LowLand(new Coordinate(i, j));
+            cells[i][j].setPictureName(n + ".png");
+            MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+            if (element != null) {
+                if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+                    cells[i][j].setInsideMapElemetn(element);
+                }
+            }
+            cells[i][j].setLand(true);
+
+            if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
+                cells[i][j].setCompeleteLand(false);
+            } else {
+                cells[i][j].setCompeleteLand(true);
+            }
+        } else {
+            n+=64;
+            System.out.println(n);
+            cells[i][j] = new HighLand(new Coordinate(i, j));
+            cells[i][j].setPictureName(n + ".png");
         }
     }
 
-    ///diferent kind of kind lowland=1 sea=0 for
+    ///different kind of kind lowland=1 sea=0 for
     private int[][] createAdjecant(int i, int j,int type) {
         int adjacent[][] = new int[3][3];
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
-                if (inRange(i + x, j + y) && cells[i + x][j + y] instanceof LowLand && !(x == 0 && y == 0)) {
-                    if(type==1) {
-                        if (x * y == 0) adjacent[x + 1][y + 1] = 1;
-                        else {
+                if(type != 2) {
+                    if (inRange(i + x, j + y) && cells[i + x][j + y] instanceof LowLand && !(x == 0 && y == 0)) {
+                        if (type == 1) {
+                            if (x * y == 0) adjacent[x + 1][y + 1] = 1;
+                            else {
+                                adjacent[x + 1][y + 1] = 1;
+                                adjacent[1][y + 1] = 1;
+                                adjacent[x + 1][1] = 1;
+                            }
+                        } else {
                             adjacent[x + 1][y + 1] = 1;
-                            adjacent[1][y + 1] = 1;
-                            adjacent[x + 1][1] = 1;
                         }
                     }
-                    else{
-                        adjacent[x + 1][y + 1] = 1;
+                }
+                else {
+                    if (inRange(i + x, j + y) && x*y==0 && cells[i + x][j + y] instanceof HighLand && !(x == 0 && y == 0)) {
+                            adjacent[x + 1][y + 1] = 1;
                     }
                 }
             }
@@ -146,7 +174,7 @@ public class Map {
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if (adjacent[i + 1][j + 1] == 1) {
-                    numberAndLoad(x + i, y + j);
+                    numberAndLoad(x + i, y + j,type);
                 }
             }
         }
@@ -158,46 +186,55 @@ public class Map {
         return false;
     }
 
-    public int inRangeAndCode(int i, int j) {
-        if (inRange(i, j)) return (cells[i][j] instanceof LowLand) ? 1 : 0;
-        else return 0;
-    }
-
-    public int checkFourSideAndGiveMeNumber(int i, int j) {
-        int x = inRangeAndCode(i - 1, j) * 4 +
-                inRangeAndCode(i, j - 1) * 2 +
-                inRangeAndCode(i, j + 1) * 8 +
-                inRangeAndCode(i + 1, j) * 1;
+    public int inRangeAndCode (int i, int j ,int type) {
+        int x=0;
+        if (type!=2) if (inRange(i,j)) if(cells[i][j] instanceof LowLand) x=1; else x=0;
+        if (type==2) if (inRange(i,j)) if(cells[i][j] instanceof HighLand) x=1; else x=0;
         return x;
     }
 
+    public int checkFourSideAndGiveMeNumber(int i, int j , int type) {
+        int x = inRangeAndCode(i - 1, j ,type) * 4 +
+                inRangeAndCode(i, j - 1 ,type) * 2 +
+                inRangeAndCode(i, j + 1 ,type) * 8 +
+                inRangeAndCode(i + 1, j ,type) * 1;
+        return x;
+    }
+    //todo with sina stone mine in highland
     public void checkMiddleCell(int[][] adjacent, int i, int j, int type) {
+        int x = adjacent[0][1] * 4 +
+                adjacent[1][0] * 2 +
+                adjacent[1][2] * 8 +
+                adjacent[2][1] * 1;
         if(type==1) {
-            int x = adjacent[0][1] * 4 +
-                    adjacent[1][0] * 2 +
-                    adjacent[1][2] * 8 +
-                    adjacent[2][1] * 1;
-            MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
             cells[i][j] = new LowLand(new Coordinate(i, j));
             cells[i][j].setPictureName(new Integer(x).toString() + ".png");
-            if (element != null) {
-                if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                    //might get problem here
-                    //   cells[i][j].setInsideMapElemetn(element);
-                }
-            } else cells[i][j].setInsideMapElemetn(element);
-            cells[i][j].setLand(true);
-
-            if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {
-                cells[i][j].setCompeleteLand(false);
-
-            } else {
-                cells[i][j].setCompeleteLand(true);
-            }
+            insideoflowland(i,j,x);
         }
-        else {
+        else if (type == 0) {
             cells[i][j] = new Sea(new Coordinate(i, j));
             cells[i][j].setPictureName("ocean1.jpg");
+        }else {
+            cells[i][j]= new HighLand(new Coordinate(i,j));
+            cells[i][j].setPictureName(new Integer(x+64).toString() + ".png");
+        }
+    }
+
+    private void insideoflowland(int i , int j , int x) {
+        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+        if (element != null) {
+            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+                //might get problem here
+                //   cells[i][j].setInsideMapElemetn(element);
+            }
+        } else cells[i][j].setInsideMapElemetn(element);
+        cells[i][j].setLand(true);
+
+        if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {
+            cells[i][j].setCompeleteLand(false);
+
+        } else {
+            cells[i][j].setCompeleteLand(true);
         }
     }
 
