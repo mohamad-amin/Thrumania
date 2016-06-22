@@ -281,6 +281,7 @@ public class BottomPanel extends JPanel {
 //
     }
 
+
     class MymouseListener implements MouseListener {
 
         @Override

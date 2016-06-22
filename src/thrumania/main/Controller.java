@@ -1,9 +1,10 @@
 package thrumania.main;
 
-import thrumania.board.item.MapItems.Map;
-import thrumania.gui.GameFrame;
+import  thrumania.board.item.MapItems.Map;
+import thrumania.gui.*;
 import thrumania.utils.Cacher;
 import thrumania.utils.Constants;
+import thrumania.gui.MenuFrame;
 
 import java.awt.*;
 
@@ -15,6 +16,8 @@ public class Controller {
 
     private static Controller controller;
     private Cacher<String,Image> imageCacher;
+    private  MenuFrame menu;
+
 
     private Controller() {
 
@@ -22,7 +25,9 @@ public class Controller {
         initializeCachers();
 
         Constants.initializeConstants();
-        new GameFrame(new Map(Constants.MATRIX_HEIGHT,Constants.MATRIX_WIDTH));
+//        new GameFrame(new Map(Constants.MATRIX_HEIGHT,Constants.MATRIX_WIDTH));
+        menu = new MenuFrame();
+
 
     }
 
