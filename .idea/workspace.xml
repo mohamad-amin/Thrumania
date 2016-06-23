@@ -1,202 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/thrumania/gui/MenuFrame.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/images/undoRightPanel.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/res/images/undoRightPanelHoover.png" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/Constants.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/GamePanel.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/GamePanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$1.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$10.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$11.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$12.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$2.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$3.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$4.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$5.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$6.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$7.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$8.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$9.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/RightPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/Constants.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/GamePanel.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/GamePanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/RightPanel.class" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/RightPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/alaki/alaki.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/alaki/alaki.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/GameItems/Alaki.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/GameItems/Alaki.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Agliculture.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Agliculture.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/GoldMine.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/GoldMine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/HighLand.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/HighLand.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/LowLand.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/LowLand.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Map.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Map.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/MapElement.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/MapElement.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Sea.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Sea.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/SmallFish.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/SmallFish.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/StoneMine.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/StoneMine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Tree.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Tree.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$MymouseListener.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/BottomPanel$MymouseListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Button$myListener.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Button$myListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Button.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Button.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/MiniMapPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/MiniMapPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview$1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$10.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$11.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$11.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$13.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$13.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$3.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$4.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$5.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$6.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$7.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$8.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$9.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$MyMouseListener1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$MyMouseListener1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" />
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Handling Sound utils&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/main/Controller.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/main/Controller.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/messages/Messages.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/messages/Messages.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/messages/SimpleMessages.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/messages/SimpleMessages.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Cacher.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Cacher.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$DayTime.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$DayTime.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Elements.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Elements.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Seasons.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Seasons.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$ZoomScales.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$ZoomScales.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Coordinate.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Coordinate.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/GuiUtils.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/GuiUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/IntegerUtils.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/IntegerUtils.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images.zip" afterPath="$PROJECT_DIR$/res/images.zip" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/0.png" afterPath="$PROJECT_DIR$/res/images/0.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/1.png" afterPath="$PROJECT_DIR$/res/images/1.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/10.png" afterPath="$PROJECT_DIR$/res/images/10.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/11.png" afterPath="$PROJECT_DIR$/res/images/11.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/12.png" afterPath="$PROJECT_DIR$/res/images/12.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/1234.jpg" afterPath="$PROJECT_DIR$/res/images/1234.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/13.png" afterPath="$PROJECT_DIR$/res/images/13.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/14.png" afterPath="$PROJECT_DIR$/res/images/14.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/15.png" afterPath="$PROJECT_DIR$/res/images/15.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/2.png" afterPath="$PROJECT_DIR$/res/images/2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/3.png" afterPath="$PROJECT_DIR$/res/images/3.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/4.png" afterPath="$PROJECT_DIR$/res/images/4.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/48.png" afterPath="$PROJECT_DIR$/res/images/48.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/49.png" afterPath="$PROJECT_DIR$/res/images/49.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/5.png" afterPath="$PROJECT_DIR$/res/images/5.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/50.png" afterPath="$PROJECT_DIR$/res/images/50.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/51.png" afterPath="$PROJECT_DIR$/res/images/51.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/52.png" afterPath="$PROJECT_DIR$/res/images/52.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/53.png" afterPath="$PROJECT_DIR$/res/images/53.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/54.png" afterPath="$PROJECT_DIR$/res/images/54.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/55.png" afterPath="$PROJECT_DIR$/res/images/55.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/56.png" afterPath="$PROJECT_DIR$/res/images/56.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/57.png" afterPath="$PROJECT_DIR$/res/images/57.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/58.png" afterPath="$PROJECT_DIR$/res/images/58.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/59.png" afterPath="$PROJECT_DIR$/res/images/59.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/6.png" afterPath="$PROJECT_DIR$/res/images/6.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/60.png" afterPath="$PROJECT_DIR$/res/images/60.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/61.png" afterPath="$PROJECT_DIR$/res/images/61.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/62.png" afterPath="$PROJECT_DIR$/res/images/62.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/63.png" afterPath="$PROJECT_DIR$/res/images/63.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/7.png" afterPath="$PROJECT_DIR$/res/images/7.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/8.png" afterPath="$PROJECT_DIR$/res/images/8.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/9.png" afterPath="$PROJECT_DIR$/res/images/9.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/AglicultureBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/AglicultureBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/AglicultureBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/AglicultureBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/GoldBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/GoldBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/GoldBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/GoldBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/OceanBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/OceanBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/OceanBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/OceanBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/agriculture.png" afterPath="$PROJECT_DIR$/res/images/agriculture.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/bottomPanel.jpg" afterPath="$PROJECT_DIR$/res/images/bottomPanel.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/cursorBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/cursorBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/downArrowKeyRightPanel.png" afterPath="$PROJECT_DIR$/res/images/downArrowKeyRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/downArrowKeyRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/downArrowKeyRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/exitRightPanel.png" afterPath="$PROJECT_DIR$/res/images/exitRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/exitRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/exitRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/gold.png" afterPath="$PROJECT_DIR$/res/images/gold.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/higAlttitudeLandBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/higAlttitudeLandBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/higAlttitudeLandBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/higAlttitudeLandBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/leftArrowKeyRightPanel.png" afterPath="$PROJECT_DIR$/res/images/leftArrowKeyRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/leftArrowKeyRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/leftArrowKeyRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/loadRightPanel.png" afterPath="$PROJECT_DIR$/res/images/loadRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/loadRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/loadRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanel.jpg" afterPath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanel.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/lowAltitdueLandBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/ocean1.jpg" afterPath="$PROJECT_DIR$/res/images/ocean1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/old/treeBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/old/treeBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/previewRightPanel.png" afterPath="$PROJECT_DIR$/res/images/previewRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/previewRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/previewRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/quarryBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/quarryBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/quarryBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/quarryBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/redoRightPanel.png" afterPath="$PROJECT_DIR$/res/images/redoRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/redoRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/redoRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/rightArrowKeyRightPanel.png" afterPath="$PROJECT_DIR$/res/images/rightArrowKeyRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/rightArrowKeyRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/rightArrowKeyRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/rightPanel.jpg" afterPath="$PROJECT_DIR$/res/images/rightPanel.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/rightPanel_Fotor.jpg" afterPath="$PROJECT_DIR$/res/images/rightPanel_Fotor.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/saveRightPanel.png" afterPath="$PROJECT_DIR$/res/images/saveRightPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/saveRightPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/saveRightPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/sea1.jpg" afterPath="$PROJECT_DIR$/res/images/sea1.jpg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/seaBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/seaBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/seaBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/seaBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/smallFish1BottomPanel.png" afterPath="$PROJECT_DIR$/res/images/smallFish1BottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/smallFish1BottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/smallFish1BottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/smallFish2.png" afterPath="$PROJECT_DIR$/res/images/smallFish2.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/treeBottomPanel.png" afterPath="$PROJECT_DIR$/res/images/treeBottomPanel.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/images/treeBottomPanelHoover.png" afterPath="$PROJECT_DIR$/res/images/treeBottomPanelHoover.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Thrumania.iml" afterPath="$PROJECT_DIR$/.idea/Thrumania.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/compiler.xml" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_.xml" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/shelved.patch" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_24_AM__Default_/shelved.patch" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_.xml" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/shelved.patch" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_6_1_16__12_43_AM__Default_/shelved.patch" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Thrumania.iml" afterPath="$PROJECT_DIR$/Thrumania.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/otomataStates" afterPath="$PROJECT_DIR$/res/otomataStates" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/alaki/alaki.java" afterPath="$PROJECT_DIR$/src/thrumania/board/alaki/alaki.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/Alaki.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/Alaki.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Agliculture.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Agliculture.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/GoldMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/GoldMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/HighLand.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/HighLand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/LowLand.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/LowLand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Sea.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Sea.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/SmallFish.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/SmallFish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Tree.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Tree.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/BottomPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/BottomPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/Button.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/Button.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GameFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GameFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/Preview.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/Preview.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/main/Controller.java" afterPath="$PROJECT_DIR$/src/thrumania/main/Controller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/messages/Messages.java" afterPath="$PROJECT_DIR$/src/thrumania/messages/Messages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/messages/SimpleMessages.java" afterPath="$PROJECT_DIR$/src/thrumania/messages/SimpleMessages.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Cacher.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Cacher.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Coordinate.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Coordinate.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/FileUtils.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/FileUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/FixedQueue.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/FixedQueue.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/GuiUtils.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/GuiUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/ImageUtils.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/ImageUtils.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -220,45 +31,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RightPanel.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.020718232">
-              <caret line="274" column="0" selection-start-line="265" selection-start-column="12" selection-end-line="274" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="BottomPanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/BottomPanel.java">
+      <file leaf-file-name="SoundUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="282" column="0" selection-start-line="282" selection-start-column="0" selection-end-line="282" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/main/Controller.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="27" column="24" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+              <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="534" column="16" selection-start-line="534" selection-start-column="16" selection-end-line="534" selection-end-column="16" />
-              <folding>
-                <marker date="1466601874000" expanded="true" signature="23136:23144" placeholder="{...}" />
               </folding>
             </state>
           </provider>
@@ -270,6 +49,68 @@
             <state vertical-scroll-proportion="0.0">
               <caret line="38" column="25" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="25" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntegerUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MenuPanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.6083789">
+              <caret line="131" column="23" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="23" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ImageUtils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/utils/ImageUtils.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="16" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Thrumania.iml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Thrumania.iml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cacher.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Cacher.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Controller.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/main/Controller.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -304,7 +145,6 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="UPDATE_CHANGES_POLICY" value="SHELVE" />
     <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -330,7 +170,6 @@
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java" />
         <option value="$PROJECT_DIR$/src/thrumania/messages/Messages.java" />
         <option value="$PROJECT_DIR$/src/thrumania/messages/DrawStone.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/main/Controller.java" />
         <option value="$PROJECT_DIR$/src/thrumania/utils/Cacher.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/Preview.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" />
@@ -345,6 +184,10 @@
         <option value="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/utils/FixedQueue.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/utils/SoundTempClass.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/main/Controller.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
       </list>
     </option>
   </component>
@@ -389,6 +232,10 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane />
+      </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <PATH>
@@ -398,9 +245,6 @@
             </PATH_ELEMENT>
           </PATH>
         </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane />
       </pane>
       <pane id="ProjectPane">
         <subPane>
@@ -529,6 +373,40 @@
               <option name="myItemId" value="item" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MapItems" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thrumania" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Thrumania" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="thrumania" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="board" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="item" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="GameItems" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -554,13 +432,12 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/workspace/zahra_Final_Project/jl1.0.1.jar!/" />
     <property name="SearchEverywhereHistoryKey" value="termin&#9;ACTION&#9;ActivateTerminalToolWindow" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="167" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
@@ -581,6 +458,10 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -1083,6 +964,8 @@
       <workItem from="1466403886490" duration="1420000" />
       <workItem from="1466405323243" duration="10766000" />
       <workItem from="1466418032907" duration="1780000" />
+      <workItem from="1466654953847" duration="2382000" />
+      <workItem from="1466682302200" duration="5326000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1306,24 +1189,30 @@
       <option name="project" value="LOCAL" />
       <updated>1466409268066</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="menu">
+      <created>1466602376258</created>
+      <option name="number" value="00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1466602376258</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="161367000" />
+    <option name="totallyTimeSpent" value="175903000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3235639" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3235639" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39507622" sideWeight="0.50277776" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3270809" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.118405625" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.118405625" sideWeight="0.49722221" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29027778" sideWeight="0.4939551" order="0" side_tool="false" content_ui="combo" />
@@ -1402,11 +1291,20 @@
     <MESSAGE value="Added Load" />
     <MESSAGE value="Load bug fixes" />
     <MESSAGE value="Fixed mini map's bug" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed mini map's bug" />
+    <MESSAGE value="menu" />
+    <MESSAGE value="Handling Sound utils&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Handling Sound utils&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java</url>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="21" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1415,20 +1313,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/BottomPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1491,21 +1375,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/ImageUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Coordinate.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
@@ -1610,13 +1480,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Cacher.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1637,14 +1500,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="24" selection-start-line="5" selection-start-column="24" selection-end-line="5" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.888889">
-          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1684,16 +1539,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/main/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="24" selection-start-line="27" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1704,10 +1549,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java">
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="38" column="25" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="25" />
+          <caret line="274" column="0" selection-start-line="265" selection-start-column="12" selection-end-line="274" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding />
         </state>
       </provider>
@@ -1728,13 +1581,155 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/RightPanel.java">
+    <entry file="file://$PROJECT_DIR$/Thrumania.iml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.020718232">
-          <caret line="274" column="0" selection-start-line="265" selection-start-column="12" selection-end-line="274" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Cacher.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/main/Controller.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="46" column="48" selection-start-line="46" selection-start-column="48" selection-end-line="46" selection-end-column="48" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar:///Library/Java/JavaVirtualMachines/jdk1.8.0_71.jdk/Contents/Home/jre/lib/rt.jar!/java/applet/Applet.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/ImageUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="16" selection-start-line="14" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="38" column="25" selection-start-line="38" selection-start-column="16" selection-end-line="38" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/SoundUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="3" column="0" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6083789">
+          <caret line="131" column="23" selection-start-line="131" selection-start-column="23" selection-end-line="131" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ArtifactsStructureConfigurable.UI">
+        <settings>
+          <artifact-editor />
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="FacetStructureConfigurable.UI">
+        <settings>
+          <last-edited>No facets are configured</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="GlobalLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="JdkListConfigurable.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ModuleStructureConfigurable.UI">
+        <settings>
+          <last-edited>Thrumania</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ProjectLibrariesConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
   </component>
 </project>

@@ -1,8 +1,10 @@
 package thrumania.gui;
 
+import sun.audio.AudioPlayer;
 import thrumania.board.item.MapItems.Map;
 import thrumania.utils.Constants;
 import thrumania.utils.ImageUtils;
+import thrumania.utils.SoundUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -34,6 +36,8 @@ public class MenuPanel extends JPanel {
         this.setSize(d);
         this.addMouseListener(new MyMouseListener());
         this.addMouseMotionListener(new MyMouseMotionListener());
+
+        SoundUtils.play("menu.wav").start();
         this.setFocusable(false);
 
 
@@ -123,8 +127,12 @@ public class MenuPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (makeMapIsSelected)
+            if (makeMapIsSelected) {
+                SoundUtils.clip.stop();
                 new GameFrame(new Map(Constants.MATRIX_HEIGHT, Constants.MATRIX_WIDTH));
+            }
+
+            SoundUtils.soundIsAlive = false;
 
 
         }

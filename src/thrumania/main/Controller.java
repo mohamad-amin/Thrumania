@@ -1,11 +1,15 @@
 package thrumania.main;
 
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.MediaPlayer;
+import sun.audio.AudioStream;
 import  thrumania.board.item.MapItems.Map;
 import thrumania.gui.*;
 import thrumania.utils.Cacher;
 import thrumania.utils.Constants;
 import thrumania.gui.MenuFrame;
 
+import javax.sound.sampled.Clip;
 import java.awt.*;
 
 /**
@@ -16,6 +20,7 @@ public class Controller {
 
     private static Controller controller;
     private Cacher<String,Image> imageCacher;
+    private Cacher<String , Clip> audioStreamCacher;
     private  MenuFrame menu;
 
 
@@ -37,13 +42,18 @@ public class Controller {
     }
 
     private void initializeCachers() {
+
         this.imageCacher = new Cacher<>();
+        this.audioStreamCacher = new Cacher<>();
     }
 
     public Cacher<String,Image> getImageCacher() {
         return imageCacher;
     }
+    public Cacher<String , Clip> getAudioStreamCacher(){
 
+        return audioStreamCacher;
+    }
     public static void main(String[] args) {new Controller();}
 
 }
