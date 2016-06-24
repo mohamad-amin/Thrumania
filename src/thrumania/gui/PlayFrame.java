@@ -23,8 +23,8 @@ public class PlayFrame extends JFrame {
     private MiniMapPanel miniMapPanel;
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
-        loadFrame(loadMapFromHash(loadedMap));
         this.players = players;
+        loadFrame(loadMapFromHash(loadedMap));
     }
 
     private void loadFrame(Map map) {

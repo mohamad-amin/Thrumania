@@ -14,6 +14,7 @@ import java.util.List;
 
 public abstract class Cell {
 
+    private int islandId = -1;
     private String pictureName;
     private Coordinate position;
     private InsideElementsItems insideElementsItems;
@@ -61,6 +62,14 @@ public abstract class Cell {
 
     public void setInsideElementsItems(InsideElementsItems insideElementsItems) {
         this.insideElementsItems = insideElementsItems;
+    }
+
+    public void setIslandId(int id) {
+        islandId = id;
+    }
+
+    public int getIslandId() {
+        return islandId;
     }
 
     public boolean isLand() {
