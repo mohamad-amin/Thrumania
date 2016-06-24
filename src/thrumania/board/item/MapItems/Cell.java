@@ -1,5 +1,6 @@
 package thrumania.board.item.MapItems;
 
+import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -15,7 +16,7 @@ public abstract class Cell {
 
     private String pictureName;
     private Coordinate position;
-    private MapElement insideMapElement;
+    private InsideElementsItems insideElementsItems;
 
     private boolean isLand;
     private boolean canDrawStoneOrGold = false ;
@@ -54,12 +55,12 @@ public abstract class Cell {
         this.pictureName = pictureName;
     }
 
-    public MapElement getInsideMapElemetn() {
-        return insideMapElement;
+    public InsideElementsItems getInsideElementsItems() {
+        return insideElementsItems;
     }
 
-    public void setInsideMapElemetn(MapElement insideMapElemetn) {
-        this.insideMapElement = insideMapElemetn;
+    public void setInsideElementsItems(InsideElementsItems insideElementsItems) {
+        this.insideElementsItems = insideElementsItems;
     }
 
     public boolean isLand() {

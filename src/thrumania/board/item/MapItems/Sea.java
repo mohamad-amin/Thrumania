@@ -16,7 +16,7 @@ public class Sea extends Cell {
         super(position);
         switch (id) {
             case Constants.FISH_ID:
-                setInsideMapElemetn(new SmallFish());
+                setInsideElementsItems(new SmallFish());
                 break;
             default:
                 break;
@@ -45,7 +45,7 @@ public class Sea extends Cell {
 
     @Override
     public byte getId() {
-        if (getInsideMapElemetn() instanceof SmallFish) {
+        if (getInsideElementsItems() instanceof SmallFish) {
             return Constants.FISH_ID;
         } else return Constants.SEA_ID;
     }

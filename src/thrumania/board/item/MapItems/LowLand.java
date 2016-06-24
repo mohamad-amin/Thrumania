@@ -18,10 +18,10 @@ public class LowLand extends Cell {
         super(position);
         switch (id) {
             case Constants.TREE_ID:
-                setInsideMapElemetn(new Tree());
+                setInsideElementsItems(new Tree());
                 break;
             case Constants.AGRICULTURE_ID:
-                setInsideMapElemetn(new Agliculture());
+                setInsideElementsItems(new Agliculture());
                 break;
             default:
                 break;
@@ -50,14 +50,14 @@ public class LowLand extends Cell {
 
     @Override
     public byte getId() {
-        if (getInsideMapElemetn() instanceof Tree) {
+        if (getInsideElementsItems() instanceof Tree) {
         //Todo: @Amirhosein: // FIXME: 6/5/16 with highland
             return Constants.TREE_ID;
-        } else if (getInsideMapElemetn() instanceof Agliculture) {
+        } else if (getInsideElementsItems() instanceof Agliculture) {
             return Constants.AGRICULTURE_ID;
-        } else if (getInsideMapElemetn() instanceof StoneMine) {
+        } else if (getInsideElementsItems() instanceof StoneMine) {
             return Constants.STONE_ID;
-        } else if (getInsideMapElemetn() instanceof GoldMine) {
+        } else if (getInsideElementsItems() instanceof GoldMine) {
             return Constants.GOLD_ID;
         } else return Constants.LOW_LAND_ID;
     }

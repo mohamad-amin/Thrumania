@@ -18,10 +18,10 @@ public class HighLand extends Cell {
         super(position);
         switch (id) {
             case Constants.STONE_ID:
-                setInsideMapElemetn(new StoneMine());
+                setInsideElementsItems(new StoneMine());
                 break;
             case Constants.GOLD_ID:
-                setInsideMapElemetn(new GoldMine());
+                setInsideElementsItems(new GoldMine());
                 break;
             default:
                 break;
@@ -50,9 +50,9 @@ public class HighLand extends Cell {
 
     @Override
     public byte getId() {
-        if (getInsideMapElemetn() instanceof StoneMine) {
+        if (getInsideElementsItems() instanceof StoneMine) {
             return Constants.STONE_ID;
-        } else if (getInsideMapElemetn() instanceof GoldMine) {
+        } else if (getInsideElementsItems() instanceof GoldMine) {
             return Constants.GOLD_ID;
         } else return Constants.HIGH_LAND_ID;
     }

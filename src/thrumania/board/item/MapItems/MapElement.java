@@ -1,9 +1,11 @@
 package thrumania.board.item.MapItems;
 
+import thrumania.board.item.InsideElementsItems;
+
 /**
  * Created by sina on 5/22/16.
  */
-public  abstract  class MapElement {
+public  abstract  class MapElement  extends InsideElementsItems{
     protected String springPictureName ;
     protected String summerPictureName ;
     protected String autmnPictureName;

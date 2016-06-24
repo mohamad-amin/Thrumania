@@ -1,5 +1,6 @@
 package thrumania.board.item.MapItems;
 
+import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cell;
 import thrumania.board.item.MapItems.LowLand;
 import thrumania.board.item.MapItems.Sea;
@@ -99,10 +100,10 @@ public class Map {
         if(type !=2) {
             cells[i][j] = new LowLand(new Coordinate(i, j));
             cells[i][j].setPictureName(n + ".png");
-            MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+            InsideElementsItems element = (cells[i][j] == null) ? null : cells[i][j].getInsideElementsItems();
             if (element != null) {
                 if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                    cells[i][j].setInsideMapElemetn(element);
+                    cells[i][j].setInsideElementsItems(element);
                 }
             }
             cells[i][j].setLand(true);
@@ -154,16 +155,16 @@ public class Map {
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
                     if (adjacent[x + 1][y + 1] == 1) {
-                        MapElement element = (cells[i + x][j + y] == null) ? null : cells[i + x][j + y].getInsideMapElemetn();
+                        InsideElementsItems element = (cells[i + x][j + y] == null) ? null : cells[i + x][j + y].getInsideElementsItems();
                         cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
                         cells[i + x][j + y].setPictureName("0.png");
                         if (element != null) {
                             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                                cells[i][j].setInsideMapElemetn(element);
+                                cells[i][j].setInsideElementsItems(element);
                             }
-                        } else cells[i][j].setInsideMapElemetn(element);
+                        } else cells[i][j].setInsideElementsItems(element);
                         cells[i][j].setLand(true);
-                        cells[i + x][j + y].setInsideMapElemetn(element);
+                        cells[i + x][j + y].setInsideElementsItems(element);
                     }
                 }
             }
@@ -221,13 +222,13 @@ public class Map {
     }
 
     private void insideoflowland(int i , int j , int x) {
-        MapElement element = (cells[i][j] == null) ? null : cells[i][j].getInsideMapElemetn();
+        InsideElementsItems element = (cells[i][j] == null) ? null : cells[i][j].getInsideElementsItems();
         if (element != null) {
             if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
                 //might get problem here
                 //   cells[i][j].setInsideMapElemetn(element);
             }
-        } else cells[i][j].setInsideMapElemetn(element);
+        } else cells[i][j].setInsideElementsItems(element);
         cells[i][j].setLand(true);
 
         if (x == 8 || x == 5 || x == 2 || x == 1 || x == 4 || x == 10) {

@@ -1,5 +1,6 @@
 package thrumania.gui;
 
+import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.*;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
@@ -100,20 +101,20 @@ public class GamePanel extends JPanel implements MouseInputListener {
                             null);
                 }
 
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn() != null) {
-                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Tree"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("StoneMine"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
 //                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
 
-                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn().getClass().getSimpleName().equals("Agliculture"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                     else {
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideMapElemetn())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
                     }
                 }
@@ -239,28 +240,28 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         break;
                     case Constants.AGRICULTURE_ID:
                         cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new Agliculture());
+                        cell.setInsideElementsItems(new Agliculture());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.TREE_ID:
                         cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new Tree());
+                        cell.setInsideElementsItems(new Tree());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.STONE_ID:
                         // Todo: fix it when highland is added
                         cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new StoneMine());
+                        cell.setInsideElementsItems(new StoneMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.GOLD_ID:
                         cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new GoldMine());
+                        cell.setInsideElementsItems(new GoldMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.FISH_ID:
                         cell = new LowLand(position);
-                        cell.setInsideMapElemetn(new SmallFish());
+                        cell.setInsideElementsItems(new SmallFish());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                 }
@@ -454,24 +455,24 @@ public class GamePanel extends JPanel implements MouseInputListener {
         start = new Coordinate(startX, startY);
     }
 
-    private String getPictureNameAccordingToSeason(Constants.Seasons season, MapElement mapElement) {
+    private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
         if (season.equals(Constants.Seasons.SPRING))
-            return mapElement.getSpringPictureName();
+            return ( (MapElement)mapElement ).  getSpringPictureName();
         else if (season.equals(Constants.Seasons.SUMMER))
-            return mapElement.getSummerPictureName();
+            return ( (MapElement)mapElement ).getSummerPictureName();
         else if (season.equals(Constants.Seasons.AUTMN))
-            return mapElement.getAutmnPictureName();
+            return ( (MapElement)mapElement ).getAutmnPictureName();
         else
-            return mapElement.getWinterPictureName();
+            return ( (MapElement)mapElement ).getWinterPictureName();
     }
 
     private void treeSetterToCell(int row, int column) {
         Cell temp;
         Tree tempTree = new Tree();
         temp = map.getCell(row, column);
-        if (temp.isCompeleteLand() && temp.getInsideMapElemetn() == null && temp instanceof LowLand) {
+        if (temp.isCompeleteLand() && temp.getInsideElementsItems() == null && temp instanceof LowLand) {
 
-            temp.setInsideMapElemetn(tempTree);
+            temp.setInsideElementsItems(tempTree);
             repaint();
 
         }
@@ -483,10 +484,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
         SmallFish smallFishTemp = new SmallFish();
         temp = map.getCell(row, column);
 
-        if (!temp.isLand() && temp.getInsideMapElemetn() == null) {
+        if (!temp.isLand() && temp.getInsideElementsItems() == null) {
 
 
-            temp.setInsideMapElemetn(smallFishTemp);
+            temp.setInsideElementsItems(smallFishTemp);
             repaint();
         }
     }
@@ -495,18 +496,18 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         GoldMine goldMineTemp = new GoldMine();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getInsideMapElemetn() == null && temp instanceof LowLand) {
-            temp.setInsideMapElemetn(goldMineTemp);
+        if (temp.isLand() && temp.getInsideElementsItems() == null && temp instanceof LowLand) {
+            temp.setInsideElementsItems(goldMineTemp);
             repaint();
         }
     }
 
     public void stoneSetterToCell(int row, int col) {
-        Cell currentTempCell, rightTempCell, downRightTempCell, downTempCell;
+        Cell currentTempCell ;
         StoneMine stoneMineTemp = new StoneMine();
         currentTempCell = map.getCell(row, col);
-        if (currentTempCell instanceof LowLand && currentTempCell.getInsideMapElemetn() == null) {
-            currentTempCell.setInsideMapElemetn(stoneMineTemp);
+        if (currentTempCell instanceof LowLand && currentTempCell.getInsideElementsItems() == null) {
+            currentTempCell.setInsideElementsItems(stoneMineTemp);
             repaint();
         }
     }
@@ -516,8 +517,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         Agliculture aglicultureTemp = new Agliculture();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp instanceof LowLand && temp.getInsideMapElemetn() == null) {
-            temp.setInsideMapElemetn(aglicultureTemp);
+        if (temp.isLand() && temp instanceof LowLand && temp.getInsideElementsItems() == null) {
+            temp.setInsideElementsItems(aglicultureTemp);
             repaint();
         }
 
