@@ -2,6 +2,7 @@ package thrumania.gui;
 
 import thrumania.board.item.MapItems.*;
 import thrumania.board.item.MapItems.Map;
+import thrumania.game.MapProcessor;
 import thrumania.messages.Messages;
 import thrumania.utils.*;
 
@@ -298,6 +299,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
+        if (map.getCells()[row][column] instanceof LowLand) System.out.println("LowLand");
+        else System.out.println("No");
+        System.out.println(row + " - " + column);
         if (this.selectedElelements == Constants.Elements.ZOOM_IN) {
             zoomScale = Constants.incScale(zoomScale);
             fixingStartInZoom(row, column);

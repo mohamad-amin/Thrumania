@@ -21,14 +21,21 @@ public class Constants {
     public static int INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
     public static int STATE_QUEUE_SIZE = 50;
 
+    public final static int DISTANCE_WATER_WATER = 4,
+            DISTANCE_WATER_LAND = 3,
+            DISTANCE_LOWLAND_HIGHLAND = 2,
+            DISTANCE_LOWLAND_LOWLAND = 1,
+            DISTANCE_HIGHLAND_HIGHLAND = 2,
+            DISTANCE_ISLAND_DISTINGUISHER = (MATRIX_WIDTH > MATRIX_HEIGHT) ? MATRIX_WIDTH*5 : MATRIX_HEIGHT*5;
+
     public static int DRAWER_WIDTH = 40;
     public static int Drawer_HIGHT = 22;
     public static int [][] zoomNumbers= {
-            {21,26,62,35},
-            {26,32,50,28},
-            {32,40,40,22},
-            {40,50,32,18},
-            {50,62,26,15}
+        {21,26,62,35},
+        {26,32,50,28},
+        {32,40,40,22},
+        {40,50,32,18},
+        {50,62,26,15}
     };
     public static long scrollSpeed = 20;
 
@@ -67,7 +74,6 @@ public class Constants {
         frame.setCursor(toolkit.createCustomCursor(
                 ImageUtils.getImage("cursorBottomPanel.png"),
                 new Point(0, 0), "custom cursor"));
-
     }
 
 

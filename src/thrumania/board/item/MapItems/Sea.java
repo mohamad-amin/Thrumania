@@ -8,12 +8,21 @@ import thrumania.utils.Coordinate;
  * Created by mohamadamin on 5/18/16.
  */
 public class Sea extends Cell {
-
     public Sea(Coordinate position) {
         super(position);
     }
 
- 
+    public Sea(Coordinate position, byte id) {
+        super(position);
+        switch (id) {
+            case Constants.FISH_ID:
+                setInsideMapElemetn(new SmallFish());
+                break;
+            default:
+                break;
+        }
+    }
+
     @Override
     public Coordinate getPosition() {
         return super.getPosition();
