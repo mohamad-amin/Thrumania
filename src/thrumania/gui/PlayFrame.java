@@ -24,7 +24,9 @@ public class PlayFrame extends JFrame {
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
         this.players = players;
+
         loadFrame(loadMapFromHash(loadedMap));
+
     }
 
     private void loadFrame(Map map) {

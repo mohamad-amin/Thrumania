@@ -1,11 +1,14 @@
 package thrumania.board.item.GameItems.people;
 
 import thrumania.utils.Constants;
+import thrumania.utils.Coordinate;
+
+import javax.swing.*;
 
 /**
  * Created by sina on 6/24/16.
  */
-public abstract class Human {
+public abstract class Human extends JLabel {
     // TODO : teams
     protected  int health;
     // each damage is in scale of 0.5 second
@@ -26,18 +29,16 @@ public abstract class Human {
     protected int xCord;
     protected  int yCord;
     protected  boolean isAlive;
-    protected abstract void  move();
-    protected  void determiningSpeedOfMoving(){
-
-        /* TODO:
-            * spring -> 8
-            * summer -> 7
-            * autumn -> 5
-            * winter -> 3
-         */
+    protected  Coordinate coordinate;
+    protected  Coordinate endCord;
+    protected abstract void  move(Coordinate end);
+    protected abstract void determiningSpeedOfMoving();
+    protected String picutreName;
 
 
-    }
+
+
+
 
     public int getyCord() {
         return yCord;
@@ -63,4 +64,13 @@ public abstract class Human {
     public void setAlive(boolean alive) {
         isAlive = alive;
     }
+
+    public Coordinate getEndCord() {
+        return endCord;
+    }
+
+    public void setEndCord(Coordinate endCord) {
+        this.endCord = endCord;
+    }
+
 }
