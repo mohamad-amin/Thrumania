@@ -30,9 +30,7 @@ public class Controller {
         initializeCachers();
 
         Constants.initializeConstants();
-//        new GameFrame(new Map(Constants.MATRIX_HEIGHT,Constants.MATRIX_WIDTH));
         menu = new MenuFrame();
-
 
     }
 

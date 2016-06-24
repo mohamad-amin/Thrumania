@@ -3,6 +3,7 @@ package thrumania.gui;
 import sun.audio.AudioPlayer;
 import thrumania.board.item.MapItems.Map;
 import thrumania.utils.Constants;
+import thrumania.utils.FileUtils;
 import thrumania.utils.ImageUtils;
 import thrumania.utils.SoundUtils;
 
@@ -11,6 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 import java.util.TimerTask;
 
 /**
@@ -30,17 +32,13 @@ public class MenuPanel extends JPanel {
     private boolean makeMapIsSelected = false;
 
     public MenuPanel() throws HeadlessException {
-        System.out.println("sdfaffsdfas");
         this.setLayout(null);
         this.setLocation(0, 0);
         this.setSize(d);
         this.addMouseListener(new MyMouseListener());
         this.addMouseMotionListener(new MyMouseMotionListener());
-
         SoundUtils.play("menu.wav").start();
         this.setFocusable(false);
-
-
     }
 
     private void findingSelectedElement(int x, int y) {
@@ -114,7 +112,6 @@ public class MenuPanel extends JPanel {
 
     }
 
-
     @Override
     public void paint(Graphics g) {
         super.paint(g);
@@ -123,13 +120,37 @@ public class MenuPanel extends JPanel {
     }
 
 
-    class MyMouseListener implements MouseListener {
+    private class MyMouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
             if (makeMapIsSelected) {
                 SoundUtils.clip.stop();
                 new GameFrame(new Map(Constants.MATRIX_HEIGHT, Constants.MATRIX_WIDTH));
+            } else if (newgameIsSelected) {
+                // Todo: @sinamalakouti stop sound?
+                String mapFilePath = "";
+                JOptionPane.showMessageDialog(MenuPanel.this, "Choose map file", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                mapFilePath = FileUtils.chooseFile(MenuPanel.this, "data/map");
+                if  (!FileUtils.isMapFile(mapFilePath)) {
+                    JOptionPane.showMessageDialog(MenuPanel.this,
+                            "The selected file isn't a valid file :(", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                }
+                HashMap<Integer, Object> loadedMap = FileUtils.getHashMapFromFile(mapFilePath);
+                if (loadedMap == null) {
+                    JOptionPane.showMessageDialog(MenuPanel.this,
+                            "Corrupted map, couldn't load :(", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    String players = JOptionPane.showInputDialog(MenuPanel.this, "Please enter players' count:",
+                            "New Game", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        new PlayFrame(loadedMap, Integer.valueOf(players));
+                    } catch (Exception exception) {
+                        JOptionPane.showMessageDialog(MenuPanel.this, "Wrong players' count :(", "New Game",
+                                JOptionPane.INFORMATION_MESSAGE);
+                    }
+                }
             }
 
             SoundUtils.soundIsAlive = false;
@@ -158,7 +179,7 @@ public class MenuPanel extends JPanel {
         }
     }
 
-    class MyMouseMotionListener implements MouseMotionListener {
+    private class MyMouseMotionListener implements MouseMotionListener {
 
         @Override
         public void mouseDragged(MouseEvent e) {
@@ -168,8 +189,6 @@ public class MenuPanel extends JPanel {
         @Override
         public void mouseMoved(MouseEvent e) {
             findingSelectedElement(e.getX(), e.getY());
-
-
         }
     }
 

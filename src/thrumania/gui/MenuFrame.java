@@ -10,9 +10,7 @@ import java.awt.*;
  * Created by sina on 6/22/16.
  */
 
-
-
-    /*
+   /*
     *   play game
     *   play online
     *   exit
@@ -20,11 +18,9 @@ import java.awt.*;
     *   edith your map
     *   about us
     *
+    */
 
-
-     */
 public class MenuFrame extends JFrame {
-
 
     private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
     private int verticalSpace = 100;
@@ -40,8 +36,7 @@ public class MenuFrame extends JFrame {
         this.setResizable(false);
         this.setFocusable(false);
         Constants.mouseInitializer(this);
-        this.add( new MenuPanel());
-
+        this.add(new MenuPanel());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);

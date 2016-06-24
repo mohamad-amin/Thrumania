@@ -14,8 +14,6 @@ import java.util.Stack;
  */
 public class MapProcessor {
 
-    public static MapProcessor mapProcessor;
-
     private long[][][][] distances;
     private List<List<Cell>> islands;
     private List<Cell> lands;
@@ -25,13 +23,11 @@ public class MapProcessor {
         this.cells = cells;
         this.lands = new ArrayList<>();
         this.islands = new ArrayList<>();
-        fillDistances();
-        fillLands();
-        mapProcessor = this;
     }
 
-    public static MapProcessor getInstance() {
-        return mapProcessor;
+    public void initializeStrongholds() {
+        fillDistances();
+        fillLands();
     }
 
     public long[][][][] getDistances() {

@@ -436,8 +436,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
         repaint();
         this.miniMap.updateFocus(start);
     }
-
     public void changingMap(int row, int column, String type) {
+
         if ("sea".equals(type)) map.changeMap(row, column, 0);
         if ("lowland".equals(type)) map.changeMap(row, column, 1);
         repaint();
@@ -535,8 +535,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
             g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
                     row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
-
     }
+
     private void drawingSnowFlake(int xStart , int yStart , Graphics g) {
         if (xStart + 30 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE && yStart + 30 < Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
             TimerTask t = new TimerTask() {
@@ -575,4 +575,5 @@ public class GamePanel extends JPanel implements MouseInputListener {
         if (e.getID() == Messages.REPAINT) this.repaint();
         super.processComponentEvent(e);
     }
+
 }

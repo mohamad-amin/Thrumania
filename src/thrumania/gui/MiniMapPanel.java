@@ -23,10 +23,11 @@ public class MiniMapPanel extends JPanel implements MouseListener {
     private Cell[][] cells;
     private Coordinate focus;
     private GamePanel gamePanel;
+    private PlayPanel playPanel;
 
     public MiniMapPanel(Map map) {
-        this.map = map;
         this.setLocation(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
+        this.map = map;
         this.setSize(d);
         this.setLayout(null);
         this.addMouseListener(this);
@@ -34,6 +35,9 @@ public class MiniMapPanel extends JPanel implements MouseListener {
 
     public void setGamePanel(GamePanel panel) {
         this.gamePanel = panel;
+    }
+    public void setPlayPanel(PlayPanel panel) {
+        this.playPanel = panel;
     }
 
     public void updateMap() {
@@ -98,6 +102,7 @@ public class MiniMapPanel extends JPanel implements MouseListener {
         y /= cellSize;
         updateFocus(new Coordinate(y, x));
         if (gamePanel != null) gamePanel.setStart(new Coordinate(y, x));
+        else if (playPanel != null) playPanel.setFocus(new Coordinate(y, x));
     }
 
     @Override
