@@ -11,6 +11,7 @@ public class GoldMine extends  MapElement{
         super.summerPictureName = "gold.png";
         super.autmnPictureName = "gold.png";
         super.winterPictureName = "gold.png";
+        super.eachElementCapacity = 5;
 
     }
 }

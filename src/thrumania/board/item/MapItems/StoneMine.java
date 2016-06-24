@@ -18,7 +18,7 @@ public class StoneMine extends  MapElement{
         super.summerPictureName = "Stone.png";
         super.autmnPictureName = "Stone.png";
         super.winterPictureName = "Stone.png";
-
+        super.eachElementCapacity = 4;
 
 
     }

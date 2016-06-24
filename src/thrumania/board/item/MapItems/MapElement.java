@@ -8,6 +8,8 @@ public  abstract  class MapElement {
     protected String summerPictureName ;
     protected String autmnPictureName;
     protected String winterPictureName;
+    protected  int  capacity = 100;
+    protected  int eachElementCapacity;
 
 
 

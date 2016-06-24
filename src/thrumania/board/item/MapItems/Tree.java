@@ -14,6 +14,7 @@ public class Tree extends  MapElement{
         super.summerPictureName = "tree4.png";
         super.autmnPictureName = "tree5.png";
         super.winterPictureName = "tree7.png";
+        super.eachElementCapacity = 3;
 
     }
 }
