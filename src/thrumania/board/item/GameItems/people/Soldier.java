@@ -3,7 +3,7 @@ package thrumania.board.item.GameItems.people;
 /**
  * Created by sina on 6/24/16.
  */
-public class Soldier extends  Human {
+public class Soldier extends  Human implements Runnable {
 
 
     public Soldier() {
@@ -27,6 +27,11 @@ public class Soldier extends  Human {
     protected void move() {
         super.determiningSpeedOfMoving();
 
+
+    }
+
+    @Override
+    public void run() {
 
     }
 }

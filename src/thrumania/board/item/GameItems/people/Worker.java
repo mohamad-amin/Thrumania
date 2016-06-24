@@ -3,7 +3,7 @@ package thrumania.board.item.GameItems.people;
 /**
  * Created by sina on 6/24/16.
  */
-public class Worker extends  Human {
+public class Worker extends  Human  implements  Runnable{
     private boolean canGoMountain ;
     // TODO : worker's Order
     private  int capacityOfCollectingItems;
@@ -36,18 +36,6 @@ public class Worker extends  Human {
 
     @Override
     protected void move() {
-        super.determiningSpeedOfMoving();
-        if( canGoMountain)
-            speedOfMoving = speedOfMoving / 2;
-        else if ( ! canGoMountain)
-            speedOfMoving = speedOfMoving * 2;
-        if( capacityOfCollectingItems == 300 || capacityOfCollectingItems == 0)
-            this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
-
-          if( isCapacityOfCollectingItemsFull ){
-
-              // TODO : changing his order to go to castle
-          }
 
 
 
@@ -66,5 +54,22 @@ public class Worker extends  Human {
 
     public void setCapacityOfCollectingItems(int capacityOfCollectingItems) {
         this.capacityOfCollectingItems = capacityOfCollectingItems;
+    }
+
+    @Override
+    public void run() {
+        super.determiningSpeedOfMoving();
+        if( canGoMountain)
+            speedOfMoving = speedOfMoving / 2;
+        else if ( ! canGoMountain)
+            speedOfMoving = speedOfMoving * 2;
+        if( capacityOfCollectingItems == 300 || capacityOfCollectingItems == 0)
+            this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
+
+        if( isCapacityOfCollectingItemsFull ){
+
+            // TODO : changing his order to go to castle
+        }
+
     }
 }
