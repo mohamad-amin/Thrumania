@@ -147,6 +147,7 @@ public class MenuPanel extends JPanel {
                     try {
                         new PlayFrame(loadedMap, Integer.valueOf(players));
                     } catch (Exception exception) {
+                        exception.printStackTrace();
                         JOptionPane.showMessageDialog(MenuPanel.this, "Wrong players' count :(", "New Game",
                                 JOptionPane.INFORMATION_MESSAGE);
                     }

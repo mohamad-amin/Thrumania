@@ -14,10 +14,12 @@ import java.util.Stack;
  */
 public class MapProcessor {
 
-    private long[][][][] distances;
+    private List<Boolean> freeIslands;
     private List<List<Cell>> islands;
+    private long[][][][] distances;
     private List<Cell> lands;
     private Cell[][] cells;
+    private int freeIslandsCount;
 
     public MapProcessor(Cell[][] cells) {
         this.cells = cells;
@@ -281,6 +283,8 @@ public class MapProcessor {
     }
 
     private void fillLands() {
+        freeIslands = new ArrayList<>();
+        freeIslandsCount = 0;
         int z;
         boolean added;
         for (int i=0; i<cells.length; i++) {
@@ -292,17 +296,27 @@ public class MapProcessor {
                     Coordinate position = island.get(0).getPosition();
                     if (distances[i][j][position.getRow()][position.getColumn()] < Constants.DISTANCE_ISLAND_DISTINGUISHER) {
                         island.add(cells[i][j]);
+                        cells[i][j].setIslandId(z);
                         islands.set(z, island);
                         added = true;
                     }
                     z++;
                 }
                 if (!added) {
+                    cells[i][j].setIslandId(z);
                     List<Cell> newIsland = new ArrayList<>();
                     newIsland.add(cells[i][j]);
                     islands.add(newIsland);
+                    freeIslands.add(true);
+                    freeIslandsCount++;
                 }
             }
+        }
+        z = 0;
+        for (List<Cell> island : islands) {
+            if (island.size() < 20) freeIslands.set(z, false);
+            freeIslandsCount--;
+            z++;
         }
     }
 
@@ -310,12 +324,19 @@ public class MapProcessor {
         long distance = -1;
         List<Cell> result = new ArrayList<>();
         for (Cell i : lands) {
+            if (islands.get(i.getIslandId()).size() < 20) continue;
+            else if (!freeIslands.get(i.getIslandId()) && freeIslandsCount>0) continue;
             for (Cell j : lands) {
+                if (islands.get(j.getIslandId()).size() < 20) continue;
+                else if (!freeIslands.get(j.getIslandId()) && freeIslandsCount>0) continue;
                 if (getDistance(i, j) > distance) {
                     distance = getDistance(i, j);
                     result.clear();
                     result.add(i);
                     result.add(j);
+                    freeIslands.set(i.getIslandId(), false);
+                    freeIslands.set(j.getIslandId(), false);
+                    freeIslandsCount-=2;
                 }
             }
         }
@@ -323,6 +344,8 @@ public class MapProcessor {
             distance = -1;
             Cell c = null;
             for (Cell cell : lands) {
+                if (islands.get(cell.getIslandId()).size() < 20) continue;
+                else if (!freeIslands.get(cell.getIslandId()) && freeIslandsCount>0) continue;
                 long tempDistance = 0;
                 for (int j=0; j<i; j++) {
                     tempDistance += getDistance(cell, result.get(j));
@@ -330,6 +353,8 @@ public class MapProcessor {
                 if (tempDistance > distance) {
                     distance = tempDistance;
                     c = cell;
+                    freeIslands.set(cell.getIslandId(), false);
+                    freeIslandsCount--;
                 }
             }
             result.add(c);

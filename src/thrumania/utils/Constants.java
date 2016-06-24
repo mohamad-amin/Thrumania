@@ -17,7 +17,7 @@ public class Constants {
     public static boolean isMac = false;
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
-    public static int CELL_SIZE = 40;
+    public static int CELL_SIZE = 50;
     public static int INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
     public static int STATE_QUEUE_SIZE = 50;
 
