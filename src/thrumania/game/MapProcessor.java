@@ -20,16 +20,23 @@ public class MapProcessor {
     private List<Cell> lands;
     private Cell[][] cells;
     private int freeIslandsCount;
+    private boolean[][] visited;
+
 
     public MapProcessor(Cell[][] cells) {
         this.cells = cells;
         this.lands = new ArrayList<>();
         this.islands = new ArrayList<>();
+        this.visited = new boolean[cells.length][cells[0].length];
     }
 
     public void initializeStrongholds() {
         fillDistances();
         fillLands();
+    }
+
+    public void newInitializeStrongholds() {
+        findIslands();
     }
 
     public long[][][][] getDistances() {
@@ -372,6 +379,94 @@ public class MapProcessor {
 
     private long getDistance(Coordinate a, Coordinate b) {
         return distances[a.getRow()][a.getColumn()][b.getRow()][b.getColumn()];
+    }
+
+
+    private void findIslands() {
+        int z = 0;
+        freeIslands = new ArrayList<>();
+        for (int i=0; i<cells.length; i++) {
+            for (int j=0; j<cells[0].length; j++) {
+                if (visited[i][j]) continue;
+                if (cells[i][j].getId() < 6) {
+                    registerIsland(i, j, z);
+                    z++;
+                }
+            }
+        }
+    }
+
+    private void registerIsland(int i, int j, int id) {
+        visited[i][j] = true;
+        cells[i][j].setIslandId(id);
+        lands.add(cells[i][j]);
+        if (islands.size() > id) {
+            List<Cell> island = islands.get(id);
+            island.add(cells[i][j]);
+            islands.set(id, island);
+        } else {
+            List<Cell> island = new ArrayList<>();
+            island.add(cells[i][j]);
+            islands.add(island);
+            freeIslands.add(true);
+            freeIslandsCount++;
+        }
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && !visited[i][j+1] && cells[i][j+1].getId()<6) registerIsland(i, j+1, id);
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && !visited[i][j-1] && cells[i][j-1].getId()<6) registerIsland(i, j-1, id);
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && !visited[i+1][j] && cells[i+1][j].getId()<6) registerIsland(i+1, j, id);
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && !visited[i-1][j] && cells[i-1][j].getId()<6) registerIsland(i-1, j, id);
+    }
+
+    public List<Cell> findCastlePositions(int howMany) {
+        long distance = -1;
+        List<Cell> result = new ArrayList<>();
+        for (Cell i : lands) {
+            if (islands.get(i.getIslandId()).size() < 20) continue;
+            for (Cell j : lands) {
+                if (islands.get(j.getIslandId()).size() < 20) continue;
+                if (getIndexDistance(i, j) > distance) {
+                    distance = getIndexDistance(i, j);
+                    if (result.size() > 0) {
+                        freeIslands.set(result.get(0).getIslandId(), true);
+                        freeIslands.set(result.get(1).getIslandId(), true);
+                        result.clear();
+                    }
+                    result.add(i);
+                    result.add(j);
+                    freeIslands.set(i.getIslandId(), false);
+                    freeIslands.set(j.getIslandId(), false);
+                }
+            }
+        }
+        freeIslandsCount-=2;
+        for (int i=2; i<howMany; i++) {
+            distance = -1;
+            Cell c = null;
+            for (Cell cell : lands) {
+                if (islands.get(cell.getIslandId()).size() < 20) continue;
+                else if (!freeIslands.get(cell.getIslandId()) && freeIslandsCount>0) continue;
+                long tempDistance = 0;
+                for (int j=0; j<i; j++) {
+                    tempDistance += getIndexDistance(cell, result.get(j));
+                }
+                if (tempDistance > distance) {
+                    distance = tempDistance;
+                    c = cell;
+                }
+            }
+            freeIslands.set(c.getIslandId(), false);
+            result.add(c);
+            freeIslandsCount--;
+        }
+        return result;
+    }
+
+    private long getIndexDistance(Cell a, Cell b) {
+        return getIndexDistance(a.getPosition(), b.getPosition());
+    }
+
+    private long getIndexDistance(Coordinate a, Coordinate b) {
+        return (long) (Math.pow(b.getRow()-a.getRow(), 2) + Math.pow(b.getColumn()-a.getColumn(), 2));
     }
 
 }

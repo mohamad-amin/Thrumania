@@ -58,8 +58,8 @@ public class PlayFrame extends JFrame {
 
     private void loadStrongholds() {
         MapProcessor processor = new MapProcessor(map.getCells());
-        processor.initializeStrongholds();
-        List<Cell> strongholdPositions = processor.findFurthestPoints(players);
+        processor.newInitializeStrongholds();
+        List<Cell> strongholdPositions = processor.findCastlePositions(players);
         for (Cell cell : strongholdPositions) {
             cell.setInsideElementsItems(new Castle());
         }
