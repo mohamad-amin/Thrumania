@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" line="344" />
+    <bookmark url="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" line="325" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Added castle&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class" />
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" afterPath="$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" afterPath="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,11 +34,11 @@
       <file leaf-file-name="MapProcessor.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="333" column="35" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
+            <state relative-caret-position="214">
+              <caret line="364" column="0" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <marker date="1466767731232" expanded="true" signature="8083:8697" ph="..." />
+                <marker date="1466769214537" expanded="true" signature="8083:8697" ph="..." />
               </folding>
             </state>
           </provider>
@@ -85,8 +81,8 @@
       <file leaf-file-name="PlayFrame.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="68" column="47" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
+            <state relative-caret-position="327">
+              <caret line="58" column="39" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="39" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -232,7 +228,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="SearchEverywhereHistoryKey" value="Castl&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/board/item/GameItems/buildings/Castle.java&#10;Cast&#9;PSI&#9;JAVA://thrumania.board.item.GameItems.buildings.Castle&#10;Mini&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/gui/MiniMapPanel.java&#10;MapPro&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/game/MapProcessor.java&#10;termin&#9;ACTION&#9;ActivateTerminalToolWindow" />
+    <property name="SearchEverywhereHistoryKey" value="Ca&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/board/item/GameItems/buildings/Castle.java&#10;Castl&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/board/item/GameItems/buildings/Castle.java&#10;Cast&#9;PSI&#9;JAVA://thrumania.board.item.GameItems.buildings.Castle&#10;Mini&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/gui/MiniMapPanel.java&#10;MapPro&#9;FILE&#9;file:///home/mohamadamin/Projects/PV Projects/Thrumania/src/thrumania/game/MapProcessor.java&#10;termin&#9;ACTION&#9;ActivateTerminalToolWindow" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth0" value="167" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth1" value="203" />
@@ -869,7 +865,7 @@
       <workItem from="1466664562178" duration="6313000" />
       <workItem from="1466671504179" duration="6991000" />
       <workItem from="1466680119752" duration="10235000" />
-      <workItem from="1466747740120" duration="18893000" />
+      <workItem from="1466747740120" duration="20325000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1144,11 +1140,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466765002874</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="Added castle&#10;">
+      <created>1466767861540</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1466767861540</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207667000" />
+    <option name="totallyTimeSpent" value="209099000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1242,7 +1245,8 @@
     <MESSAGE value="Fixed mini map's bug" />
     <MESSAGE value="Added algorithms for finding best stronghold positions and finding the shortest path between cells" />
     <MESSAGE value="Added new game" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added new game" />
+    <MESSAGE value="Added castle&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added castle&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1509,16 +1513,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -1543,6 +1537,47 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="846">
+          <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
+          <folding>
+            <element signature="e#1605#1606#0" expanded="true" />
+            <element signature="e#1634#1635#0" expanded="true" />
+            <element signature="e#1666#1667#0" expanded="true" />
+            <element signature="e#1697#1698#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="58" column="39" selection-start-line="58" selection-start-column="18" selection-end-line="58" selection-end-column="39" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Constants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="463">
+          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="173">
@@ -1563,44 +1598,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="68" column="47" selection-start-line="68" selection-start-column="47" selection-end-line="68" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Constants.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="463">
-          <caret line="79" column="21" selection-start-line="79" selection-start-column="21" selection-end-line="79" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="846">
-          <caret line="71" column="24" selection-start-line="71" selection-start-column="24" selection-end-line="71" selection-end-column="24" />
-          <folding>
-            <element signature="e#1605#1606#0" expanded="true" />
-            <element signature="e#1634#1635#0" expanded="true" />
-            <element signature="e#1666#1667#0" expanded="true" />
-            <element signature="e#1697#1698#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="333" column="35" selection-start-line="333" selection-start-column="35" selection-end-line="333" selection-end-column="35" />
+        <state relative-caret-position="214">
+          <caret line="364" column="0" selection-start-line="364" selection-start-column="0" selection-end-line="364" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <marker date="1466767731232" expanded="true" signature="8083:8697" ph="..." />
+            <marker date="1466769214537" expanded="true" signature="8083:8697" ph="..." />
           </folding>
         </state>
       </provider>

@@ -314,8 +314,10 @@ public class MapProcessor {
         }
         z = 0;
         for (List<Cell> island : islands) {
-            if (island.size() < 20) freeIslands.set(z, false);
-            freeIslandsCount--;
+            if (island.size() < 20) {
+                freeIslands.set(z, false);
+                freeIslandsCount--;
+            }
             z++;
         }
     }
@@ -325,21 +327,23 @@ public class MapProcessor {
         List<Cell> result = new ArrayList<>();
         for (Cell i : lands) {
             if (islands.get(i.getIslandId()).size() < 20) continue;
-            else if (!freeIslands.get(i.getIslandId()) && freeIslandsCount>0) continue;
             for (Cell j : lands) {
                 if (islands.get(j.getIslandId()).size() < 20) continue;
-                else if (!freeIslands.get(j.getIslandId()) && freeIslandsCount>0) continue;
                 if (getDistance(i, j) > distance) {
                     distance = getDistance(i, j);
-                    result.clear();
+                    if (result.size() > 0) {
+                        freeIslands.set(result.get(0).getIslandId(), true);
+                        freeIslands.set(result.get(1).getIslandId(), true);
+                        result.clear();
+                    }
                     result.add(i);
                     result.add(j);
                     freeIslands.set(i.getIslandId(), false);
                     freeIslands.set(j.getIslandId(), false);
-                    freeIslandsCount-=2;
                 }
             }
         }
+        freeIslandsCount-=2;
         for (int i=2; i<howMany; i++) {
             distance = -1;
             Cell c = null;
@@ -353,11 +357,11 @@ public class MapProcessor {
                 if (tempDistance > distance) {
                     distance = tempDistance;
                     c = cell;
-                    freeIslands.set(cell.getIslandId(), false);
-                    freeIslandsCount--;
                 }
             }
+            freeIslands.set(c.getIslandId(), false);
             result.add(c);
+            freeIslandsCount--;
         }
         return result;
     }
