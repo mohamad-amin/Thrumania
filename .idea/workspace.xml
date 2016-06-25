@@ -1165,7 +1165,7 @@
       <workItem from="1466820103665" duration="5776000" />
       <workItem from="1466827662846" duration="1501000" />
       <workItem from="1466844922903" duration="2894000" />
-      <workItem from="1466848577548" duration="7978000" />
+      <workItem from="1466848577548" duration="8008000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1419,11 +1419,17 @@
       <option name="project" value="LOCAL" />
       <updated>1466881036765</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="improving moving Human ( worker)">
+      <created>1466881063268</created>
+      <option name="number" value="00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1466881063268</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222950000" />
+    <option name="totallyTimeSpent" value="222980000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
