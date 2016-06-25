@@ -23,6 +23,7 @@ public class Worker extends  Human  implements  Runnable{
     private PlayPanel playPanel;
     private  Map map;
     private MapProcessor mapProcessor ;
+    private  boolean isMoving;
 //    processor.getPath(stast, end);
 
 
@@ -54,21 +55,45 @@ public class Worker extends  Human  implements  Runnable{
 //        this.setSize(200 ,200);
         this.setIcon( new ImageIcon(ImageUtils.getImage("manStanding.png")));
         this.setLocation(xCord, yCord);
+        this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
+        this.endCord =this.coordinate;
+        this.isMoving = false;
     }
 
     @Override
     protected void move(Coordinate end) {
+        end = endCord;
+        System.out.println("khar khar khar");
+        System.out.println(end);
+        isMoving =true;
         while ( coordinate.getRow() != end.getRow() ||  coordinate.getColumn() != end.getColumn() ) {
+            if( coordinate.getColumn() <  end.getColumn())
             this.xCord += 1;
-            this.yCord += 1;
+            else if ( coordinate.getColumn() > end.getColumn())
+                this.xCord --;
+            if( coordinate.getRow() > end.getRow())
+            this.yCord  --;
+            else if( coordinate.getRow() < end.getRow())
+                this.yCord ++;
             this.setLocation(xCord, yCord);
-            coordinate = new Coordinate((int) Math.ceil(xCord), (int) Math.ceil(yCord));
+            coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
             try {
                 Thread.sleep((long) (1000 / speedOfMoving));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+
+            System.out.println("x and y cords are :");
+            System.out.println(this.xCord + " "  + this.yCord);
+            System.out.println("nanananaana");
+            System.out.println(coordinate.getRow() + " " + coordinate.getColumn());
+            System.out.println("areareareaere");
+            System.out.println(end.getRow() + " " + endCord.getColumn());
+            System.out.println("-----------------------------");
+
         }
+        System.out.println("ajab");
+        isMoving = false;
 
 
     }
@@ -118,8 +143,14 @@ public class Worker extends  Human  implements  Runnable{
 
             // TODO : changing his order to go to castle
         }
+        System.out.println("Here1");
+        System.out.println(coordinate);
+        System.out.println(endCord);
+        if( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving ) {
+            System.out.println("here2");
 
-        this.move(mapProcessor.getPath(coordinate , endCord).pop());
+            this.move(mapProcessor.getPath(coordinate, endCord).pop());
+        }
 
     }
 

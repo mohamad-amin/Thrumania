@@ -49,7 +49,7 @@ public class Constants {
         NEEGATIVE_TWO_SCALE, NEGATIVE_ONE_SCALE, ZERO_SCALE, POSITIVE_ONE_SCALE, POSITIVE_TWO_SCALE, ZoomScales;
     }
 
-    public static enum Seasons {
+    public  static enum Seasons {
         SPRING(0),
         SUMMER(1),
         AUTMN(2),
@@ -64,8 +64,13 @@ public class Constants {
             return value;
         }
     }
-    public static enum DayTime {
+    public   static enum DayTime {
         MORNING , NIGHT
+    }
+    public  static  enum  playPanelElements {
+
+        WORKER , SOLDIER , TROOPBUILDING , FARM , SEE_PORT , WORKER_SHIP  , CONTAINER_SHIP , MILITARY_SHIP
+
     }
 
     public static void mouseInitializer(JFrame frame) {
@@ -79,12 +84,14 @@ public class Constants {
 
     public static void initializeConstants() {
         if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
+            // mac :
             CELL_SIZE = 32;
             INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
             MATRIX_HEIGHT = 98;
             MATRIX_WIDTH = 80;
             isMac= true;
         } else {
+            // not mac :
             CELL_SIZE = 40;
             INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2 ;
         }

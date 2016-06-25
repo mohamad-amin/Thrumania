@@ -21,7 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 /**
  * Created by mohamadamin on 6/24/16.
  */
-public class PlayPanel extends JPanel implements MouseListener, MouseMotionListener  {
+public class PlayPanel extends JPanel implements  MouseMotionListener {
 
     private Map map;
     private Coordinate focus = new Coordinate(0, 0);
@@ -31,8 +31,10 @@ public class PlayPanel extends JPanel implements MouseListener, MouseMotionListe
     private MiniMapPanel miniMap;
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
-    int yfocus =0;
-    int xfocus =0;
+    private Constants.playPanelElements gameElement = Constants.playPanelElements.WORKER;
+
+    int yfocus = 0;
+    int xfocus = 0;
 
     public PlayPanel(Map map, MiniMapPanel panel) {
         this.miniMap = panel;
@@ -40,7 +42,7 @@ public class PlayPanel extends JPanel implements MouseListener, MouseMotionListe
         this.setLayout(null);
         this.setLocation(0, 0);
         this.setSize(d);
-        this.addMouseListener(this);
+        this.addMouseListener(new GamePanelMouseListener());
         this.addMouseMotionListener(this);
         this.miniMap.setPlayPanel(this);
         miniMap.updateMap();
@@ -52,103 +54,80 @@ public class PlayPanel extends JPanel implements MouseListener, MouseMotionListe
 
 //    @Override
 //    public void paint(Graphics g) {
-////        super.paint(g);
-////        int seasonnum = giveMeSeasonNum();
-////        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
-////            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
-////                this.drawingOcean(r, c, g);
-//////                if( this.season == Constants.Seasons.WINTER){
-//////                    this.drawingSnowFlake(xfocus , yfocus ,g);
-//////                    this.xfocus +=10;
-//////                    this.yfocus+=20;
-//////                }
-////                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
-////                    g.drawImage(
-////                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-////                            c * Constants.CELL_SIZE,
-////                            r * Constants.CELL_SIZE,
-////                            Constants.CELL_SIZE,
-////                            Constants.CELL_SIZE,
-////                            null);
+//        super.paint(g);
+//        int seasonnum = giveMeSeasonNum();
+//        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
+//            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
+//                this.drawingOcean(r, c, g);
+////                if( this.season == Constants.Seasons.WINTER){
+////                    this.drawingSnowFlake(xfocus , yfocus ,g);
+////                    this.xfocus +=10;
+////                    this.yfocus+=20;
 ////                }
-////
-////                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
-////                    if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-////                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-////                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
-////                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
-//////                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
-////
-////                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-////                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-////                   else if(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
-////                                Constants.CELL_SIZE - 10, Constants.CELL_SIZE -10, null);
-////                    else {
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-////                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
-////                    }
-////                }
-////            }
-////        }
-////    }
-////
-////    private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
-////        if (season.equals(Constants.Seasons.SPRING))
-////            return ( (MapElement)mapElement ).getSpringPictureName();
-////        else if (season.equals(Constants.Seasons.SUMMER))
-////            return ( (MapElement)mapElement ).getSummerPictureName();
-////        else if (season.equals(Constants.Seasons.AUTMN))
-////            return ((MapElement)mapElement).getAutmnPictureName();
-////        else
-////            return ((MapElement)mapElement).getWinterPictureName();
-////    }
-////
-////    private void drawingOcean(int row, int column, Graphics g) {
-////        if (this.dayTime == Constants.DayTime.MORNING) {
-////            g.drawImage(ImageUtils.getImage("ocean1.jpg"), column * Constants.CELL_SIZE,
-////                    row * Constants.CELL_SIZE,
-////                    Constants.CELL_SIZE,
-////                    Constants.CELL_SIZE,
-////                    null);
-////        } else {
-////            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
-////                    row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-////        }
+//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
+//                    g.drawImage(
+//                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
+//                            c * Constants.CELL_SIZE,
+//                            r * Constants.CELL_SIZE,
+//                            Constants.CELL_SIZE,
+//                            Constants.CELL_SIZE,
+//                            null);
+//                }
+//
+//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
+//                    if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
+////                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
+//
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+//                                Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
+//                    else {
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+//                    }
+//                }
+//            }
+//        }
 //    }
-    
+
+    //
+    private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
+        if (season.equals(Constants.Seasons.SPRING))
+            return ((MapElement) mapElement).getSpringPictureName();
+        else if (season.equals(Constants.Seasons.SUMMER))
+            return ((MapElement) mapElement).getSummerPictureName();
+        else if (season.equals(Constants.Seasons.AUTMN))
+            return ((MapElement) mapElement).getAutmnPictureName();
+        else
+            return ((MapElement) mapElement).getWinterPictureName();
+    }
+
+    private void drawingOcean(int row, int column, Graphics g) {
+        if (this.dayTime == Constants.DayTime.MORNING) {
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"), column * Constants.CELL_SIZE,
+                    row * Constants.CELL_SIZE,
+                    Constants.CELL_SIZE,
+                    Constants.CELL_SIZE,
+                    null);
+        } else {
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
+                    row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+        }
+    }
+
     public void setFocus(Coordinate position) {
         this.focus = position;
         repaint();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -208,26 +187,51 @@ public class PlayPanel extends JPanel implements MouseListener, MouseMotionListe
     }
 
 
-private void setUppingTheHumans(){
+    private void setUppingTheHumans() {
 
-    JLabel j = new JLabel();
-    j.setLocation(200, 200);
-    j.setIcon(new ImageIcon(ImageUtils.getImage("manStanding.png")));
-    j.setSize( 100 , 100);
-//    this.add(j);
-    Worker worker = new Worker(this ,map ,   this.focus.getColumn() + 200 ,  200);
+
+        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
 //    worker.setxCord(this.focus.getColumn() + 20 );
 //    worker.setyCord(this.focus.getRow() + 20);
 //    worker.setyCord(200);
 //    worker.setxCord(200);
 //    worker.setLocation(worker.getX(),worker.getY());
-    this.add(worker);
-    HumanManagers.getSharedInstance().getHumans().add(worker);
-    HumanManagers.getSharedInstance().makingThreadPool();
+        this.add(worker);
+        HumanManagers.getSharedInstance().getHumans().add(worker);
+        HumanManagers.getSharedInstance().makingThreadPool();
 
 
+    }
 
+    private class GamePanelMouseListener implements MouseListener {
+        @Override
+        public void mouseClicked(MouseEvent e) {
 
+            // TODO :
+            if (gameElement == Constants.playPanelElements.WORKER)
+                HumanManagers.getSharedInstance().getHumans().get(0).setEndCord(new Coordinate((int) Math.ceil((double ) e.getY() / (double)Constants.CELL_SIZE), (int) Math.ceil(((double)e.getX()/(double) Constants.CELL_SIZE))));
+                HumanManagers.getSharedInstance().makingThreadPool();
 
-}
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseReleased(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseEntered(MouseEvent e) {
+
+        }
+
+        @Override
+        public void mouseExited(MouseEvent e) {
+
+        }
+    }
 }
