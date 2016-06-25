@@ -23,6 +23,7 @@ public class Soldier extends  Human implements Runnable {
         super.woodReq = 600;
         super.speadOfConsumingFood =2;
         super.isAlive = true;
+        super.isSelectedByPlayer = false;
         // TODO:
         super.xCord = x;
         super.yCord = y;

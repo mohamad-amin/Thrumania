@@ -1,5 +1,7 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.MapItems.HighLand;
+import thrumania.board.item.MapItems.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.GamePanel;
@@ -10,6 +12,7 @@ import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
 
 import javax.swing.*;
+import java.util.Stack;
 
 /**
  * Created by sina on 6/24/16.
@@ -24,6 +27,7 @@ public class Worker extends  Human  implements  Runnable{
     private  Map map;
     private MapProcessor mapProcessor ;
     private  boolean isMoving;
+    private Stack <Coordinate> paths;
 //    processor.getPath(stast, end);
 
 
@@ -40,6 +44,7 @@ public class Worker extends  Human  implements  Runnable{
         super.ironReq = 0;
         super.speadOfConsumingFood = 1;
         super.isAlive = true;
+        super.isSelectedByPlayer = false;
         super.xCord = xCord;
         super.yCord = yCord;
 
@@ -51,10 +56,10 @@ public class Worker extends  Human  implements  Runnable{
         this.playPanel = playPanel;
         this.map = map;
         this.mapProcessor =  new MapProcessor(map.getCells());
-        this.setSize(Constants.CELL_SIZE  , Constants.CELL_SIZE );
+//        this.setSize(Constants.CELL_SIZE  , Constants.CELL_SIZE );
 //        this.setSize(200 ,200);
-        this.setIcon( new ImageIcon(ImageUtils.getImage("manStanding.png")));
-        this.setLocation(xCord, yCord);
+//        this.setIcon( new ImageIcon(ImageUtils.getImage("manStanding.png")));
+//        this.setLocation(xCord, yCord);
         this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
         this.endCord =this.coordinate;
         this.isMoving = false;
@@ -62,9 +67,10 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     protected void move(Coordinate end) {
-        end = endCord;
-        System.out.println("khar khar khar");
-        System.out.println(end);
+//        end = endCord;
+        System.out.println("this is my coord" + this.coordinate);
+        System.out.println("this is end coord" + end);
+
         isMoving =true;
         while ( coordinate.getRow() != end.getRow() ||  coordinate.getColumn() != end.getColumn() ) {
             if( coordinate.getColumn() <  end.getColumn())
@@ -75,7 +81,6 @@ public class Worker extends  Human  implements  Runnable{
             this.yCord  --;
             else if( coordinate.getRow() < end.getRow())
                 this.yCord ++;
-            this.setLocation(xCord, yCord);
             coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
             try {
                 Thread.sleep((long) (1000 / speedOfMoving));
@@ -83,13 +88,6 @@ public class Worker extends  Human  implements  Runnable{
                 e.printStackTrace();
             }
 
-            System.out.println("x and y cords are :");
-            System.out.println(this.xCord + " "  + this.yCord);
-            System.out.println("nanananaana");
-            System.out.println(coordinate.getRow() + " " + coordinate.getColumn());
-            System.out.println("areareareaere");
-            System.out.println(end.getRow() + " " + endCord.getColumn());
-            System.out.println("-----------------------------");
 
         }
         System.out.println("ajab");
@@ -140,20 +138,32 @@ public class Worker extends  Human  implements  Runnable{
             this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
 
         if( isCapacityOfCollectingItemsFull ){
-
             // TODO : changing his order to go to castle
         }
         System.out.println("Here1");
         System.out.println(coordinate);
         System.out.println(endCord);
-        if( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving ) {
-            System.out.println("here2");
+        while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
+            paths = mapProcessor.getPath(coordinate, endCord);
+            System.out.println(paths.peek());
+            if( paths.peek().equals(coordinate) ) {
+                System.out.println("here 3");
 
-            this.move(mapProcessor.getPath(coordinate, endCord).pop());
+                Coordinate c = paths.pop();
+                c = paths.peek();
+                System.out.println(c);
+
+            }
+            this.move(paths.pop());
         }
 
     }
+private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
+    if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand)
+        return  false;
+    else return  true;
 
 
+}
 
 }

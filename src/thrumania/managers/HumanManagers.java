@@ -25,13 +25,11 @@ public class HumanManagers {
 
 
 
-        public  void makingThreadPool() {
+        public  void makingThreadPool()   {
 
 
             ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
             for ( int i =0 ; i< humans.size() ; i++){
-
-
 
 
                 threadPoolExecutor.execute( ( Runnable) humans.get(i));
@@ -39,7 +37,7 @@ public class HumanManagers {
             }
 
 
-         //   threadPoolExecutor.shutdown();
+            threadPoolExecutor.shutdown();
 
 
 

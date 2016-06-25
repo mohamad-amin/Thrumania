@@ -49,6 +49,8 @@ public class PlayFrame extends JFrame {
         map.setMiniMap(miniMapPanel);
 
         playPanel = new PlayPanel(map, miniMapPanel);
+        Thread playPanelThread = new Thread(playPanel);
+        playPanelThread.start();
         this.add(playPanel);
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

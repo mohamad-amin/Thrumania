@@ -1,5 +1,6 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 
@@ -8,7 +9,7 @@ import javax.swing.*;
 /**
  * Created by sina on 6/24/16.
  */
-public abstract class Human extends JLabel {
+public abstract class Human extends InsideElementsItems {
     // TODO : teams
     protected  int health;
     // each damage is in scale of 0.5 second
@@ -34,6 +35,8 @@ public abstract class Human extends JLabel {
     protected abstract void  move(Coordinate end);
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
+    protected  boolean isSelectedByPlayer;
+    // TODO  : deterimining team name !!
 
 
 
@@ -73,4 +76,15 @@ public abstract class Human extends JLabel {
         this.endCord = endCord;
     }
 
+    public boolean isSelectedByPlayer() {
+        return isSelectedByPlayer;
+    }
+
+    public void setSelectedByPlayer(boolean selectedByPlayer) {
+        isSelectedByPlayer = selectedByPlayer;
+    }
+
+    public Coordinate getCoordinate() {
+        return coordinate;
+    }
 }

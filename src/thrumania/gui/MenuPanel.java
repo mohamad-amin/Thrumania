@@ -128,7 +128,7 @@ public class MenuPanel extends JPanel {
                 SoundUtils.clip.stop();
                 new GameFrame(new Map(Constants.MATRIX_HEIGHT, Constants.MATRIX_WIDTH));
             } else if (newgameIsSelected) {
-                // Todo: @sinamalakouti stop sound?
+                SoundUtils.clip.stop();
                 String mapFilePath = "";
                 JOptionPane.showMessageDialog(MenuPanel.this, "Choose map file", "New Game", JOptionPane.INFORMATION_MESSAGE);
                 mapFilePath = FileUtils.chooseFile(MenuPanel.this, "data/map");
