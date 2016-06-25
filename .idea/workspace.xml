@@ -5,16 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/menu.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/managers/HumanManagers.java" afterPath="$PROJECT_DIR$/src/thrumania/managers/HumanManagers.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -1174,7 +1165,7 @@
       <workItem from="1466820103665" duration="5776000" />
       <workItem from="1466827662846" duration="1501000" />
       <workItem from="1466844922903" duration="2894000" />
-      <workItem from="1466848577548" duration="7930000" />
+      <workItem from="1466848577548" duration="7978000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1422,11 +1413,17 @@
       <option name="project" value="LOCAL" />
       <updated>1466846962740</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="improving moving Human ( worker)">
+      <created>1466881036764</created>
+      <option name="number" value="00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1466881036765</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="222902000" />
+    <option name="totallyTimeSpent" value="222950000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1520,7 +1517,8 @@
     <MESSAGE value="Fixed mini map's bug" />
     <MESSAGE value="Added algorithms for finding best stronghold positions and finding the shortest path between cells" />
     <MESSAGE value="adding some pictures to the project" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding some pictures to the project" />
+    <MESSAGE value="improving moving Human ( worker)" />
+    <option name="LAST_COMMIT_MESSAGE" value="improving moving Human ( worker)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
