@@ -67,9 +67,6 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     protected void move(Coordinate end) {
-//        end = endCord;
-        System.out.println("this is my coord" + this.coordinate);
-        System.out.println("this is end coord" + end);
 
         isMoving =true;
         while ( coordinate.getRow() != end.getRow() ||  coordinate.getColumn() != end.getColumn() ) {
@@ -90,7 +87,6 @@ public class Worker extends  Human  implements  Runnable{
 
 
         }
-        System.out.println("ajab");
         isMoving = false;
 
 
@@ -138,22 +134,14 @@ public class Worker extends  Human  implements  Runnable{
             this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
 
         if( isCapacityOfCollectingItemsFull ){
-            // TODO : changing his order to go to castle
+            // TODO : changing his order to go to castle : getting it's team castle's coordinate
         }
-        System.out.println("Here1");
-        System.out.println(coordinate);
-        System.out.println(endCord);
+
         while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
             paths = mapProcessor.getPath(coordinate, endCord);
-            System.out.println(paths.peek());
-            if( paths.peek().equals(coordinate) ) {
-                System.out.println("here 3");
+            if( paths.peek().equals(coordinate) )
+                paths.pop();
 
-                Coordinate c = paths.pop();
-                c = paths.peek();
-                System.out.println(c);
-
-            }
             this.move(paths.pop());
         }
 

@@ -63,7 +63,7 @@ public class PlayFrame extends JFrame {
         processor.newInitializeStrongholds();
         List<Cell> strongholdPositions = processor.findCastlePositions(players);
         for (Cell cell : strongholdPositions) {
-            cell.setInsideElementsItems(new Castle());
+            cell.setInsideElementsItems(new Castle(cell.getPosition()));
         }
         // Todo: add strongholds
     }

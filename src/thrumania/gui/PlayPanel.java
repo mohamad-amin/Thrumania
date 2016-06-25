@@ -2,6 +2,7 @@ package thrumania.gui;
 
 
 import thrumania.board.item.GameItems.people.Human;
+import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.LowLand;
@@ -120,8 +121,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
 //                System.out.println("LOOOOOoooooooooooooooolllllllll");
             }
-// else
-                //TODO : drawing soldier
+  else if ( HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier)
+                g.drawImage(ImageUtils.getImage("Soldier.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord() , HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
         }
 
     }
@@ -208,7 +209,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         // TODO : set up 10 workers for each team.
         Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
         HumanManagers.getSharedInstance().getHumans().add(worker);
-        HumanManagers.getSharedInstance().makingThreadPool();
+    //    HumanManagers.getSharedInstance().makingThreadPool();
 
 
     }
