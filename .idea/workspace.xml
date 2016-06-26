@@ -5,13 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -53,34 +48,36 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MapElement.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-3.8888888">
-              <caret line="7" column="11" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Castle.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Worker.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Worker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.116161615">
-              <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+            <state vertical-scroll-proportion="-7.0">
+              <caret line="113" column="20" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="20" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7037037">
+              <caret line="516" column="47" selection-start-line="516" selection-start-column="47" selection-end-line="516" selection-end-column="47" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Map.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-7.0">
+              <caret line="234" column="30" selection-start-line="234" selection-start-column="24" selection-end-line="234" selection-end-column="30" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -206,7 +203,6 @@
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/Panels.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/Preview.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
@@ -214,6 +210,7 @@
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
       </list>
     </option>
   </component>
@@ -1149,7 +1146,7 @@
       <workItem from="1466820103665" duration="5776000" />
       <workItem from="1466827662846" duration="1501000" />
       <workItem from="1466844922903" duration="2894000" />
-      <workItem from="1466848577548" duration="20941000" />
+      <workItem from="1466848577548" duration="21320000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1433,11 +1430,17 @@
       <option name="project" value="LOCAL" />
       <updated>1466944690742</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="drawing soldier + adding coordinate to castle Class">
+      <created>1466968800011</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1466968800011</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="235913000" />
+    <option name="totallyTimeSpent" value="236292000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -1696,14 +1699,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="11" selection-start-line="26" selection-start-column="11" selection-end-line="26" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/Alaki.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1882,16 +1877,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1979,8 +1964,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.116161615">
-          <caret line="137" column="0" selection-start-line="137" selection-start-column="0" selection-end-line="137" selection-end-column="0" />
+        <state vertical-scroll-proportion="-7.0">
+          <caret line="113" column="20" selection-start-line="113" selection-start-column="16" selection-end-line="113" selection-end-column="20" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-7.0">
+          <caret line="234" column="30" selection-start-line="234" selection-start-column="24" selection-end-line="234" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7037037">
+          <caret line="516" column="47" selection-start-line="516" selection-start-column="47" selection-end-line="516" selection-end-column="47" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

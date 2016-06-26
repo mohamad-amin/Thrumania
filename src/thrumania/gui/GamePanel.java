@@ -504,7 +504,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         GoldMine goldMineTemp = new GoldMine();
         temp = map.getCell(row, col);
-        if (temp.isLand() && temp.getInsideElementsItems() == null && temp instanceof LowLand) {
+        if (temp.isLand() && temp.getInsideElementsItems() == null && temp instanceof HighLand) {
             temp.setInsideElementsItems(goldMineTemp);
             repaint();
         }
@@ -514,7 +514,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell currentTempCell ;
         StoneMine stoneMineTemp = new StoneMine();
         currentTempCell = map.getCell(row, col);
-        if (currentTempCell instanceof LowLand && currentTempCell.getInsideElementsItems() == null) {
+        if (currentTempCell instanceof HighLand && currentTempCell.getInsideElementsItems() == null) {
             currentTempCell.setInsideElementsItems(stoneMineTemp);
             repaint();
         }
