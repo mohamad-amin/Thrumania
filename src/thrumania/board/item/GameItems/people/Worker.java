@@ -4,14 +4,10 @@ import thrumania.board.item.MapItems.HighLand;
 import thrumania.board.item.MapItems.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
-import thrumania.gui.GamePanel;
 import thrumania.gui.PlayPanel;
-import thrumania.messages.Messages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
-import thrumania.utils.ImageUtils;
 
-import javax.swing.*;
 import java.util.Stack;
 
 /**
@@ -28,7 +24,6 @@ public class Worker extends  Human  implements  Runnable{
     private MapProcessor mapProcessor ;
     private  boolean isMoving;
     private Stack <Coordinate> paths;
-//    processor.getPath(stast, end);
 
 
 
@@ -60,6 +55,7 @@ public class Worker extends  Human  implements  Runnable{
 //        this.setSize(200 ,200);
 //        this.setIcon( new ImageIcon(ImageUtils.getImage("manStanding.png")));
 //        this.setLocation(xCord, yCord);
+       // TODO : its coordinate
         this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
         this.endCord =this.coordinate;
         this.isMoving = false;
@@ -103,6 +99,8 @@ public class Worker extends  Human  implements  Runnable{
             this.speedOfMoving = 5;
         else if( playPanel.getSeason() == Constants.Seasons.WINTER)
             this.speedOfMoving = 3;
+        if( this.canGoMountain)
+            speedOfMoving = speedOfMoving / 2;
     }
 
 
@@ -124,12 +122,8 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     public void run() {
-        this.determiningSpeedOfMoving();
-//
-        if( canGoMountain)
-            speedOfMoving = speedOfMoving / 2;
-        else if ( ! canGoMountain)
-            speedOfMoving = speedOfMoving * 2;
+
+
         if( capacityOfCollectingItems == 300 || capacityOfCollectingItems == 0)
             this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
 
@@ -141,6 +135,7 @@ public class Worker extends  Human  implements  Runnable{
             paths = mapProcessor.getPath(coordinate, endCord);
             if( paths.peek().equals(coordinate) )
                 paths.pop();
+                this.determiningSpeedOfMoving();
 
             this.move(paths.pop());
         }

@@ -11,9 +11,7 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.io.File;
 import java.util.*;
-import java.util.Timer;
 
 /**
  * Created by sina on 5/18/16.

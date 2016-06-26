@@ -1,9 +1,14 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.MapItems.HighLand;
+import thrumania.board.item.MapItems.LowLand;
 import thrumania.board.item.MapItems.Map;
+import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+
+import java.util.Stack;
 
 /**
  * Created by sina on 6/24/16.
@@ -11,6 +16,9 @@ import thrumania.utils.Coordinate;
 public class Soldier extends  Human implements Runnable {
     private  PlayPanel playPanel;
     private Map map;
+    private Stack<Coordinate> paths;
+    private MapProcessor mapProcessor ;
+    private  boolean isMoving;
 
 
     public Soldier(PlayPanel playPanel , Map map , int x , int y) {
@@ -29,12 +37,40 @@ public class Soldier extends  Human implements Runnable {
         super.yCord = y;
         this.playPanel = playPanel;
         this.map = map;
+        // TODO : initializing its coordinate
+        this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
+        this.endCord =this.coordinate;
+        this.mapProcessor =  new MapProcessor(map.getCells());
+        this.isMoving = false;
 
 
     }
 
     @Override
     protected void move(Coordinate end) {
+
+        isMoving = true;
+        while ( coordinate.getRow() != end.getRow() ||  coordinate.getColumn() != end.getColumn() ) {
+            if( coordinate.getColumn() <  end.getColumn())
+                this.xCord += 1;
+            else if ( coordinate.getColumn() > end.getColumn())
+                this.xCord --;
+            if( coordinate.getRow() > end.getRow())
+                this.yCord  --;
+            else if( coordinate.getRow() < end.getRow())
+                this.yCord ++;
+            coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
+            try {
+                Thread.sleep((long) (1000 / speedOfMoving));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+
+            }
+
+
+        }
+        isMoving = false;
+
 
 
     }
@@ -49,6 +85,7 @@ public class Soldier extends  Human implements Runnable {
             this.speedOfMoving = 5;
         else if (playPanel.getSeason() == Constants.Seasons.WINTER)
             this.speedOfMoving = 3;
+
     }
 
 
@@ -56,7 +93,25 @@ public class Soldier extends  Human implements Runnable {
 
     @Override
     public void run() {
-        this.determiningSpeedOfMoving();
+        System.out.println(" error is here: \t" + mapProcessor);
+        while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
+            paths = mapProcessor.getPath(coordinate, endCord);
+            this.determiningSpeedOfMoving();
+            if( paths.peek().equals(coordinate) )
+                paths.pop();
+
+
+            this.move(paths.pop());
+        }
+
+
+    }
+
+    private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
+        if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand)
+            return  false;
+        else return  true;
+
 
     }
 }

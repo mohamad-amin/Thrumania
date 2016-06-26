@@ -36,7 +36,7 @@ public abstract class Human extends InsideElementsItems {
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
     protected  boolean isSelectedByPlayer;
-    // TODO  : deterimining team name !!
+
 
 
 

@@ -128,7 +128,7 @@ public class MenuPanel extends JPanel {
                 SoundUtils.clip.stop();
                 new GameFrame(new Map(Constants.MATRIX_HEIGHT, Constants.MATRIX_WIDTH));
             } else if (newgameIsSelected) {
-                SoundUtils.clip.stop();
+
                 String mapFilePath = "";
                 JOptionPane.showMessageDialog(MenuPanel.this, "Choose map file", "New Game", JOptionPane.INFORMATION_MESSAGE);
                 mapFilePath = FileUtils.chooseFile(MenuPanel.this, "data/map");
@@ -145,7 +145,9 @@ public class MenuPanel extends JPanel {
                     String players = JOptionPane.showInputDialog(MenuPanel.this, "Please enter players' count:",
                             "New Game", JOptionPane.INFORMATION_MESSAGE);
                     try {
+
                         new PlayFrame(loadedMap, Integer.valueOf(players));
+                        SoundUtils.clip.stop();
                     } catch (Exception exception) {
                         exception.printStackTrace();
                         JOptionPane.showMessageDialog(MenuPanel.this, "Wrong players' count :(", "New Game",
