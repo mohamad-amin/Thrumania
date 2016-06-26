@@ -1,5 +1,6 @@
 package thrumania.board.item.MapItems;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cell;
 import thrumania.board.item.MapItems.LowLand;
@@ -16,21 +17,18 @@ import thrumania.utils.IntegerUtils;
 
 // Row, Column
 
-    // TODO : should handle drawing land next to stone_mine && Gold_mine : h}
+    // TODO : should handle drawing land next to stone_mine && Gold_mine :
 
 public class Map {
 
     private MiniMapPanel miniMap;
     private Cell[][] cells;
     private int width, height;
-    private Cacher<Integer, int[][]> states;
 
     public Map(int width, int height) {
         this.width = width;
         this.height = height;
         this.cells = new Cell[width][height];
-        this.states = new Cacher<>();
-//        stateLoad();
         fillCells();
     }
 
@@ -42,7 +40,7 @@ public class Map {
         return cells;
     }
 
-    public void fillCells() {
+    private void fillCells() {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < height; j++) {
                 Cell cell = new Sea(new Coordinate(i, j));
@@ -59,7 +57,7 @@ public class Map {
             int[][] adjacent = createAdjecant(i, j, type);
             intilizeAdjacent(adjacent, i, j, type);
             checkMiddleCell(adjacent, i, j, type);
-            updateAdjecant(adjacent, i, j, type);
+            updateAdjecant(adjacent, i, j);
             updateOutAdjacent(i, j, type);
             if (miniMap != null) miniMap.updateMap();
         }
@@ -85,37 +83,47 @@ public class Map {
     }
 
     private void updateOutAdjacent(int i, int j,int type) {
-        if(type!=2) {
+        if(type==1) {
             for (int x = -2; x < 3; x = x + 4) {
                 if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x))
-                    if (cells[i + x][j] instanceof LowLand) numberAndLoad(i + x, j, type);
+                    if (cells[i + x][j] instanceof LowLand) numberAndLoad(i + x, j);
                 if (IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + x))
-                    if (cells[i][j + x] instanceof LowLand) numberAndLoad(i, j + x, type);
+                    if (cells[i][j + x] instanceof LowLand) numberAndLoad(i, j + x);
+            }
+        }
+        if (type ==0) {
+            for (int x=-2;x<3;x=x+4){
+                for (int y=-1;y<2;y++){
+                   if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + x)&&
+                           IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + y)&&
+                           (cells[i + x][j+y] instanceof LowLand || cells[i + x][j+y] instanceof HighLand))
+                       numberAndLoad(i + x, j+y);
+                    if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i + y)&&
+                            IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j + x)&&
+                            (cells[i + y][j+x] instanceof LowLand || cells[i + y][j+x] instanceof HighLand))
+                        numberAndLoad(i + y, j+x);
+                }
             }
         }
     }
 
-    private void numberAndLoad(int i, int j, int type) {
-        int n = checkFourSideAndGiveMeNumber(i, j, type);
-        if(type !=2) {
+    private void numberAndLoad(int i, int j) {
+        int temptype =1;
+        if(cells[i][j] instanceof HighLand) temptype = 2;
+        int n = checkFourSideAndGiveMeNumber(i, j, temptype);
+        if(temptype !=2) {
+            InsideElementsItems element = cells[i][j].getInsideElementsItems();
             cells[i][j] = new LowLand(new Coordinate(i, j));
             cells[i][j].setPictureName(n + ".png");
-            InsideElementsItems element = (cells[i][j] == null) ? null : cells[i][j].getInsideElementsItems();
-            if (element != null) {
-                if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                    cells[i][j].setInsideElementsItems(element);
+            cells[i][j].setInsideElementsItems(element);
+            //TODO what is setland?
+                if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
+                    cells[i][j].setCompeleteLand(false);
+                } else {
+                    cells[i][j].setCompeleteLand(true);
                 }
-            }
-            cells[i][j].setLand(true);
-
-            if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
-                cells[i][j].setCompeleteLand(false);
-            } else {
-                cells[i][j].setCompeleteLand(true);
-            }
         } else {
             n+=64;
-            System.out.println(n);
             cells[i][j] = new HighLand(new Coordinate(i, j));
             cells[i][j].setPictureName(n + ".png");
         }
@@ -127,7 +135,8 @@ public class Map {
         for (int x = -1; x < 2; x++) {
             for (int y = -1; y < 2; y++) {
                 if(type != 2) {
-                    if (inRange(i + x, j + y) && cells[i + x][j + y] instanceof LowLand && !(x == 0 && y == 0)) {
+                    if (inRange(i + x, j + y) && (cells[i + x][j + y] instanceof LowLand || cells[i + x][j + y] instanceof HighLand)
+                            && !(x == 0 && y == 0)) {
                         if (type == 1) {
                             if (x * y == 0) adjacent[x + 1][y + 1] = 1;
                             else {
@@ -150,66 +159,79 @@ public class Map {
         return adjacent;
     }
 
-    public void intilizeAdjacent(int[][] adjacent, int i, int j, int type) {
+    private void intilizeAdjacent(int[][] adjacent, int i, int j, int type) {
         if (type==1) {
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
+                    ///all adjacent new one time...
                     if (adjacent[x + 1][y + 1] == 1) {
                         InsideElementsItems element = (cells[i + x][j + y] == null) ? null : cells[i + x][j + y].getInsideElementsItems();
-                        cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
-                        cells[i + x][j + y].setPictureName("0.png");
-                        if (element != null) {
-                            if (element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                                cells[i][j].setInsideElementsItems(element);
-                            }
-                        } else cells[i][j].setInsideElementsItems(element);
-                        cells[i][j].setLand(true);
-                        cells[i + x][j + y].setInsideElementsItems(element);
+                        if (cells[i+x][j+y] instanceof HighLand ) {
+                            cells[i + x][j + y] = new HighLand(new Coordinate(i + x, j + y));
+                            cells[i + x][j + y].setPictureName("64.png");
+                        }else {
+                            cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
+                            cells[i + x][j + y].setPictureName("0.png");
+                        }
+                        if (element != null&&element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
+                            cells[i+x][j+y].setInsideElementsItems(element);
+                        }
+                        cells[i+x][j+y].setLand(true);
+                    }
+                }
+            }
+        }
+        if (type==0) {
+            for (int x = -1; x < 2; x++) {
+                for (int y = -1; y < 2; y++) {
+                    ///all adjacent new one time...
+                    if (adjacent[x + 1][y + 1] == 1) {
+                            cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
+                            cells[i + x][j + y].setPictureName("0.png");
                     }
                 }
             }
         }
     }
 
-    private void updateAdjecant(int[][] adjacent, int x, int y,int type) {
+    private void updateAdjecant(int[][] adjacent, int x, int y) {
         for (int i = -1; i < 2; i++) {
             for (int j = -1; j < 2; j++) {
                 if (adjacent[i + 1][j + 1] == 1) {
-                    numberAndLoad(x + i, y + j,type);
+                    numberAndLoad(x + i, y + j);
                 }
             }
         }
     }
 
-    public boolean inRange(int i, int j) {
-        if (IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i)
-                && IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j)) return true;
-        return false;
+    private boolean inRange(int i, int j) {
+        return IntegerUtils.isInRange(0, Constants.MATRIX_HEIGHT - 1, i)
+                && IntegerUtils.isInRange(0, Constants.MATRIX_WIDTH - 1, j);
     }
 
-    public int inRangeAndCode (int i, int j ,int type) {
+    private int inRangeAndCode(int i, int j, int type) {
         int x=0;
-        if (type!=2) if (inRange(i,j)) if(cells[i][j] instanceof LowLand) x=1; else x=0;
+        if (type==0) if (inRange(i,j)) if(cells[i][j] instanceof LowLand) x=1; else x=0;
+        if (type==1) if (inRange(i,j)) if(cells[i][j] instanceof LowLand || cells[i][j] instanceof HighLand) x=1; else x=0;
         if (type==2) if (inRange(i,j)) if(cells[i][j] instanceof HighLand) x=1; else x=0;
         return x;
     }
 
-    public int checkFourSideAndGiveMeNumber(int i, int j , int type) {
-        int x = inRangeAndCode(i - 1, j ,type) * 4 +
-                inRangeAndCode(i, j - 1 ,type) * 2 +
-                inRangeAndCode(i, j + 1 ,type) * 8 +
-                inRangeAndCode(i + 1, j ,type) * 1;
-        return x;
+    private int checkFourSideAndGiveMeNumber(int i, int j, int type) {
+        return inRangeAndCode(i - 1, j ,type) * 4 +
+                    inRangeAndCode(i, j - 1 ,type) * 2 +
+                    inRangeAndCode(i, j + 1 ,type) * 8 +
+                    inRangeAndCode(i + 1, j, type);
     }
     //todo with sina stone mine in highland
-    public void checkMiddleCell(int[][] adjacent, int i, int j, int type) {
+    private void checkMiddleCell(int[][] adjacent, int i, int j, int type) {
         int x = adjacent[0][1] * 4 +
                 adjacent[1][0] * 2 +
                 adjacent[1][2] * 8 +
-                adjacent[2][1] * 1;
+                adjacent[2][1];
         if(type==1) {
             cells[i][j] = new LowLand(new Coordinate(i, j));
-            cells[i][j].setPictureName(new Integer(x).toString() + ".png");
+            cells[i][j].setPictureName(Integer.toString(x) + ".png");
             insideoflowland(i,j,x);
         }
         else if (type == 0) {
@@ -217,7 +239,7 @@ public class Map {
             cells[i][j].setPictureName("ocean1.jpg");
         }else {
             cells[i][j]= new HighLand(new Coordinate(i,j));
-            cells[i][j].setPictureName(new Integer(x+64).toString() + ".png");
+            cells[i][j].setPictureName(Integer.toString(x + 64) + ".png");
         }
     }
 
@@ -238,24 +260,6 @@ public class Map {
             cells[i][j].setCompeleteLand(true);
         }
     }
-
-
-    public int getWidth() {
-        return width;
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public void setCells(Cell[][] cells) {
         this.cells = cells;
     }
