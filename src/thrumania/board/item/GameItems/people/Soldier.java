@@ -40,7 +40,6 @@ public class Soldier extends  Human implements Runnable {
         // TODO : initializing its coordinate
         this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
         this.endCord =this.coordinate;
-        this.mapProcessor =  new MapProcessor(map.getCells());
         this.isMoving = false;
 
 

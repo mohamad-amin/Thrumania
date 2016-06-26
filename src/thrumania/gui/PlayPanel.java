@@ -19,6 +19,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
 
 /**
  * Created by mohamadamin on 6/24/16.
@@ -36,6 +37,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private Constants.DayTime dayTime;
     private  Preview preview;
     private Coordinate start = new Coordinate(0, 0);
+    // TODO : check this shit
+    private ArrayList<Human> shouldDrawHumans = new ArrayList<>();
 
     //    private Constants.playPanelElements  gameElement = Constants.playPanelElements.WORKER;
     private InsideElementsItems gameSelectedElement  = null;
@@ -85,6 +88,14 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                             Constants.CELL_SIZE,
                             Constants.CELL_SIZE,
                             null);
+
+                    Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + focus.getRow() , c + focus.getColumn()));
+                    if( tempHuman != null) {
+                        tempHuman.setShouldDraw(true);
+                        this.shouldDrawHumans.add(tempHuman);
+                    }
+
+
                 }
 
                 if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
@@ -129,13 +140,25 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
 
-            if( HumanManagers.getSharedInstance().getHumans().get(i) instanceof  Worker) {
+            if( HumanManagers.getSharedInstance().getHumans().get(i) instanceof  Worker && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw()) {
                     g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
 //                System.out.println("LOOOOOoooooooooooooooolllllllll");
             }
-  else if ( HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier)
+  else if ( HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw())
                 g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord() , HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
         }
+
+        for ( int i =0 ; i< shouldDrawHumans.size(); i++){
+
+            shouldDrawHumans.get(i).setShouldDraw(false);
+            shouldDrawHumans.remove(i);
+
+
+
+        }
+
+
+
 
     }
 
@@ -191,7 +214,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         else if (season.equals(Constants.Seasons.WINTER)) return 3;
         return 4;
     }
+    private  Human findingHumanByCoordinates ( Coordinate crd){
 
+        for ( int i =0 ; i < HumanManagers.getSharedInstance().getHumans().size() ; i++){
+
+            if( crd.equals(HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate()))
+                return  HumanManagers.getSharedInstance().getHumans().get(i);
+
+        }
+
+
+
+        return null ;
+    }
 
     private void nextSeason() {
         int x = giveMeSeasonNum();
@@ -219,9 +254,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private void setUppingTheHumans() {
 
         // TODO : set up 10 workers for each team.
-//        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
-        Soldier soldier = new Soldier(this , map ,  Constants.CELL_SIZE + 1 ,  Constants.CELL_SIZE + 1);
-        HumanManagers.getSharedInstance().getHumans().add(soldier);
+        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
+//        Soldier soldier = new Soldier(this , map ,  Constants.CELL_SIZE + 1 ,  Constants.CELL_SIZE + 1);
+        HumanManagers.getSharedInstance().getHumans().add(worker);
     //    HumanManagers.getSharedInstance().makingThreadPool();
 
 
@@ -242,8 +277,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private Human findingwhichHumanIsClicked(int x , int y){
         Coordinate coord = new Coordinate((int) Math.ceil((double) y / Constants.CELL_SIZE),  (int) Math.ceil((double) x / (double) Constants.CELL_SIZE));
         for ( int i = 0; i < HumanManagers.getSharedInstance().getHumans().size() ; i++){
-            System.out.println("human array is " + HumanManagers.getSharedInstance().getHumans().get(i));
-            System.out.println( HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate());
+//            System.out.println("human array is " + HumanManagers.getSharedInstance().getHumans().get(i));
+//            System.out.println("manager is coordinate is \t" +HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate());
+//            System.out.println("coord is \t" + coord);
 
                 if ( HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate().equals(coord) ){
 
@@ -262,7 +298,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
             // TODO :
             System.out.println("gameSelectedItem is \t"+ gameSelectedElement);
-            if( gameSelectedElement == null ) {
+            if( e.getModifiersEx() == 0 && e.getButton() == 1) {
+
                 gameSelectedElement = findingwhichHumanIsClicked(e.getX() , e.getY());
 
             }
@@ -281,9 +318,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                             ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
                             else if( gameSelectedElement instanceof  Soldier)
                                 ((Soldier) gameSelectedElement).setEndCord( new Coordinate( (int) Math.ceil((double) e.getY() / ( double) Constants.CELL_SIZE), (int) Math.ceil((double) e.getX() / (double) Constants.CELL_SIZE)));
+                            HumanManagers.getSharedInstance().makingThreadPool();
 
-                        } else if ( e.getModifiersEx() == 0 && e.getButton() == 1) {
-                            gameSelectedElement = null;
                         }
 
 
@@ -294,7 +330,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
                 //       HumanManagers.getSharedInstance().getHumans().get(0).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
 
-            HumanManagers.getSharedInstance().makingThreadPool();
+//            HumanManagers.getSharedInstance().makingThreadPool();
 
 
         }

@@ -1,13 +1,10 @@
 package thrumania.board.item.MapItems;
 
-import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +12,7 @@ import java.util.List;
  * Created by mohamadamin on 5/18/16.
  */
 
-public abstract class Cell  extends JPanel{
+public abstract class Cell {
 
     private int islandId = -1;
     private String pictureName;
@@ -24,7 +21,6 @@ public abstract class Cell  extends JPanel{
 
     private boolean isLand;
     private boolean canDrawStoneOrGold = false ;
-
     protected boolean isCompeleteLand = false;
 
     public Cell(Coordinate position) {
@@ -88,14 +84,6 @@ public abstract class Cell  extends JPanel{
     }
 
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        if( this.insideElementsItems instanceof Human){
 
 
-         // TODO
-
-        }
-    }
 }

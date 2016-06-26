@@ -35,8 +35,9 @@ public abstract class Human extends InsideElementsItems {
     protected abstract void  move(Coordinate end);
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
+    private boolean shouldDraw;
     protected  boolean isSelectedByPlayer;
-
+    // TODO  : deterimining team name !!
 
 
 
@@ -84,7 +85,19 @@ public abstract class Human extends InsideElementsItems {
         isSelectedByPlayer = selectedByPlayer;
     }
 
+    public boolean isShouldDraw() {
+        return shouldDraw;
+    }
+
+    public void setShouldDraw(boolean shouldDraw) {
+        this.shouldDraw = shouldDraw;
+    }
+
     public Coordinate getCoordinate() {
         return coordinate;
+    }
+
+    public void setCoordinate(Coordinate coordinate) {
+        this.coordinate = coordinate;
     }
 }

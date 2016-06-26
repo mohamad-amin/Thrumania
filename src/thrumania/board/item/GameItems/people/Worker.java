@@ -83,6 +83,9 @@ public class Worker extends  Human  implements  Runnable{
 
 
         }
+//        this.xCord +=2;
+//        this.yCord +=2;
+        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
         isMoving = false;
 
 
@@ -122,7 +125,7 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     public void run() {
-
+        this.determiningSpeedOfMoving();
 
         if( capacityOfCollectingItems == 300 || capacityOfCollectingItems == 0)
             this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
@@ -132,13 +135,27 @@ public class Worker extends  Human  implements  Runnable{
         }
 
         while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
-            paths = mapProcessor.getPath(coordinate, endCord);
-            if( paths.peek().equals(coordinate) )
-                paths.pop();
-                this.determiningSpeedOfMoving();
 
-            this.move(paths.pop());
-        }
+
+
+//while ( ! mapProcessor.getPath(coordinate , endCord).isEmpty()){
+//        while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.xCord != endCord.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE /3 || this.yCord != endCord.getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 3 && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop()))) {
+
+    paths = mapProcessor.getPath(coordinate , endCord);
+    if (  paths.peek().equals(coordinate))
+        paths.pop();
+    this.determiningSpeedOfMoving();
+
+    this.move(paths.pop());
+
+
+
+}
+        this.xCord+=2;
+        this.yCord+=2;
+        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
+
+
 
     }
 private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
