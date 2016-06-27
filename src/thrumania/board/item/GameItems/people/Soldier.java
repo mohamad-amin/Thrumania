@@ -14,7 +14,7 @@ import java.util.Stack;
 /**
  * Created by sina on 6/24/16.
  */
-public class Soldier extends  Human implements Runnable {
+public class Soldier extends Human implements Runnable {
     private PlayPanel playPanel;
     private Map map;
     private Stack<Coordinate> paths;
@@ -33,16 +33,16 @@ public class Soldier extends  Human implements Runnable {
         super.isAlive = true;
         super.isSelectedByPlayer = false;
         // TODO:
-        super.xCord =x;
+        super.xCord = x;
         super.yCord = y;
         super.xEnd = xCord;
         super.yEnd = yCord;
-        super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
-        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd , yEnd);
+        super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
 
         this.playPanel = playPanel;
         this.map = map;
-        this.mapProcessor =  new MapProcessor(map.getCells());
+        this.mapProcessor = new MapProcessor(map.getCells());
         // TODO : initializing its coordinate
         this.isMoving = false;
 
@@ -56,7 +56,7 @@ public class Soldier extends  Human implements Runnable {
         this.yEnd = IntegerUtils.getXAndYWithCoordinate(end)[1];
 
         isMoving = true;
-        while ( coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn()) {
+        while (coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn()) {
             if (!this.checkWheterTheGoalCellIsWaterOrNot(end)) {
                 if (coordinate.getColumn() < end.getColumn())
                     this.xCord += 1;
@@ -75,12 +75,12 @@ public class Soldier extends  Human implements Runnable {
                 }
 
 
-            }else {
+            } else {
                 movingShouldBeStopped = true;
                 return;
             }
         }
-        if ( ! this.paths.isEmpty() )
+        if (!this.paths.isEmpty())
             this.move(this.paths.pop());
 
 
@@ -99,8 +99,6 @@ public class Soldier extends  Human implements Runnable {
 
     }
 
-    
-
 
     @Override
     public void run() {
@@ -108,7 +106,7 @@ public class Soldier extends  Human implements Runnable {
         if (paths.peek().equals(coordinate))
             paths.pop();
 //        while (!mapProcessor.getPath(coordinate, endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving && !this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate, endCord).pop())) {
-        while (  !paths.isEmpty() ) {
+        while (!paths.isEmpty()) {
 
             if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek())) {
                 System.out.println("here 123 123");
@@ -117,22 +115,22 @@ public class Soldier extends  Human implements Runnable {
                 if (paths.peek().equals(coordinate))
                     paths.pop();
 
-                if (! paths.isEmpty())
+                if (!paths.isEmpty())
                     this.move(paths.pop());
-            }else  break;
+            } else break;
 //              if(   P!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()))
-            if(! movingShouldBeStopped)
-                while (this.xCord  != xEnd || this.yCord   != yEnd) {
+            if (!movingShouldBeStopped)
+                while (this.xCord != xEnd || this.yCord != yEnd) {
                     System.out.println("here 456 456" +
                             "");
                     this.determiningSpeedOfMoving();
-                    if (this.xCord  > xEnd)
+                    if (this.xCord > xEnd)
                         xCord--;
-                    else if (this.xCord   < xEnd)
+                    else if (this.xCord < xEnd)
                         xCord++;
-                    if (this.yCord    > yEnd)
+                    if (this.yCord > yEnd)
                         yCord--;
-                    else if (this.yCord    < yEnd)
+                    else if (this.yCord < yEnd)
                         yCord++;
 
                     try {
@@ -145,22 +143,19 @@ public class Soldier extends  Human implements Runnable {
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
         }
-        System.out.println(xCord  + "  " + yCord);
-        System.out.println("end of process coordinate is" + IntegerUtils.getCoordinateWithXAndY(this.getxCord() , this.getyCord()));
+        System.out.println(xCord + "  " + yCord);
+        System.out.println("end of process coordinate is" + IntegerUtils.getCoordinateWithXAndY(this.getxCord(), this.getyCord()));
         isMoving = false;
-
-
 
 
 // TODO
     }
 
 
-
-    private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
-        if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand)
-            return  false;
-        else return  true;
+    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand)
+            return false;
+        else return true;
 
 
     }
