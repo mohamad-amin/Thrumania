@@ -14,6 +14,7 @@ import java.util.Stack;
  */
 public class MapProcessor {
 
+    private List<Boolean> landReserved;
     private List<Boolean> freeIslands;
     private List<List<Cell>> islands;
     private long[][][][] distances;
@@ -27,6 +28,7 @@ public class MapProcessor {
         this.cells = cells;
         this.lands = new ArrayList<>();
         this.islands = new ArrayList<>();
+        this.landReserved = new ArrayList<>();
         this.visited = new boolean[cells.length][cells[0].length];
     }
 
@@ -79,8 +81,10 @@ public class MapProcessor {
             for (int j=0; j<cells[0].length; j++) {
                 if (cells[i][j].getId() < 3) {
                     lands.add(cells[i][j]);
+                    landReserved.add(true);
                 } else if (cells[i][j].getId() < 6) {
                     lands.add(cells[i][j]);
+                    landReserved.add(true);
                 } else if (cells[i][j].getId() < 8) {
 
                 } else {
@@ -394,12 +398,21 @@ public class MapProcessor {
                 }
             }
         }
+        z = 0;
+        for (List<Cell> island : islands) {
+            if (island.size() < 20) {
+                freeIslands.set(z, false);
+                freeIslandsCount--;
+            }
+            z++;
+        }
     }
 
     private void registerIsland(int i, int j, int id) {
         visited[i][j] = true;
         cells[i][j].setIslandId(id);
         lands.add(cells[i][j]);
+        landReserved.add(true);
         if (islands.size() > id) {
             List<Cell> island = islands.get(id);
             island.add(cells[i][j]);
@@ -420,41 +433,82 @@ public class MapProcessor {
     public List<Cell> findCastlePositions(int howMany) {
         long distance = -1;
         List<Cell> result = new ArrayList<>();
+        int a=0, b=0;
+        int lastA=-1, lastB=-1;
         for (Cell i : lands) {
-            if (islands.get(i.getIslandId()).size() < 20) continue;
+            if (islands.get(i.getIslandId()).size() < 20) {
+                a++;
+                continue;
+            }
+            b = 0;
             for (Cell j : lands) {
-                if (islands.get(j.getIslandId()).size() < 20) continue;
+                if (islands.get(j.getIslandId()).size() < 20) {
+                    b++;
+                    continue;
+                }
                 if (getIndexDistance(i, j) > distance) {
                     distance = getIndexDistance(i, j);
                     if (result.size() > 0) {
                         freeIslands.set(result.get(0).getIslandId(), true);
                         freeIslands.set(result.get(1).getIslandId(), true);
+                        landReserved.set(lastA, true);
+                        landReserved.set(lastB, false);
                         result.clear();
                     }
                     result.add(i);
                     result.add(j);
                     freeIslands.set(i.getIslandId(), false);
                     freeIslands.set(j.getIslandId(), false);
+                    landReserved.set(a, false);
+                    landReserved.set(b, false);
+                    lastA = a;
+                    lastB = b;
                 }
+                b++;
             }
+            a++;
         }
         freeIslandsCount-=2;
         for (int i=2; i<howMany; i++) {
             distance = -1;
             Cell c = null;
+            int z = 0;
+            int lastZ = -1;
             for (Cell cell : lands) {
-                if (islands.get(cell.getIslandId()).size() < 20) continue;
-                else if (!freeIslands.get(cell.getIslandId()) && freeIslandsCount>0) continue;
+                if (!landReserved.get(z)) {
+                    z++;
+                    continue;
+                }
+                if (islands.get(cell.getIslandId()).size() < 20) {
+                    z++;
+                    continue;
+                }
+                else if (!freeIslands.get(cell.getIslandId()) && freeIslandsCount>0) {
+                    z++;
+                    continue;
+                }
                 long tempDistance = 0;
+                boolean tooCloseToAnotherCastle = false;
                 for (int j=0; j<i; j++) {
                     tempDistance += getIndexDistance(cell, result.get(j));
+                    if (getIndexDistance(cell, result.get(j)) < lands.size()/10) {
+                        tooCloseToAnotherCastle = true;
+                        break;
+                    }
+                }
+                if (tooCloseToAnotherCastle) {
+                    z++;
+                    continue;
                 }
                 if (tempDistance > distance) {
                     distance = tempDistance;
                     c = cell;
+                    lastZ = z;
                 }
+                z++;
             }
             freeIslands.set(c.getIslandId(), false);
+            landReserved.set(lastZ, false);
             result.add(c);
             freeIslandsCount--;
         }

@@ -65,7 +65,6 @@ public class PlayFrame extends JFrame {
         for (Cell cell : strongholdPositions) {
             cell.setInsideElementsItems(new Castle(cell.getPosition()));
         }
-        // Todo: add strongholds
     }
 
     private Map loadMapFromHash(HashMap<Integer, Object> hashMap) {
