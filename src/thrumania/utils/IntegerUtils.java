@@ -16,5 +16,16 @@ public class IntegerUtils {
         return false;
     }
 
+    public static Coordinate getCoordinateWithXAndY( int xCord  , int yCord){
 
+        Coordinate coordinate = new Coordinate((int) Math.floor((double) yCord / (double)Constants.CELL_SIZE), (int) Math.floor((double) xCord / (double) Constants.CELL_SIZE));
+        return coordinate;
+    }
+    public  static int [] getXAndYWithCoordinate(Coordinate crd){
+        int []cords = new int[2];
+        cords [0] = crd.getColumn() * Constants.CELL_SIZE;
+        cords [1 ]= crd.getRow() * Constants.CELL_SIZE ;
+        return  cords;
+
+    }
 }

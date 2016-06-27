@@ -33,6 +33,10 @@ public class PlayFrame extends JFrame {
 
     private void loadFrame(Map map) {
 
+//        Constants.CELL_SIZE = Constants. zoomNumbers[3][1];
+//        Constants.DRAWER_WIDTH = Constants.zoomNumbers[3][2];
+//        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
+//        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
         this.map = map;
 
 
@@ -68,18 +72,19 @@ public class PlayFrame extends JFrame {
         for (Cell cell : strongholdPositions) {
             Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition());
             cell.setInsideElementsItems(castle);
-
-            // TODO : setting initializing hUmans
-
-            Worker worker = new Worker(playPanel , map , castle.getStartingPoint().getColumn() * Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE   );
-            worker.setEndCord(worker.getCoordinate());
-            worker.setxEnd(worker.getxCord());
-            worker.setyCord(worker.getyCord());
-            worker.setHomeCastleCoordinate(castle.getCastlePosition());
-            HumanManagers.getSharedInstance().getHumans().add(worker);
+            this.initializingHumans(castle);
 
         }
     }
+    private void initializingHumans(Castle castle){
+        // TODO : set the right number of humans for each team and castle and also use the method random number
+        Worker worker = new Worker(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
+        worker.setHomeCastleCoordinate(castle.getCastlePosition());
+        HumanManagers.getSharedInstance().getHumans().add(worker);
+
+
+    }
+// TODO :     private int randomNumber
 
     private Map loadMapFromHash(HashMap<Integer, Object> hashMap) {
 

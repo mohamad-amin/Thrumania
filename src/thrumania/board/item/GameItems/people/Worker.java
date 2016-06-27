@@ -7,6 +7,7 @@ import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.IntegerUtils;
 
 import java.util.Stack;
 
@@ -24,6 +25,7 @@ public class Worker extends  Human  implements  Runnable{
     private MapProcessor mapProcessor ;
     private  boolean isMoving;
     private Stack <Coordinate> paths;
+    private boolean movingShouldBeStopped = false;
 
 
 
@@ -39,11 +41,16 @@ public class Worker extends  Human  implements  Runnable{
         super.ironReq = 0;
         super.speadOfConsumingFood = 1;
         super.isAlive = true;
+
         super.isSelectedByPlayer = false;
         super.xCord = xCord;
         super.yCord = yCord;
         super.xEnd = xCord;
         super.yEnd = yCord;
+        super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
+        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd , yEnd);
+
+
         this.capacityOfCollectingItems = 300;
         // TODO : one unit of each
 //        this.speadOfCollectingItems =
@@ -54,45 +61,48 @@ public class Worker extends  Human  implements  Runnable{
         this.mapProcessor =  new MapProcessor(map.getCells());
 
        // TODO : its coordinate
-        this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
-        System.out.println("coordinate is \t " + coordinate + "  x is    " + xCord + "    y is   " + yCord);
-        this.endCord =this.coordinate;
         this.isMoving = false;
     }
 
     @Override
     protected void move(Coordinate end) {
+        this.endCord = end;
+        this.xEnd = IntegerUtils.getXAndYWithCoordinate(end)[0];
+        this.yEnd = IntegerUtils.getXAndYWithCoordinate(end)[1];
 
-        isMoving =true;
-        while ( coordinate.getRow() != end.getRow() ||  coordinate.getColumn() != end.getColumn() ) {
-            if( coordinate.getColumn() <  end.getColumn())
-            this.xCord += 1;
-            else if ( coordinate.getColumn() > end.getColumn())
-                this.xCord --;
-            if( coordinate.getRow() > end.getRow())
-            this.yCord  --;
-            else if( coordinate.getRow() < end.getRow())
-                this.yCord ++;
-            coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
-            try {
-                Thread.sleep((long) (1000 / speedOfMoving));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        isMoving = true;
+        while ( coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn()) {
+            if (!this.checkWheterTheGoalCellIsWaterOrNot(end)) {
+                if (coordinate.getColumn() < end.getColumn())
+                    this.xCord += 1;
+                else if (coordinate.getColumn() > end.getColumn())
+                    this.xCord--;
+                if (coordinate.getRow() > end.getRow())
+                    this.yCord--;
+                else if (coordinate.getRow() < end.getRow())
+                    this.yCord++;
+                coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+                try {
+                    Thread.sleep((long) (1000 / speedOfMoving));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+
+                }
+
+
+            }else {
+                movingShouldBeStopped = true;
+                return;
             }
-
-
         }
-//        this.xCord +=2;
-//        this.yCord +=2;
-        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
-        isMoving = false;
+        if ( ! this.paths.isEmpty() )
+            this.move(this.paths.pop());
 
 
     }
 
     @Override
     protected void determiningSpeedOfMoving() {
-        System.out.println("play panle is" + playPanel);
 
         if( playPanel.getSeason() == Constants.Seasons.SPRING )
             this.speedOfMoving  = 8;
@@ -125,63 +135,66 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     public void run() {
-        this.determiningSpeedOfMoving();
+        paths = mapProcessor.getPath(coordinate, endCord);
+        if (paths.peek().equals(coordinate))
+            paths.pop();
+//        while (!mapProcessor.getPath(coordinate, endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving && !this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate, endCord).pop())) {
+          while (  !paths.isEmpty() && ! isMoving) {
 
-        if( capacityOfCollectingItems == 300 || capacityOfCollectingItems == 0)
-            this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
+              if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek())) {
+                  System.out.println("here 123 123");
+                  this.determiningSpeedOfMoving();
 
-        if( isCapacityOfCollectingItemsFull ){
-            endCord = super.HomeCastleCoordinate;
-            // TODO : changing his order to go to castle : getting it's team castle's coordinate
-        }
+                  if (paths.peek().equals(coordinate))
+                      paths.pop();
 
-        while( ! this.coordinate.equals(endCord) && ! mapProcessor.getPath(coordinate , endCord).isEmpty() && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
+                  if (! paths.isEmpty())
+                  this.move(paths.pop());
+              }else  break;
+//              if(   P!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()))
+              if(! movingShouldBeStopped)
+              while (this.xCord  != xEnd || this.yCord   != yEnd) {
+                  System.out.println("here 456 456" +
+                          "");
+                  this.determiningSpeedOfMoving();
+                  if (this.xCord  > xEnd)
+                      xCord--;
+                  else if (this.xCord   < xEnd)
+                      xCord++;
+                  if (this.yCord    > yEnd)
+                      yCord--;
+                  else if (this.yCord    < yEnd)
+                      yCord++;
 
+                  try {
+                      Thread.sleep((long) (1000 / speedOfMoving));
+                  } catch (InterruptedException e) {
+                      e.printStackTrace();
+                  }
+              }
 
+              coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
-//while ( ! mapProcessor.getPath(coordinate , endCord).isEmpty()){
-//        while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.xCord != endCord.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE /3 || this.yCord != endCord.getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 3 && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop()))) {
-
-    paths = mapProcessor.getPath(coordinate , endCord);
-    if (  paths.peek().equals(coordinate))
-        paths.pop();
-    this.determiningSpeedOfMoving();
-
-    this.move(paths.pop());
-
-
-
-}
-        while ( !isMoving && this.xCord + Constants.CELL_SIZE / 2 != xEnd ||  this.yCord + Constants.CELL_SIZE / 2 != yEnd){
-
-            this.determiningSpeedOfMoving();
-            if(  this.xCord + Constants.CELL_SIZE / 2  > xEnd)
-                xCord -- ;
-            else if(  this.xCord + Constants.CELL_SIZE / 2 < xEnd)
-                xCord  ++;
-            if( this.yCord + Constants.CELL_SIZE / 2 > yEnd)
-                yCord -- ;
-            else if ( this.yCord + Constants.CELL_SIZE / 2 < yEnd)
-                yCord ++ ;
-            try {
-                Thread.sleep((long) (1000 / speedOfMoving));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-
-        }
-
-//        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
+          }
+        System.out.println(xCord  + "  " + yCord);
+        System.out.println("end of process coordinate is" + IntegerUtils.getCoordinateWithXAndY(this.getxCord() , this.getyCord()));
+        isMoving = false;
 
 
 
+// TODO
     }
-private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
-    if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand)
-        return  false;
-    else return  true;
+private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd)  {
+    if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand) {
+        System.out.println("false");
+        return false;
+    }
+
+
+    else {
+        System.out.println("true");
+        return  true;
+    }
 
 
 }

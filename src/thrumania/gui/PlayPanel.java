@@ -59,13 +59,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-        this.setUppingTheHumans();
 
 
-        Constants.CELL_SIZE = Constants. zoomNumbers[3][1];
-        Constants.DRAWER_WIDTH = Constants.zoomNumbers[3][2];
-        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
-        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
+
 //        this.preview = new Preview()
     }
 
@@ -143,12 +139,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
 
             if( HumanManagers.getSharedInstance().getHumans().get(i) instanceof  Worker && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw()) {
-             //   System.out.println("we  are drawing at  x  " + HumanManagers.getSharedInstance().getHumans().get(i).getxCord() + "    and at y   " + HumanManagers.getSharedInstance().getHumans().get(i).getyCord());
-                    g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE  , null);
-//                System.out.println("LOOOOOoooooooooooooooolllllllll");
+                    g.drawImage(ImageUtils.getImage("manStanding.png"),    HumanManagers.getSharedInstance().getHumans().get(i).getxCord(),  HumanManagers.getSharedInstance().getHumans().get(i).getyCord() - Constants.CELL_SIZE  / 2 , Constants.CELL_SIZE - Constants.CELL_SIZE /3, Constants.CELL_SIZE  , null);
+
             }
   else if ( HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw())
-                g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord() , HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
+                g.drawImage(ImageUtils.getImage("manStanding.png"), focus.getColumn() * Constants.CELL_SIZE + HumanManagers.getSharedInstance().getHumans().get(i).getxCord() , focus.getRow() * Constants.CELL_SIZE +  HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
         }
 
         for ( int i =0 ; i< shouldDrawHumans.size(); i++){
@@ -246,7 +241,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     public Constants.Seasons getSeason() {
-        System.out.println("season is \t" + season);
         return season;
     }
 
@@ -255,16 +249,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
 
-    private void setUppingTheHumans() {
 
-//        // TODO : set up 10 workers for each team.
-//        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
-////        Soldier soldier = new Soldier(this , map ,  Constants.CELL_SIZE + 1 ,  Constants.CELL_SIZE + 1);
-//        HumanManagers.getSharedInstance().getHumans().add(worker);
-//    //    HumanManagers.getSharedInstance().makingThreadPool();
-
-
-    }
 
     @Override
     public void run() {
@@ -279,11 +264,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     }
     private Human findingwhichHumanIsClicked(int x , int y){
-        Coordinate coord = new Coordinate((int) Math.ceil((double) y / Constants.CELL_SIZE),  (int) Math.ceil((double) x / (double) Constants.CELL_SIZE));
+        Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x  , y);
         for ( int i = 0; i < HumanManagers.getSharedInstance().getHumans().size() ; i++){
-//            System.out.println("human array is " + HumanManagers.getSharedInstance().getHumans().get(i));
-//            System.out.println("manager is coordinate is \t" +HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate());
-//            System.out.println("coord is \t" + coord);
 
                 if ( HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate().equals(coord) ){
 
@@ -301,45 +283,44 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         public void mouseClicked(MouseEvent e) {
 
             // TODO :
-            System.out.println("gameSelectedItem is \t"+ gameSelectedElement);
             if( e.getModifiersEx() == 0 && e.getButton() == 1) {
-
-                System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
-                System.out.println("clicked coord is \t" + new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));;
+                System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(e.getX() , e.getY()) );
                 for ( int i =0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++)
-                System.out.println("players are at :" + HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate() + "     and its castle is at   " + HumanManagers.getSharedInstance().getHumans().get(i).getHomeCastleCoordinate());
-
-
+                    System.out.println("this human location is \t" +  HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate());
 
                 gameSelectedElement = findingwhichHumanIsClicked(e.getX() , e.getY());
+                System.out.println("gameSelectedItem is \t"+ gameSelectedElement);
+
 
             }
 
-            else if( gameSelectedElement  instanceof  Human){
-                System.out.println("manager is "+ HumanManagers.getSharedInstance().getHumans().size());
-                 // use right click to move else it it would realese the selected element
+            else if( gameSelectedElement  instanceof  Human) {
 
-                        if (e.getModifiersEx() == 256 && e.getButton() == 3) {
+//
+                // use right click to move else it it would realese the selected element
 
-                            if( gameSelectedElement instanceof  Worker)
-                            ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
-                            else if( gameSelectedElement instanceof  Soldier)
-                                ((Soldier) gameSelectedElement).setEndCord( new Coordinate( (int) Math.ceil((double) e.getY() / ( double) Constants.CELL_SIZE), (int) Math.ceil((double) e.getX() / (double) Constants.CELL_SIZE)));
-                            ( (Human) gameSelectedElement  ).setxEnd(e.getX());
-                            ( (Human) gameSelectedElement  ).setyEnd(e.getY());
-                            HumanManagers.getSharedInstance().makingThreadPool();
+                if (e.getModifiersEx() == 256 && e.getButton() == 3) {
+                    //TODO : handle collecting resources
 
-                        }
+                System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
+                System.out.println("final coord is \t" +  IntegerUtils.getCoordinateWithXAndY(e.getX() , e.getY()));
+                System.out.println("final coord is \t" +  IntegerUtils.getCoordinateWithXAndY(e.getX() , e.getY()));
 
+                    if (gameSelectedElement instanceof Worker)
+                        ((Worker) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
+                        // ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
+                    else if (gameSelectedElement instanceof Soldier)
+                        ((Soldier) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
+                    ((Human) gameSelectedElement).setxEnd(e.getX());
+                    ((Human) gameSelectedElement).setyEnd(e.getY());
+                    HumanManagers.getSharedInstance().makingThreadPool();
 
-
-//                    }
-
+                }
             }
 
-                //       HumanManagers.getSharedInstance().getHumans().get(0).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
 
-//            HumanManagers.getSharedInstance().makingThreadPool();
+
+
 
 
         }
