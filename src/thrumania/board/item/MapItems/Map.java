@@ -1,12 +1,7 @@
 package thrumania.board.item.MapItems;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import thrumania.board.item.InsideElementsItems;
-import thrumania.board.item.MapItems.Cell;
-import thrumania.board.item.MapItems.LowLand;
-import thrumania.board.item.MapItems.Sea;
 import thrumania.gui.MiniMapPanel;
-import thrumania.utils.Cacher;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -108,24 +103,28 @@ public class Map {
     }
 
     private void numberAndLoad(int i, int j) {
-        int temptype =1;
+        int temptype =0;
+        if(cells[i][j] instanceof LowLand)  temptype = 1;
         if(cells[i][j] instanceof HighLand) temptype = 2;
         int n = checkFourSideAndGiveMeNumber(i, j, temptype);
+        n=n+((temptype-1)*64);
         if(temptype !=2) {
             InsideElementsItems element = cells[i][j].getInsideElementsItems();
             cells[i][j] = new LowLand(new Coordinate(i, j));
             cells[i][j].setPictureName(n + ".png");
             cells[i][j].setInsideElementsItems(element);
-            //TODO what is setland?
                 if (n == 8 || n == 5 || n == 2 || n == 1 || n == 4 || n == 10) {
                     cells[i][j].setCompeleteLand(false);
                 } else {
                     cells[i][j].setCompeleteLand(true);
                 }
+            cells[i][j].setLand(true);
         } else {
-            n+=64;
+            InsideElementsItems element = cells[i][j].getInsideElementsItems();
             cells[i][j] = new HighLand(new Coordinate(i, j));
             cells[i][j].setPictureName(n + ".png");
+            cells[i][j].setInsideElementsItems(element);
+            cells[i][j].setLand(true);
         }
     }
 
@@ -163,20 +162,9 @@ public class Map {
         if (type==1) {
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
-                    ///all adjacent new one time...
-                    if (adjacent[x + 1][y + 1] == 1) {
-                        InsideElementsItems element = (cells[i + x][j + y] == null) ? null : cells[i + x][j + y].getInsideElementsItems();
-                        if (cells[i+x][j+y] instanceof HighLand ) {
-                            cells[i + x][j + y] = new HighLand(new Coordinate(i + x, j + y));
-                            cells[i + x][j + y].setPictureName("64.png");
-                        }else {
+                    if (adjacent[x + 1][y + 1] == 1&& !(cells[i+x][j+y] instanceof HighLand || cells[i+x][j+y] instanceof LowLand)) {
                             cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
                             cells[i + x][j + y].setPictureName("0.png");
-                        }
-                        if (element != null&&element.getClass().getSimpleName().compareTo("SmallFish") != 0) {
-                            cells[i+x][j+y].setInsideElementsItems(element);
-                        }
-                        cells[i+x][j+y].setLand(true);
                     }
                 }
             }
@@ -184,8 +172,7 @@ public class Map {
         if (type==0) {
             for (int x = -1; x < 2; x++) {
                 for (int y = -1; y < 2; y++) {
-                    ///all adjacent new one time...
-                    if (adjacent[x + 1][y + 1] == 1) {
+                    if (adjacent[x + 1][y + 1] == 1&& cells[i + x][j + y] instanceof HighLand) {
                             cells[i + x][j + y] = new LowLand(new Coordinate(i + x, j + y));
                             cells[i + x][j + y].setPictureName("0.png");
                     }
@@ -223,7 +210,6 @@ public class Map {
                     inRangeAndCode(i, j + 1 ,type) * 8 +
                     inRangeAndCode(i + 1, j, type);
     }
-    //todo with sina stone mine in highland
     private void checkMiddleCell(int[][] adjacent, int i, int j, int type) {
         int x = adjacent[0][1] * 4 +
                 adjacent[1][0] * 2 +

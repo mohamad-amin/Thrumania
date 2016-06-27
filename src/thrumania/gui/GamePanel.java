@@ -308,9 +308,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void mouseClicked(MouseEvent e) {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        if (map.getCells()[row][column] instanceof LowLand) System.out.println("LowLand");
-        else System.out.println("No");
-        System.out.println(row + " - " + column);
         if (this.selectedElelements == Constants.Elements.ZOOM_IN) {
             zoomScale = Constants.incScale(zoomScale);
             fixingStartInZoom(row, column);
@@ -374,30 +371,32 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void mouseDragged(MouseEvent e) {
         int row = (e.getY() / Constants.CELL_SIZE) + start.getRow();
         int column = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
-        if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
-            saveState();
-            changingMap(row, column, "lowland");
-        } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
-            saveState();
-            changingMap(row, column, "sea");
-        } else if (this.selectedElelements == Constants.Elements.TREE) {
-            saveState();
-            this.treeSetterToCell(row, column);
-        }else if (this.selectedElelements == Constants.Elements.HIGH_ALTITTUDE_LAND){
-            saveState();
-            changingMap(row, column, "highland");
-        } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
-            saveState();
-            this.agricultureSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.FISH) {
-            saveState();
-            this.fishSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
-            saveState();
-            this.goldSetterToCell(row, column);
-        } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
-            saveState();
-            this.stoneSetterToCell(row, column);
+        if(row<start.getRow()+Constants.Drawer_HIGHT && column < start.getColumn()+Constants.DRAWER_WIDTH) {
+            if (this.selectedElelements == Constants.Elements.LOW_ALTITTUDE_LAND) {
+                saveState();
+                changingMap(row, column, "lowland");
+            } else if (this.selectedElelements == Constants.Elements.DEEP_SEA || this.selectedElelements == Constants.Elements.SHALLOW_SEA) {
+                saveState();
+                changingMap(row, column, "sea");
+            } else if (this.selectedElelements == Constants.Elements.TREE) {
+                saveState();
+                this.treeSetterToCell(row, column);
+            } else if (this.selectedElelements == Constants.Elements.HIGH_ALTITTUDE_LAND) {
+                saveState();
+                changingMap(row, column, "highland");
+            } else if (this.selectedElelements == Constants.Elements.AGRICULTURE) {
+                saveState();
+                this.agricultureSetterToCell(row, column);
+            } else if (this.selectedElelements == Constants.Elements.FISH) {
+                saveState();
+                this.fishSetterToCell(row, column);
+            } else if (this.selectedElelements == Constants.Elements.GOLD_MINE) {
+                saveState();
+                this.goldSetterToCell(row, column);
+            } else if (this.selectedElelements == Constants.Elements.STONE_MINE) {
+                saveState();
+                this.stoneSetterToCell(row, column);
+            }
         }
     }
 

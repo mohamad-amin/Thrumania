@@ -1,7 +1,5 @@
 package thrumania.utils;
 
-import thrumania.board.item.MapItems.MapElement;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,7 +11,7 @@ public class Constants {
 
 
     public static final int RANGEOFSCROLL = 80;
-    public static final int RATEOFSCROLL = 20;
+    public static final int RATEOFSCROLL = 5;
     public static boolean isMac = false;
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
