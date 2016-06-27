@@ -313,11 +313,15 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     // use right click to move else it it would realese the selected element
 
                         if (e.getModifiersEx() == 256 && e.getButton() == 3) {
+                            System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
+                            System.out.println("final coord is \t" + new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));;
 
                             if( gameSelectedElement instanceof  Worker)
                             ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
                             else if( gameSelectedElement instanceof  Soldier)
                                 ((Soldier) gameSelectedElement).setEndCord( new Coordinate( (int) Math.ceil((double) e.getY() / ( double) Constants.CELL_SIZE), (int) Math.ceil((double) e.getX() / (double) Constants.CELL_SIZE)));
+                            ( (Human) gameSelectedElement  ).setxEnd(e.getX());
+                            ( (Human) gameSelectedElement  ).setyEnd(e.getY());
                             HumanManagers.getSharedInstance().makingThreadPool();
 
                         }

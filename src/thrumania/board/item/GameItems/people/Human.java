@@ -1,10 +1,7 @@
 package thrumania.board.item.GameItems.people;
 
 import thrumania.board.item.InsideElementsItems;
-import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
-
-import javax.swing.*;
 
 /**
  * Created by sina on 6/24/16.
@@ -32,6 +29,8 @@ public abstract class Human extends InsideElementsItems {
     protected  boolean isAlive;
     protected  Coordinate coordinate;
     protected  Coordinate endCord;
+    protected  int xEnd;
+    protected  int yEnd;
     protected abstract void  move(Coordinate end);
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
@@ -99,5 +98,22 @@ public abstract class Human extends InsideElementsItems {
 
     public void setCoordinate(Coordinate coordinate) {
         this.coordinate = coordinate;
+    }
+
+    public int getyEnd() {
+        return yEnd;
+    }
+
+    public void setyEnd(int yEnd) {
+        this.yEnd = yEnd;
+    }
+
+    public int getxEnd() {
+
+        return xEnd;
+    }
+
+    public void setxEnd(int xEnd) {
+        this.xEnd = xEnd;
     }
 }

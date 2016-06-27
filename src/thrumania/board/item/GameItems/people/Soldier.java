@@ -102,7 +102,25 @@ public class Soldier extends  Human implements Runnable {
 
             this.move(paths.pop());
         }
+        while ( this.xCord + Constants.CELL_SIZE / 2 != xEnd ||  this.yCord + Constants.CELL_SIZE / 2 != yEnd){
 
+            this.determiningSpeedOfMoving();
+            if(  this.xCord + Constants.CELL_SIZE / 2  > xEnd)
+                xCord -- ;
+            else if(  this.xCord + Constants.CELL_SIZE / 2 < xEnd)
+                xCord  ++;
+            if( this.yCord + Constants.CELL_SIZE / 2 > yEnd)
+                yCord -- ;
+            else if ( this.yCord + Constants.CELL_SIZE / 2 < yEnd)
+                yCord ++ ;
+            try {
+                Thread.sleep((long) (1000 / speedOfMoving));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
     }
 

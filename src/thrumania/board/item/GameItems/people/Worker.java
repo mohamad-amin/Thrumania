@@ -151,9 +151,31 @@ public class Worker extends  Human  implements  Runnable{
 
 
 }
-        this.xCord+=2;
-        this.yCord+=2;
-        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
+        while ( this.xCord + Constants.CELL_SIZE / 2 != xEnd ||  this.yCord + Constants.CELL_SIZE / 2 != yEnd){
+
+            this.determiningSpeedOfMoving();
+            if(  this.xCord + Constants.CELL_SIZE / 2  > xEnd)
+                xCord -- ;
+            else if(  this.xCord + Constants.CELL_SIZE / 2 < xEnd)
+                xCord  ++;
+            if( this.yCord + Constants.CELL_SIZE / 2 > yEnd)
+                yCord -- ;
+            else if ( this.yCord + Constants.CELL_SIZE / 2 < yEnd)
+                yCord ++ ;
+            try {
+                Thread.sleep((long) (1000 / speedOfMoving));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("loop");
+            System.out.println("x is \t"+ (xCord + Constants.CELL_SIZE / 2));
+            System.out.println( " y is \t" + (this.yCord + Constants.CELL_SIZE / 2));
+
+        }
+        System.out.println("we are in coordinate     " + coordinate);
+        System.out.println(" we are in position x     " + xCord + "     and   y     is     " +  yCord);
+
+//        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
 
 
 
