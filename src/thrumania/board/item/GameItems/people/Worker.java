@@ -130,6 +130,11 @@ public class Worker extends  Human  implements  Runnable{
     public void setCapacityOfCollectingItems(int capacityOfCollectingItems) {
         this.capacityOfCollectingItems = capacityOfCollectingItems;
     }
+    private void checkWheterCapacityIsFull(){
+
+        if( this.isCapacityOfCollectingItemsFull )
+            this.endCord = this.getHomeCastleCoordinate();
+    }
 
     @Override
     public void run() {

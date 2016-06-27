@@ -77,9 +77,10 @@ public class PlayFrame extends JFrame {
         }
     }
     private void initializingHumans(Castle castle){
+        // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
         Worker worker = new Worker(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
-        worker.setHomeCastleCoordinate(castle.getCastlePosition());
+        worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans().add(worker);
 
 

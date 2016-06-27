@@ -99,6 +99,8 @@ public class Soldier extends  Human implements Runnable {
 
     }
 
+    
+
 
     @Override
     public void run() {
