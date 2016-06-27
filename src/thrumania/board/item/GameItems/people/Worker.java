@@ -23,10 +23,7 @@ public class Worker extends  Human  implements  Runnable{
     private PlayPanel playPanel;
     private  Map map;
     private MapProcessor mapProcessor ;
-    private  boolean isMoving;
     private Stack <Coordinate> paths;
-    private boolean movingShouldBeStopped = false;
-
 
 
 
@@ -71,7 +68,7 @@ public class Worker extends  Human  implements  Runnable{
         this.yEnd = IntegerUtils.getXAndYWithCoordinate(end)[1];
 
         isMoving = true;
-        while ( coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn()) {
+        while ( coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn() && !movingShouldBeStopped) {
             if (!this.checkWheterTheGoalCellIsWaterOrNot(end)) {
                 if (coordinate.getColumn() < end.getColumn())
                     this.xCord += 1;
@@ -91,6 +88,7 @@ public class Worker extends  Human  implements  Runnable{
 
 
             }else {
+                System.out.println("we are here and player should stop walking");
                 movingShouldBeStopped = true;
                 return;
             }
@@ -135,13 +133,13 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     public void run() {
+        System.out.println("alo loa");
         paths = mapProcessor.getPath(coordinate, endCord);
         if (paths.peek().equals(coordinate))
             paths.pop();
-//        while (!mapProcessor.getPath(coordinate, endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving && !this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate, endCord).pop())) {
-          while (  !paths.isEmpty() && ! isMoving) {
+          while (  !paths.isEmpty() ) {
 
-              if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek())) {
+              if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
                   System.out.println("here 123 123");
                   this.determiningSpeedOfMoving();
 
@@ -182,17 +180,16 @@ public class Worker extends  Human  implements  Runnable{
 
 
 
+
 // TODO
     }
 private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd)  {
     if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand) {
-        System.out.println("false");
         return false;
     }
 
 
     else {
-        System.out.println("true");
         return  true;
     }
 

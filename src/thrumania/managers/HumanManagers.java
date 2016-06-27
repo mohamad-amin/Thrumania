@@ -13,7 +13,7 @@ public class HumanManagers {
     // singletone
     static HumanManagers instance;
     private ArrayList<Human> humans = new ArrayList<>();
-
+    ThreadPoolExecutor threadPoolExecutor;
     public static HumanManagers getSharedInstance(){
          if( instance == null )
              instance = new HumanManagers();
@@ -28,9 +28,9 @@ public class HumanManagers {
         public  void makingThreadPool()   {
 
 
-            ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+             threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
             for ( int i =0 ; i< humans.size() ; i++){
-
+                if( ! humans.get(i).isMoving())
                 threadPoolExecutor.execute( ( Runnable) humans.get(i));
 
             }

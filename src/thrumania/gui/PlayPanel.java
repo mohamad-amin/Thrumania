@@ -72,11 +72,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
                 this.drawingOcean(r, c, g);
-//                if( this.season == Constants.Seasons.WINTER){
-//                    this.drawingSnowFlake(xfocus , yfocus ,g);
-//                    this.xfocus +=10;
-//                    this.yfocus+=20;
-//                }
                 if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
                     g.drawImage(
                             ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
@@ -299,16 +294,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 //
                 // use right click to move else it it would realese the selected element
 
-                if (e.getModifiersEx() == 256 && e.getButton() == 3) {
+                if (e.getModifiersEx() == 256 && e.getButton() == 3 && !  ((Human) gameSelectedElement).isMoving()) {
                     //TODO : handle collecting resources
 
-                System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
-                System.out.println("final coord is \t" +  IntegerUtils.getCoordinateWithXAndY(e.getX() , e.getY()));
-                System.out.println("final coord is \t" +  IntegerUtils.getCoordinateWithXAndY(e.getX() , e.getY()));
 
-                    if (gameSelectedElement instanceof Worker)
+                    if (gameSelectedElement instanceof Worker )
                         ((Worker) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
-                        // ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));
                     else if (gameSelectedElement instanceof Soldier)
                         ((Soldier) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
                     ((Human) gameSelectedElement).setxEnd(e.getX());

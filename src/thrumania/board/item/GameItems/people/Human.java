@@ -37,6 +37,11 @@ public abstract class Human extends InsideElementsItems {
     protected String picutreName;
     private boolean shouldDraw;
     protected  boolean isSelectedByPlayer;
+    protected   boolean isMoving;
+    protected boolean movingShouldBeStopped = false;
+
+
+
     // TODO  : deterimining team name !!
 
 
@@ -124,5 +129,13 @@ public abstract class Human extends InsideElementsItems {
 
     public void setHomeCastleCoordinate(Coordinate homeCastleCoordinate) {
         HomeCastleCoordinate = homeCastleCoordinate;
+    }
+
+    public boolean isMoving() {
+        return isMoving;
+    }
+
+    public void setMoving(boolean moving) {
+        isMoving = moving;
     }
 }
