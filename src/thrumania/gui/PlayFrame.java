@@ -1,8 +1,10 @@
 package thrumania.gui;
 
 import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.MapItems.*;
 import thrumania.game.MapProcessor;
+import thrumania.managers.HumanManagers;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 
@@ -32,7 +34,7 @@ public class PlayFrame extends JFrame {
     private void loadFrame(Map map) {
 
         this.map = map;
-        loadStrongholds();
+
 
         this.setSize(d);
         this.setLayout(null);
@@ -49,6 +51,7 @@ public class PlayFrame extends JFrame {
         map.setMiniMap(miniMapPanel);
 
         playPanel = new PlayPanel(map, miniMapPanel);
+        loadStrongholds();
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
         this.add(playPanel);
@@ -63,7 +66,17 @@ public class PlayFrame extends JFrame {
         processor.newInitializeStrongholds();
         List<Cell> strongholdPositions = processor.findCastlePositions(players);
         for (Cell cell : strongholdPositions) {
-            cell.setInsideElementsItems(new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition()));
+            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition());
+            cell.setInsideElementsItems(castle);
+
+            // TODO : setting initializing hUmans
+
+            Worker worker = new Worker(playPanel , map , castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 2 , castle.getStartingPoint().getRow() * Constants.CELL_SIZE  + Constants.CELL_SIZE / 2 );
+            worker.setEndCord(worker.getCoordinate());
+            worker.setxEnd(worker.getxCord());
+            worker.setyCord(worker.getyCord());
+            HumanManagers.getSharedInstance().getHumans().add(worker);
+
         }
     }
 

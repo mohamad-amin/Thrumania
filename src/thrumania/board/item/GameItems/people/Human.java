@@ -31,6 +31,7 @@ public abstract class Human extends InsideElementsItems {
     protected  Coordinate endCord;
     protected  int xEnd;
     protected  int yEnd;
+    protected Coordinate HomeCastleCoordinate;
     protected abstract void  move(Coordinate end);
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
@@ -115,5 +116,13 @@ public abstract class Human extends InsideElementsItems {
 
     public void setxEnd(int xEnd) {
         this.xEnd = xEnd;
+    }
+
+    public Coordinate getHomeCastleCoordinate() {
+        return HomeCastleCoordinate;
+    }
+
+    public void setHomeCastleCoordinate(Coordinate homeCastleCoordinate) {
+        HomeCastleCoordinate = homeCastleCoordinate;
     }
 }

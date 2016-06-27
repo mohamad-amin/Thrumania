@@ -42,7 +42,8 @@ public class Worker extends  Human  implements  Runnable{
         super.isSelectedByPlayer = false;
         super.xCord = xCord;
         super.yCord = yCord;
-
+        super.xEnd = xCord;
+        super.yEnd = yCord;
         this.capacityOfCollectingItems = 300;
         // TODO : one unit of each
 //        this.speadOfCollectingItems =
@@ -93,6 +94,7 @@ public class Worker extends  Human  implements  Runnable{
 
     @Override
     protected void determiningSpeedOfMoving() {
+        System.out.println("play panle is" + playPanel);
 
         if( playPanel.getSeason() == Constants.Seasons.SPRING )
             this.speedOfMoving  = 8;
@@ -134,7 +136,7 @@ public class Worker extends  Human  implements  Runnable{
             // TODO : changing his order to go to castle : getting it's team castle's coordinate
         }
 
-        while( ! mapProcessor.getPath(coordinate , endCord).isEmpty() && (this.coordinate.getRow() != endCord.getRow() || this.coordinate.getColumn() != endCord.getColumn()) && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
+        while( ! this.coordinate.equals(endCord) && ! mapProcessor.getPath(coordinate , endCord).isEmpty() && !isMoving  && ! this.checkWheterTheGoalCellIsWaterOrNot(mapProcessor.getPath(coordinate ,endCord).pop())) {
 
 
 
@@ -151,7 +153,7 @@ public class Worker extends  Human  implements  Runnable{
 
 
 }
-        while ( this.xCord + Constants.CELL_SIZE / 2 != xEnd ||  this.yCord + Constants.CELL_SIZE / 2 != yEnd){
+        while ( !isMoving && this.xCord + Constants.CELL_SIZE / 2 != xEnd ||  this.yCord + Constants.CELL_SIZE / 2 != yEnd){
 
             this.determiningSpeedOfMoving();
             if(  this.xCord + Constants.CELL_SIZE / 2  > xEnd)

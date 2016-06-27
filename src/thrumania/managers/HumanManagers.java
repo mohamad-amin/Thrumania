@@ -31,7 +31,6 @@ public class HumanManagers {
             ThreadPoolExecutor threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
             for ( int i =0 ; i< humans.size() ; i++){
 
-
                 threadPoolExecutor.execute( ( Runnable) humans.get(i));
 
             }

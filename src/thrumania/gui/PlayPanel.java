@@ -58,6 +58,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
+        this.season = Constants.Seasons.SPRING;
         this.setUppingTheHumans();
 
 //
@@ -243,6 +244,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     public Constants.Seasons getSeason() {
+        System.out.println("season is \t" + season);
         return season;
     }
 
@@ -253,11 +255,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     private void setUppingTheHumans() {
 
-        // TODO : set up 10 workers for each team.
-        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
-//        Soldier soldier = new Soldier(this , map ,  Constants.CELL_SIZE + 1 ,  Constants.CELL_SIZE + 1);
-        HumanManagers.getSharedInstance().getHumans().add(worker);
-    //    HumanManagers.getSharedInstance().makingThreadPool();
+//        // TODO : set up 10 workers for each team.
+//        Worker worker = new Worker(this, map, this.focus.getColumn() + Constants.CELL_SIZE + 1, focus.getRow() + Constants.CELL_SIZE + 1);
+////        Soldier soldier = new Soldier(this , map ,  Constants.CELL_SIZE + 1 ,  Constants.CELL_SIZE + 1);
+//        HumanManagers.getSharedInstance().getHumans().add(worker);
+//    //    HumanManagers.getSharedInstance().makingThreadPool();
 
 
     }

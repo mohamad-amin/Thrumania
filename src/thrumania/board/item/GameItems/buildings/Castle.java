@@ -21,4 +21,20 @@ public class Castle extends MapElement{
         this.castlePosition = castlePosition;
     }
 
+    public Coordinate getStartingPoint() {
+        return startingPoint;
+    }
+
+    public void setStartingPoint(Coordinate startingPoint) {
+        this.startingPoint = startingPoint;
+    }
+
+    public Coordinate getCastlePosition() {
+
+        return castlePosition;
+    }
+
+    public void setCastlePosition(Coordinate castlePosition) {
+        this.castlePosition = castlePosition;
+    }
 }
