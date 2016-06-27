@@ -52,12 +52,10 @@ public class Worker extends  Human  implements  Runnable{
         this.playPanel = playPanel;
         this.map = map;
         this.mapProcessor =  new MapProcessor(map.getCells());
-//        this.setSize(Constants.CELL_SIZE  , Constants.CELL_SIZE );
-//        this.setSize(200 ,200);
-//        this.setIcon( new ImageIcon(ImageUtils.getImage("manStanding.png")));
-//        this.setLocation(xCord, yCord);
+
        // TODO : its coordinate
         this.coordinate = new Coordinate(  ((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE)) ,(int)  Math.ceil((double) xCord /(double) Constants.CELL_SIZE));
+        System.out.println("coordinate is \t " + coordinate + "  x is    " + xCord + "    y is   " + yCord);
         this.endCord =this.coordinate;
         this.isMoving = false;
     }
@@ -133,6 +131,7 @@ public class Worker extends  Human  implements  Runnable{
             this.isCapacityOfCollectingItemsFull = ! isCapacityOfCollectingItemsFull;
 
         if( isCapacityOfCollectingItemsFull ){
+            endCord = super.HomeCastleCoordinate;
             // TODO : changing his order to go to castle : getting it's team castle's coordinate
         }
 
@@ -169,20 +168,17 @@ public class Worker extends  Human  implements  Runnable{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            System.out.println("loop");
-            System.out.println("x is \t"+ (xCord + Constants.CELL_SIZE / 2));
-            System.out.println( " y is \t" + (this.yCord + Constants.CELL_SIZE / 2));
+
+
 
         }
-        System.out.println("we are in coordinate     " + coordinate);
-        System.out.println(" we are in position x     " + xCord + "     and   y     is     " +  yCord);
 
 //        coordinate = new Coordinate((int) Math.ceil((double) yCord / (double)Constants.CELL_SIZE), (int) Math.ceil((double) xCord / (double) Constants.CELL_SIZE));
 
 
 
     }
-private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
+private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
     if( map.getCell(crd.getRow() , crd.getColumn()) instanceof LowLand ||  map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand)
         return  false;
     else return  true;

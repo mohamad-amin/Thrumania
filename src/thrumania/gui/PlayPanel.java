@@ -61,11 +61,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.season = Constants.Seasons.SPRING;
         this.setUppingTheHumans();
 
-//
-//        Constants.CELL_SIZE = Constants. zoomNumbers[3][1];
-//        Constants.DRAWER_WIDTH = Constants.zoomNumbers[3][2];
-//        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
-//        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
+
+        Constants.CELL_SIZE = Constants. zoomNumbers[3][1];
+        Constants.DRAWER_WIDTH = Constants.zoomNumbers[3][2];
+        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
+        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
 //        this.preview = new Preview()
     }
 
@@ -90,6 +90,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                             Constants.CELL_SIZE,
                             null);
 
+                    // TODO :
                     Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + focus.getRow() , c + focus.getColumn()));
                     if( tempHuman != null) {
                         tempHuman.setShouldDraw(true);
@@ -106,17 +107,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
-//                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
+//
 
                     else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
                     else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r +  focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE ,
                                 Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
                     else {
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
                     }
                 }
             }
@@ -142,7 +143,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
 
             if( HumanManagers.getSharedInstance().getHumans().get(i) instanceof  Worker && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw()) {
-                    g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE , null);
+             //   System.out.println("we  are drawing at  x  " + HumanManagers.getSharedInstance().getHumans().get(i).getxCord() + "    and at y   " + HumanManagers.getSharedInstance().getHumans().get(i).getyCord());
+                    g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE , Constants.CELL_SIZE  , null);
 //                System.out.println("LOOOOOoooooooooooooooolllllllll");
             }
   else if ( HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw())
@@ -302,21 +304,22 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             System.out.println("gameSelectedItem is \t"+ gameSelectedElement);
             if( e.getModifiersEx() == 0 && e.getButton() == 1) {
 
+                System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
+                System.out.println("clicked coord is \t" + new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));;
+                for ( int i =0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++)
+                System.out.println("players are at :" + HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate() + "     and its castle is at   " + HumanManagers.getSharedInstance().getHumans().get(i).getHomeCastleCoordinate());
+
+
+
                 gameSelectedElement = findingwhichHumanIsClicked(e.getX() , e.getY());
 
             }
 
             else if( gameSelectedElement  instanceof  Human){
                 System.out.println("manager is "+ HumanManagers.getSharedInstance().getHumans().size());
-
-//                    if(HumanManagers.getSharedInstance().getHumans().get(i).isSelectedByPlaye
-//r()){
-//                        HumanManagers.getSharedInstance().getHumans().get(i).setEndCord();
-                    // use right click to move else it it would realese the selected element
+                 // use right click to move else it it would realese the selected element
 
                         if (e.getModifiersEx() == 256 && e.getButton() == 3) {
-                            System.out.println("we clicked on x  " + e.getX() + "   and y   " + e.getY());
-                            System.out.println("final coord is \t" + new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));;
 
                             if( gameSelectedElement instanceof  Worker)
                             ((Worker) gameSelectedElement).setEndCord(new Coordinate((int) Math.ceil((double) e.getY() / (double) Constants.CELL_SIZE), (int) Math.ceil(((double) e.getX() / (double) Constants.CELL_SIZE))));

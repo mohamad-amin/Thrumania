@@ -71,10 +71,11 @@ public class PlayFrame extends JFrame {
 
             // TODO : setting initializing hUmans
 
-            Worker worker = new Worker(playPanel , map , castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 2 , castle.getStartingPoint().getRow() * Constants.CELL_SIZE  + Constants.CELL_SIZE / 2 );
+            Worker worker = new Worker(playPanel , map , castle.getStartingPoint().getColumn() * Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE   );
             worker.setEndCord(worker.getCoordinate());
             worker.setxEnd(worker.getxCord());
             worker.setyCord(worker.getyCord());
+            worker.setHomeCastleCoordinate(castle.getCastlePosition());
             HumanManagers.getSharedInstance().getHumans().add(worker);
 
         }
