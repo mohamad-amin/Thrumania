@@ -5,9 +5,6 @@ import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by mohamadamin on 5/18/16.
  */
@@ -83,7 +80,21 @@ public abstract class Cell {
         return Constants.SEA_ID;
     }
 
-
-
+    public Cell getNeighborLand(Cell[][] cells) {
+        int i = getPosition().getRow(), j = getPosition().getColumn();
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
+                cells[i-1][j-1].getId() < 3) return cells[i-1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() < 3) return cells[i-1][j];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
+                cells[i-1][j+1].getId() < 3) return cells[i-1][j+1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
+                cells[i+1][j-1].getId() < 3) return cells[i+1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() < 3) return cells[i+1][j];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
+                cells[i+1][j+1].getId() < 3) return cells[i+1][j+1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() < 3) return cells[i][j-1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() < 3) return cells[i][j+1];
+        return null;
+    }
 
 }

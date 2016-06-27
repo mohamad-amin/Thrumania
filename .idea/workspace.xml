@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Improved Map Processor">
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Improved castle positioning">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" afterPath="$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
     </list>
     <ignored path="Thrumania.iws" />
@@ -28,11 +29,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="MapProcessor.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MapProcessor.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="83">
-              <caret line="504" column="29" selection-start-line="504" selection-start-column="29" selection-end-line="504" selection-end-column="29" />
+            <state relative-caret-position="191">
+              <caret line="510" column="43" selection-start-line="510" selection-start-column="43" selection-end-line="510" selection-end-column="43" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1017#1018#0" expanded="true" />
@@ -74,8 +75,8 @@
       <file leaf-file-name="GamePanel.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2374">
-              <caret line="215" column="49" selection-start-line="215" selection-start-column="49" selection-end-line="215" selection-end-column="49" />
+            <state relative-caret-position="173">
+              <caret line="98" column="51" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -91,11 +92,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PlayFrame.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="PlayFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="183">
-              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
+            <state relative-caret-position="170">
+              <caret line="66" column="93" selection-start-line="66" selection-start-column="93" selection-end-line="66" selection-end-column="93" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Cell.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="227">
+              <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -173,13 +184,13 @@
         <option value="$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
         <option value="$PROJECT_DIR$/src/thrumania/game/MapProcessor.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
       </list>
     </option>
   </component>
@@ -1224,11 +1235,18 @@
       <option name="project" value="LOCAL" />
       <updated>1466795461385</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Improved castle positioning">
+      <created>1466994192107</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1466994192107</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221956000" />
+    <option name="totallyTimeSpent" value="225550000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1324,7 +1342,8 @@
     <MESSAGE value="Added new game" />
     <MESSAGE value="Added castle&#10;" />
     <MESSAGE value="Improved Map Processor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved Map Processor" />
+    <MESSAGE value="Improved castle positioning" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved castle positioning" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1541,13 +1560,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2232">
@@ -1645,26 +1657,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="14" column="22" selection-start-line="14" selection-start-column="22" selection-end-line="14" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="515">
           <caret line="86" column="20" selection-start-line="86" selection-start-column="20" selection-end-line="86" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2374">
-          <caret line="215" column="49" selection-start-line="215" selection-start-column="49" selection-end-line="215" selection-end-column="49" />
           <folding />
         </state>
       </provider>
@@ -1693,24 +1689,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="183">
-          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/game/MapProcessor.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="83">
-          <caret line="504" column="29" selection-start-line="504" selection-start-column="29" selection-end-line="504" selection-end-column="29" />
+        <state relative-caret-position="191">
+          <caret line="510" column="43" selection-start-line="510" selection-start-column="43" selection-end-line="510" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1017#1018#0" expanded="true" />
             <element signature="e#1046#1047#0" expanded="true" />
             <marker date="1466994037527" expanded="true" signature="8434:9048" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/GamePanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="173">
+          <caret line="98" column="51" selection-start-line="98" selection-start-column="42" selection-end-line="98" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="15" column="43" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="83" column="5" selection-start-line="83" selection-start-column="5" selection-end-line="83" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="66" column="93" selection-start-line="66" selection-start-column="93" selection-end-line="66" selection-end-column="93" />
+          <folding />
         </state>
       </provider>
     </entry>
