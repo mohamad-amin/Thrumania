@@ -2,7 +2,6 @@ package thrumania.gui;
 
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.*;
-import thrumania.board.item.MapItems.Map;
 import thrumania.messages.Messages;
 import thrumania.utils.*;
 
@@ -11,7 +10,8 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
-import java.util.*;
+import java.util.HashMap;
+import java.util.TimerTask;
 
 /**
  * Created by sina on 5/18/16.
@@ -491,10 +491,10 @@ public class GamePanel extends JPanel implements MouseInputListener {
         Cell temp;
         SmallFish smallFishTemp = new SmallFish();
         temp = map.getCell(row, column);
+        System.out.println(temp.isLand());
+        if (! ( temp.getId() < 6) && temp.getInsideElementsItems() == null) {
 
-        if (!temp.isLand() && temp.getInsideElementsItems() == null) {
-
-
+            System.out.println("here3");
             temp.setInsideElementsItems(smallFishTemp);
             repaint();
         }
