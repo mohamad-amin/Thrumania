@@ -22,8 +22,6 @@ public class Worker extends Human implements Runnable {
     private int speadOfCollectingItems;
     private PlayPanel playPanel;
     private Map map;
-    private MapProcessor mapProcessor;
-    private Stack<Coordinate> paths;
 
 
     public Worker(PlayPanel playPanel, Map map, int xCord, int yCord) {
@@ -45,6 +43,8 @@ public class Worker extends Human implements Runnable {
         super.yEnd = yCord;
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
         super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
+
+        super.paths = new Stack<>();
 
 
         this.capacityOfCollectingItems = 300;
@@ -138,14 +138,13 @@ public class Worker extends Human implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("alo loa");
-        paths = mapProcessor.getPath(coordinate, endCord);
-        if (paths.peek().equals(coordinate))
+
+        if ( ! paths.isEmpty() && paths.peek().equals(coordinate))
             paths.pop();
         while (!paths.isEmpty()) {
 
             if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
-                System.out.println("here 123 123");
+
                 this.determiningSpeedOfMoving();
 
                 if (paths.peek().equals(coordinate))
@@ -154,11 +153,9 @@ public class Worker extends Human implements Runnable {
                 if (!paths.isEmpty())
                     this.move(paths.pop());
             } else break;
-//              if(   P!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()))
             if (!movingShouldBeStopped)
                 while (this.xCord != xEnd || this.yCord != yEnd) {
-                    System.out.println("here 456 456" +
-                            "");
+
                     this.determiningSpeedOfMoving();
                     if (this.xCord > xEnd)
                         xCord--;

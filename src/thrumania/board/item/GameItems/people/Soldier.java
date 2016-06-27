@@ -17,8 +17,6 @@ import java.util.Stack;
 public class Soldier extends Human implements Runnable {
     private PlayPanel playPanel;
     private Map map;
-    private Stack<Coordinate> paths;
-    private MapProcessor mapProcessor;
 
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y) {
@@ -39,10 +37,12 @@ public class Soldier extends Human implements Runnable {
         super.yEnd = yCord;
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
         super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
+        paths = new Stack<>();
 
         this.playPanel = playPanel;
         this.map = map;
         this.mapProcessor = new MapProcessor(map.getCells());
+
         // TODO : initializing its coordinate
         this.isMoving = false;
 

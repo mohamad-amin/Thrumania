@@ -1,7 +1,10 @@
 package thrumania.board.item.GameItems.people;
 
 import thrumania.board.item.InsideElementsItems;
+import thrumania.game.MapProcessor;
 import thrumania.utils.Coordinate;
+
+import java.util.Stack;
 
 /**
  * Created by sina on 6/24/16.
@@ -39,6 +42,10 @@ public abstract class Human extends InsideElementsItems {
     protected  boolean isSelectedByPlayer;
     protected   boolean isMoving;
     protected boolean movingShouldBeStopped = false;
+    protected Stack<Coordinate> paths;
+    protected MapProcessor mapProcessor;
+
+
 
 
 
@@ -137,5 +144,17 @@ public abstract class Human extends InsideElementsItems {
 
     public void setMoving(boolean moving) {
         isMoving = moving;
+    }
+
+    public Stack<Coordinate> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(Stack<Coordinate> paths) {
+        this.paths = paths;
+    }
+
+    public MapProcessor getMapProcessor() {
+        return mapProcessor;
     }
 }
