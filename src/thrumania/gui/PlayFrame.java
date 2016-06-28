@@ -58,7 +58,8 @@ public class PlayFrame extends JFrame {
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
         this.add(playPanel);
-        System.out.println(" _-------------------------------");
+        this.add(new PlayRightPanel(playPanel ));
+
 
 
 
@@ -82,8 +83,8 @@ public class PlayFrame extends JFrame {
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
         Soldier worker = new Soldier(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
-        System.out.println("panel is " + playPanel);
-        System.out.println("map is   " + map);
+
+
 
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans().add(worker);

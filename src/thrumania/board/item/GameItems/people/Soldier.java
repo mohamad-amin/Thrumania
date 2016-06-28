@@ -15,10 +15,10 @@ import java.util.Stack;
 /**
  * Created by sina on 6/24/16.
  */
-public class Soldier extends  Human implements Runnable {
+public class Soldier extends Human  {
     private PlayPanel playPanel;
     private Map map;
-    private Dimension d = new Dimension(Constants.CELL_SIZE , Constants.CELL_SIZE);
+    private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
 
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y) {
@@ -39,16 +39,15 @@ public class Soldier extends  Human implements Runnable {
         // TODO:
 
         // mokhtasat
-        super.xCord =x;
+        super.xCord = x;
         super.yCord = y;
         super.xEnd = xCord;
         super.yEnd = yCord;
-        super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
-        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd , yEnd);
+        super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
         // masir :
 
         super.paths = new Stack<>();
-
 
 
         // other classes :
@@ -63,7 +62,7 @@ public class Soldier extends  Human implements Runnable {
         super.isSelectedByPlayer = false;
 
         this.setSize(d);
-        this.setLocation(xCord , yCord);
+        this.setLocation(xCord, yCord);
 
 
     }
@@ -85,7 +84,7 @@ public class Soldier extends  Human implements Runnable {
                     this.yCord--;
                 else if (coordinate.getRow() < end.getRow())
                     this.yCord++;
-                this.setLocation(xCord , yCord);
+                this.setLocation(xCord, yCord);
                 coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
                 try {
                     Thread.sleep((long) (1000 / speedOfMoving));
@@ -96,7 +95,6 @@ public class Soldier extends  Human implements Runnable {
 
 
             } else {
-                System.out.println("we are here and player should stop walking");
                 movingShouldBeStopped = true;
                 return;
             }
@@ -123,55 +121,55 @@ public class Soldier extends  Human implements Runnable {
 
     @Override
     public void run() {
-        if ( ! paths.isEmpty() && paths.peek().equals(coordinate))
-            paths.pop();
-        while (!paths.isEmpty()) {
+        System.out.println("here123455678");
+        while ( isAlive) {
+            if (!paths.isEmpty() && paths.peek().equals(coordinate))
+                paths.pop();
+            while (!paths.isEmpty()) {
 
-            if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
-
-                this.determiningSpeedOfMoving();
-
-                if (paths.peek().equals(coordinate))
-                    paths.pop();
-
-                if (!paths.isEmpty())
-                    this.move(paths.pop());
-            } else break;
-            if (!movingShouldBeStopped)
-                while (this.xCord != xEnd || this.yCord != yEnd) {
+                if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
 
                     this.determiningSpeedOfMoving();
-                    if (this.xCord > xEnd)
-                        xCord--;
-                    else if (this.xCord < xEnd)
-                        xCord++;
-                    if (this.yCord > yEnd)
-                        yCord--;
-                    else if (this.yCord < yEnd)
-                        yCord++;
 
-                    try {
-                        Thread.sleep((long) (1000 / speedOfMoving));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    this.setLocation(xCord , yCord);
-                }
+                    if (paths.peek().equals(coordinate))
+                        paths.pop();
 
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+                    if (!paths.isEmpty())
+                        this.move(paths.pop());
+                } else break;
+                if (!movingShouldBeStopped)
+//                while (this.xCord != xEnd || this.yCord != yEnd) {
+//
+//                    this.determiningSpeedOfMoving();
+//                    if (this.xCord > xEnd)
+//                        xCord--;
+//                    else if (this.xCord < xEnd)
+//                        xCord++;
+//                    if (this.yCord > yEnd)
+//                        yCord--;
+//                    else if (this.yCord < yEnd)
+//                        yCord++;
+//
+//                    try {
+//                        Thread.sleep((long) (1000 / speedOfMoving));
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    this.setLocation(xCord, yCord);
+//                }
 
+                    coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+
+            }
+            isMoving = false;
         }
-        isMoving = false;
-
-
 
 
 // TODO
     }
 
 
-
-    private  boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd){
+    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
         return !(map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand);
 
 

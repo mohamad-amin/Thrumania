@@ -46,6 +46,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
+    // needed for the resources :
+    private int woordRes =0 ;
+    private int ironRes = 0 ;
+    private int foodRes = 0;
+    private int goldRes =0;
 
     public PlayPanel(Map map, MiniMapPanel panel) {
         this.miniMap = panel;
@@ -412,13 +417,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             ((Human) gameSelectedElement).setxEnd(x);
 
             ((Human) gameSelectedElement).setyEnd(y);
-            System.out.println("error is in \t");
-            System.out.println("paht \t" + ((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , ((Human) gameSelectedElement).getEndCord(), gameSelectedElement));
-            System.out.println();
-
             ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , ((Human) gameSelectedElement).getEndCord(), gameSelectedElement));
-            HumanManagers.getSharedInstance().makingThreadPool();
-
+            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+//       HumanManagers.getSharedInstance().makingThreadPool();
 
 
 

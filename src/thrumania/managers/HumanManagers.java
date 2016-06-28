@@ -13,10 +13,24 @@ public class HumanManagers {
     // singletone
     static HumanManagers instance;
     private ArrayList<Human> humans = new ArrayList<>();
-    ThreadPoolExecutor threadPoolExecutor;
+    static ThreadPoolExecutor threadPoolExecutor;
+
+
+
+//    private HumanManagers(){
+//       // instance = new HumanManagers();
+//        instance= this;
+//        this.makingThreadPool();
+//    }
+
     public static HumanManagers getSharedInstance(){
-         if( instance == null )
+         if( instance == null ) {
              instance = new HumanManagers();
+             threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
+
+
+//             new HumanManagers();
+         }
         return  instance;
 
 
@@ -24,20 +38,20 @@ public class HumanManagers {
 
 
 
-
-        public  void makingThreadPool()   {
+        private   void makingThreadPool()   {
 
 
              threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
-            for ( int i =0 ; i< humans.size() ; i++){
-                if( ! humans.get(i).isMoving())
-                threadPoolExecutor.execute( ( Runnable) humans.get(i));
+//            for ( int i =0 ; i< humans.size() ; i++){
+//                System.out.println("1");
+//                if( ! humans.get(i).isMoving())
+//                threadPoolExecutor.execute( ( Runnable) humans.get(i));
+//
+//            }
 
-            }
 
 
-            threadPoolExecutor.shutdown();
-
+//            threadPoolExecutor.shutdown();
 
 
 
@@ -51,5 +65,13 @@ public class HumanManagers {
 
     public void setHumans(ArrayList<Human> humans) {
         this.humans = humans;
+    }
+
+    public ThreadPoolExecutor getThreadPoolExecutor() {
+        return threadPoolExecutor;
+    }
+
+    public void setThreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor) {
+        this.threadPoolExecutor = threadPoolExecutor;
     }
 }

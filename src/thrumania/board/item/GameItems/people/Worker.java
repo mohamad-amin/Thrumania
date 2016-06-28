@@ -15,7 +15,7 @@ import java.util.Stack;
 /**
  * Created by sina on 6/24/16.
  */
-public class Worker extends Human implements Runnable {
+public class Worker extends Human  {
     private boolean canGoMountain;
     // TODO : worker's Order
     private int capacityOfCollectingItems;
@@ -151,45 +151,48 @@ public class Worker extends Human implements Runnable {
     @Override
     public void run() {
 
-        if ( ! paths.isEmpty() && paths.peek().equals(coordinate))
-            paths.pop();
-        while (!paths.isEmpty()) {
+        while ( isAlive) {
 
-            if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
+            if (!paths.isEmpty() && paths.peek().equals(coordinate))
+                paths.pop();
+            while (!paths.isEmpty()) {
 
-                this.determiningSpeedOfMoving();
-
-                if (paths.peek().equals(coordinate))
-                    paths.pop();
-
-                if (!paths.isEmpty())
-                    this.move(paths.pop());
-            } else break;
-            if (!movingShouldBeStopped)
-                while (this.xCord != xEnd || this.yCord != yEnd) {
+                if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
 
                     this.determiningSpeedOfMoving();
-                    if (this.xCord > xEnd)
-                        xCord--;
-                    else if (this.xCord < xEnd)
-                        xCord++;
-                    if (this.yCord > yEnd)
-                        yCord--;
-                    else if (this.yCord < yEnd)
-                        yCord++;
 
-                    try {
-                        Thread.sleep((long) (1000 / speedOfMoving));
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                    if (paths.peek().equals(coordinate))
+                        paths.pop();
+
+                    if (!paths.isEmpty())
+                        this.move(paths.pop());
+                } else break;
+                if (!movingShouldBeStopped)
+                    while (this.xCord != xEnd || this.yCord != yEnd) {
+
+                        this.determiningSpeedOfMoving();
+                        if (this.xCord > xEnd)
+                            xCord--;
+                        else if (this.xCord < xEnd)
+                            xCord++;
+                        if (this.yCord > yEnd)
+                            yCord--;
+                        else if (this.yCord < yEnd)
+                            yCord++;
+
+                        try {
+                            Thread.sleep((long) (1000 / speedOfMoving));
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        this.setLocation(xCord, yCord);
                     }
-                    this.setLocation(xCord , yCord);
-                }
 
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+                coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
+            }
+            isMoving = false;
         }
-        isMoving = false;
 
 
 // TODO

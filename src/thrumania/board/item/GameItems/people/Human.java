@@ -9,7 +9,7 @@ import java.util.Stack;
 /**
  * Created by sina on 6/24/16.
  */
-public abstract class Human extends InsideElementsItems {
+public abstract class Human extends InsideElementsItems implements Runnable {
     // TODO : teams
     protected  int health;
     // each damage is in scale of 0.5 second
