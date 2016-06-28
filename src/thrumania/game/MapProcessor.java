@@ -2,10 +2,10 @@ package thrumania.game;
 
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.people.Human;
-import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
-import thrumania.board.item.MapItems.*;
+import thrumania.board.item.MapItems.Cell;
+import thrumania.board.item.MapItems.HighLand;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -13,7 +13,6 @@ import thrumania.utils.IntegerUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
-import java.util.StringJoiner;
 
 /**
  * Created by mohamadamin on 6/23/16.
@@ -149,11 +148,6 @@ public class MapProcessor {
             result.add(end);
             end = path[end.getRow()][end.getColumn()];
         }
-        System.out.println("Path from " + start + " to " + endCopy + ": ");
-        for (int i=0; i<result.size(); i++) {
-            System.out.print(result.get(i) + ":"+cells[result.get(i).getRow()][result.get(i).getColumn()].getId()+ " -> ");
-        }
-        System.out.println();
         return result;
     }
 
@@ -162,7 +156,6 @@ public class MapProcessor {
         long[][] distances = new long[cells.length][cells[0].length];
         boolean[][] visited = new boolean[cells.length][cells[0].length];
         Coordinate[][] path = new Coordinate[cells.length][cells[0].length];
-        System.err.println(cells[7][8].getId());
 
         for (int i=0; i<distances.length; i++) {
             for (int j=0; j<distances[0].length; j++) {
@@ -444,7 +437,7 @@ public class MapProcessor {
     public List<Cell> findCastlePositions(int howMany) {
         long distance = -1;
         List<Cell> result = new ArrayList<>();
-        int a=0, b=0;
+        int a=0, b;
         int lastA=-1, lastB=-1;
         for (Cell i : lands) {
             if (islands.get(i.getIslandId()).size() < 20) {
