@@ -26,16 +26,16 @@ public class Constants {
             DISTANCE_HIGHLAND_HIGHLAND = 2,
             DISTANCE_ISLAND_DISTINGUISHER = (MATRIX_WIDTH > MATRIX_HEIGHT) ? MATRIX_WIDTH * 5 : MATRIX_HEIGHT * 5;
 
-    public static int DRAWER_WIDTH = 40;
-    public static int Drawer_HIGHT = 22;
+    public static int DRAWER_WIDTH = 32;
+    public static int Drawer_HIGHT = 18;
     public static int[][] zoomNumbers = {
-            {21, 26, 62, 35},
             {26, 32, 50, 28},
             {32, 40, 40, 22},
             {40, 50, 32, 18},
-            {50, 62, 26, 15}
+            {50, 62, 26, 15},
+            {62, 78, 21, 12}
     };
-    public static long scrollSpeed = 20;
+    public static long scrollSpeed = 50;
 
 
     public enum Elements {
@@ -83,14 +83,14 @@ public class Constants {
     public static void initializeConstants() {
         if (Toolkit.getDefaultToolkit().getScreenSize().getWidth() < 1920) {
             // mac :
-            CELL_SIZE = 32;
+            CELL_SIZE = 40;
             INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2;
             MATRIX_HEIGHT = 98;
             MATRIX_WIDTH = 80;
             isMac = true;
         } else {
             // not mac :
-            CELL_SIZE = 40;
+            CELL_SIZE = 50;
             INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2;
         }
     }
