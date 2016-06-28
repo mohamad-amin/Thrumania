@@ -1,6 +1,11 @@
 package thrumania.game;
 
-import thrumania.board.item.MapItems.Cell;
+import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.people.Human;
+import thrumania.board.item.GameItems.people.Soldier;
+import thrumania.board.item.GameItems.people.Worker;
+import thrumania.board.item.InsideElementsItems;
+import thrumania.board.item.MapItems.*;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -8,10 +13,12 @@ import thrumania.utils.IntegerUtils;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
+import java.util.StringJoiner;
 
 /**
  * Created by mohamadamin on 6/23/16.
  */
+
 public class MapProcessor {
 
     private List<Boolean> landReserved;
@@ -32,10 +39,10 @@ public class MapProcessor {
         this.visited = new boolean[cells.length][cells[0].length];
     }
 
-    public void initializeStrongholds() {
-        fillDistances();
-        fillLands();
-    }
+//    public void initializeStrongholds() {
+//        fillDistances();
+//        fillLands();
+//    }
 
     public void newInitializeStrongholds() {
         findIslands();
@@ -70,93 +77,92 @@ public class MapProcessor {
 //        }
     }
 
-    private void fillDistances() {
-        initializeDistances();
-        for (int i=0; i<cells.length; i++) {
-            for (int j=0; j<cells[0].length; j++) {
-                distances[i][j][i][j] = 0;
-            }
-        }
-        for (int i=0; i<cells.length; i++) {
-            for (int j=0; j<cells[0].length; j++) {
-                if (cells[i][j].getId() < 3) {
-                    lands.add(cells[i][j]);
-                    landReserved.add(true);
-                } else if (cells[i][j].getId() < 6) {
-                    lands.add(cells[i][j]);
-                    landReserved.add(true);
-                } else if (cells[i][j].getId() < 8) {
+//    private void fillDistances() {
+//        initializeDistances();
+//        for (int i=0; i<cells.length; i++) {
+//            for (int j=0; j<cells[0].length; j++) {
+//                distances[i][j][i][j] = 0;
+//            }
+//        }
+//        for (int i=0; i<cells.length; i++) {
+//            for (int j=0; j<cells[0].length; j++) {
+//                if (cells[i][j].getId() < 3) {
+//                    lands.add(cells[i][j]);
+//                    landReserved.add(true);
+//                } else if (cells[i][j].getId() < 6) {
+//                    lands.add(cells[i][j]);
+//                    landReserved.add(true);
+//                } else if (cells[i][j].getId() < 8) {
+//
+//                } else {
+//
+//                }
+//            }
+//        }
+//        int i, j;
+//        for (Cell cell : lands) {
+//            i = cell.getPosition().getRow();
+//            j = cell.getPosition().getColumn();
+//            distances[i][j] = floydDijikstra(i, j);
+//        }
+//    }
 
-                } else {
+//    private long[][] floydDijikstra(int u, int v) {
+//
+//        long[][] distances = new long[cells.length][cells[0].length];
+//        boolean[][] visited = new boolean[cells.length][cells[0].length];
+//
+//        for (int i=0; i<distances.length; i++) {
+//            for (int j=0; j<distances[0].length; j++) {
+//                distances[i][j] = Integer.MAX_VALUE;
+//            }
+//        }
+//        distances[u][v] = 0;
+//
+//        for (int i=0; i<distances.length; i++) {
+//            for (int j=0; j<distances[0].length; j++) {
+//
+//                final Coordinate position = getMinVertex(distances, visited);
+//                int r = position.getRow(), c = position.getColumn();
+//                visited[r][c] = true;
+//
+//                List<Coordinate> neighbours = getNeighboursDirect(r,c);
+//                for (Coordinate neighbour : neighbours) {
+//                    long d = distances[r][c] + getDetachingEdgeWeight(r, c, neighbour.getRow(), neighbour.getColumn());
+//                    if (distances[neighbour.getRow()][neighbour.getColumn()] > d) {
+//                        distances[neighbour.getRow()][neighbour.getColumn()] = d;
+//                    }
+//                }
+//
+//            }
+//        }
+//
+//        return distances;
+//
+//    }
 
-                }
-//                if (IntegerUtils.isInRange(0, cells[0].length-1, j+1)) distances[i][j][i][j+1] = getDetachingEdgeWeight(i,j,i,j+1);
-//                if (IntegerUtils.isInRange(0, cells[0].length-1, j-1)) distances[i][j][i][j-1] = getDetachingEdgeWeight(i,j,i,j-1);
-//                if (IntegerUtils.isInRange(0, cells.length-1, i+1)) distances[i][j][i+1][j] = getDetachingEdgeWeight(i,j,i+1,j);
-//                if (IntegerUtils.isInRange(0, cells.length-1, i-1)) distances[i][j][i-1][j] = getDetachingEdgeWeight(i,j,i-1,j);
-//                if (IntegerUtils.isInRange(0, cells[0].length-1, j+1)) distances[i][j][i][j+1] = getEdgeWeight(i,j,i,j+1);
-//                if (IntegerUtils.isInRange(0, cells[0].length-1, j-1)) distances[i][j][i][j-1] = getEdgeWeight(i,j,i,j-1);
-//                if (IntegerUtils.isInRange(0, cells.length-1, i+1)) distances[i][j][i+1][j] = getEdgeWeight(i,j,i+1,j);
-//                if (IntegerUtils.isInRange(0, cells.length-1, i-1)) distances[i][j][i-1][j] = getEdgeWeight(i,j,i-1,j);
-            }
-        }
-        int i, j;
-        for (Cell cell : lands) {
-            i = cell.getPosition().getRow();
-            j = cell.getPosition().getColumn();
-            distances[i][j] = floydDijikstra(i, j);
-        }
-    }
-
-    private long[][] floydDijikstra(int u, int v) {
-
-        long[][] distances = new long[cells.length][cells[0].length];
-        boolean[][] visited = new boolean[cells.length][cells[0].length];
-
-        for (int i=0; i<distances.length; i++) {
-            for (int j=0; j<distances[0].length; j++) {
-                distances[i][j] = Integer.MAX_VALUE;
-            }
-        }
-        distances[u][v] = 0;
-
-        for (int i=0; i<distances.length; i++) {
-            for (int j=0; j<distances[0].length; j++) {
-
-                final Coordinate position = getMinVertex(distances, visited);
-                int r = position.getRow(), c = position.getColumn();
-                visited[r][c] = true;
-
-                List<Coordinate> neighbours = getNeighboursDirect(r,c);
-                for (Coordinate neighbour : neighbours) {
-                    long d = distances[r][c] + getDetachingEdgeWeight(r, c, neighbour.getRow(), neighbour.getColumn());
-                    if (distances[neighbour.getRow()][neighbour.getColumn()] > d) {
-                        distances[neighbour.getRow()][neighbour.getColumn()] = d;
-                    }
-                }
-
-            }
-        }
-
-        return distances;
-        
-    }
-
-    public Stack<Coordinate> getPath(Coordinate start, Coordinate end) {
-        Coordinate[][] path = pathDijikstra(start.getRow(), start.getColumn());
+    public Stack<Coordinate> getPath(Coordinate start, Coordinate end, InsideElementsItems element) {
+        Coordinate[][] path = pathDijikstra(start.getRow(), start.getColumn(), element);
         Stack<Coordinate> result = new Stack<>();
+        Coordinate endCopy = end;
         while (end != null) {
             result.add(end);
             end = path[end.getRow()][end.getColumn()];
         }
+        System.out.println("Path from " + start + " to " + endCopy + ": ");
+        for (int i=0; i<result.size(); i++) {
+            System.out.print(result.get(i) + ":"+cells[result.get(i).getRow()][result.get(i).getColumn()].getId()+ " -> ");
+        }
+        System.out.println();
         return result;
     }
 
-    public Coordinate[][] pathDijikstra(int u, int v) {
+    public Coordinate[][] pathDijikstra(int u, int v, InsideElementsItems element) {
 
         long[][] distances = new long[cells.length][cells[0].length];
         boolean[][] visited = new boolean[cells.length][cells[0].length];
         Coordinate[][] path = new Coordinate[cells.length][cells[0].length];
+        System.err.println(cells[7][8].getId());
 
         for (int i=0; i<distances.length; i++) {
             for (int j=0; j<distances[0].length; j++) {
@@ -174,7 +180,8 @@ public class MapProcessor {
 
                 List<Coordinate> neighbours = getNeighbours(r,c);
                 for (Coordinate neighbour : neighbours) {
-                    long d = distances[r][c] + getDetachingEdgeWeight(r, c, neighbour.getRow(), neighbour.getColumn());
+                    long d = distances[r][c] +
+                            getDetachingEdgeWeight(r, c, neighbour.getRow(), neighbour.getColumn(), element);
                     if (distances[neighbour.getRow()][neighbour.getColumn()] > d) {
                         distances[neighbour.getRow()][neighbour.getColumn()] = d;
                         path[neighbour.getRow()][neighbour.getColumn()] = new Coordinate(r, c);
@@ -194,8 +201,7 @@ public class MapProcessor {
         for (int i=0; i<distances.length; i++) {
             for (int j=0; j<distances[0].length; j++) {
                 if (!visited[i][j] && distances[i][j] <= x) {
-                    position.setRow(i);
-                    position.setColumn(j);
+                    position = new Coordinate(i, j);
                     x = distances[i][j];
                 }
             }
@@ -229,34 +235,39 @@ public class MapProcessor {
         return neighbuors;
     }
 
-    private int getDetachingEdgeWeight(int i, int j, int x, int y) {
-        int result = Integer.MAX_VALUE;
-        if (cells[i][j].getId() < 3) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_LOWLAND_LOWLAND;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_LOWLAND_HIGHLAND;
-            } else if (cells[x][y].getId() < 8) {
-                result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
+    private int getDetachingEdgeWeight(int i, int j, int x, int y, InsideElementsItems item) {
+        int result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
+        if (item instanceof Human) {
+            if (cells[i][j].getId() < 3) {
+                if (cells[x][y].getId() < 3) {
+                    result = Constants.DISTANCE_LOWLAND_LOWLAND;
+                } else if (cells[x][y].getId() < 6) {
+                    result = Constants.DISTANCE_LOWLAND_HIGHLAND;
+                }
+            } else if (cells[i][j].getId() < 6) {
+                if (cells[x][y].getId() < 3) {
+                    result = Constants.DISTANCE_LOWLAND_HIGHLAND;
+                } else if (cells[x][y].getId() < 6) {
+                    result = Constants.DISTANCE_HIGHLAND_HIGHLAND;
+                }
             }
-        } else if (cells[i][j].getId() < 6) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_LOWLAND_HIGHLAND;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_HIGHLAND_HIGHLAND;
-            } else {
-                result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
+            if (item instanceof Worker) {
+                Worker worker = (Worker) item;
+                if (!worker.isCanGoMountain() && cells[x][y] instanceof HighLand) {
+                    return Constants.DISTANCE_ISLAND_DISTINGUISHER;
+                }
             }
-        } else if (cells[i][j].getId() < 8) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
-            } else {
-                result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
-            }
+            byte id = cells[x][y].getId();
+            if (id == Constants.GOLD_ID || id == Constants.STONE_ID || id == Constants.AGRICULTURE_ID ||
+                    cells[x][y].getInsideElementsItems() instanceof Castle) return Constants.DISTANCE_ISLAND_DISTINGUISHER;
         } else {
-            // Todo maybe
+            if (cells[i][j].getId() >= 6) {
+                if (cells[x][y].getId() >= 8) {
+                    return Constants.DISTANCE_WATER_WATER;
+                } else if (cells[x][y].getId() >= 6) {
+                    return Constants.DISTANCE_WATER_WATER;
+                }
+            }
         }
         return result;
     }

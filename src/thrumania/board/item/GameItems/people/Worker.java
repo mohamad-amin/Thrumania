@@ -22,6 +22,10 @@ public class Worker extends Human implements Runnable {
     private int speadOfCollectingItems;
     private PlayPanel playPanel;
     private Map map;
+    private MapProcessor mapProcessor;
+    private boolean isMoving;
+    private Stack<Coordinate> paths;
+    private boolean movingShouldBeStopped = false;
 
 
     public Worker(PlayPanel playPanel, Map map, int xCord, int yCord) {
@@ -44,12 +48,9 @@ public class Worker extends Human implements Runnable {
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
         super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
 
-        super.paths = new Stack<>();
-
 
         this.capacityOfCollectingItems = 300;
         // TODO : one unit of each
-//        this.speadOfCollectingItems =
         this.isCapacityOfCollectingItemsFull = false;
         this.canGoMountain = false;
         this.playPanel = playPanel;
@@ -67,7 +68,7 @@ public class Worker extends Human implements Runnable {
         this.yEnd = IntegerUtils.getXAndYWithCoordinate(end)[1];
 
         isMoving = true;
-        while (coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn() && !movingShouldBeStopped) {
+        while (coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn()) {
             if (!this.checkWheterTheGoalCellIsWaterOrNot(end)) {
                 if (coordinate.getColumn() < end.getColumn())
                     this.xCord += 1;
@@ -87,7 +88,6 @@ public class Worker extends Human implements Runnable {
 
 
             } else {
-                System.out.println("we are here and player should stop walking");
                 movingShouldBeStopped = true;
                 return;
             }
@@ -130,32 +130,23 @@ public class Worker extends Human implements Runnable {
         this.capacityOfCollectingItems = capacityOfCollectingItems;
     }
 
-    private void checkWheterCapacityIsFull() {
-
-        if (this.isCapacityOfCollectingItemsFull)
-            this.endCord = this.getHomeCastleCoordinate();
-    }
-
     @Override
     public void run() {
-
-        if ( ! paths.isEmpty() && paths.peek().equals(coordinate))
+        paths = mapProcessor.getPath(coordinate, endCord, this);
+        if (paths.peek().equals(coordinate)) {
             paths.pop();
-        while (!paths.isEmpty()) {
-
-            if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
-
+        }
+        while (!paths.isEmpty() && !isMoving) {
+            if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek())) {
                 this.determiningSpeedOfMoving();
-
-                if (paths.peek().equals(coordinate))
+                if (paths.peek().equals(coordinate)) {
                     paths.pop();
-
+                }
                 if (!paths.isEmpty())
                     this.move(paths.pop());
             } else break;
             if (!movingShouldBeStopped)
                 while (this.xCord != xEnd || this.yCord != yEnd) {
-
                     this.determiningSpeedOfMoving();
                     if (this.xCord > xEnd)
                         xCord--;
@@ -165,7 +156,6 @@ public class Worker extends Human implements Runnable {
                         yCord--;
                     else if (this.yCord < yEnd)
                         yCord++;
-
                     try {
                         Thread.sleep((long) (1000 / speedOfMoving));
                     } catch (InterruptedException e) {
@@ -176,8 +166,6 @@ public class Worker extends Human implements Runnable {
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
         }
-        System.out.println(xCord + "  " + yCord);
-        System.out.println("end of process coordinate is" + IntegerUtils.getCoordinateWithXAndY(this.getxCord(), this.getyCord()));
         isMoving = false;
 
 
@@ -185,11 +173,7 @@ public class Worker extends Human implements Runnable {
     }
 
     private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
-        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand);
 
 
     }

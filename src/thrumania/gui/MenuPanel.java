@@ -44,14 +44,10 @@ public class MenuPanel extends JPanel {
     private void findingSelectedElement(int x, int y) {
 
         int counter = 1;
-        if (horzontalSpace <= x && x <= horzontalSpace + 160 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10)
-            this.newgameIsSelected = true;
-        else this.newgameIsSelected = false;
+        this.newgameIsSelected = horzontalSpace <= x && x <= horzontalSpace + 160 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10;
         repaint();
         counter++;
-        if (horzontalSpace <= x && x <= horzontalSpace + 400 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10)
-            this.playWithYourFriendsIsSelected = true;
-        else this.playWithYourFriendsIsSelected = false;
+        this.playWithYourFriendsIsSelected = horzontalSpace <= x && x <= horzontalSpace + 400 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10;
         repaint();
 
         counter++;
@@ -66,10 +62,7 @@ public class MenuPanel extends JPanel {
         else makeMapIsSelected = false;
 
         counter++;
-        if (horzontalSpace <= x && x <= horzontalSpace + 70 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10)
-            this.exitIsSelected = true;
-        else
-            this.exitIsSelected = false;
+        this.exitIsSelected = horzontalSpace <= x && x <= horzontalSpace + 70 && counter * verticalSpace + verticalSpaceInit - 30 <= y && y <= counter * verticalSpace + verticalSpaceInit + 10;
 
     }
 

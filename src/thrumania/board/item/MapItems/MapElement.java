@@ -13,8 +13,6 @@ public  abstract  class MapElement  extends InsideElementsItems{
     protected  int  capacity = 100;
     protected  int eachElementCapacity;
 
-
-
     public String getAutmnPictureName() {
         return autmnPictureName;
     }

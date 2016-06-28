@@ -26,9 +26,7 @@ public class PlayFrame extends JFrame {
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
         this.players = players;
-
         loadFrame(loadMapFromHash(loadedMap));
-
     }
 
     private void loadFrame(Map map) {
@@ -145,8 +143,13 @@ public class PlayFrame extends JFrame {
             }
         }
         map.setCells(cells);
+//        for (int i=0; i<cells.length; i++) {
+//            for (int j=0; j<cells[0].length; j++) {
+//                System.err.print(cells[i][j].getId());
+//            }
+//            System.err.println();
+//        }
         return map;
-
     }
 
 }

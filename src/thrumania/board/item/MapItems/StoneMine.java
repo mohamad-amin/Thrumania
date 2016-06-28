@@ -5,7 +5,7 @@ import thrumania.utils.Coordinate;
 /**
  * Created by sina on 5/22/16.
  */
-public class StoneMine extends  MapElement{
+public class StoneMine extends MapElement {
     private Coordinate stoneRight;
     private Coordinate stoneDown;
     private Coordinate stoneDownRightt;
