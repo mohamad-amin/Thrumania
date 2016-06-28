@@ -1,6 +1,5 @@
 package thrumania.gui;
 
-import sun.audio.AudioPlayer;
 import thrumania.board.item.MapItems.Map;
 import thrumania.utils.Constants;
 import thrumania.utils.FileUtils;
@@ -13,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
-import java.util.TimerTask;
 
 /**
  * Created by sina on 6/22/16.
@@ -141,6 +139,7 @@ public class MenuPanel extends JPanel {
 
                         new PlayFrame(loadedMap, Integer.valueOf(players));
                         SoundUtils.clip.stop();
+
                     } catch (Exception exception) {
                         exception.printStackTrace();
                         JOptionPane.showMessageDialog(MenuPanel.this, "Wrong players' count :(", "New Game",

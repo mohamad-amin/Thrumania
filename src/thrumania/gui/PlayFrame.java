@@ -38,6 +38,7 @@ public class PlayFrame extends JFrame {
         this.map = map;
 
 
+
         this.setSize(d);
         this.setLayout(null);
         this.setLocation(0,0);
@@ -57,6 +58,9 @@ public class PlayFrame extends JFrame {
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
         this.add(playPanel);
+        System.out.println(" _-------------------------------");
+
+
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);

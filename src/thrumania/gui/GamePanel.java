@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
         stateQueue = new FixedQueue<>(Constants.STATE_QUEUE_SIZE);
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
+
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -99,7 +100,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                                 Constants.CELL_SIZE,
                                 null);
                     }
-                //TODO SINA CONTINUOUS MOVEMENT
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
@@ -196,6 +196,8 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 JOptionPane.showMessageDialog(this, "Couldn't save map :(", "Save Map", JOptionPane.INFORMATION_MESSAGE);
             }
         }
+
+
     }
 
     private void loadMapFromFile() {

@@ -148,6 +148,8 @@ public class MapProcessor {
             result.add(end);
             end = path[end.getRow()][end.getColumn()];
         }
+        System.out.println("Start: " + start + " End: " + endCopy + " Path: ");
+        System.out.println(result);
         return result;
     }
 
@@ -235,9 +237,11 @@ public class MapProcessor {
                 if (cells[x][y].getId() < 3) {
                     result = Constants.DISTANCE_LOWLAND_LOWLAND;
                 } else if (cells[x][y].getId() < 6) {
+                    System.out.println("Here");
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
                 }
             } else if (cells[i][j].getId() < 6) {
+                System.out.println("Here");
                 if (cells[x][y].getId() < 3) {
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
                 } else if (cells[x][y].getId() < 6) {
@@ -262,7 +266,7 @@ public class MapProcessor {
                 }
             }
         }
-        if (getIndexDistance(new Coordinate(i,j), new Coordinate(x,y)) > 1) result += 1;
+        if ((int) (Math.pow(i-x, 2) + Math.pow(j-y, 2)) > 1) result += 1;
         return result;
     }
 
