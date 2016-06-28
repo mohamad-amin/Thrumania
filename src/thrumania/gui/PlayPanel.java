@@ -66,12 +66,66 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 //        this.preview = new Preview()
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+//    @Override
+//    public void paint(Graphics g) {
+//        super.paint(g);
+//        int seasonnum = giveMeSeasonNum();
+//        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
+//            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
+//                this.drawingOcean(r, c, g);
+//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
+//                    g.drawImage(
+//                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
+//                            c * Constants.CELL_SIZE,
+//                            r * Constants.CELL_SIZE,
+//                            Constants.CELL_SIZE,
+//                            Constants.CELL_SIZE,
+//                            null);
+//
+//
+//                    Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + focus.getRow(), c + focus.getColumn()));
+//                    if (tempHuman != null) {
+//                        tempHuman.setShouldDraw(true);
+//                        this.shouldDrawHumans.add(tempHuman);
+//                    }
+//
+//
+//                }
+//
+//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
+//                    if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
+////
+//
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
+//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+//                                Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
+//                    else {
+////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+////                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+//                    }
+//                }
+//            }
+//        }
+//        this.drawingHumans(g);
+//    }
+//
+@Override
+    public void paintComponent(Graphics g)
+    {
+
+        super.paintComponent(g);
         int seasonnum = giveMeSeasonNum();
         for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
             for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
+
                 this.drawingOcean(r, c, g);
                 if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
                     g.drawImage(
@@ -114,8 +168,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }
             }
         }
-        this.drawingHumans(g);
+
+
+
     }
+
 
     //
     private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
@@ -146,6 +203,18 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             shouldDrawHumans.get(i).setShouldDraw(false);
             shouldDrawHumans.remove(i);
 
+
+        }
+
+
+    }
+
+    private void addingHumansToMap(){
+
+        for ( int i= 0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++){
+            HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
+                    new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
+            this.add(HumanManagers.getSharedInstance().getHumans().get(i));
 
         }
 
@@ -244,7 +313,14 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     @Override
     public void run() {
         while (gameIsON) {
-            this.repaint();
+
+            JLabel  j = new JLabel();
+            j.setSize(300,300);
+            j.setLocation(300, 300 );
+            j.setIcon(new ImageIcon(ImageUtils.getImage("manStanding.png")));
+//            add(j);
+            addingHumansToMap();
+//            this.repaint();
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -336,6 +412,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             ((Human) gameSelectedElement).setxEnd(x);
 
             ((Human) gameSelectedElement).setyEnd(y);
+            System.out.println("error is in \t");
+            System.out.println("paht \t" + ((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , ((Human) gameSelectedElement).getEndCord(), gameSelectedElement));
+            System.out.println();
+
             ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , ((Human) gameSelectedElement).getEndCord(), gameSelectedElement));
             HumanManagers.getSharedInstance().makingThreadPool();
 

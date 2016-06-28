@@ -1,7 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.item.GameItems.buildings.Castle;
-import thrumania.board.item.GameItems.people.Worker;
+import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.MapItems.*;
 import thrumania.game.MapProcessor;
 import thrumania.managers.HumanManagers;
@@ -81,7 +81,10 @@ public class PlayFrame extends JFrame {
     private void initializingHumans(Castle castle){
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
-        Worker worker = new Worker(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
+        Soldier worker = new Soldier(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
+        System.out.println("panel is " + playPanel);
+        System.out.println("map is   " + map);
+
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans().add(worker);
 

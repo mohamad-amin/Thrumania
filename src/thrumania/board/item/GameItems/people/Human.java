@@ -157,4 +157,12 @@ public abstract class Human extends InsideElementsItems {
     public MapProcessor getMapProcessor() {
         return mapProcessor;
     }
+
+    public String getPicutreName() {
+        return picutreName;
+    }
+
+    public void setPicutreName(String picutreName) {
+        this.picutreName = picutreName;
+    }
 }

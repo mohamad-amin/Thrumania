@@ -237,11 +237,9 @@ public class MapProcessor {
                 if (cells[x][y].getId() < 3) {
                     result = Constants.DISTANCE_LOWLAND_LOWLAND;
                 } else if (cells[x][y].getId() < 6) {
-                    System.out.println("Here");
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
                 }
             } else if (cells[i][j].getId() < 6) {
-                System.out.println("Here");
                 if (cells[x][y].getId() < 3) {
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
                 } else if (cells[x][y].getId() < 6) {

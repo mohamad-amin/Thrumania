@@ -9,6 +9,7 @@ import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
+import java.awt.*;
 import java.util.Stack;
 
 /**
@@ -22,10 +23,11 @@ public class Worker extends Human implements Runnable {
     private int speadOfCollectingItems;
     private PlayPanel playPanel;
     private Map map;
+    private Dimension d = new Dimension(Constants.CELL_SIZE , Constants.CELL_SIZE);
 
 
     public Worker(PlayPanel playPanel, Map map, int xCord, int yCord) {
-
+        // moshakhasat :
         super.health = 500;
         super.damageUnit = 20;
         super.visibilityUnit = 15;
@@ -34,30 +36,39 @@ public class Worker extends Human implements Runnable {
         super.goldReq = 0;
         super.ironReq = 0;
         super.speadOfConsumingFood = 1;
-        super.isAlive = true;
+        this.capacityOfCollectingItems = 300;
+        // TODO : one unit of each
+//        this.speadOfCollectingItems =
+
 
         super.isSelectedByPlayer = false;
+        // mokhtasat :
         super.xCord = xCord;
         super.yCord = yCord;
         super.xEnd = xCord;
         super.yEnd = yCord;
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
         super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
-
+        // aks :
+        super.picutreName = "manStanding.png";
+        // masir
         super.paths = new Stack<>();
-
-
-        this.capacityOfCollectingItems = 300;
-        // TODO : one unit of each
-//        this.speadOfCollectingItems =
+        // booleans :
+        super.isAlive = true;
         this.isCapacityOfCollectingItemsFull = false;
         this.canGoMountain = false;
-        this.playPanel = playPanel;
+        this.isMoving = false;
+
+        // other classes :
         this.map = map;
         this.mapProcessor = new MapProcessor(map.getCells());
+        this.playPanel = playPanel;
 
-        // TODO : its coordinate
-        this.isMoving = false;
+    // JLabel things :
+        this.setSize(d);
+        this.setLocation(xCord , yCord );
+
+
     }
 
     @Override
@@ -77,6 +88,7 @@ public class Worker extends Human implements Runnable {
                     this.yCord--;
                 else if (coordinate.getRow() < end.getRow())
                     this.yCord++;
+                this.setLocation(xCord , yCord);
                 coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
                 try {
                     Thread.sleep((long) (1000 / speedOfMoving));
@@ -171,13 +183,12 @@ public class Worker extends Human implements Runnable {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    this.setLocation(xCord , yCord);
                 }
 
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
         }
-        System.out.println(xCord + "  " + yCord);
-        System.out.println("end of process coordinate is" + IntegerUtils.getCoordinateWithXAndY(this.getxCord(), this.getyCord()));
         isMoving = false;
 
 
