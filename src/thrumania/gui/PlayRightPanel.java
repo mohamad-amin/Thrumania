@@ -34,7 +34,7 @@ public class PlayRightPanel extends JPanel {
     private boolean undoIsSelected = false;
     private  boolean redoIsSelelcted =  false;
 
-
+// TODO : implementing  buttons : what happens after clicking them 
     public PlayRightPanel(PlayPanel playPanel) {
         this.playPanel = playPanel;
         this.setLayout(null);
@@ -43,15 +43,15 @@ public class PlayRightPanel extends JPanel {
         // TODO : for not mac  @mohammadAmin or @AmirhoseinBeheshti
 
         if( Constants.isMac)
-            elementSize = 30;
-        else  elementSize =  30;
-
+            elementSize = 40;
+        else  elementSize =  40;
+        this.addMouseListener(new PlayRightPanelMouseListener());
     }
 
 
     private void findingSelectedObject1(int mouseXcord, int mouseYcord) {
 
-        int elementCounter = 1;
+        int elementCounter = 18;
         // upArrow :
         if (IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2, verticalSpaceBetweenElements * elementCounter, d.width + elementSize, verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord, mouseYcord)) {
 //            playPanel.setSelectedElelements(Constants.Elements.UP_ARROW);
@@ -75,7 +75,7 @@ public class PlayRightPanel extends JPanel {
         }
 
         //  right Arrow :
-        elementCounter++;
+        elementCounter+= 4;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 + horizontalSpaceBetweenElements  , verticalSpaceBetweenElements * elementCounter , d.width / 2  + horizontalSpaceBetweenElements   + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
             // Constants.selectedElement = Constants.Elements.RIGHT_ARROW;
 //            playPanel.setSelectedElelements(Constants.Elements.RIGHT_ARROW);
@@ -116,7 +116,7 @@ public class PlayRightPanel extends JPanel {
 
         }
         // down arrow :
-        elementCounter ++ ;
+        elementCounter +=4 ;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 , verticalSpaceBetweenElements * elementCounter , d.width/2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord )) {
 
 //            playPanel.setSelectedElelements(  Constants.Elements.DOWN_ARROW);
@@ -136,7 +136,7 @@ public class PlayRightPanel extends JPanel {
 
         }
         // save :
-        elementCounter +=2 ;
+        elementCounter +=6 ;
         if(IntegerUtils.isInSideTheRangeOfCordinates(d.width/2  - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter, d.width / 2 - horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord  , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.SAVE);
             saveIsSelected = true;
@@ -171,7 +171,7 @@ public class PlayRightPanel extends JPanel {
 
         }
         // zoom in  :
-        elementCounter += 2;
+        elementCounter += 6;
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements / 2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 - horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.ZOOM_IN);
             zoomInIsSelected = true;
@@ -205,7 +205,7 @@ public class PlayRightPanel extends JPanel {
 
         }
         // undo :
-        elementCounter +=2;
+        elementCounter +=6;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , d.width /2 - horizontalSpaceBetweenElements /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.UNDO);
             undoIsSelected = true;
@@ -241,7 +241,7 @@ public class PlayRightPanel extends JPanel {
 
         }
         // exit :
-        elementCounter +=2;
+        elementCounter +=6;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width /2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.EXIT);
             exitIsSelected  = true;
@@ -274,85 +274,84 @@ public class PlayRightPanel extends JPanel {
         int elementCounter = 1;
         // implementing resources :
 
-        // TODO : food
 
-        elementCounter ++ ;
         // wood
         //g.setColor(Color.WHITE);
 
       //  g.fillRect(d.width /6 , verticalSpaceBetweenElements * elementCounter - 10 , elementSize * 5 , elementSize * 5 );
         g.drawImage(ImageUtils.getImage("woodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-         elementCounter +=3;
+         elementCounter +=4;
         g.drawImage(ImageUtils.getImage("ironResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-        elementCounter +=3 ;
+        elementCounter +=4 ;
         g.drawImage(ImageUtils.getImage("goldResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-        elementCounter +=3 ;
+        elementCounter +=4 ;
         g.drawImage(ImageUtils.getImage("foodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
 
-        // impelenting arrow keys
-        // Up :
-//
-//        if( ! upArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("upArrowKeyRightPanel.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter , elementSize, elementSize, null);
-//        else if( upArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("upArrowKeyRightPanelHoover.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter , elementSize, elementSize, null);
-//        //right :
-//        elementCounter += 1;
-//        if( ! rightArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("rightArrowKeyRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        else if ( rightArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("rightArrowKeyRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        // left:
-//        if ( !leftArrowIsSelected )
-//            g.drawImage(ImageUtils.getImage("leftArrowKeyRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        else if( leftArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("leftArrowKeyRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        // down :
-//        elementCounter += 1;
-//        if ( ! downArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("downArrowKeyRightPanel.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        else  if( downArrowIsSelected)
-//            g.drawImage(ImageUtils.getImage("downArrowKeyRightPanelHoover.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        // save :
-//        elementCounter += 2;
-//        if(!  saveIsSelected)
-//            g.drawImage(ImageUtils.getImage("saveRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
-//        else if( saveIsSelected) {
-//            g.drawImage(ImageUtils.getImage("saveRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
-//
-//        }// load :
-//        if( ! loadIsSelected)
-//            g.drawImage(ImageUtils.getImage("loadRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
-//        else if ( loadIsSelected)
-//            g.drawImage(ImageUtils.getImage("loadRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
-//        // zoom in :
-//        elementCounter += 2;
-//        if( ! zoomInIsSelected)
-//            g.drawImage(ImageUtils.getImage("zoomInRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        else if ( zoomInIsSelected)
-//            g.drawImage(ImageUtils.getImage("zoomInRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        // zoom out :
-//        if (! zoomOutIsSelected)
-//            g.drawImage(ImageUtils.getImage("zoomOutRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        else if ( zoomOutIsSelected)
-//            g.drawImage(ImageUtils.getImage("zoomOutRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-//        // undo
-//        elementCounter += 2;
-//        if( ! undoIsSelected)
-//            g.drawImage(ImageUtils.getImage("undoRightPanel.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
-//        else if( undoIsSelected)
-//            g.drawImage(ImageUtils.getImage("undoRightPanelHoover.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
-//        // redo
-//        if( ! redoIsSelelcted)
-//            g.drawImage(ImageUtils.getImage("redoRightPanel.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
-//        else if( redoIsSelelcted)
-//            g.drawImage(ImageUtils.getImage("redoRightPanelHoover.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
-//        // exit :
-//        elementCounter +=2;
-//        if( ! exitIsSelected)
-//            g.drawImage(ImageUtils.getImage("exitRightPanel.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
-//        else if( exitIsSelected)
-//            g.drawImage(ImageUtils.getImage("exitRightPanelHoover.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
+//         impelenting arrow keys
+//         Up :'
+        elementCounter += 5;
+
+        if( ! upArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("upArrowKeyRightPanel.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter , elementSize, elementSize, null);
+        else if( upArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("upArrowKeyRightPanelHoover.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter , elementSize, elementSize, null);
+        //right :
+        elementCounter += 4;
+        if( ! rightArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("rightArrowKeyRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        else if ( rightArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("rightArrowKeyRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        // left:
+        if ( !leftArrowIsSelected )
+            g.drawImage(ImageUtils.getImage("leftArrowKeyRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        else if( leftArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("leftArrowKeyRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        // down :
+        elementCounter += 4;
+        if ( ! downArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("downArrowKeyRightPanel.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        else  if( downArrowIsSelected)
+            g.drawImage(ImageUtils.getImage("downArrowKeyRightPanelHoover.png"), d.width / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        // save :
+        elementCounter += 6;
+        if(!  saveIsSelected)
+            g.drawImage(ImageUtils.getImage("saveRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
+        else if( saveIsSelected) {
+            g.drawImage(ImageUtils.getImage("saveRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
+
+        }// load :
+        if( ! loadIsSelected)
+            g.drawImage(ImageUtils.getImage("loadRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
+        else if ( loadIsSelected)
+            g.drawImage(ImageUtils.getImage("loadRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize + 5, null);
+        // zoom in :
+        elementCounter += 6;
+        if( ! zoomInIsSelected)
+            g.drawImage(ImageUtils.getImage("zoomInRightPanel.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        else if ( zoomInIsSelected)
+            g.drawImage(ImageUtils.getImage("zoomInRightPanelHoover.png"), d.width / 2 - horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        // zoom out :
+        if (! zoomOutIsSelected)
+            g.drawImage(ImageUtils.getImage("zoomOutRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        else if ( zoomOutIsSelected)
+            g.drawImage(ImageUtils.getImage("zoomOutRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
+        // undo
+        elementCounter += 6;
+        if( ! undoIsSelected)
+            g.drawImage(ImageUtils.getImage("undoRightPanel.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
+        else if( undoIsSelected)
+            g.drawImage(ImageUtils.getImage("undoRightPanelHoover.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
+        // redo
+        if( ! redoIsSelelcted)
+            g.drawImage(ImageUtils.getImage("redoRightPanel.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
+        else if( redoIsSelelcted)
+            g.drawImage(ImageUtils.getImage("redoRightPanelHoover.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
+        // exit :
+        elementCounter +=6;
+        if( ! exitIsSelected)
+            g.drawImage(ImageUtils.getImage("exitRightPanel.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
+        else if( exitIsSelected)
+            g.drawImage(ImageUtils.getImage("exitRightPanelHoover.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
 
 //        repaint();
     }
@@ -370,7 +369,7 @@ public class PlayRightPanel extends JPanel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-
+                findingSelectedObject1(e.getX() , e.getY());
         }
 
         @Override
