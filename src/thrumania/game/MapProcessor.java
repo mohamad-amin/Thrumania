@@ -262,6 +262,7 @@ public class MapProcessor {
                 }
             }
         }
+        if (getIndexDistance(new Coordinate(i,j), new Coordinate(x,y)) > 1) result += 1;
         return result;
     }
 
