@@ -21,7 +21,7 @@ public class Soldier extends Human  {
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
 
 
-    public Soldier(PlayPanel playPanel, Map map, int x, int y) {
+    public Soldier(PlayPanel playPanel, Map map, int x, int y , int playerNumber) {
 
         // moshakhasat ;
         super.health = 1000;
@@ -59,8 +59,10 @@ public class Soldier extends Human  {
         super.isAlive = true;
         super.isSelectedByPlayer = false;
 
+        super.playerNumber = playerNumber;
+
         this.setSize(d);
-        this.setLocation(xCord, yCord);
+
 
 
     }

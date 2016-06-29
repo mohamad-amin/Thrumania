@@ -20,4 +20,8 @@ public  abstract  class LiveElements extends DeadElements{
     public Coordinate getCastlePosition() {return realPosition;}
     public void setStartingPoint(Coordinate startingPoint) {this.startingPoint = startingPoint;}
     public void setRealPosition(Coordinate castlePosition) {this.realPosition = castlePosition;}
+
+    public Side getSide() {
+        return side;
+    }
 }

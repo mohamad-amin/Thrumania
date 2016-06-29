@@ -45,4 +45,5 @@ public class Side {
     public String getNameOfPlayer() {
         return nameOfPlayer;
     }
+
 }

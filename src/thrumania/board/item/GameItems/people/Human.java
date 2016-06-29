@@ -45,6 +45,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected MapProcessor mapProcessor;
     protected boolean isExecuted = false;
     protected ArrayList<Coordinate > distinations= new ArrayList<>();
+    protected int playerNumber;
 
 
 
@@ -75,6 +76,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     public void setxCord(int xCord) {
         this.xCord = xCord;
+
     }
 
     public boolean isAlive() {

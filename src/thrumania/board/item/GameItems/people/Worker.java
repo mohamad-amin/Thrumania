@@ -25,7 +25,7 @@ public class Worker extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE  , Constants.CELL_SIZE );
 
-    public Worker(PlayPanel playPanel, Map map, int xCord, int yCord) {
+    public Worker(PlayPanel playPanel, Map map, int xCord, int yCord , int playerNumber) {
         // moshakhasat :
         super.health = 500;
         super.damageUnit = 20;
@@ -35,6 +35,7 @@ public class Worker extends Human {
         super.goldReq = 0;
         super.ironReq = 0;
         super.speadOfConsumingFood = 1;
+        super.playerNumber = playerNumber ;
         this.capacityOfCollectingItems = 300;
         // TODO : one unit of each
 //        this.speadOfCollectingItems =
@@ -64,7 +65,7 @@ public class Worker extends Human {
 
     // JLabel things :
         this.setSize(d);
-        this.setLocation(xCord , yCord );
+
 
 
     }
@@ -90,7 +91,8 @@ public class Worker extends Human {
                 yCord ++;
             else if( this.yCord > yEnd)
                 yCord -- ;
-            this.setLocation(xCord, yCord);
+            int x ,y;
+
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
 
                 try {
@@ -101,16 +103,6 @@ public class Worker extends Human {
 
 
         }
-//        if( ! paths.isEmpty() )
-//            if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()))
-//            this.move2(paths.pop());
-//                else
-//            {
-//                while(  ! paths.isEmpty())
-//                    paths.pop();
-//
-////            return;
-//           }
 
 
 
@@ -155,56 +147,11 @@ public class Worker extends Human {
 
     private void checkWheterCapacityIsFull() {
 
-//        if (this.isCapacityOfCollectingItemsFull)
-//            this.endCord = this.getHomeCastleCoordinate();
+
     }
 
     @Override
     public void run() {
-//        System.out.println("run run run");
-
-//        while ( isAlive) {
-//
-//            if (!paths.isEmpty() && paths.peek().equals(coordinate))
-//                paths.pop();
-//            while (!paths.isEmpty()) {
-//
-//                if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
-//
-//                    this.determiningSpeedOfMoving();
-//
-//                    if (paths.peek().equals(coordinate))
-//                        paths.pop();
-//
-//                    if (!paths.isEmpty())
-//                        this.move(paths.pop());
-//                } else break;
-//                if (!movingShouldBeStopped)
-////                    while (this.xCord != xEnd || this.yCord != yEnd) {
-////
-////                        this.determiningSpeedOfMoving();
-////                        if (this.xCord > xEnd)
-////                            xCord--;
-////                        else if (this.xCord < xEnd)
-////                            xCord++;
-////                        if (this.yCord > yEnd)
-////                            yCord--;
-////                        else if (this.yCord < yEnd)
-////                            yCord++;
-////
-////                        try {
-////                            Thread.sleep((long) (1000 / (speedOfMoving *  5 )  ));
-////                        } catch (InterruptedException e) {
-////                            e.printStackTrace();
-////                        }
-////                        this.setLocation(xCord, yCord);
-////                    }
-//
-//                coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-//
-//            }
-//            isMoving = false;
-//        }
         while ( isAlive){
             examiningPath();
 
@@ -230,16 +177,11 @@ public class Worker extends Human {
                         isMoving = false;
                         distinations.remove(0);
                     }
-//                    try {
-//                        wait();
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
                 }
 
         }
 
-//    }
+
     private void settingEachMove(Stack<Coordinate> path){
         if( !path.isEmpty() )
             if( path.peek().equals(coordinate))

@@ -117,12 +117,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     }
                 }
             }
-//Todo what is this?
-            Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + start.getRow(), c + start.getColumn()));
-            if (tempHuman != null) {
-                tempHuman.setShouldDraw(true);
-                this.shouldDrawHumans.add(tempHuman);
-            }
+
         }
     }
 
@@ -161,14 +156,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             @Override
             public void run() {
 
-                for ( int i= 0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++){
-                    HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
-                            new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
-                    add(HumanManagers.getSharedInstance().getHumans().get(i));
+
+                     for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
+                        HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
+                                new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
+                        int x, y;
+                         x =HumanManagers.getSharedInstance().getHumans().get(i).getxCord() - start.getColumn()*Constants.CELL_SIZE;
+                         y = HumanManagers.getSharedInstance().getHumans().get(i).getyCord() - start.getRow() * Constants.CELL_SIZE;
+                        HumanManagers.getSharedInstance().getHumans().get(i).setLocation(x,y);
+                        add(HumanManagers.getSharedInstance().getHumans().get(i));
+
+
 
                 }
-
-
             }
         });
 
@@ -283,14 +283,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     @Override
     public void run() {
         while (gameIsON) {
+            repaint();
+            this.addingHumansToMap();
 
-            JLabel  j = new JLabel();
-            j.setSize(300,300);
-            j.setLocation(300, 300 );
-            j.setIcon(new ImageIcon(ImageUtils.getImage("manStanding.png")));
-//            add(j);
-            addingHumansToMap();
-//            this.repaint();
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {
@@ -322,14 +317,18 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
+            // tODO Check it
+            int x , y;
+            x = e.getX() + start.getColumn() * Constants.CELL_SIZE;
+            y = e.getY() + start.getRow() * Constants.CELL_SIZE;
 
             // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
-                System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
+                System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                 for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++)
 //                    System.out.println("this human location is \t" + HumanManagers.getSharedInstance().getHumans(.get(i).getCoordinate());
 
-                    gameSelectedElement = findingwhichHumanIsClicked(e.getX(), e.getY());
+                    gameSelectedElement = findingwhichHumanIsClicked(x, y);
                 System.out.println("gameSelectedItem is \t" + gameSelectedElement);
 
 
@@ -345,7 +344,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }else if ( gameSelectedElement instanceof  Soldier && !  ((Soldier) gameSelectedElement).isMoving())
                 {
                     System.out.println("boro sheikh bazi");
-                    setHumanAction(e.getX() , e.getY());
+                    setHumanAction(x , y);
                 }
             }
 
@@ -383,13 +382,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             //TODO : handle collecting resources
 
             if (gameSelectedElement instanceof Worker) {
-//                synchronized (((Worker) gameSelectedElement).getDistinations()) {
 
                 ((Worker) gameSelectedElement).getDistinations().add(coord);
-//                    notifyAll();
-//                }
-//
-
 
                 if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
                     ((Worker) gameSelectedElement).setExecuted(true);
@@ -401,11 +395,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
             else if (gameSelectedElement instanceof Soldier) {
 
-                //                synchronized (((Worker) gameSelectedElement).getDistinations()) {
 
                 ((Worker) gameSelectedElement).getDistinations().add(coord);
-//                    notifyAll();
-//                }
+//
+//
 //
 
 
@@ -427,12 +420,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         else if (cell.getInsideElementsItems() instanceof Castle) {
             // TODO  : set stack : MS <>
             if( gameSelectedElement instanceof  Human) {
-//                    ((Human) gameSelectedElement).getDistinations().add(((Castle) cell.getInsideElementsItems()))
-//                    ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , coord, gameSelectedElement));
-//                    ((Human) gameSelectedElement).getPaths().remove(((Human) gameSelectedElement).getPaths().size() -1);
-//                    ((Human) gameSelectedElement).setEndCord(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1));
-//                    ((Human) gameSelectedElement).setyEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getRow() * Constants.CELL_SIZE);
-//                    ((Human) gameSelectedElement).setxEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getColumn() * Constants.CELL_SIZE);
+//
             }
 
 
@@ -560,5 +548,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         repaint();
     }
 
-
+    public Coordinate getStart() {
+        return start;
+    }
 }

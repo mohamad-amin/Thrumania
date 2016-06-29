@@ -9,6 +9,7 @@ import thrumania.utils.Coordinate;
  */
 public class Castle extends LiveElements {
 
+
     public Castle(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
         side = new Side(sideNumber);
         String pictureName = "castle.png";
