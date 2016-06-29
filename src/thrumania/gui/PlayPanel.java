@@ -155,15 +155,27 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     }
 
-    private void addingHumansToMap(){
-        for ( int i= 0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++){
-            HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
-                    new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
-            this.add(HumanManagers.getSharedInstance().getHumans().get(i));
-        }
+        private void addingHumansToMap(){
+
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+
+                for ( int i= 0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++){
+                    HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
+                            new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
+                    add(HumanManagers.getSharedInstance().getHumans().get(i));
+
+                }
+
+
+            }
+        });
+
 
 
     }
+
 
     private void drawingOcean(int row, int column, Graphics g) {
         if (this.dayTime == Constants.DayTime.MORNING) {
@@ -311,25 +323,29 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         @Override
         public void mouseClicked(MouseEvent e) {
 
-            // TODO :
+            // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                 System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(e.getX(), e.getY()));
                 for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++)
-                    System.out.println("this human location is \t" + HumanManagers.getSharedInstance().getHumans().get(i).getCoordinate());
+//                    System.out.println("this human location is \t" + HumanManagers.getSharedInstance().getHumans(.get(i).getCoordinate());
 
-                gameSelectedElement = findingwhichHumanIsClicked(e.getX(), e.getY());
+                    gameSelectedElement = findingwhichHumanIsClicked(e.getX(), e.getY());
                 System.out.println("gameSelectedItem is \t" + gameSelectedElement);
 
 
-            } else if (gameSelectedElement instanceof Human) {
+            } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
 
 //
                 // use right click to move else it it would realese the selected element
 
-                if (e.getModifiersEx() == 256 && e.getButton() == 3 && !((Human) gameSelectedElement).isMoving()) {
+                if (gameSelectedElement instanceof  Worker ) {
                     setHumanAction(e.getX() , e.getY());
 
 
+                }else if ( gameSelectedElement instanceof  Soldier && !  ((Soldier) gameSelectedElement).isMoving())
+                {
+                    System.out.println("boro sheikh bazi");
+                    setHumanAction(e.getX() , e.getY());
                 }
             }
 
@@ -366,31 +382,66 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         if ( cell.getInsideElementsItems() == null){
             //TODO : handle collecting resources
 
+            if (gameSelectedElement instanceof Worker) {
+//                synchronized (((Worker) gameSelectedElement).getDistinations()) {
 
-            if (gameSelectedElement instanceof Worker)
-                ((Worker) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(x, y));
-            else if (gameSelectedElement instanceof Soldier)
-                ((Soldier) gameSelectedElement).setEndCord(IntegerUtils.getCoordinateWithXAndY(x, y));
-            ((Human) gameSelectedElement).setxEnd(x);
+                ((Worker) gameSelectedElement).getDistinations().add(coord);
+//                    notifyAll();
+//                }
+//
 
-            ((Human) gameSelectedElement).setyEnd(y);
-            ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , ((Human) gameSelectedElement).getEndCord(), gameSelectedElement));
-            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+
+                if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
+                    ((Worker) gameSelectedElement).setExecuted(true);
+                    HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+                }
+
+
+            }
+
+            else if (gameSelectedElement instanceof Soldier) {
+
+                //                synchronized (((Worker) gameSelectedElement).getDistinations()) {
+
+                ((Worker) gameSelectedElement).getDistinations().add(coord);
+//                    notifyAll();
+//                }
+//
+
+
+                if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
+                    ((Worker) gameSelectedElement).setExecuted(true);
+                    HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+                }
+
+            }
+//            ((Human) gameSelectedElement).setxEnd(x);
+
+//            ((Human) gameSelectedElement).setyEnd(y);
+
 //       HumanManagers.getSharedInstance().makingThreadPool();
 
 
 
         }
         else if (cell.getInsideElementsItems() instanceof Castle) {
-                // TODO  : set stack : MS <>
-                if( gameSelectedElement instanceof  Human) {
-                    ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , coord, gameSelectedElement));
-                    ((Human) gameSelectedElement).getPaths().remove(((Human) gameSelectedElement).getPaths().size() -1);
-                    ((Human) gameSelectedElement).setEndCord(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1));
-                    ((Human) gameSelectedElement).setyEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getRow() * Constants.CELL_SIZE);
-                    ((Human) gameSelectedElement).setxEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getColumn() * Constants.CELL_SIZE);
-                }
+            // TODO  : set stack : MS <>
+            if( gameSelectedElement instanceof  Human) {
+//                    ((Human) gameSelectedElement).getDistinations().add(((Castle) cell.getInsideElementsItems()))
+//                    ((Human) gameSelectedElement).setPaths(((Human) gameSelectedElement).getMapProcessor().getPath(((Human) gameSelectedElement).getCoordinate() , coord, gameSelectedElement));
+//                    ((Human) gameSelectedElement).getPaths().remove(((Human) gameSelectedElement).getPaths().size() -1);
+//                    ((Human) gameSelectedElement).setEndCord(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1));
+//                    ((Human) gameSelectedElement).setyEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getRow() * Constants.CELL_SIZE);
+//                    ((Human) gameSelectedElement).setxEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getColumn() * Constants.CELL_SIZE);
             }
+
+
+
+        }
+
+
+
+
     }
 
     public void fixingStartInZoom(int x, int y) {

@@ -4,7 +4,7 @@ import thrumania.board.item.InsideElementsItems;
 import thrumania.game.MapProcessor;
 import thrumania.utils.Coordinate;
 
-import java.util.Stack;
+import java.util.ArrayList;
 
 /**
  * Created by sina on 6/24/16.
@@ -31,25 +31,29 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected  int yCord;
     protected  boolean isAlive;
     protected  Coordinate coordinate;
-    protected  Coordinate endCord;
-    protected  int xEnd;
-    protected  int yEnd;
+
+
+
     protected Coordinate HomeCastleCoordinate;
-    protected abstract void  move(Coordinate end);
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
     private boolean shouldDraw;
     protected  boolean isSelectedByPlayer;
     protected   boolean isMoving;
-    protected boolean movingShouldBeStopped = false;
-    protected Stack<Coordinate> paths;
-    protected MapProcessor mapProcessor;
 
+
+    protected MapProcessor mapProcessor;
+    protected boolean isExecuted = false;
+    protected ArrayList<Coordinate > distinations= new ArrayList<>();
 
 
 
 
     // TODO  : deterimining team name !!
+
+
+
+
 
 
 
@@ -81,14 +85,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         isAlive = alive;
     }
 
-    public Coordinate getEndCord() {
-        return endCord;
-    }
-
-    public void setEndCord(Coordinate endCord) {
-        this.endCord = endCord;
-    }
-
     public boolean isSelectedByPlayer() {
         return isSelectedByPlayer;
     }
@@ -113,22 +109,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         this.coordinate = coordinate;
     }
 
-    public int getyEnd() {
-        return yEnd;
-    }
-
-    public void setyEnd(int yEnd) {
-        this.yEnd = yEnd;
-    }
-
-    public int getxEnd() {
-
-        return xEnd;
-    }
-
-    public void setxEnd(int xEnd) {
-        this.xEnd = xEnd;
-    }
 
     public Coordinate getHomeCastleCoordinate() {
         return HomeCastleCoordinate;
@@ -146,13 +126,9 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         isMoving = moving;
     }
 
-    public Stack<Coordinate> getPaths() {
-        return paths;
-    }
 
-    public void setPaths(Stack<Coordinate> paths) {
-        this.paths = paths;
-    }
+
+
 
     public MapProcessor getMapProcessor() {
         return mapProcessor;
@@ -164,5 +140,21 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     public void setPicutreName(String picutreName) {
         this.picutreName = picutreName;
+    }
+
+    public boolean isExecuted() {
+        return isExecuted;
+    }
+
+    public void setExecuted(boolean executed) {
+        isExecuted = executed;
+    }
+
+    public ArrayList<Coordinate> getDistinations() {
+        return distinations;
+    }
+
+    public void setDistinations(ArrayList<Coordinate> distinations) {
+        this.distinations = distinations;
     }
 }

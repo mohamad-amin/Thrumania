@@ -34,7 +34,7 @@ public class PlayRightPanel extends JPanel {
     private boolean undoIsSelected = false;
     private  boolean redoIsSelelcted =  false;
 
-// TODO : implementing  buttons : what happens after clicking them 
+// TODO : implementing  buttons : what happens after clicking them
     public PlayRightPanel(PlayPanel playPanel) {
         this.playPanel = playPanel;
         this.setLayout(null);

@@ -41,17 +41,15 @@ public class Soldier extends Human  {
         // mokhtasat
         super.xCord = x;
         super.yCord = y;
-        super.xEnd = xCord;
-        super.yEnd = yCord;
+//        super.xEnd = xCord;
+//        super.yEnd = yCord;
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
+//        super.endCord = IntegerUtils.getCoordinateWithXAndY(xEnd, yEnd);
         // masir :
 
-        super.paths = new Stack<>();
 
 
         // other classes :
-        super.paths = new Stack<>();
         this.playPanel = playPanel;
         this.map = map;
         this.mapProcessor = new MapProcessor(map.getCells());
@@ -67,43 +65,7 @@ public class Soldier extends Human  {
 
     }
 
-    @Override
-    protected void move(Coordinate end) {
-        this.endCord = end;
-        this.xEnd = IntegerUtils.getXAndYWithCoordinate(end)[0];
-        this.yEnd = IntegerUtils.getXAndYWithCoordinate(end)[1];
 
-        isMoving = true;
-        while (coordinate.getRow() != end.getRow() || coordinate.getColumn() != end.getColumn() && !movingShouldBeStopped) {
-            if (!this.checkWheterTheGoalCellIsWaterOrNot(end)) {
-                if (coordinate.getColumn() < end.getColumn())
-                    this.xCord += 1;
-                else if (coordinate.getColumn() > end.getColumn())
-                    this.xCord--;
-                if (coordinate.getRow() > end.getRow())
-                    this.yCord--;
-                else if (coordinate.getRow() < end.getRow())
-                    this.yCord++;
-                this.setLocation(xCord, yCord);
-                coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-                try {
-                    Thread.sleep((long) (1000 / speedOfMoving));
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-
-                }
-
-
-            } else {
-                movingShouldBeStopped = true;
-                return;
-            }
-        }
-        if (!this.paths.isEmpty())
-            this.move(this.paths.pop());
-
-
-    }
 
     @Override
     protected void determiningSpeedOfMoving() {
@@ -121,58 +83,86 @@ public class Soldier extends Human  {
 
     @Override
     public void run() {
-        System.out.println("here123455678");
+
         while ( isAlive) {
-            if (!paths.isEmpty() && paths.peek().equals(coordinate))
-                paths.pop();
-            while (!paths.isEmpty()) {
+            examiningPath();
 
-                if (!this.checkWheterTheGoalCellIsWaterOrNot(paths.peek()) && !movingShouldBeStopped) {
+        }
+    }
 
-                    this.determiningSpeedOfMoving();
-
-                    if (paths.peek().equals(coordinate))
-                        paths.pop();
-
-                    if (!paths.isEmpty())
-                        this.move(paths.pop());
-                } else break;
-                if (!movingShouldBeStopped)
-//                while (this.xCord != xEnd || this.yCord != yEnd) {
-//
-//                    this.determiningSpeedOfMoving();
-//                    if (this.xCord > xEnd)
-//                        xCord--;
-//                    else if (this.xCord < xEnd)
-//                        xCord++;
-//                    if (this.yCord > yEnd)
-//                        yCord--;
-//                    else if (this.yCord < yEnd)
-//                        yCord++;
-//
-//                    try {
-//                        Thread.sleep((long) (1000 / speedOfMoving));
-//                    } catch (InterruptedException e) {
-//                        e.printStackTrace();
-//                    }
-//                    this.setLocation(xCord, yCord);
-//                }
-
-                    coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-
-            }
-            isMoving = false;
+    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+            return false;
+        } else {
+            return true;
         }
 
 
-// TODO
+
+    }
+    private void settingEachMove(Stack<Coordinate> path) {
+        if (!path.isEmpty())
+            if (path.peek().equals(coordinate))
+                path.pop();
+        while (!path.isEmpty()) {
+            if( !checkWheterTheGoalCellIsWaterOrNot(path.peek()))
+                move(path.pop());
+            else {
+
+                while(!path.isEmpty())
+                    path.pop();
+            }
+        }
+    }
+    public void examiningPath(){
+        for ( int i =0 ; i<distinations.size() ; i++){
+            System.out.println("size is \t"+ distinations.size());
+            if( ! isMoving()) {
+                settingEachMove(mapProcessor.getPath(coordinate, distinations.get(i), this));
+                distinations.remove(i);
+                isMoving = false;
+            }
+        }
+
     }
 
 
-    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
-        return !(map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand);
+    protected void move( Coordinate end) {
+        int xEnd, yEnd;
+
+        isMoving = true;
+        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
+        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
+        xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
+        yEnd = end.getRow() * Constants.CELL_SIZE;
+
+        while (this.xCord != xEnd || this.yCord != yEnd) {
+            this.determiningSpeedOfMoving();
 
 
+            if (this.xCord < xEnd)
+                xCord++;
+            else if (this.xCord > xEnd)
+                xCord--;
+            if (this.yCord < yEnd)
+                yCord++;
+            else if (this.yCord > yEnd)
+                yCord--;
+            this.setLocation(xCord, yCord);
+            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+
+            try {
+                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        }
     }
+
+
 }
+
+
 
