@@ -1,7 +1,7 @@
 package thrumania.board.item.GameItems.people;
 
-import thrumania.board.item.MapItems.HighLand;
-import thrumania.board.item.MapItems.LowLand;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;

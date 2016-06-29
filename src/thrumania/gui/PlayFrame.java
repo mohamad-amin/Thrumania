@@ -1,8 +1,14 @@
 package thrumania.gui;
 
+import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.people.Soldier;
-import thrumania.board.item.MapItems.*;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.Cells.Sea;
+import thrumania.board.item.MapItems.Inside.*;
+import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.managers.HumanManagers;
 import thrumania.utils.Constants;
@@ -19,13 +25,12 @@ import java.util.List;
 public class PlayFrame extends JFrame {
 
     private Map map;
-    private int players;
     private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
     private PlayPanel playPanel;
     private MiniMapPanel miniMapPanel;
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
-        this.players = players;
+        Side.setNumberOfPlayers(players);
         loadFrame(loadMapFromHash(loadedMap));
     }
 
@@ -36,9 +41,6 @@ public class PlayFrame extends JFrame {
 //        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
 //        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
         this.map = map;
-
-
-
         this.setSize(d);
         this.setLayout(null);
         this.setLocation(0,0);
@@ -71,20 +73,21 @@ public class PlayFrame extends JFrame {
     private void loadStrongholds() {
         MapProcessor processor = new MapProcessor(map.getCells());
         processor.newInitializeStrongholds();
-        List<Cell> strongholdPositions = processor.findCastlePositions(players);
+        List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
+        int count =0;
         for (Cell cell : strongholdPositions) {
-            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition());
+            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(),count);
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
-
+            count ++;
         }
     }
     private void initializingHumans(Castle castle){
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
         Soldier worker = new Soldier(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE , castle.getStartingPoint().getRow() * Constants.CELL_SIZE );
-
-
+        System.out.println("panel is " + playPanel);
+        System.out.println("map is   " + map);
 
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans().add(worker);

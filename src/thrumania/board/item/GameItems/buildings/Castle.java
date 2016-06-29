@@ -1,40 +1,23 @@
 package thrumania.board.item.GameItems.buildings;
 
-import thrumania.board.item.MapItems.MapElement;
+import thrumania.board.item.GameItems.LiveElementItems.Side;
+import thrumania.board.item.GameItems.LiveElements;
 import thrumania.utils.Coordinate;
 
 /**
  * Created by sina on 6/24/16.
  */
-public class Castle extends MapElement{
+public class Castle extends LiveElements {
 
-    private  String pictureName = "castle.png";
-    private Coordinate castlePosition;
-    private Coordinate startingPoint;
-
-    public Castle(Coordinate castlePosition, Coordinate startingPoint) {
+    public Castle(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
+        side = new Side(sideNumber);
+        String pictureName = "castle.png";
         this.startingPoint = startingPoint;
+        this.realPosition = realPosition;
         springPictureName = pictureName;
         summerPictureName = pictureName;
+        autumnPictureName = pictureName;
         winterPictureName = pictureName;
-        autmnPictureName = pictureName;
-        this.castlePosition = castlePosition;
     }
 
-    public Coordinate getStartingPoint() {
-        return startingPoint;
-    }
-
-    public void setStartingPoint(Coordinate startingPoint) {
-        this.startingPoint = startingPoint;
-    }
-
-    public Coordinate getCastlePosition() {
-
-        return castlePosition;
-    }
-
-    public void setCastlePosition(Coordinate castlePosition) {
-        this.castlePosition = castlePosition;
-    }
 }

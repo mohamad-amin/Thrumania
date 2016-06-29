@@ -3,10 +3,7 @@ package thrumania.board.item;
 import javax.swing.*;
 
 /**
- * Created by sina on 6/24/16.
- *  **********  we use the feature of extending JLabel for moving objects like Human and Ships **************
+ * Created by AMIR on 6/28/2016.
  */
 public class InsideElementsItems extends JLabel {
-
-
 }

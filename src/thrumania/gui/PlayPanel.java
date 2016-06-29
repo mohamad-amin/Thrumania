@@ -6,15 +6,13 @@ import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
-import thrumania.board.item.MapItems.Cell;
-import thrumania.board.item.MapItems.LowLand;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Map;
-import thrumania.board.item.MapItems.MapElement;
 import thrumania.managers.HumanManagers;
-import thrumania.utils.Constants;
-import thrumania.utils.Coordinate;
-import thrumania.utils.ImageUtils;
-import thrumania.utils.IntegerUtils;
+import thrumania.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,22 +25,16 @@ import java.util.ArrayList;
  * Created by mohamadamin on 6/24/16.
  */
 public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
-
-    int yfocus = 0;
-    int xfocus = 0;
     private Map map;
-    private Coordinate focus = new Coordinate(0, 0);
+    private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private MiniMapPanel miniMap;
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
     private Preview preview;
-    private Coordinate start = new Coordinate(0, 0);
     // TODO : check this shit
     private ArrayList<Human> shouldDrawHumans = new ArrayList<>();
-
-    //    private Constants.playPanelElements  gameElement = Constants.playPanelElements.WORKER;
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
@@ -51,6 +43,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private int ironRes = 0 ;
     private int foodRes = 0;
     private int goldRes =0;
+    private boolean isScoralling= false;
+    int scoralSide=4;
+    FloatingCoordinate continuousMovement = new FloatingCoordinate(0,0);
 
     public PlayPanel(Map map, MiniMapPanel panel) {
         this.miniMap = panel;
@@ -66,129 +61,80 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-
-
-//        this.preview = new Preview()
     }
 
-//    @Override
-//    public void paint(Graphics g) {
-//        super.paint(g);
-//        int seasonnum = giveMeSeasonNum();
-//        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
-//            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
-//                this.drawingOcean(r, c, g);
-//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
-//                    g.drawImage(
-//                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-//                            c * Constants.CELL_SIZE,
-//                            r * Constants.CELL_SIZE,
-//                            Constants.CELL_SIZE,
-//                            Constants.CELL_SIZE,
-//                            null);
-//
-//
-//                    Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + focus.getRow(), c + focus.getColumn()));
-//                    if (tempHuman != null) {
-//                        tempHuman.setShouldDraw(true);
-//                        this.shouldDrawHumans.add(tempHuman);
-//                    }
-//
-//
-//                }
-//
-//                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
-//                    if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
-//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
-//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
-//                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
-////
-//
-//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
-//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-//                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-//                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
-//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
-//                                Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
-//                    else {
-////                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-////                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
-//                    }
-//                }
-//            }
-//        }
-//        this.drawingHumans(g);
-//    }
-//
 @Override
     public void paintComponent(Graphics g)
     {
-
         super.paintComponent(g);
         int seasonnum = giveMeSeasonNum();
-        for (int r = 0; r < Constants.Drawer_HIGHT; r++) {
-            for (int c = 0; c < Constants.DRAWER_WIDTH; c++) {
-
+        int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
+        int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
+        int r=-1; if (start.getRow()==0) r=0;
+        for (; r < re; r++) {
+            int c = -1;
+            if (start.getColumn() == 0) c = 0;
+            for (; c < ce; c++) {
                 this.drawingOcean(r, c, g);
-                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()] instanceof LowLand) {
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
                     g.drawImage(
-                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + focus.getRow()][c + focus.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-                            c * Constants.CELL_SIZE,
-                            r * Constants.CELL_SIZE,
+                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
+                            c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                            r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                             Constants.CELL_SIZE,
                             Constants.CELL_SIZE,
                             null);
-
-
-                    Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + focus.getRow(), c + focus.getColumn()));
-                    if (tempHuman != null) {
-                        tempHuman.setShouldDraw(true);
-                        this.shouldDrawHumans.add(tempHuman);
-                    }
-
-
                 }
-
-                if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems() != null) {
-                    if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+//Todo Sina whats the meaning of  +10 we have difrent scales
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
-//
+//                    g.fillRect( c * Constants.CELL_SIZE , r * Constants.CELL_SIZE ,Constants.CELL_SIZE * 2 , Constants.CELL_SIZE * 2 );
 
-                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-                    else if (map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE,
+                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE+(int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
                     else {
-//                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + focus.getRow()][c + focus.getColumn()].getInsideElementsItems())), c * Constants.CELL_SIZE, r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE,
-//                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
                     }
                 }
             }
+//Todo what is this?
+            Human tempHuman = this.findingHumanByCoordinates(new Coordinate(r + start.getRow(), c + start.getColumn()));
+            if (tempHuman != null) {
+                tempHuman.setShouldDraw(true);
+                this.shouldDrawHumans.add(tempHuman);
+            }
         }
-
-
-
     }
 
-
-    //
     private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
         if (season.equals(Constants.Seasons.SPRING))
-            return ((MapElement) mapElement).getSpringPictureName();
+            return ((DeadElements) mapElement).getSpringPictureName();
         else if (season.equals(Constants.Seasons.SUMMER))
-            return ((MapElement) mapElement).getSummerPictureName();
+            return ((DeadElements) mapElement).getSummerPictureName();
         else if (season.equals(Constants.Seasons.AUTMN))
-            return ((MapElement) mapElement).getAutmnPictureName();
+            return ((DeadElements) mapElement).getAutumnPictureName();
         else
-            return ((MapElement) mapElement).getWinterPictureName();
+            return ((DeadElements) mapElement).getWinterPictureName();
     }
 
     private void drawingHumans(Graphics g) {
@@ -198,29 +144,22 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
             if (HumanManagers.getSharedInstance().getHumans().get(i) instanceof Worker && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw()) {
                 g.drawImage(ImageUtils.getImage("manStanding.png"), HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), HumanManagers.getSharedInstance().getHumans().get(i).getyCord() - Constants.CELL_SIZE / 2, Constants.CELL_SIZE - Constants.CELL_SIZE / 3, Constants.CELL_SIZE, null);
-
             } else if (HumanManagers.getSharedInstance().getHumans().get(i) instanceof Soldier && HumanManagers.getSharedInstance().getHumans().get(i).isShouldDraw())
-                g.drawImage(ImageUtils.getImage("manStanding.png"), focus.getColumn() * Constants.CELL_SIZE + HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), focus.getRow() * Constants.CELL_SIZE + HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                g.drawImage(ImageUtils.getImage("manStanding.png"), start.getColumn() * Constants.CELL_SIZE + HumanManagers.getSharedInstance().getHumans().get(i).getxCord(), start.getRow() * Constants.CELL_SIZE + HumanManagers.getSharedInstance().getHumans().get(i).getyCord(), Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
-
         for (int i = 0; i < shouldDrawHumans.size(); i++) {
-
             shouldDrawHumans.get(i).setShouldDraw(false);
             shouldDrawHumans.remove(i);
-
-
         }
 
 
     }
 
     private void addingHumansToMap(){
-
         for ( int i= 0 ; i< HumanManagers.getSharedInstance().getHumans().size() ; i++){
             HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
                     new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
             this.add(HumanManagers.getSharedInstance().getHumans().get(i));
-
         }
 
 
@@ -228,22 +167,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     private void drawingOcean(int row, int column, Graphics g) {
         if (this.dayTime == Constants.DayTime.MORNING) {
-            g.drawImage(ImageUtils.getImage("ocean1.jpg"), column * Constants.CELL_SIZE,
-                    row * Constants.CELL_SIZE,
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+                    column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
+                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE),
                     Constants.CELL_SIZE,
                     Constants.CELL_SIZE,
                     null);
         } else {
-            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE,
-                    row * Constants.CELL_SIZE, Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
+                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE) , Constants.CELL_SIZE, Constants.CELL_SIZE, null);
         }
     }
-
-    public void setFocus(Coordinate position) {
-        this.focus = position;
-        repaint();
-    }
-
 
     @Override
     public void mouseDragged(MouseEvent e) {
@@ -251,23 +185,42 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        if ((focus.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) &&
-                IntegerUtils.isInRange((Constants.DRAWER_WIDTH - 1) * Constants.CELL_SIZE,
+        int scoralSidetemp ;
+        if ((start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) &&
+                IntegerUtils.isInRange((Constants.DRAWER_WIDTH  * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
                         (Constants.DRAWER_WIDTH) * Constants.CELL_SIZE,
                         e.getX()))
-            focus.addColumn(1);
-        if ((focus.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) &&
-                IntegerUtils.isInRange((Constants.Drawer_HIGHT - 1) * Constants.CELL_SIZE,
+            scoralSidetemp = 2;
+        else if ((start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) &&
+                IntegerUtils.isInRange((Constants.Drawer_HIGHT * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
                         (Constants.Drawer_HIGHT) * Constants.CELL_SIZE,
                         e.getY()))
-            focus.addRow(1);
-        if ((focus.getColumn() > 0) &&
-                IntegerUtils.isInRange(0, Constants.CELL_SIZE, e.getX()))
-            focus.addColumn(-1);
-        if ((focus.getRow() > 0) &&
-                IntegerUtils.isInRange(0, Constants.CELL_SIZE, e.getY()))
-            focus.addRow(-1);
-        this.miniMap.updateFocus(focus);
+            scoralSidetemp = 1;
+        else if ((start.getColumn() > 0) &&
+                IntegerUtils.isInRange(0, Constants.RANGEOFSCROLL, e.getX()))
+            scoralSidetemp = 0;
+        else if ((start.getRow() > 0) &&
+                IntegerUtils.isInRange(0, Constants.RANGEOFSCROLL, e.getY()))
+            scoralSidetemp = 3;
+        else scoralSidetemp =4;
+        if (scoralSide ==4){
+            if(scoralSidetemp!=4) {
+                scoralSide = scoralSidetemp;
+                isScoralling = true;
+                scoral();
+            }
+        }else {
+            if(scoralSidetemp==4) {
+                scoralSide = 4;
+                isScoralling = false;
+            }
+            else if(scoralSidetemp!=scoralSide){
+                scoralSide = scoralSidetemp;
+                continuousMovement.setColumn(0);
+                continuousMovement.setRow(0);
+            }
+        }
+//        this.miniMap.updatestart(start);
         repaint();
     }
 
@@ -348,6 +301,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         }
         return null;
 
+    }
+
+    public void setStart(Coordinate coordinate) {
+        start= coordinate;
     }
 
     private class GamePanelMouseListener implements MouseListener {
@@ -433,14 +390,123 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     ((Human) gameSelectedElement).setyEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getRow() * Constants.CELL_SIZE);
                     ((Human) gameSelectedElement).setxEnd(((Human) gameSelectedElement).getPaths().get(((Human) gameSelectedElement).getPaths().size() -1).getColumn() * Constants.CELL_SIZE);
                 }
-
-
-
             }
+    }
 
+    public void fixingStartInZoom(int x, int y) {
+        int startX = x - ((Constants.Drawer_HIGHT / 2) + (Constants.Drawer_HIGHT % 2));
+        int startY = y - ((Constants.DRAWER_WIDTH / 2) + (Constants.DRAWER_WIDTH % 2));
+        if (startX < 0)
+            startX = 1;
+        if (startY < 0)
+            startY = 1;
+        if (startX + Constants.Drawer_HIGHT > Constants.MATRIX_HEIGHT)
+            startX = Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT-1;
+        if (startY + Constants.DRAWER_WIDTH > Constants.MATRIX_WIDTH)
+            startY = Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH-1;
+        start = new Coordinate(startX, startY);
+    }
 
+    public void scoral(){
+        new Thread(() -> {
+            while (isScoralling) {
+                changeColOrRow();
+            }}).start();
+    }
 
+    private void changeColOrRow() {
+        switch (scoralSide) {
+            case 0:
+                scrollLeft();
+                break;
+            case 1:
+                scrollDown();
+                break;
+            case 2:
+                scrollRight();
+                break;
+            case 3:
+                scrollUp();
+                break;
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
 
+    public void scrollUp(){
+        if (start.getRow() > 0) {
+            for (int j = 1 ; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addRow(((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addRow(-1);
+            continuousMovement.setRow(0);
+            continuousMovement.setColumn(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollDown() {
+        if (start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) {
+            for (int j =1 ; j < Constants.RATEOFSCROLL && isScoralling;j++) {
+                continuousMovement.addRow(-((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addRow(1);
+            continuousMovement.setRow(0);
+            continuousMovement.setColumn(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollRight() {
+        if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) {
+            for (int j =1 ;j<Constants.RATEOFSCROLL & isScoralling;j++) {
+                continuousMovement.addColumn(-((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addColumn(1);
+            continuousMovement.setColumn(0);
+            continuousMovement.setRow(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
+    }
+
+    public void scrollLeft() {
+        if (start.getColumn() > 0) {
+            for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addColumn(((float)1/(float)Constants.RATEOFSCROLL));
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                repaint();
+            }
+            start.addColumn(-1);
+            continuousMovement.setColumn(0);
+            continuousMovement.setRow(0);
+        }
+        this.miniMap.updateFocus(start);
+        repaint();
     }
 
 

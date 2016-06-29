@@ -1,6 +1,6 @@
-package thrumania.board.item.MapItems;
+package thrumania.board.item.MapItems.Cells;
 
-import thrumania.board.item.MapItems.Cell;
+import thrumania.board.item.MapItems.Inside.SmallFish;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 

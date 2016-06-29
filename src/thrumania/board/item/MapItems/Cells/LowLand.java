@@ -1,6 +1,9 @@
-package thrumania.board.item.MapItems;
+package thrumania.board.item.MapItems.Cells;
 
-import thrumania.board.item.MapItems.Cell;
+import thrumania.board.item.MapItems.Inside.Agliculture;
+import thrumania.board.item.MapItems.Inside.GoldMine;
+import thrumania.board.item.MapItems.Inside.StoneMine;
+import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 

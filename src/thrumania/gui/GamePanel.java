@@ -1,7 +1,13 @@
 package thrumania.gui;
 
 import thrumania.board.item.InsideElementsItems;
-import thrumania.board.item.MapItems.*;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.Cells.Sea;
+import thrumania.board.item.MapItems.DeadElements;
+import thrumania.board.item.MapItems.Inside.*;
+import thrumania.board.item.MapItems.Map;
 import thrumania.messages.Messages;
 import thrumania.utils.*;
 
@@ -106,7 +112,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                                 c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
                                 r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE+(int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-
+//Todo Sina whats the meaning of  +10 we have difrent scales
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
                                 c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
@@ -124,7 +130,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                                 c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
                                 r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
-                    }
+                   }
                 }
             }
         }
@@ -466,13 +472,13 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     private String getPictureNameAccordingToSeason(Constants.Seasons season, InsideElementsItems mapElement) {
         if (season.equals(Constants.Seasons.SPRING))
-            return ( (MapElement)mapElement ).  getSpringPictureName();
+            return ( (DeadElements)mapElement ).  getSpringPictureName();
         else if (season.equals(Constants.Seasons.SUMMER))
-            return ( (MapElement)mapElement ).getSummerPictureName();
+            return ( (DeadElements)mapElement ).getSummerPictureName();
         else if (season.equals(Constants.Seasons.AUTMN))
-            return ( (MapElement)mapElement ).getAutmnPictureName();
+            return ( (DeadElements)mapElement ).getAutumnPictureName();
         else
-            return ( (MapElement)mapElement ).getWinterPictureName();
+            return ( (DeadElements)mapElement ).getWinterPictureName();
     }
 
     private void treeSetterToCell(int row, int column) {

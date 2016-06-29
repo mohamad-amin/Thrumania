@@ -1,11 +1,12 @@
-package thrumania.board.item.MapItems;
+package thrumania.board.item.MapItems.Inside;
 
+import thrumania.board.item.MapItems.DeadElements;
 import thrumania.utils.Coordinate;
 
 /**
  * Created by sina on 5/22/16.
  */
-public class StoneMine extends MapElement {
+public class StoneMine extends DeadElements {
     private Coordinate stoneRight;
     private Coordinate stoneDown;
     private Coordinate stoneDownRightt;
@@ -16,7 +17,7 @@ public class StoneMine extends MapElement {
 
         super.springPictureName = "Stone.png";
         super.summerPictureName = "Stone.png";
-        super.autmnPictureName = "Stone.png";
+        super.autumnPictureName = "Stone.png";
         super.winterPictureName = "Stone.png";
         super.eachElementCapacity = 4;
 

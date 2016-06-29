@@ -1,6 +1,10 @@
 package thrumania.board.item.MapItems;
 
 import thrumania.board.item.InsideElementsItems;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.Cells.Sea;
 import thrumania.gui.MiniMapPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
