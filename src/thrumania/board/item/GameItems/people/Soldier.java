@@ -15,7 +15,7 @@ import java.util.Stack;
 /**
  * Created by sina on 6/24/16.
  */
-public class Soldier extends Human  {
+public class Soldier extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);

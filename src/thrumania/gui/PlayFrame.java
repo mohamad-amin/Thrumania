@@ -87,13 +87,8 @@ public class PlayFrame extends JFrame {
         // TODO : set the right number of humans for each team and castle and also use the method random number
 
         Worker worker = new Worker(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE  + Constants.CELL_SIZE / 10 , castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10 , castle.getSide().getNumberOfPlayer() );
-
-
-
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans().add(worker);
-
-
     }
 
     // TODO : private int randomNumber

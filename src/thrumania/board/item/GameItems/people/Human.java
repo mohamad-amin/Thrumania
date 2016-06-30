@@ -9,6 +9,7 @@ import java.util.ArrayList;
 /**
  * Created by sina on 6/24/16.
  */
+
 public abstract class Human extends InsideElementsItems implements Runnable {
     // TODO : teams
     protected  int health;
@@ -22,7 +23,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     // in scale of food in 1 second
     protected  int speadOfConsumingFood;
     // requirments:
-    protected int foodReq ;
+    protected int foodReq;
     protected int ironReq;
     protected  int woodReq;
     protected int goldReq;
@@ -61,18 +62,11 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
 
-    public int getyCord() {
-        return yCord;
-    }
+    public int getyCord() {return yCord;}
 
-    public void setyCord(int yCord) {
-        this.yCord = yCord;
-    }
+    public void setyCord(int yCord) {this.yCord = yCord;}
 
-    public int getxCord() {
-
-        return xCord;
-    }
+    public int getxCord() {return xCord;}
 
     public void setxCord(int xCord) {
         this.xCord = xCord;
@@ -127,10 +121,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     public void setMoving(boolean moving) {
         isMoving = moving;
     }
-
-
-
-
 
     public MapProcessor getMapProcessor() {
         return mapProcessor;

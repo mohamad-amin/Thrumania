@@ -151,29 +151,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
         private void addingHumansToMap(){
-
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-
-
-                     for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
-                        HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
-                                new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
-                        int x, y;
-                         x =HumanManagers.getSharedInstance().getHumans().get(i).getxCord() - start.getColumn()*Constants.CELL_SIZE;
-                         y = HumanManagers.getSharedInstance().getHumans().get(i).getyCord() - start.getRow() * Constants.CELL_SIZE;
-                        HumanManagers.getSharedInstance().getHumans().get(i).setLocation(x,y);
-                        add(HumanManagers.getSharedInstance().getHumans().get(i));
-
-
-
-                }
+        SwingUtilities.invokeLater(() -> {
+                 for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().size(); i++) {
+                    HumanManagers.getSharedInstance().getHumans().get(i).setIcon(
+                            new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans().get(i).getPicutreName())));
+                    int x1, y1;
+                     x1 =HumanManagers.getSharedInstance().getHumans().get(i).getxCord() - start.getColumn()*Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE) ;
+                     y1 = HumanManagers.getSharedInstance().getHumans().get(i).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                    HumanManagers.getSharedInstance().getHumans().get(i).setLocation(x1, y1);
+                    add(HumanManagers.getSharedInstance().getHumans().get(i));
             }
         });
-
-
-
     }
 
 
