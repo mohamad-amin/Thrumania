@@ -90,13 +90,13 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void paint(Graphics g) {
         super.paint(g);
         int seasonnum = giveMeSeasonNum();
+        this.drawingOcean(g);
         int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
         int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
         int r=-1; if (start.getRow()==0) r=0;
         for (; r < re; r++) {
             int c=-1; if (start.getColumn()==0) c=0;
             for (; c < ce; c++) {
-               this.drawingOcean(r, c, g);
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
                         g.drawImage(
                                 ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
@@ -539,17 +539,22 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     }
 
-    private void drawingOcean(int row, int column, Graphics g) {
+    private void drawingOcean(Graphics g) {
         if (this.dayTime == Constants.DayTime.MORNING) {
             g.drawImage(ImageUtils.getImage("ocean1.jpg"),
-                    column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
-                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE),
-                    Constants.CELL_SIZE,
-                    Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
+                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
                     null);
         } else {
-            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
-                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE) , Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+            //Todo ocean1night
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+                    -Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
+                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
+                    null);
         }
     }
 

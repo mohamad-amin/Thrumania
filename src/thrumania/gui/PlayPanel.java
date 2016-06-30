@@ -65,6 +65,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     {
         super.paintComponent(g);
         int seasonnum = giveMeSeasonNum();
+        this.drawingOcean(g);
         int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
         int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
         int r=-1; if (start.getRow()==0) r=0;
@@ -72,46 +73,49 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             int c = -1;
             if (start.getColumn() == 0) c = 0;
             for (; c < ce; c++) {
-                this.drawingOcean(r, c, g);
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
-                    g.drawImage(
-                            ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-                            c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                            r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                            Constants.CELL_SIZE,
-                            Constants.CELL_SIZE,
-                            null);
-                }
-                if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
-                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
-                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-//Todo Sina whats the meaning of  +10 we have difrent scales
-                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                try {
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
+                        g.drawImage(
+                                ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
                                 c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
                                 r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
+                                Constants.CELL_SIZE,
+                                Constants.CELL_SIZE,
+                                null);
+                    }
+                    if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
+                        if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
+                            g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+//Todo Sina whats the meaning of  +10 we have difrent scales
+                        else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
+                            g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE, Constants.CELL_SIZE + 10, null);
 //
 
-                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
-                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-                    else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
-                                c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                                r * Constants.CELL_SIZE+(int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
-                    else {
-                        g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
-                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                                r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+                        else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Agliculture"))
+                            g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+                        else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Castle"))
+                            g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
+                        else {
+                            g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
+                        }
                     }
+                } catch (ArrayIndexOutOfBoundsException e){
+                    System.out.println("kalak");
                 }
             }
 
@@ -156,17 +160,22 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
 
-    private void drawingOcean(int row, int column, Graphics g) {
+    private void drawingOcean(Graphics g) {
         if (this.dayTime == Constants.DayTime.MORNING) {
             g.drawImage(ImageUtils.getImage("ocean1.jpg"),
-                    column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
-                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE),
-                    Constants.CELL_SIZE,
-                    Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
+                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
                     null);
         } else {
-            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"), column * Constants.CELL_SIZE + (int)(continuousMovement.getColumn()*Constants.CELL_SIZE),
-                    row * Constants.CELL_SIZE + (int)(continuousMovement.getRow()*Constants.CELL_SIZE) , Constants.CELL_SIZE, Constants.CELL_SIZE, null);
+            //Todo ocean1night
+            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+                    -Constants.CELL_SIZE,
+                    -Constants.CELL_SIZE,
+                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
+                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
+                    null);
         }
     }
 
@@ -266,12 +275,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     @Override
     public void run() {
         while (gameIsON) {
-            repaint();
+
             this.addingHumansToMap();
 
             try {
                 Thread.sleep(50);
-            } catch (InterruptedException e) {
+            }catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -338,8 +347,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     setHumanAction(x , y);
                 }
             }
-
-
         }
 
         @Override
@@ -359,12 +366,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
         @Override
         public void mouseExited(MouseEvent e) {
-
+            isScoralling = false ;
+            scoralSide = 4;
         }
     }
 
     private void setHumanAction(int x, int y) {
-
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
         Cell cell = map.getCell(coord.getRow(), coord.getColumn());
 
@@ -441,6 +448,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         new Thread(() -> {
             while (isScoralling) {
                 changeColOrRow();
+                try {
+                    Thread.sleep(Constants.scrollSpeed);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }}).start();
     }
 
@@ -465,6 +477,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void scrollUp(){
         if (start.getRow() > 0) {
+            start.addRow(-1);
+            continuousMovement.addRow(-1);
             for (int j = 1 ; j < Constants.RATEOFSCROLL & isScoralling; j++) {
                 continuousMovement.addRow(((float)1/(float)Constants.RATEOFSCROLL));
                 try {
@@ -474,7 +488,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }
                 repaint();
             }
-            start.addRow(-1);
             continuousMovement.setRow(0);
             continuousMovement.setColumn(0);
         }
@@ -484,6 +497,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void scrollDown() {
         if (start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) {
+            start.addRow(1);
+            continuousMovement.addRow(1);
             for (int j =1 ; j < Constants.RATEOFSCROLL && isScoralling;j++) {
                 continuousMovement.addRow(-((float)1/(float)Constants.RATEOFSCROLL));
                 try {
@@ -493,7 +508,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }
                 repaint();
             }
-            start.addRow(1);
             continuousMovement.setRow(0);
             continuousMovement.setColumn(0);
         }
@@ -503,6 +517,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void scrollRight() {
         if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) {
+            start.addColumn(1);
+            continuousMovement.addColumn(1);
             for (int j =1 ;j<Constants.RATEOFSCROLL & isScoralling;j++) {
                 continuousMovement.addColumn(-((float)1/(float)Constants.RATEOFSCROLL));
                 try {
@@ -512,7 +528,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }
                 repaint();
             }
-            start.addColumn(1);
             continuousMovement.setColumn(0);
             continuousMovement.setRow(0);
         }
@@ -522,6 +537,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void scrollLeft() {
         if (start.getColumn() > 0) {
+            start.addColumn(-1);
+            continuousMovement.addColumn(-1);
             for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
                 continuousMovement.addColumn(((float)1/(float)Constants.RATEOFSCROLL));
                 try {
@@ -531,14 +548,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 }
                 repaint();
             }
-            start.addColumn(-1);
             continuousMovement.setColumn(0);
             continuousMovement.setRow(0);
         }
         this.miniMap.updateFocus(start);
         repaint();
     }
-
+//Todo optimizing game panel like this;
     public Coordinate getStart() {
         return start;
     }
