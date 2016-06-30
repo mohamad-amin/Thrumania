@@ -58,6 +58,7 @@ public class Soldier extends Human {
         this.isMoving = false;
         super.isAlive = true;
         super.isSelectedByPlayer = false;
+        super.attackMoveState = false;
 
         super.playerNumber = playerNumber;
 
@@ -80,6 +81,11 @@ public class Soldier extends Human {
         else if (playPanel.getSeason() == Constants.Seasons.WINTER)
             this.speedOfMoving = 3;
 
+    }
+
+    @Override
+    protected Human seeAnyFoes() {
+        return  null;
     }
 
 

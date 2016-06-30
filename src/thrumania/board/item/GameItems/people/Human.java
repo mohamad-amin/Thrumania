@@ -47,13 +47,14 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected boolean isExecuted = false;
     protected ArrayList<Coordinate > distinations= new ArrayList<>();
     protected int playerNumber;
+    protected boolean attackMoveState ;
 
 
 
 
     // TODO  : deterimining team name !!
 
-
+    protected  abstract Human seeAnyFoes();
 
 
 
@@ -148,5 +149,9 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     public void setDistinations(ArrayList<Coordinate> distinations) {
         this.distinations = distinations;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
     }
 }

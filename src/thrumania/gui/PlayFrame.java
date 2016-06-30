@@ -29,17 +29,15 @@ public class PlayFrame extends JFrame {
     private PlayPanel playPanel;
     private MiniMapPanel miniMapPanel;
 
+
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
+        Constants.NUMBER_OF_PLAYERS = players;
         Side.setNumberOfPlayers(players);
         loadFrame(loadMapFromHash(loadedMap));
     }
 
     private void loadFrame(Map map) {
 
-//        Constants.CELL_SIZE = Constants. zoomNumbers[3][1];
-//        Constants.DRAWER_WIDTH = Constants.zoomNumbers[3][2];
-//        Constants.Drawer_HIGHT = Constants.zoomNumbers[3][3];
-//        Constants.INSIDE_CELL_ELEMENT_SIZE = Constants.CELL_SIZE / 2 ;
         this.map = map;
         this.setSize(d);
         this.setLayout(null);
@@ -88,7 +86,8 @@ public class PlayFrame extends JFrame {
 
         Worker worker = new Worker(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE  + Constants.CELL_SIZE / 10 , castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10 , castle.getSide().getNumberOfPlayer() );
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
-        HumanManagers.getSharedInstance().getHumans().add(worker);
+        HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
+
     }
 
     // TODO : private int randomNumber

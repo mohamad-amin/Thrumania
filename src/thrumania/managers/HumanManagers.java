@@ -1,6 +1,7 @@
 package thrumania.managers;
 
 import thrumania.board.item.GameItems.people.Human;
+import thrumania.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
@@ -12,7 +13,9 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class HumanManagers {
     // singletone
     static HumanManagers instance;
-    private ArrayList<Human> humans = new ArrayList<>();
+//    private ArrayList<Human> humans = new ArrayList<>();
+    private ArrayList<Human> [ ] humans ;
+
     static ThreadPoolExecutor threadPoolExecutor;
 
 
@@ -25,7 +28,13 @@ public class HumanManagers {
 
     public static HumanManagers getSharedInstance(){
          if( instance == null ) {
+             System.out.println("player number is" + Constants.NUMBER_OF_PLAYERS);
              instance = new HumanManagers();
+             instance.humans = new ArrayList[Constants.NUMBER_OF_PLAYERS];
+             for (int i = 0; i < instance.humans.length; i++) {
+                 instance.humans[i] = new ArrayList<Human>();
+
+             }
              threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 
 
@@ -59,13 +68,7 @@ public class HumanManagers {
         }
 
 
-    public ArrayList<Human> getHumans() {
-        return humans;
-    }
 
-    public void setHumans(ArrayList<Human> humans) {
-        this.humans = humans;
-    }
 
     public ThreadPoolExecutor getThreadPoolExecutor() {
         return threadPoolExecutor;
@@ -73,5 +76,9 @@ public class HumanManagers {
 
     public void setThreadPoolExecutor(ThreadPoolExecutor threadPoolExecutor) {
         this.threadPoolExecutor = threadPoolExecutor;
+    }
+
+    public ArrayList<Human>[] getHumans() {
+        return humans;
     }
 }

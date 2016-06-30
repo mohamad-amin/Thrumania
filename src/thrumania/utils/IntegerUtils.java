@@ -9,6 +9,7 @@ public class IntegerUtils {
     public static boolean isInRange(int start, int end, int target) {
         return target >= start && target <= end;
     }
+
     public static boolean isInSideTheRangeOfCordinates(int elementXcord1, int elementYcord1, int elementXcord2, int elementyCord2, int mouseXcord, int mouseYcord) {
         if (elementXcord1 <= mouseXcord && elementXcord2 >= mouseXcord)
             if (elementYcord1 <= mouseYcord && elementyCord2 >= mouseYcord)
@@ -16,16 +17,23 @@ public class IntegerUtils {
         return false;
     }
 
-    public static Coordinate getCoordinateWithXAndY( int xCord  , int yCord){
+    public static Coordinate getCoordinateWithXAndY(int xCord, int yCord) {
 
-        Coordinate coordinate = new Coordinate((int) Math.floor((double) yCord / (double)Constants.CELL_SIZE), (int) Math.floor((double) xCord / (double) Constants.CELL_SIZE));
+        Coordinate coordinate = new Coordinate((int) Math.floor((double) yCord / (double) Constants.CELL_SIZE), (int) Math.floor((double) xCord / (double) Constants.CELL_SIZE));
         return coordinate;
     }
-    public  static int [] getXAndYWithCoordinate(Coordinate crd){
-        int []cords = new int[2];
-        cords [0] = crd.getColumn() * Constants.CELL_SIZE;
-        cords [1 ]= crd.getRow() * Constants.CELL_SIZE ;
-        return  cords;
 
+    public static int[] getXAndYWithCoordinate(Coordinate crd) {
+        int[] cords = new int[2];
+        cords[0] = crd.getColumn() * Constants.CELL_SIZE;
+        cords[1] = crd.getRow() * Constants.CELL_SIZE;
+        return cords;
+
+    }
+
+    public static int getDistanceOfTWoIntegers(int a, int b) {
+
+
+        return Math.abs(a - b);
     }
 }
