@@ -317,36 +317,53 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             int x , y;
             x = e.getX() + start.getColumn() * Constants.CELL_SIZE;
             y = e.getY() + start.getRow() * Constants.CELL_SIZE;
-            System.out.println("x clicked is \t " + x  + "   y clicked is \t"+ y);
-            System.out.println("and crd clicked is \t"+ IntegerUtils.getCoordinateWithXAndY(x, y));
+
 
             // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                 System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
-//                for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++)
-//
-//                    for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
-                        gameSelectedElement = findingwhichHumanIsClicked(x, y);
 
-//                    }
+
+                System.out.println(gameSelectedElement);
+                gameSelectedElement = findingwhichHumanIsClicked(x, y);
+
+
 
 
 
             } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
 
-//
+
                 // use right click to move else it it would realese the selected element
 
+
+
                 if (gameSelectedElement instanceof  Worker ) {
+//                    System.out.println("1");
+                    if (((Worker) gameSelectedElement).isInAttackState()) {
+                        System.out.println("2");
+                        ((Worker) gameSelectedElement).setCanAttack(false);
+                        ((Worker) gameSelectedElement).setKillingOpponent(false);
+                        ((Worker) gameSelectedElement).setInAttackState(false);
+                    }
+//                    System.out.println("herer hre here");
+
                     setHumanAction(x , y);
 
 
-                }else if ( gameSelectedElement instanceof  Soldier && !  ((Soldier) gameSelectedElement).isMoving())
-                {
-                    System.out.println("boro sheikh bazi");
-                    setHumanAction(x , y);
+                }else if ( gameSelectedElement instanceof  Soldier) {
+                    if (((Worker) gameSelectedElement).isInAttackState()) {
+                        ((Worker) gameSelectedElement).setCanAttack(false);
+                        ((Worker) gameSelectedElement).setKillingOpponent(false);
+                        ((Worker) gameSelectedElement).setInAttackState(false);
+                    }
+
+                    setHumanAction(x, y);
                 }
+
+
             }
+
         }
 
         @Override
@@ -372,40 +389,44 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     private void setHumanAction(int x, int y) {
+
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
         Cell cell = map.getCell(coord.getRow(), coord.getColumn());
 
 
 //        if ( cell.getInsideElementsItems() == null){
-            //TODO : handle collecting resources
+        //TODO : handle collecting resources
 
-            if (gameSelectedElement instanceof Worker) {
+        if (gameSelectedElement instanceof Worker) {
 
-                ((Worker) gameSelectedElement).getDistinations().add(coord);
+            System.out.println("333333");
+//                ((Worker) gameSelectedElement).setDistination(coord);
 
-                if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
-                    ((Worker) gameSelectedElement).setExecuted(true);
-                    HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
-                }
-
-
+            ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getCoordinate() , coord , gameSelectedElement));
+            System.out.println("we set hte path here");
+            if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
+                ((Worker) gameSelectedElement).setExecuted(true);
+                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
             }
 
-            else if (gameSelectedElement instanceof Soldier) {
+
+        }
+
+        else if (gameSelectedElement instanceof Soldier) {
 
 
-                ((Worker) gameSelectedElement).getDistinations().add(coord);
+            ((Soldier) gameSelectedElement).setDistination(coord);
 //
 //
 //
 
 
-                if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
-                    ((Worker) gameSelectedElement).setExecuted(true);
-                    HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
-                }
-
+            if (  ! ((Soldier) gameSelectedElement).isExecuted() ) {
+                ((Soldier) gameSelectedElement).setExecuted(true);
+                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
             }
+
+        }
 //            ((Human) gameSelectedElement).setxEnd(x);
 
 //            ((Human) gameSelectedElement).setyEnd(y);

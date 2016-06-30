@@ -4,7 +4,7 @@ import thrumania.board.item.InsideElementsItems;
 import thrumania.game.MapProcessor;
 import thrumania.utils.Coordinate;
 
-import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  * Created by sina on 6/24/16.
@@ -32,6 +32,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected  int yCord;
     protected  boolean isAlive;
     protected  Coordinate coordinate;
+    protected  Coordinate distination;
 
 
 
@@ -45,9 +46,11 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     protected MapProcessor mapProcessor;
     protected boolean isExecuted = false;
-    protected ArrayList<Coordinate > distinations= new ArrayList<>();
     protected int playerNumber;
-    protected boolean attackMoveState ;
+    protected boolean canAttack ;
+    protected  boolean isInAttackState;
+    protected  boolean isKillingOpponent = false;
+    protected Stack<Coordinate> pathOfCoordinates = new Stack<>();
 
 
 
@@ -143,15 +146,40 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         isExecuted = executed;
     }
 
-    public ArrayList<Coordinate> getDistinations() {
-        return distinations;
+
+    public Coordinate getDistination() {
+        return distination;
     }
 
-    public void setDistinations(ArrayList<Coordinate> distinations) {
-        this.distinations = distinations;
+    public void setDistination(Coordinate distination) {
+        this.distination = distination;
     }
 
     public int getPlayerNumber() {
         return playerNumber;
+    }
+
+    public void setPathOfCoordinates(Stack<Coordinate> pathOfCoordinates) {
+        this.pathOfCoordinates = pathOfCoordinates;
+    }
+
+    public boolean isInAttackState() {
+        return isInAttackState;
+    }
+
+    public boolean isCanAttack() {
+        return canAttack;
+    }
+
+    public void setCanAttack(boolean canAttack) {
+        this.canAttack = canAttack;
+    }
+
+    public void setKillingOpponent(boolean killingOpponent) {
+        isKillingOpponent = killingOpponent;
+    }
+
+    public void setInAttackState(boolean inAttackState) {
+        isInAttackState = inAttackState;
     }
 }

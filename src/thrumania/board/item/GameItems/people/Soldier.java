@@ -1,10 +1,12 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
+import thrumania.managers.HumanManagers;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -19,6 +21,8 @@ public class Soldier extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
+    private Human humanIsAttacking = null;
+    private int distanceShouldKeepWhenAttacking  = Constants.CELL_SIZE / 7;
 
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y , int playerNumber) {
@@ -57,8 +61,11 @@ public class Soldier extends Human {
         // booleans
         this.isMoving = false;
         super.isAlive = true;
+        super.canAttack = true;
+        super.isInAttackState = false;
         super.isSelectedByPlayer = false;
-        super.attackMoveState = false;
+
+
 
         super.playerNumber = playerNumber;
 
@@ -85,16 +92,86 @@ public class Soldier extends Human {
 
     @Override
     protected Human seeAnyFoes() {
-        return  null;
+
+        for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
+            if (i != this.playerNumber)
+                for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++)
+                    if (isThisHumanVisible(HumanManagers.getSharedInstance().getHumans()[i].get(j)))
+                        return HumanManagers.getSharedInstance().getHumans()[i].get(j);
+        }
+
+        return null;
+
     }
 
+    private boolean isThisHumanVisible(Human human) {
+
+        if (IntegerUtils.getDistanceOfTWoIntegers(this.xCord,
+                human.getxCord()) < this.visibilityUnit) {
+
+            if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
+                    human.getyCord()) < this.visibilityUnit) {
+                System.out.println("here 3");
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+
+    }
 
     @Override
     public void run() {
 
         while ( isAlive) {
-            examiningPath();
+            while (isAlive) {
+                System.out.println("killing is \t"+ isKillingOpponent);
+                try {
+                    Thread.sleep(1);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
+                if ( ! isKillingOpponent) {
+                    System.out.println("lOOOOOOOOOOOOL");
+                    if (canAttack) {
+                        System.out.println("can attack");
+
+                        if (humanIsAttacking == null)
+                            humanIsAttacking = seeAnyFoes();
+                        if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                            System.out.println("here 1");
+                            pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+                            super.isInAttackState = true;
+                        } else {
+                            System.out.println("akhey");
+                            isInAttackState = false;
+                            isKillingOpponent =false;
+                            humanIsAttacking = null;
+                        }
+                    }else {
+                        System.out.println("we are good");
+                    }
+
+
+
+
+                    examiningPath2();
+                }
+//            }
+
+
+
+//            examiningPath();
+
+
+            }
+
+
+// TODO
         }
     }
 
@@ -123,14 +200,14 @@ public class Soldier extends Human {
         }
     }
     public void examiningPath(){
-        for ( int i =0 ; i<distinations.size() ; i++){
-            System.out.println("size is \t"+ distinations.size());
-            if( ! isMoving()) {
-                settingEachMove(mapProcessor.getPath(coordinate, distinations.get(i), this));
-                distinations.remove(i);
-                isMoving = false;
-            }
-        }
+//        for ( int i =0 ; i<distinations.size() ; i++){
+//            System.out.println("size is \t"+ distinations.size());
+//            if( ! isMoving()) {
+//                settingEachMove(mapProcessor.getPath(coordinate, distinations.get(i), this));
+//                distinations.remove(i);
+//                isMoving = false;
+//            }
+//        }
 
     }
 
@@ -167,6 +244,44 @@ public class Soldier extends Human {
 
 
         }
+    }
+    public void examiningPath2() {
+
+        // TODO : fix this sleep
+
+        try {
+            Thread.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        while (!pathOfCoordinates.isEmpty()) {
+            System.out.println("path is \t" + pathOfCoordinates);
+
+            if (pathOfCoordinates.peek().equals(coordinate))
+                pathOfCoordinates.pop();
+            if (! pathOfCoordinates.isEmpty() && this.checkWetherTheGoalCellIsAvailableForGoing(pathOfCoordinates.peek()))
+                move(pathOfCoordinates.pop());
+            else {
+                while (!pathOfCoordinates.isEmpty())
+                    pathOfCoordinates.pop();
+            }
+        }
+
+
+    }
+
+    private boolean checkWetherTheGoalCellIsAvailableForGoing(Coordinate crd) {
+
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+            if (cell.getInsideElementsItems() == null) {
+                return true;
+            }
+
+        }
+        return false;
+
     }
 
 
