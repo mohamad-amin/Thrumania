@@ -15,7 +15,6 @@ import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
-import java.util.Stack;
 import java.util.TimerTask;
 
 /**
@@ -237,36 +236,8 @@ public class Worker extends Human {
     @Override
     public void run() {
         while (isAlive) {
-            //TODO  : remove this sleep
-//            try {
-//                Thread.sleep(1);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            System.out.println(isKillingOpponent);
-//            System.out.println(canAttack);
-
-
-//            if (canAttack) {
-
-//                if (humanIsAttacking == null)
-//                    humanIsAttacking = seeAnyFoes();
-//                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking) && !isKillingOpponent) {
-//                    pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-//                    super.isInAttackState = true;
-//                } else {
-//                    isInAttackState = false;
-//                    isKillingOpponent = false;
-//                    humanIsAttacking = null;
-//                }
-//
-//
-//                if (!isKillingOpponent) {
 
                     examiningPath3();
-//                }
-//            }
-
 
         }
 
@@ -275,13 +246,8 @@ public class Worker extends Human {
 
     public void examiningPath2() {
 
-        // TODO : fix this sleep
 
-//        try {
-//            Thread.sleep(1);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
+
 
         while (!pathOfCoordinates.isEmpty()) {
             System.out.println("we are at \t " + coordinate);
@@ -318,7 +284,6 @@ public class Worker extends Human {
                         humanIsAttacking = seeAnyFoes();
                     else humanIsAttacking  =null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                        System.out.println("path path path 11111111");
                         pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
                         stateOfMove = statesOfMovement.ATTACKING;
                         isAttackMove = true;
@@ -361,7 +326,6 @@ public class Worker extends Human {
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
                         humanIsAttacking = seeAnyFoes();
-                        System.out.println("&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                     }
                 else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
@@ -462,7 +426,6 @@ public class Worker extends Human {
                         e.printStackTrace();
                     }
                 }else {
-                    System.out.println("*******************");
                     canLookForOpponent = false;
 
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
@@ -554,36 +517,6 @@ public class Worker extends Human {
         }
     }
 
-    public void examiningPath() {
-//        for ( int i =0 ; i<distinations.size() ; i++){
-//            System.out.println("size is \t"+ distinations.size());
-//            if( ! isMoving()) {
-//                settingEachMove(mapProcessor.getPath(coordinate, distinations.get(i), this));
-//                distinations.remove(i);
-//                isMoving = false;
-//            }
-//        }
-
-    }
-
-
-    private void settingEachMove(Stack<Coordinate> path) {
-        if (!path.isEmpty())
-            if (path.peek().equals(coordinate))
-                path.pop();
-        while (!path.isEmpty()) {
-            if (this.checkWheterTheGoalCellIsWaterOrNot(path.peek()))
-                regularMove(path.pop());
-            else {
-
-                while (!path.isEmpty())
-                    path.pop();
-
-            }
-        }
-
-
-    }
 
     // TODO : we should check the path for builidings
     private boolean checkWetherTheGoalCellIsResourcesOrNot(Coordinate crd) {
