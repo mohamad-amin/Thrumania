@@ -336,12 +336,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 //                    System.out.println("1");
                     if (((Worker) gameSelectedElement).isAttackMove()) {
                         ((Worker) gameSelectedElement).setAttackMove(false);
+                        ((Worker) gameSelectedElement).setHumanIsAttacking(null);
                         ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
 
                     }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
                         ((Worker) gameSelectedElement).setKillingOpponent(false);
+                        ((Worker) gameSelectedElement).setHumanIsAttacking(null);
                     ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-                        System.out.println("++++++ make is killing fals +++++++");
                     }
 
                     setHumanAction(x, y);
@@ -350,10 +351,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 } else if (gameSelectedElement instanceof Soldier) {
                    if( ((Soldier) gameSelectedElement).isAttackMove()) {
                        ((Soldier) gameSelectedElement).setAttackMove(false);
+                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
 //                       ((Soldier) gameSelectedElement).getStateOfMove() = Human.statesOfMovement.MOVING_BY_ORDERED;
                    }
                     else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
                        ((Soldier) gameSelectedElement).setKillingOpponent(false);
+                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
 
                    }
                     setHumanAction(x, y);
@@ -400,10 +403,14 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
             if (!((Worker) gameSelectedElement).getPathOfCoordinates().isEmpty()) {
                 System.out.println("path path path path 444444444");
-                ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
+                ((Worker) gameSelectedElement).setPathOfCoordinates(
+                        ((Worker) gameSelectedElement).getMapProcessor().getPath(
+                                ((Worker) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
             }else {
                 System.out.println("path path path paht 555555");
-                ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
+                ((Worker) gameSelectedElement).setPathOfCoordinates(
+                        ((Worker) gameSelectedElement).getMapProcessor().getPath(
+                                ((Worker) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
 
             }
 

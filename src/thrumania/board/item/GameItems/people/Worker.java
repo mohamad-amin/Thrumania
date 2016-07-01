@@ -31,7 +31,6 @@ public class Worker extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
-    private Human humanIsAttacking = null;
     private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE / 7;
     private Coordinate resourceCoordinate;
 
@@ -274,7 +273,7 @@ public class Worker extends Human {
             case STOP: {
                 canLookForOpponent = true;
                 if (!pathOfCoordinates.isEmpty()) {
-                    //  first too see if there is any order :
+                    //  first too see if there is any order  :
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else if ( pathOfCoordinates.isEmpty()){
                     //  second to see if there is no ordered , there is any foes to attack
@@ -374,6 +373,7 @@ public class Worker extends Human {
                 break;
             }
             case ATTACKING: {
+                this.canLookForOpponent = false;
 
                 if( isAttackMove){
 
@@ -404,6 +404,7 @@ public class Worker extends Human {
                 break;
             }
             case KILLING:{
+                this.canLookForOpponent = false;
 
                 if (isKillingOpponent) {
                     // TODO : handle : dead and kill

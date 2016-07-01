@@ -21,10 +21,10 @@ public class Soldier extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
     private Human humanIsAttacking = null;
-    private int distanceShouldKeepWhenAttacking  = Constants.CELL_SIZE / 7;
+    private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE / 7;
 
 
-    public Soldier(PlayPanel playPanel, Map map, int x, int y , int playerNumber) {
+    public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber) {
 
         // moshakhasat ;
         super.health = 1000;
@@ -51,7 +51,6 @@ public class Soldier extends Human {
         // masir :
 
 
-
         // other classes :
         this.playPanel = playPanel;
         this.map = map;
@@ -65,15 +64,12 @@ public class Soldier extends Human {
         super.isSelectedByPlayer = false;
 
 
-
         super.playerNumber = playerNumber;
 
         this.setSize(d);
 
 
-
     }
-
 
 
     @Override
@@ -125,40 +121,39 @@ public class Soldier extends Human {
     @Override
     public void run() {
 
-                    while (isAlive) {
-                System.out.println("killing is \t"+ isKillingOpponent);
-                try {
-                    Thread.sleep(1);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-
-
-                if ( ! isKillingOpponent) {
-
-
-                    if (humanIsAttacking == null)
-                        humanIsAttacking = seeAnyFoes();
-                    if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-
-                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-
-                    } else {
-                        System.out.println("akhey");
-
-                        isKillingOpponent =false;
-                        humanIsAttacking = null;
-                    }
-
-
-                    examiningPath2();
-                }
-
+        while (isAlive) {
+            System.out.println("killing is \t" + isKillingOpponent);
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
 
 
+            if (!isKillingOpponent) {
+
+
+                if (humanIsAttacking == null)
+                    humanIsAttacking = seeAnyFoes();
+                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+
+                    pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+
+                } else {
+                    System.out.println("akhey");
+
+                    isKillingOpponent = false;
+                    humanIsAttacking = null;
+                }
+
+
+                examiningPath2();
+            }
 
         }
+
+
+    }
 
 
     private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
@@ -169,12 +164,10 @@ public class Soldier extends Human {
         }
 
 
-
     }
 
 
-
-    protected void move( Coordinate end) {
+    protected void move(Coordinate end) {
         int xEnd, yEnd;
 
 
@@ -207,6 +200,7 @@ public class Soldier extends Human {
 
         }
     }
+
     public void examiningPath2() {
 
         // TODO : fix this sleep
@@ -222,12 +216,62 @@ public class Soldier extends Human {
 
             if (pathOfCoordinates.peek().equals(coordinate))
                 pathOfCoordinates.pop();
-            if (! pathOfCoordinates.isEmpty() && this.checkWetherTheGoalCellIsAvailableForGoing(pathOfCoordinates.peek()))
+            if (!pathOfCoordinates.isEmpty() && this.checkWetherTheGoalCellIsAvailableForGoing(pathOfCoordinates.peek()))
                 move(pathOfCoordinates.pop());
             else {
                 while (!pathOfCoordinates.isEmpty())
                     pathOfCoordinates.pop();
             }
+        }
+
+
+    }
+
+    private void examiningPath() {
+
+
+        switch (stateOfMove) {
+
+            case STOP: {
+                canLookForOpponent = true;
+                if ( ! pathOfCoordinates.isEmpty()){
+
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+
+                }else {
+
+
+
+//                    if ( humanIsAttacking == null )
+
+
+
+
+
+                }
+
+
+                break;
+            }
+            case MOVING_BY_ORDERED: {
+
+
+                break;
+            }
+
+            case ATTACKING: {
+
+
+                break;
+            }
+
+            case KILLING: {
+
+
+                break;
+            }
+
+
         }
 
 

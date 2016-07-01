@@ -34,6 +34,8 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected  boolean isAlive;
     protected LiveElements constructingThisBuilding = null;
     protected  Coordinate coordinate;
+    protected Human humanIsAttacking = null;
+
 
 
     // this enum stands for both worker and soldier , but soldier does not have "COLLECTING_ITEM_IS_DONE" state
@@ -190,4 +192,11 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         this.stateOfMove = stateOfMove;
     }
 
+    public Human getHumanIsAttacking() {
+        return humanIsAttacking;
+    }
+
+    public void setHumanIsAttacking(Human humanIsAttacking) {
+        this.humanIsAttacking = humanIsAttacking;
+    }
 }
