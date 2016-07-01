@@ -413,7 +413,9 @@ public class Worker extends Human {
                         public void run() {
                             Human  human=   seeAnyFoes();
                             if( human != null)
+                                if( human.getHealth() > 0 )
                             human.setHealth(human.getHealth() - damageUnit);
+//                            else  TODO : send a message that this guy is dead we can also handle this part by means of "message passing"
 
                         }
 

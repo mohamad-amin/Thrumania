@@ -12,7 +12,6 @@ import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
-import java.util.Stack;
 
 /**
  * Created by sina on 6/24/16.
@@ -126,8 +125,7 @@ public class Soldier extends Human {
     @Override
     public void run() {
 
-        while ( isAlive) {
-            while (isAlive) {
+                    while (isAlive) {
                 System.out.println("killing is \t"+ isKillingOpponent);
                 try {
                     Thread.sleep(1);
@@ -137,43 +135,31 @@ public class Soldier extends Human {
 
 
                 if ( ! isKillingOpponent) {
-                    System.out.println("lOOOOOOOOOOOOL");
-//                    if (canAttack) {
-                    System.out.println("can attack");
+
 
                     if (humanIsAttacking == null)
                         humanIsAttacking = seeAnyFoes();
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                        System.out.println("here 1");
+
                         pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-//                        super.isInAttackState = true;
+
                     } else {
                         System.out.println("akhey");
-//                        isInAttackState = false;
+
                         isKillingOpponent =false;
                         humanIsAttacking = null;
                     }
-//                }else {
-//                    System.out.println("we are good");
-//                }
-
 
 
                     examiningPath2();
                 }
-//            }
-
-
-
-//            examiningPath();
-
 
             }
 
 
-// TODO
+
         }
-    }
+
 
     private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
         if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
@@ -185,31 +171,7 @@ public class Soldier extends Human {
 
 
     }
-    private void settingEachMove(Stack<Coordinate> path) {
-        if (!path.isEmpty())
-            if (path.peek().equals(coordinate))
-                path.pop();
-        while (!path.isEmpty()) {
-            if( !checkWheterTheGoalCellIsWaterOrNot(path.peek()))
-                move(path.pop());
-            else {
 
-                while(!path.isEmpty())
-                    path.pop();
-            }
-        }
-    }
-    public void examiningPath(){
-//        for ( int i =0 ; i<distinations.size() ; i++){
-//            System.out.println("size is \t"+ distinations.size());
-//            if( ! isMoving()) {
-//                settingEachMove(mapProcessor.getPath(coordinate, distinations.get(i), this));
-//                distinations.remove(i);
-//                isMoving = false;
-//            }
-//        }
-
-    }
 
 
     protected void move( Coordinate end) {
