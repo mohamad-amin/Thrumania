@@ -31,7 +31,8 @@ public class Worker extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
-    private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE / 7;
+    private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE;
+
     private Coordinate resourceCoordinate;
 
     public Worker(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber) {
@@ -65,7 +66,8 @@ public class Worker extends Human {
         // booleans :
         super.isAlive = true;
         super.isAttackMove = false;
-        super.isKillingOpponent = false;        this.isCapacityOfCollectingItemsFull = false;
+        super.isKillingOpponent = false;
+        this.isCapacityOfCollectingItemsFull = false;
         this.canGoMountain = false;
 
 
@@ -114,54 +116,36 @@ public class Worker extends Human {
 
 
         }
-//
-
-
-//
-//            }
-        // TODO : check this sleep :|
-//            try {
-//                Thread.sleep(2);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
-//            isKillingOpponent = true;
-        // TODO : kill the opponent
 
 
     }
 
-    private void attackMove( Coordinate end) {
-        int xEnd, yEnd;
 
-        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
-        xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        yEnd = end.getRow() * Constants.CELL_SIZE;
+    private void attackMove(Human human) {
 
 
-        this.determiningSpeedOfMoving();
-        while (IntegerUtils.getDistanceOfTWoIntegers(xCord, xEnd) > distanceShouldKeepWhenAttacking || IntegerUtils.getDistanceOfTWoIntegers(yCord, yEnd) > distanceShouldKeepWhenAttacking) {
-//
-            if (this.xCord + distanceShouldKeepWhenAttacking < xEnd)
+        if (IntegerUtils.getDistanceOfTWoIntegers(xCord, human.getxCord()) > distanceShouldKeepWhenAttacking || IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
+            this.determiningSpeedOfMoving();
+            if (xCord < human.getxCord())
                 xCord++;
-            else if (this.xCord > xEnd + distanceShouldKeepWhenAttacking)
+            else if (xCord > human.getxCord())
                 xCord--;
-            if (this.yCord < yEnd)
+            if (yCord < human.getyCord())
                 yCord++;
-            else if (this.yCord > yEnd)
+            else if (yCord > human.getyCord())
                 yCord--;
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-
-
             try {
                 Thread.sleep((long) (1000 / (speedOfMoving * 5)));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+
         }
+
     }
+
 
     @Override
     protected void determiningSpeedOfMoving() {
@@ -236,7 +220,7 @@ public class Worker extends Human {
     public void run() {
         while (isAlive) {
 
-                    examiningPath3();
+            examiningPath3();
 
         }
 
@@ -244,8 +228,6 @@ public class Worker extends Human {
     }
 
     public void examiningPath2() {
-
-
 
 
         while (!pathOfCoordinates.isEmpty()) {
@@ -275,41 +257,34 @@ public class Worker extends Human {
                 if (!pathOfCoordinates.isEmpty()) {
                     //  first too see if there is any order  :
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                } else if ( pathOfCoordinates.isEmpty()){
+                } else if (pathOfCoordinates.isEmpty()) {
                     //  second to see if there is no ordered , there is any foes to attack
 
                     if (humanIsAttacking == null)
-                        if( canLookForOpponent )
-                        humanIsAttacking = seeAnyFoes();
-                    else humanIsAttacking  =null;
+                        if (canLookForOpponent)
+                            humanIsAttacking = seeAnyFoes();
+                        else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
                         stateOfMove = statesOfMovement.ATTACKING;
                         isAttackMove = true;
-                    }
-                    else if( isCapacityOfCollectingItemsFull){
+                    } else if (isCapacityOfCollectingItemsFull) {
 // going back to the castle
 
-                        if ( coordinate.equals(homeCastleCoordinate)) {
+                        if (coordinate.equals(homeCastleCoordinate)) {
                             /// TODO empting resources and add them to our collected resources;
                             isCapacityOfCollectingItemsFull = false;
-                            if (resourceCoordinate != null){
-                                pathOfCoordinates = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                            if (resourceCoordinate != null) {
+                                pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                                 stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                             }
 
                         }
 
-                    }else {
-                        pathOfCoordinates = mapProcessor.getPath(coordinate , homeCastleCoordinate , this);
-                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED ;
+                    } else {
+                        pathOfCoordinates = mapProcessor.getPath(coordinate, homeCastleCoordinate, this);
+                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
-                }
-
-
-
-
-
+                    }
 
 
                 }
@@ -325,33 +300,30 @@ public class Worker extends Human {
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
                         humanIsAttacking = seeAnyFoes();
-                    }
-                else humanIsAttacking = null;
+                    } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                     System.out.println("path path path 3333333");
-                    pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
                     isAttackMove = true;
-                    stateOfMove = statesOfMovement.ATTACKING;
-                }
 
-                else  if ( ! pathOfCoordinates.isEmpty()){
-                    if( checkWetherTheGoalCellIsResourcesOrNot(pathOfCoordinates.peek())) {
-                        if( pathOfCoordinates.peek().getRow() > coordinate.getRow())
-                            yCord +=10;
-                        else if( pathOfCoordinates.peek().getRow() < coordinate.getRow())
-                            yCord -=10;
-                        if ( pathOfCoordinates.peek().getColumn() >    coordinate.getColumn())
-                            xCord +=10;
-                        else if ( pathOfCoordinates.pop().getColumn() < coordinate.getColumn())
-                            xCord -=10;
-                        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
+                    stateOfMove = statesOfMovement.ATTACKING;
+                } else if (!pathOfCoordinates.isEmpty()) {
+                    if (checkWetherTheGoalCellIsResourcesOrNot(pathOfCoordinates.peek())) {
+                        if (pathOfCoordinates.peek().getRow() > coordinate.getRow())
+                            yCord += 10;
+                        else if (pathOfCoordinates.peek().getRow() < coordinate.getRow())
+                            yCord -= 10;
+                        if (pathOfCoordinates.peek().getColumn() > coordinate.getColumn())
+                            xCord += 10;
+                        else if (pathOfCoordinates.pop().getColumn() < coordinate.getColumn())
+                            xCord -= 10;
+                        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
                         // TODO : handle if for tree if one tree is done go for te closest one if jungle is finished
                         resourceCoordinate = coordinate;
                         stateOfMove = statesOfMovement.Collecting_Item;
 
-                            // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
+                        // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
-                    }else {
+                    } else {
 
                         if (pathOfCoordinates.peek().equals(coordinate))
                             pathOfCoordinates.pop();
@@ -373,65 +345,82 @@ public class Worker extends Human {
                 break;
             }
             case ATTACKING: {
-                this.canLookForOpponent = false;
 
-                if( isAttackMove){
-
-                    if( pathOfCoordinates.peek().equals(coordinate))
-                        pathOfCoordinates.pop();
-                    if ( !pathOfCoordinates.isEmpty() && ! this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek()))
-                        attackMove(pathOfCoordinates.pop());
-                    else {
-                        while (!pathOfCoordinates.isEmpty()) {
-
-                            pathOfCoordinates.pop();
-                            isAttackMove = false;
-                            stateOfMove = statesOfMovement.STOP;
-
-                        }
-                    }
-                    if (pathOfCoordinates.isEmpty()) {
-                        isKillingOpponent =true;
-                        isAttackMove = false;
-                        stateOfMove = statesOfMovement.KILLING;
-                    }
-                }else if (!isAttackMove){
-                    canLookForOpponent = false;
+                canLookForOpponent = false;
+                if (!pathOfCoordinates.isEmpty()) {
+                    isAttackMove = false;
+                    humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                } else {
+                    if (isThisHumanVisible(humanIsAttacking))
+
+                        attackMove(humanIsAttacking);
+                    if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
+                        isKillingOpponent = true;
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        this.stateOfMove = statesOfMovement.KILLING;
+                    }
                 }
 
 
                 break;
             }
-            case KILLING:{
-                this.canLookForOpponent = false;
+            case KILLING: {
 
-                if (isKillingOpponent) {
+                canLookForOpponent = false;
+                if (!pathOfCoordinates.isEmpty()) {
+                    isAttackMove = false;
+                    humanIsAttacking = null;
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+
+
+                } else if (humanIsAttacking != null && IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking &&
+                        IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord())
+                                <= distanceShouldKeepWhenAttacking) {
+                    // TODO : killing
+
+                } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                    isAttackMove = true;
+                    stateOfMove = statesOfMovement.ATTACKING;
+
+                } else if (!this.isThisHumanVisible(humanIsAttacking)) {
+                    isAttackMove = false;
+                    humanIsAttacking = null;
+                    if (!pathOfCoordinates.isEmpty())
+                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                    else stateOfMove = statesOfMovement.STOP;
+
+
+                } else {
+
                     // TODO : handle : dead and kill
                     new java.util.Timer().schedule(new TimerTask() {
 
                         @Override
                         public void run() {
-                            Human  human=   seeAnyFoes();
-                            if( human != null)
-                                if( human.getHealth() > 0 )
-                            human.setHealth(human.getHealth() - damageUnit);
-//                            else  TODO : send a message that this guy is dead we can also handle this part by means of "message passing"
+                            Human human = seeAnyFoes();
+                            if (human != null)
+                                if (human.getHealth() > 0)
+                                    human.setHealth(human.getHealth() - damageUnit);
+//                            else  TODO : set this guy  dead ; we can also handle this part by means of "message passing"
 
                         }
 
                     }, 1000);
-                    if( health == 0)
-                   stateOfMove = statesOfMovement.STOP;
+                    if (health == 0) {
+                        int a;
+                        // TODO: is dead
+                        // message passing
+                    }
                     try {
                         Thread.sleep(3);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                }else {
-                    canLookForOpponent = false;
+//
 
-                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+
                 }
                 break;
             }
@@ -439,28 +428,29 @@ public class Worker extends Human {
 
                 constructingThisBuilding = null;
 
-                    if ( !pathOfCoordinates.isEmpty())
-                        stateOfMove= statesOfMovement.MOVING_BY_ORDERED;
+                if (!pathOfCoordinates.isEmpty())
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 else {
-                        if (humanIsAttacking == null)
-                            if (canLookForOpponent) {
-                                humanIsAttacking = seeAnyFoes();
-                            } else humanIsAttacking = null;
-                        if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                            pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-                            isAttackMove = true;
-                            stateOfMove = statesOfMovement.ATTACKING;
-                        }else {
+                    if (humanIsAttacking == null)
+                        if (canLookForOpponent) {
+                            humanIsAttacking = seeAnyFoes();
+                        } else humanIsAttacking = null;
+                    if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+//                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+                        isAttackMove = true;
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        stateOfMove = statesOfMovement.ATTACKING;
+                    } else {
 
 
-                            //TODO : do collecting
+                        //TODO : do collecting
 
-                            stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
+                        stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
 
 
-                        }
                     }
-
+                }
 
 
                 break;
@@ -469,10 +459,10 @@ public class Worker extends Human {
                 // TODO  : empting the resources and adding it  to our cellected resources
                 // TODO :maybe we can give the closest resource coordinate of that jugle if it is tree of that jumgle as the distination of sentence bellow for geting path
                 // TODO : notice that if the jungel is finished we still shall  go  where jungle used to exist or we might want to stay near the castle
-                if( resourceCoordinate != null ){
+                if (resourceCoordinate != null) {
                     pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                }else {
+                } else {
 
 
                     stateOfMove = statesOfMovement.STOP;
@@ -480,21 +470,22 @@ public class Worker extends Human {
 
                 break;
             }
-            case  CONSTRUCTING_ITEM:
-            {
+            case CONSTRUCTING_ITEM: {
                 resourceCoordinate = null;
-                if ( !pathOfCoordinates.isEmpty())
-                    stateOfMove= statesOfMovement.MOVING_BY_ORDERED;
+                if (!pathOfCoordinates.isEmpty())
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 else {
                     if (humanIsAttacking == null)
                         if (canLookForOpponent) {
                             humanIsAttacking = seeAnyFoes();
                         } else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+//                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
                         isAttackMove = true;
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.ATTACKING;
-                    }else {
+                    } else {
 
 
                         //TODO : CONSTRUCITNG
@@ -510,8 +501,8 @@ public class Worker extends Human {
             }
 
             case CONSTRUCTING_ITEM_IS_DONE: {
-                if( resourceCoordinate != null)
-                    pathOfCoordinates  = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                if (resourceCoordinate != null)
+                    pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                 stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
                 break;
@@ -525,18 +516,18 @@ public class Worker extends Human {
     private boolean checkWetherTheGoalCellIsResourcesOrNot(Coordinate crd) {
 
 
-
         if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
             if (cell.getInsideElementsItems() != null) {
-                if( cell.getInsideElementsItems() instanceof Tree || cell.getInsideElementsItems() instanceof StoneMine || cell.getInsideElementsItems() instanceof GoldMine)
-                    return  true;
+                if (cell.getInsideElementsItems() instanceof Tree || cell.getInsideElementsItems() instanceof StoneMine || cell.getInsideElementsItems() instanceof GoldMine)
+                    return true;
             }
 
         }
         return false;
 
     }
+
     private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
         if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
             return false;

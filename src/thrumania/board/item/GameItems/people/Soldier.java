@@ -239,10 +239,14 @@ public class Soldier extends Human {
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
                 }else {
+                    if ( humanIsAttacking == null ){
 
 
 
-//                    if ( humanIsAttacking == null )
+
+
+
+                    }
 
 
 

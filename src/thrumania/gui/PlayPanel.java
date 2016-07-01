@@ -336,12 +336,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 //                    System.out.println("1");
                     if (((Worker) gameSelectedElement).isAttackMove()) {
                         ((Worker) gameSelectedElement).setAttackMove(false);
-                        ((Worker) gameSelectedElement).setHumanIsAttacking(null);
+
                         ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
 
                     }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
                         ((Worker) gameSelectedElement).setKillingOpponent(false);
-                        ((Worker) gameSelectedElement).setHumanIsAttacking(null);
+                        ((Worker) gameSelectedElement).setAttackMove(false);
                     ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
                     }
 
@@ -351,7 +351,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 } else if (gameSelectedElement instanceof Soldier) {
                    if( ((Soldier) gameSelectedElement).isAttackMove()) {
                        ((Soldier) gameSelectedElement).setAttackMove(false);
-                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
+
 //                       ((Soldier) gameSelectedElement).getStateOfMove() = Human.statesOfMovement.MOVING_BY_ORDERED;
                    }
                     else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
