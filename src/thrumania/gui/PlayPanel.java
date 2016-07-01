@@ -352,7 +352,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                    if( ((Soldier) gameSelectedElement).isAttackMove()) {
                        ((Soldier) gameSelectedElement).setAttackMove(false);
 
-//                       ((Soldier) gameSelectedElement).getStateOfMove() = Human.statesOfMovement.MOVING_BY_ORDERED;
+                       ((Soldier) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
                    }
                     else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
                        ((Soldier) gameSelectedElement).setKillingOpponent(false);
@@ -424,11 +424,26 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
         } else if (gameSelectedElement instanceof Soldier) {
 
+            if( ! ((Soldier) gameSelectedElement).getPathOfCoordinates().isEmpty()){
 
+                ((Soldier) gameSelectedElement).setPathOfCoordinates(
+                        ((Soldier) gameSelectedElement).getMapProcessor().getPath(
+                                ((Soldier) gameSelectedElement).getPathOfCoordinates().peek() , coord , gameSelectedElement));
+
+            }else {
+                ((Soldier) gameSelectedElement).setPathOfCoordinates(
+                        ((Soldier) gameSelectedElement).getMapProcessor().getPath(
+                                ((Soldier) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
+
+
+            }
             if (!((Soldier) gameSelectedElement).isExecuted()) {
                 ((Soldier) gameSelectedElement).setExecuted(true);
                 HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
             }
+
+
+
 
         }
 

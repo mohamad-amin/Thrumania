@@ -3,7 +3,9 @@ package thrumania.board.item.GameItems.people;
 import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.game.MapProcessor;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.IntegerUtils;
 
 import java.util.Stack;
 
@@ -62,6 +64,8 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected  boolean isKillingOpponent = false;
     protected boolean constructingIsDone = false;
     protected Stack<Coordinate> pathOfCoordinates = new Stack<>();
+    protected int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE;
+
 
 
 
@@ -69,6 +73,69 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     // TODO  : deterimining team name !!
 
     protected  abstract Human seeAnyFoes();
+
+    protected void attackMove(Human human) {
+
+
+        if (IntegerUtils.getDistanceOfTWoIntegers(xCord, human.getxCord()) > distanceShouldKeepWhenAttacking || IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
+            this.determiningSpeedOfMoving();
+            if (xCord < human.getxCord())
+                xCord++;
+            else if (xCord > human.getxCord())
+                xCord--;
+            if (yCord < human.getyCord())
+                yCord++;
+            else if (yCord > human.getyCord())
+                yCord--;
+            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+            try {
+                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+    }
+    protected void regularMove(Coordinate end) {
+        int xEnd, yEnd;
+
+        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
+        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
+        xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
+        yEnd = end.getRow() * Constants.CELL_SIZE;
+
+        while (this.xCord != xEnd || this.yCord != yEnd) {
+
+
+            this.determiningSpeedOfMoving();
+
+
+            if (this.xCord < xEnd)
+                xCord++;
+            else if (this.xCord > xEnd)
+                xCord--;
+            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+            if (this.yCord < yEnd)
+                yCord++;
+            else if (this.yCord > yEnd)
+                yCord--;
+            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+
+
+            try {
+                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+
+    }
+
 
 
 

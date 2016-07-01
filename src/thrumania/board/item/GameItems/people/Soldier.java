@@ -12,6 +12,7 @@ import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
+import java.util.TimerTask;
 
 /**
  * Created by sina on 6/24/16.
@@ -29,12 +30,13 @@ public class Soldier extends Human {
         // moshakhasat ;
         super.health = 1000;
         super.damageUnit = 70;
-        super.visibilityUnit = 25;
+        super.visibilityUnit = 250;
         super.foodReq = 2000;
         super.ironReq = 500;
         super.goldReq = 250;
         super.woodReq = 600;
         super.speedOfConsumingFood = 2;
+        super.stateOfMove = statesOfMovement.STOP;
 
         // aks :
         // TODO : changing picure of shape
@@ -106,7 +108,6 @@ public class Soldier extends Human {
 
             if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
                     human.getyCord()) < this.visibilityUnit) {
-                System.out.println("here 3");
                 return true;
 
             }
@@ -122,84 +123,14 @@ public class Soldier extends Human {
     public void run() {
 
         while (isAlive) {
-            System.out.println("killing is \t" + isKillingOpponent);
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-            if (!isKillingOpponent) {
-
-
-                if (humanIsAttacking == null)
-                    humanIsAttacking = seeAnyFoes();
-                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-
-                    pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-
-                } else {
-                    System.out.println("akhey");
-
-                    isKillingOpponent = false;
-                    humanIsAttacking = null;
-                }
-
-
-                examiningPath2();
-            }
-
+            examiningPath();
         }
 
 
     }
 
 
-    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
-        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
-            return false;
-        } else {
-            return true;
-        }
 
-
-    }
-
-
-    protected void move(Coordinate end) {
-        int xEnd, yEnd;
-
-
-        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
-        xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        yEnd = end.getRow() * Constants.CELL_SIZE;
-
-        while (this.xCord != xEnd || this.yCord != yEnd) {
-            this.determiningSpeedOfMoving();
-
-
-            if (this.xCord < xEnd)
-                xCord++;
-            else if (this.xCord > xEnd)
-                xCord--;
-            if (this.yCord < yEnd)
-                yCord++;
-            else if (this.yCord > yEnd)
-                yCord--;
-            this.setLocation(xCord, yCord);
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-
-            try {
-                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-    }
 
     public void examiningPath2() {
 
@@ -217,7 +148,7 @@ public class Soldier extends Human {
             if (pathOfCoordinates.peek().equals(coordinate))
                 pathOfCoordinates.pop();
             if (!pathOfCoordinates.isEmpty() && this.checkWetherTheGoalCellIsAvailableForGoing(pathOfCoordinates.peek()))
-                move(pathOfCoordinates.pop());
+                regularMove(pathOfCoordinates.pop());
             else {
                 while (!pathOfCoordinates.isEmpty())
                     pathOfCoordinates.pop();
@@ -228,48 +159,147 @@ public class Soldier extends Human {
     }
 
     private void examiningPath() {
+//        System.out.println("state is \t"+ stateOfMove);
 
 
         switch (stateOfMove) {
 
             case STOP: {
+
                 canLookForOpponent = true;
-                if ( ! pathOfCoordinates.isEmpty()){
+                if (!pathOfCoordinates.isEmpty()) {
 
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
-                }else {
-                    if ( humanIsAttacking == null ){
-
-
-
-
-
-
+                } else  if( pathOfCoordinates.isEmpty()){
+                    if (humanIsAttacking == null)
+                        if (canLookForOpponent)
+                            humanIsAttacking = seeAnyFoes();
+                        else humanIsAttacking = null;
+                    if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                        stateOfMove = statesOfMovement.ATTACKING;
+//                        isAttackMove = true;
                     }
 
-
-
-
-
                 }
+//
 
 
                 break;
             }
             case MOVING_BY_ORDERED: {
+                if (humanIsAttacking == null)
+                    if (canLookForOpponent) {
+                        humanIsAttacking = seeAnyFoes();
+                    } else humanIsAttacking = null;
+                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                    stateOfMove = statesOfMovement.ATTACKING;
+                } else if (!pathOfCoordinates.isEmpty() && pathOfCoordinates.peek().equals(coordinate))
+                    pathOfCoordinates.pop();
+
+                if (!pathOfCoordinates.isEmpty()) {
+                    System.out.println("Hello 1");
+
+                    if (! this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
+                        System.out.println("Hello 2");
+                        regularMove(pathOfCoordinates.pop());
+                    }
+                    else {
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        stateOfMove = statesOfMovement.STOP;
+                    }
+
+
+                } else if (pathOfCoordinates.isEmpty()) {
+                    stateOfMove = statesOfMovement.STOP;
+                }
 
 
                 break;
             }
 
             case ATTACKING: {
+                {
+
+                    canLookForOpponent = false;
+                    if (!pathOfCoordinates.isEmpty()) {
+//?                    isAttackMove = false;
+                        humanIsAttacking = null;
+                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                    } else {
+                        if (isThisHumanVisible(humanIsAttacking))
+
+                            attackMove(humanIsAttacking);
+                        if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
+//                        isKillingOpponent = true;
+                            while (!pathOfCoordinates.isEmpty())
+                                pathOfCoordinates.pop();
+                            this.stateOfMove = statesOfMovement.KILLING;
+                        }
+                    }
 
 
-                break;
+                    break;
+                }
             }
 
             case KILLING: {
+
+                canLookForOpponent = false;
+                if (!pathOfCoordinates.isEmpty()) {
+//                    isAttackMove = false;
+                    humanIsAttacking = null;
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+
+
+                } else if (humanIsAttacking != null && IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking &&
+                        IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord())
+                                <= distanceShouldKeepWhenAttacking) {
+                    // TODO : killing
+
+                } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+//                    isAttackMove = true;
+                    stateOfMove = statesOfMovement.ATTACKING;
+
+                } else if (!this.isThisHumanVisible(humanIsAttacking)) {
+//                    isAttackMove = false;
+                    humanIsAttacking = null;
+                    if (!pathOfCoordinates.isEmpty())
+                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                    else stateOfMove = statesOfMovement.STOP;
+
+
+                } else {
+
+                    // TODO : handle : dead and kill
+                    new java.util.Timer().schedule(new TimerTask() {
+
+                        @Override
+                        public void run() {
+                            Human human = seeAnyFoes();
+                            if (human != null)
+                                if (human.getHealth() > 0)
+                                    human.setHealth(human.getHealth() - damageUnit);
+//                            else  TODO : set this guy  dead ; we can also handle this part by means of "message passing"
+
+                        }
+
+                    }, 1000);
+                    if (health == 0) {
+                        int a;
+                        // TODO: is dead
+                        // message passing
+                    }
+                    try {
+                        Thread.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//
+
+
+                }
 
 
                 break;
@@ -280,6 +310,17 @@ public class Soldier extends Human {
 
 
     }
+
+    private boolean checkWheterTheGoalCellIsWaterOrNot(Coordinate crd) {
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+            return false;
+        } else {
+            return true;
+        }
+
+
+    }
+
 
     private boolean checkWetherTheGoalCellIsAvailableForGoing(Coordinate crd) {
 

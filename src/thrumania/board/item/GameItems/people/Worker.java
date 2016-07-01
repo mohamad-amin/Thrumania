@@ -31,7 +31,6 @@ public class Worker extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
-    private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE;
 
     private Coordinate resourceCoordinate;
 
@@ -65,8 +64,8 @@ public class Worker extends Human {
 
         // booleans :
         super.isAlive = true;
-        super.isAttackMove = false;
-        super.isKillingOpponent = false;
+//        super.isAttackMove = false;
+//        super.isKillingOpponent = false;
         this.isCapacityOfCollectingItemsFull = false;
         this.canGoMountain = false;
 
@@ -82,69 +81,7 @@ public class Worker extends Human {
 
     }
 
-    private void regularMove(Coordinate end) {
-        int xEnd, yEnd;
 
-        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
-        xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        yEnd = end.getRow() * Constants.CELL_SIZE;
-
-        while (this.xCord != xEnd || this.yCord != yEnd) {
-
-
-            this.determiningSpeedOfMoving();
-
-
-            if (this.xCord < xEnd)
-                xCord++;
-            else if (this.xCord > xEnd)
-                xCord--;
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-            if (this.yCord < yEnd)
-                yCord++;
-            else if (this.yCord > yEnd)
-                yCord--;
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-
-
-            try {
-                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-
-    }
-
-
-    private void attackMove(Human human) {
-
-
-        if (IntegerUtils.getDistanceOfTWoIntegers(xCord, human.getxCord()) > distanceShouldKeepWhenAttacking || IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
-            this.determiningSpeedOfMoving();
-            if (xCord < human.getxCord())
-                xCord++;
-            else if (xCord > human.getxCord())
-                xCord--;
-            if (yCord < human.getyCord())
-                yCord++;
-            else if (yCord > human.getyCord())
-                yCord--;
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-            try {
-                Thread.sleep((long) (1000 / (speedOfMoving * 5)));
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-
-        }
-
-    }
 
 
     @Override
@@ -231,8 +168,8 @@ public class Worker extends Human {
 
 
         while (!pathOfCoordinates.isEmpty()) {
-            System.out.println("we are at \t " + coordinate);
-            System.out.println("our xcoordinate is    " + xCord + "   and our ycoordinate is   " + yCord);
+
+
             if (pathOfCoordinates.peek().equals(coordinate))
                 pathOfCoordinates.pop();
             if (!pathOfCoordinates.isEmpty() && this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
@@ -266,7 +203,7 @@ public class Worker extends Human {
                         else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                         stateOfMove = statesOfMovement.ATTACKING;
-                        isAttackMove = true;
+//                        isAttackMove = true;
                     } else if (isCapacityOfCollectingItemsFull) {
 // going back to the castle
 
@@ -303,7 +240,7 @@ public class Worker extends Human {
                     } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                     System.out.println("path path path 3333333");
-                    isAttackMove = true;
+//                    isAttackMove = true;
 
                     stateOfMove = statesOfMovement.ATTACKING;
                 } else if (!pathOfCoordinates.isEmpty()) {
@@ -348,7 +285,7 @@ public class Worker extends Human {
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
-                    isAttackMove = false;
+//?                    isAttackMove = false;
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else {
@@ -356,7 +293,7 @@ public class Worker extends Human {
 
                         attackMove(humanIsAttacking);
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
-                        isKillingOpponent = true;
+//                        isKillingOpponent = true;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         this.stateOfMove = statesOfMovement.KILLING;
@@ -370,7 +307,7 @@ public class Worker extends Human {
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
-                    isAttackMove = false;
+//                    isAttackMove = false;
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
@@ -381,11 +318,11 @@ public class Worker extends Human {
                     // TODO : killing
 
                 } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                    isAttackMove = true;
+//                    isAttackMove = true;
                     stateOfMove = statesOfMovement.ATTACKING;
 
                 } else if (!this.isThisHumanVisible(humanIsAttacking)) {
-                    isAttackMove = false;
+//                    isAttackMove = false;
                     humanIsAttacking = null;
                     if (!pathOfCoordinates.isEmpty())
                         stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
@@ -437,7 +374,7 @@ public class Worker extends Human {
                         } else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
 //                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-                        isAttackMove = true;
+//                        isAttackMove = true;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.ATTACKING;
@@ -481,7 +418,7 @@ public class Worker extends Human {
                         } else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
 //                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-                        isAttackMove = true;
+//                        isAttackMove = true;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.ATTACKING;
