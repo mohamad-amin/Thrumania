@@ -36,13 +36,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
     // needed for the resources :
-    private int woordRes =0 ;
-    private int ironRes = 0 ;
+    private int woordRes = 0;
+    private int ironRes = 0;
     private int foodRes = 0;
-    private int goldRes =0;
-    private boolean isScoralling= false;
-    int scoralSide=4;
-    FloatingCoordinate continuousMovement = new FloatingCoordinate(0,0);
+    private int goldRes = 0;
+    private boolean isScoralling = false;
+    int scoralSide = 4;
+    FloatingCoordinate continuousMovement = new FloatingCoordinate(0, 0);
 
     public PlayPanel(Map map, MiniMapPanel panel) {
         this.miniMap = panel;
@@ -60,15 +60,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.season = Constants.Seasons.SPRING;
     }
 
-@Override
-    public void paintComponent(Graphics g)
-    {
+    @Override
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int seasonnum = giveMeSeasonNum();
         this.drawingOcean(g);
-        int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
-        int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
-        int r=-1; if (start.getRow()==0) r=0;
+        int re = Constants.Drawer_HIGHT + 1;
+        if (start.getRow() == Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) re = Constants.Drawer_HIGHT;
+        int ce = Constants.DRAWER_WIDTH + 1;
+        if (start.getColumn() == Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) ce = Constants.DRAWER_WIDTH;
+        int r = -1;
+        if (start.getRow() == 0) r = 0;
         for (; r < re; r++) {
             int c = -1;
             if (start.getColumn() == 0) c = 0;
@@ -114,7 +116,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                                     Constants.CELL_SIZE + 15, Constants.CELL_SIZE + 15, null);
                         }
                     }
-                } catch (ArrayIndexOutOfBoundsException e){
+                } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("kalak");
                 }
             }
@@ -133,29 +135,28 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             return ((DeadElements) mapElement).getWinterPictureName();
     }
 
-// TODO : mohammad amin imageUTilize
-        private void addingHumansToMap(){
-            SwingUtilities.invokeLater(new Runnable() {
-                @Override
-                public void run() {
-                    for (int i =0 ; i < HumanManagers.getSharedInstance().getHumans().length ; i++){
-                        for ( int j = 0 ; j< HumanManagers.getSharedInstance().getHumans()[i].size() ; j++){
+    // TODO : mohammad amin imageUTilize
+    private void addingHumansToMap() {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
+                    for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
 
-                            HumanManagers.getSharedInstance().getHumans()[i].get(j).setIcon(
-                                    new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans()[i].get(j).getPicutreName())));
-                            int x1, y1;
-                            x1 =HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn()*Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE) ;
-                            y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
-                            HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
-                            add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
+                        HumanManagers.getSharedInstance().getHumans()[i].get(j).setIcon(
+                                new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans()[i].get(j).getPicutreName())));
+                        int x1, y1;
+                        x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
+                        y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                        HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+                        add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
 
-
-
-                        }
 
                     }
+
                 }
-            });
+            }
+        });
 
     }
 
@@ -165,16 +166,16 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             g.drawImage(ImageUtils.getImage("ocean1.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
-                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
-                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
+                    (Constants.DRAWER_WIDTH + 2) * Constants.CELL_SIZE,
+                    (Constants.Drawer_HIGHT + 2) * Constants.CELL_SIZE,
                     null);
         } else {
             //Todo ocean1night
             g.drawImage(ImageUtils.getImage("ocean1.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
-                    (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,
-                    (Constants.Drawer_HIGHT+2)*Constants.CELL_SIZE ,
+                    (Constants.DRAWER_WIDTH + 2) * Constants.CELL_SIZE,
+                    (Constants.Drawer_HIGHT + 2) * Constants.CELL_SIZE,
                     null);
         }
     }
@@ -185,14 +186,14 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        int scoralSidetemp ;
+        int scoralSidetemp;
         if ((start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) &&
-                IntegerUtils.isInRange((Constants.DRAWER_WIDTH  * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
+                IntegerUtils.isInRange((Constants.DRAWER_WIDTH * Constants.CELL_SIZE) - Constants.RANGEOFSCROLL,
                         (Constants.DRAWER_WIDTH) * Constants.CELL_SIZE,
                         e.getX()))
             scoralSidetemp = 2;
         else if ((start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) &&
-                IntegerUtils.isInRange((Constants.Drawer_HIGHT * Constants.CELL_SIZE)-Constants.RANGEOFSCROLL,
+                IntegerUtils.isInRange((Constants.Drawer_HIGHT * Constants.CELL_SIZE) - Constants.RANGEOFSCROLL,
                         (Constants.Drawer_HIGHT) * Constants.CELL_SIZE,
                         e.getY()))
             scoralSidetemp = 1;
@@ -202,19 +203,18 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         else if ((start.getRow() > 0) &&
                 IntegerUtils.isInRange(0, Constants.RANGEOFSCROLL, e.getY()))
             scoralSidetemp = 3;
-        else scoralSidetemp =4;
-        if (scoralSide ==4){
-            if(scoralSidetemp!=4) {
+        else scoralSidetemp = 4;
+        if (scoralSide == 4) {
+            if (scoralSidetemp != 4) {
                 scoralSide = scoralSidetemp;
                 isScoralling = true;
                 scoral();
             }
-        }else {
-            if(scoralSidetemp==4) {
+        } else {
+            if (scoralSidetemp == 4) {
                 scoralSide = 4;
                 isScoralling = false;
-            }
-            else if(scoralSidetemp!=scoralSide){
+            } else if (scoralSidetemp != scoralSide) {
                 scoralSide = scoralSidetemp;
                 continuousMovement.setColumn(0);
                 continuousMovement.setRow(0);
@@ -280,7 +280,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
             try {
                 Thread.sleep(50);
-            }catch (InterruptedException e) {
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -290,7 +290,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private Human findingwhichHumanIsClicked(int x, int y) {
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
-            for ( int j =0 ; j< HumanManagers.getSharedInstance().getHumans()[i].size() ; j++){
+            for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
 
                 if (HumanManagers.getSharedInstance().getHumans()[i].get(j).getCoordinate().equals(coord)) {
 
@@ -299,22 +299,20 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             }
 
 
-
-
         }
         return null;
 
     }
 
     public void setStart(Coordinate coordinate) {
-        start= coordinate;
+        start = coordinate;
     }
 
     private class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             // tODO Check it
-            int x , y;
+            int x, y;
             x = e.getX() + start.getColumn() * Constants.CELL_SIZE;
             y = e.getY() + start.getRow() * Constants.CELL_SIZE;
 
@@ -328,36 +326,36 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 gameSelectedElement = findingwhichHumanIsClicked(x, y);
 
 
-
-
-
             } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
 
 
                 // use right click to move else it it would realese the selected element
 
 
-
-                if (gameSelectedElement instanceof  Worker ) {
+                if (gameSelectedElement instanceof Worker) {
 //                    System.out.println("1");
-                    if (((Worker) gameSelectedElement).isInAttackState()) {
-                        System.out.println("2");
-                        ((Worker) gameSelectedElement).setCanAttack(false);
+                    if (((Worker) gameSelectedElement).isAttackMove()) {
+                        ((Worker) gameSelectedElement).setAttackMove(false);
+                        ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
+
+                    }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
                         ((Worker) gameSelectedElement).setKillingOpponent(false);
-                        ((Worker) gameSelectedElement).setInAttackState(false);
-                    }
-//                    System.out.println("herer hre here");
-
-                    setHumanAction(x , y);
-
-
-                }else if ( gameSelectedElement instanceof  Soldier) {
-                    if (((Worker) gameSelectedElement).isInAttackState()) {
-                        ((Worker) gameSelectedElement).setCanAttack(false);
-                        ((Worker) gameSelectedElement).setKillingOpponent(false);
-                        ((Worker) gameSelectedElement).setInAttackState(false);
+                    ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
+                        System.out.println("++++++ make is killing fals +++++++");
                     }
 
+                    setHumanAction(x, y);
+
+
+                } else if (gameSelectedElement instanceof Soldier) {
+                   if( ((Soldier) gameSelectedElement).isAttackMove()) {
+                       ((Soldier) gameSelectedElement).setAttackMove(false);
+//                       ((Soldier) gameSelectedElement).getStateOfMove() = Human.statesOfMovement.MOVING_BY_ORDERED;
+                   }
+                    else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
+                       ((Soldier) gameSelectedElement).setKillingOpponent(false);
+
+                   }
                     setHumanAction(x, y);
                 }
 
@@ -383,7 +381,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
         @Override
         public void mouseExited(MouseEvent e) {
-            isScoralling = false ;
+            isScoralling = false;
             scoralSide = 4;
         }
     }
@@ -399,54 +397,33 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
         if (gameSelectedElement instanceof Worker) {
 
-            System.out.println("333333");
-//                ((Worker) gameSelectedElement).setDistination(coord);
 
-            ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getCoordinate() , coord , gameSelectedElement));
-            System.out.println("we set hte path here");
-            if (  ! ((Worker) gameSelectedElement).isExecuted() ) {
+            if (!((Worker) gameSelectedElement).getPathOfCoordinates().isEmpty()) {
+                System.out.println("path path path path 444444444");
+                ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
+            }else {
+                System.out.println("path path path paht 555555");
+                ((Worker) gameSelectedElement).setPathOfCoordinates(((Worker) gameSelectedElement).getMapProcessor().getPath(((Worker) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
+
+            }
+
+
+
+            if (!((Worker) gameSelectedElement).isExecuted()) {
                 ((Worker) gameSelectedElement).setExecuted(true);
                 HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
             }
 
 
-        }
-
-        else if (gameSelectedElement instanceof Soldier) {
+        } else if (gameSelectedElement instanceof Soldier) {
 
 
-            ((Soldier) gameSelectedElement).setDistination(coord);
-//
-//
-//
-
-
-            if (  ! ((Soldier) gameSelectedElement).isExecuted() ) {
+            if (!((Soldier) gameSelectedElement).isExecuted()) {
                 ((Soldier) gameSelectedElement).setExecuted(true);
                 HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
             }
 
         }
-//            ((Human) gameSelectedElement).setxEnd(x);
-
-//            ((Human) gameSelectedElement).setyEnd(y);
-
-//       HumanManagers.getSharedInstance().makingThreadPool();
-
-
-
-//        }
-//        else if (cell.getInsideElementsItems() instanceof Castle) {
-//            // TODO  : set stack : MS <>
-//            if( gameSelectedElement instanceof  Human) {
-////
-//            }
-//
-//
-//
-//        }
-
-
 
 
     }
@@ -459,13 +436,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         if (startY < 0)
             startY = 1;
         if (startX + Constants.Drawer_HIGHT > Constants.MATRIX_HEIGHT)
-            startX = Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT-1;
+            startX = Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT - 1;
         if (startY + Constants.DRAWER_WIDTH > Constants.MATRIX_WIDTH)
-            startY = Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH-1;
+            startY = Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH - 1;
         start = new Coordinate(startX, startY);
     }
 
-    public void scoral(){
+    public void scoral() {
         new Thread(() -> {
             while (isScoralling) {
                 changeColOrRow();
@@ -474,7 +451,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }}).start();
+            }
+        }).start();
     }
 
     private void changeColOrRow() {
@@ -496,12 +474,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         repaint();
     }
 
-    public void scrollUp(){
+    public void scrollUp() {
         if (start.getRow() > 0) {
             start.addRow(-1);
             continuousMovement.addRow(-1);
-            for (int j = 1 ; j < Constants.RATEOFSCROLL & isScoralling; j++) {
-                continuousMovement.addRow(((float)1/(float)Constants.RATEOFSCROLL));
+            for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addRow(((float) 1 / (float) Constants.RATEOFSCROLL));
                 try {
                     Thread.sleep(Constants.scrollSpeed);
                 } catch (InterruptedException e) {
@@ -520,8 +498,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         if (start.getRow() < Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) {
             start.addRow(1);
             continuousMovement.addRow(1);
-            for (int j =1 ; j < Constants.RATEOFSCROLL && isScoralling;j++) {
-                continuousMovement.addRow(-((float)1/(float)Constants.RATEOFSCROLL));
+            for (int j = 1; j < Constants.RATEOFSCROLL && isScoralling; j++) {
+                continuousMovement.addRow(-((float) 1 / (float) Constants.RATEOFSCROLL));
                 try {
                     Thread.sleep(Constants.scrollSpeed);
                 } catch (InterruptedException e) {
@@ -540,8 +518,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         if (start.getColumn() < Constants.MATRIX_WIDTH - Constants.DRAWER_WIDTH) {
             start.addColumn(1);
             continuousMovement.addColumn(1);
-            for (int j =1 ;j<Constants.RATEOFSCROLL & isScoralling;j++) {
-                continuousMovement.addColumn(-((float)1/(float)Constants.RATEOFSCROLL));
+            for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
+                continuousMovement.addColumn(-((float) 1 / (float) Constants.RATEOFSCROLL));
                 try {
                     Thread.sleep(Constants.scrollSpeed);
                 } catch (InterruptedException e) {
@@ -561,7 +539,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             start.addColumn(-1);
             continuousMovement.addColumn(-1);
             for (int j = 1; j < Constants.RATEOFSCROLL & isScoralling; j++) {
-                continuousMovement.addColumn(((float)1/(float)Constants.RATEOFSCROLL));
+                continuousMovement.addColumn(((float) 1 / (float) Constants.RATEOFSCROLL));
                 try {
                     Thread.sleep(Constants.scrollSpeed);
                 } catch (InterruptedException e) {
@@ -575,7 +553,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.miniMap.updateFocus(start);
         repaint();
     }
-//Todo optimizing game panel like this;
+
+    //Todo optimizing game panel like this;
     public Coordinate getStart() {
         return start;
     }

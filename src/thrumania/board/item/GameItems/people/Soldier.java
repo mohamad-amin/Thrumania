@@ -35,7 +35,7 @@ public class Soldier extends Human {
         super.ironReq = 500;
         super.goldReq = 250;
         super.woodReq = 600;
-        super.speadOfConsumingFood = 2;
+        super.speedOfConsumingFood = 2;
 
         // aks :
         // TODO : changing picure of shape
@@ -59,10 +59,10 @@ public class Soldier extends Human {
         this.mapProcessor = new MapProcessor(map.getCells());
         // TODO : initializing its coordinate
         // booleans
-        this.isMoving = false;
+
         super.isAlive = true;
-        super.canAttack = true;
-        super.isInAttackState = false;
+        super.isAttackMove = false;
+        super.isKillingOpponent = false;
         super.isSelectedByPlayer = false;
 
 
@@ -135,27 +135,27 @@ public class Soldier extends Human {
                     e.printStackTrace();
                 }
 
+
                 if ( ! isKillingOpponent) {
                     System.out.println("lOOOOOOOOOOOOL");
-                    if (canAttack) {
-                        System.out.println("can attack");
+//                    if (canAttack) {
+                    System.out.println("can attack");
 
-                        if (humanIsAttacking == null)
-                            humanIsAttacking = seeAnyFoes();
-                        if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                            System.out.println("here 1");
-                            pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-                            super.isInAttackState = true;
-                        } else {
-                            System.out.println("akhey");
-                            isInAttackState = false;
-                            isKillingOpponent =false;
-                            humanIsAttacking = null;
-                        }
-                    }else {
-                        System.out.println("we are good");
+                    if (humanIsAttacking == null)
+                        humanIsAttacking = seeAnyFoes();
+                    if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                        System.out.println("here 1");
+                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+//                        super.isInAttackState = true;
+                    } else {
+                        System.out.println("akhey");
+//                        isInAttackState = false;
+                        isKillingOpponent =false;
+                        humanIsAttacking = null;
                     }
-
+//                }else {
+//                    System.out.println("we are good");
+//                }
 
 
 
@@ -215,7 +215,7 @@ public class Soldier extends Human {
     protected void move( Coordinate end) {
         int xEnd, yEnd;
 
-        isMoving = true;
+
         this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
         this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
         xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;

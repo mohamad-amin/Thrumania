@@ -1,5 +1,6 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.game.MapProcessor;
 import thrumania.utils.Coordinate;
@@ -21,7 +22,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     // in scale of  foot in 1 second :
     protected float  speedOfMoving;
     // in scale of food in 1 second
-    protected  int speadOfConsumingFood;
+    protected  int speedOfConsumingFood;
     // requirments:
     protected int foodReq;
     protected int ironReq;
@@ -31,25 +32,33 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected int xCord;
     protected  int yCord;
     protected  boolean isAlive;
+    protected LiveElements constructingThisBuilding = null;
     protected  Coordinate coordinate;
-    protected  Coordinate distination;
+
+
+    // this enum stands for both worker and soldier , but soldier does not have "COLLECTING_ITEM_IS_DONE" state
+    public   enum statesOfMovement  {
+           STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE
+    }
+    protected statesOfMovement stateOfMove  = statesOfMovement.ATTACKING.STOP;
 
 
 
-    protected Coordinate HomeCastleCoordinate;
+
+    protected Coordinate homeCastleCoordinate;
     protected abstract void determiningSpeedOfMoving();
     protected String picutreName;
-    private boolean shouldDraw;
+    protected boolean canLookForOpponent = true;
     protected  boolean isSelectedByPlayer;
-    protected   boolean isMoving;
+
 
 
     protected MapProcessor mapProcessor;
     protected boolean isExecuted = false;
     protected int playerNumber;
-    protected boolean canAttack ;
-    protected  boolean isInAttackState;
+    protected boolean isAttackMove ;
     protected  boolean isKillingOpponent = false;
+    protected boolean constructingIsDone = false;
     protected Stack<Coordinate> pathOfCoordinates = new Stack<>();
 
 
@@ -93,13 +102,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         isSelectedByPlayer = selectedByPlayer;
     }
 
-    public boolean isShouldDraw() {
-        return shouldDraw;
-    }
-
-    public void setShouldDraw(boolean shouldDraw) {
-        this.shouldDraw = shouldDraw;
-    }
 
     public Coordinate getCoordinate() {
         return coordinate;
@@ -111,20 +113,13 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
     public Coordinate getHomeCastleCoordinate() {
-        return HomeCastleCoordinate;
+        return homeCastleCoordinate;
     }
 
     public void setHomeCastleCoordinate(Coordinate homeCastleCoordinate) {
-        HomeCastleCoordinate = homeCastleCoordinate;
+        homeCastleCoordinate = homeCastleCoordinate;
     }
 
-    public boolean isMoving() {
-        return isMoving;
-    }
-
-    public void setMoving(boolean moving) {
-        isMoving = moving;
-    }
 
     public MapProcessor getMapProcessor() {
         return mapProcessor;
@@ -147,13 +142,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     }
 
 
-    public Coordinate getDistination() {
-        return distination;
-    }
 
-    public void setDistination(Coordinate distination) {
-        this.distination = distination;
-    }
 
     public int getPlayerNumber() {
         return playerNumber;
@@ -163,23 +152,42 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         this.pathOfCoordinates = pathOfCoordinates;
     }
 
-    public boolean isInAttackState() {
-        return isInAttackState;
+
+
+    public boolean isAttackMove() {
+        return isAttackMove;
     }
 
-    public boolean isCanAttack() {
-        return canAttack;
-    }
-
-    public void setCanAttack(boolean canAttack) {
-        this.canAttack = canAttack;
+    public void setAttackMove(boolean attackMove) {
+        isAttackMove = attackMove;
     }
 
     public void setKillingOpponent(boolean killingOpponent) {
         isKillingOpponent = killingOpponent;
     }
 
-    public void setInAttackState(boolean inAttackState) {
-        isInAttackState = inAttackState;
+    public boolean isKillingOpponent() {
+        return isKillingOpponent;
     }
+
+    public Stack<Coordinate> getPathOfCoordinates() {
+        return pathOfCoordinates;
+    }
+
+    public int getHealth() {
+        return health;
+    }
+
+    public void setHealth(int health) {
+        this.health = health;
+    }
+
+    public statesOfMovement getStateOfMove() {
+        return stateOfMove;
+    }
+
+    public void setStateOfMove(statesOfMovement stateOfMove) {
+        this.stateOfMove = stateOfMove;
+    }
+
 }
