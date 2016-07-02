@@ -11,6 +11,7 @@ public abstract class DeadElements extends InsideElementsItems {
     protected String autumnPictureName ;
     protected String winterPictureName ;
     protected int eachElementCapacity;
+    protected int MAX_CAPACITY = 100 ;
 
     public int getEachElementCapacity() {
         return eachElementCapacity;

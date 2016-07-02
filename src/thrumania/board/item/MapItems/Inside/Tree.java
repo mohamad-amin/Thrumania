@@ -1,4 +1,5 @@
 package thrumania.board.item.MapItems.Inside;
+
 import thrumania.board.item.MapItems.DeadElements;
 
 /**
@@ -6,11 +7,10 @@ import thrumania.board.item.MapItems.DeadElements;
  */
 public class Tree extends DeadElements {
 
+// TODO behind the tree
+
 
     public Tree() {
-
-
-
         super.springPictureName = "tree2.png";
         super.summerPictureName = "tree4.png";
         super.autumnPictureName = "tree5.png";
@@ -18,4 +18,6 @@ public class Tree extends DeadElements {
         super.eachElementCapacity = 3;
 
     }
+
+
 }

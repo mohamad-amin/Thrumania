@@ -9,6 +9,7 @@ import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.DeadElements;
+import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
 import thrumania.utils.*;
@@ -43,6 +44,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private boolean isScoralling = false;
     int scoralSide = 4;
     FloatingCoordinate continuousMovement = new FloatingCoordinate(0, 0);
+//    private woodR
 
     public PlayPanel(Map map, MiniMapPanel panel) {
         this.miniMap = panel;
@@ -148,6 +150,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         int x1, y1;
                         x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
                         y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                     Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
+
+
+                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
                         add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
 

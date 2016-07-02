@@ -178,10 +178,10 @@ public class Worker extends Human {
             case STOP: {
                 canLookForOpponent = true;
                 if (!pathOfCoordinates.isEmpty()) {
-                    //  first too see if there is any order  :
+// first if there is any order to go
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else if (pathOfCoordinates.isEmpty()) {
-                    //  second to see if there is no ordered , there is any foes to attack
+// second if someone is attacking , go for it
 
                     if (humanIsAttacking == null)
                         if (canLookForOpponent)
@@ -189,7 +189,6 @@ public class Worker extends Human {
                         else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                         stateOfMove = statesOfMovement.ATTACKING;
-//                        isAttackMove = true;
                     } else if (isCapacityOfCollectingItemsFull) {
 // going back to the castle
 
