@@ -86,6 +86,11 @@ public class PlayFrame extends JFrame {
         Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
+        if(! worker.isExecuted())
+        {
+            worker.setExecuted(true);
+            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
+        }
 
     }
 

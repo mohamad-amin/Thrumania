@@ -9,7 +9,6 @@ import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.DeadElements;
-import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
 import thrumania.utils.*;
@@ -148,13 +147,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setIcon(
                                 new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans()[i].get(j).getPicutreName())));
                         int x1, y1;
+//                        System.out.println("player real x is \t " + HumanManagers.getSharedInstance().getHumans()[0].get(j).getxCord() + "   and real y is \t" + HumanManagers.getSharedInstance().getHumans()[0].get(j).getyCord() );
                         x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
                         y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
-                     Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
+//                        System.out.println("x is \t" + x1 + "   y1 is \t"+ y1);
+                        Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
                         if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
-                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
-                        HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
-                        add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
+//                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
+//                        if( x1 > 0 && y1 > 0 && x1 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE  && y1 <Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
+                                //                           System.out.println("player team is \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j).getPlayerNumber());
+                          revalidate();
+                          HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+                           add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
+//                       }
 
 
                     }
@@ -421,10 +426,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
 
 
-            if (!((Worker) gameSelectedElement).isExecuted()) {
-                ((Worker) gameSelectedElement).setExecuted(true);
-                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
-            }
+//            if (!((Worker) gameSelectedElement).isExecuted()) {
+//                ((Worker) gameSelectedElement).setExecuted(true);
+//                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+//            }
 
 
         } else if (gameSelectedElement instanceof Soldier) {

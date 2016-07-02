@@ -31,6 +31,7 @@ public class Worker extends Human {
     private int capacityOfCollectingWood =0 ;
     private int capacityOfCollectingStone =0;
     private int capacityOfCollectingGold =0 ;
+    private boolean hasAttacked = false;
 
     private boolean isCapacityOfCollectingItemsFull;
     private int speadOfCollectingItems;
@@ -242,6 +243,7 @@ public class Worker extends Human {
 //                    isAttackMove = true;
 //TODO : add picture moving for htis part
                     stateOfMove = statesOfMovement.ATTACKING;
+
                 } else if (!pathOfCoordinates.isEmpty()) {
                     if (checkWetherTheGoalCellIsResourcesOrNot(pathOfCoordinates.peek())) {
                         elementIsBeingCollected = map.getCell(pathOfCoordinates.peek().getRow() , pathOfCoordinates.peek().getColumn()).getInsideElementsItems();
@@ -286,6 +288,12 @@ public class Worker extends Human {
                 break;
             }
             case ATTACKING: {
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException e) {
+
+
+                }
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
@@ -307,7 +315,6 @@ public class Worker extends Human {
                 break;
             }
             case KILLING: {
-
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
                     humanIsAttacking = null;
@@ -317,10 +324,57 @@ public class Worker extends Human {
                 } else if (humanIsAttacking != null && IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking &&
                         IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord())
                                 <= distanceShouldKeepWhenAttacking) {
+
+                    // TODO : handle : dead and kill
+                    if (!hasAttacked){
+                        hasAttacked = true;
+
+                    new java.util.Timer().schedule(new TimerTask() {
+
+
+                        @Override
+
+                        public void run() {
+                            hasAttacked = false;
+                            if (humanIsAttacking != null) {
+                                if (humanIsAttacking.getHealth() > 0) {
+                                    System.out.println("health is  +\t " + getHealth() + "team number is"  + getPlayerNumber());
+                                    humanIsAttacking.setHealth(damageUnit);
+                                } else {
+                                    System.out.println("fuck fuck fuck");
+                                    humanIsAttacking.setAlive(false);
+                                    playPanel.remove(humanIsAttacking);
+                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
+                                    stateOfMove = statesOfMovement.STOP;
+
+
+                                }
+                            }
+
+                        }
+
+
+                    },1000);
+                }
+                    try {
+                        Thread.sleep(3);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+//
+
+
+
+
                     // TODO : killing
 
                 } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-//                    isAttackMove = true;
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
                     stateOfMove = statesOfMovement.ATTACKING;
 
                 } else if (!this.isThisHumanVisible(humanIsAttacking)) {
@@ -332,34 +386,7 @@ public class Worker extends Human {
 
 
                 } else {
-
-                    // TODO : handle : dead and kill
-                    new java.util.Timer().schedule(new TimerTask() {
-
-                        @Override
-                        public void run() {
-                            Human human = seeAnyFoes();
-                            if (human != null)
-                                if (human.getHealth() > 0)
-                                    human.setHealth(human.getHealth() - damageUnit);
-//                            else  TODO : set this guy  dead ; we can also handle this part by means of "message passing"
-
-                        }
-
-                    }, 1000);
-                    if (health == 0) {
-                        int a;
-                        // TODO: is dead
-                        // message passing
-                    }
-                    try {
-                        Thread.sleep(3);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-//
-
-
+                    System.out.println("++++++++++++++++++++here222 +++++++++++++++++");
                 }
                 break;
             }

@@ -38,6 +38,8 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected  Coordinate coordinate;
     protected Human humanIsAttacking = null;
     private  int upCounter  = 0, rightCounter = 0 , downCounter = 0 , leftCounter  =0 ;
+    private int counter = 0;
+    private  boolean wentRight = false;
 
 
 
@@ -65,7 +67,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
     protected Stack<Coordinate> pathOfCoordinates = new Stack<>();
-    protected int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE;
+    protected int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE / 2;
 
 
 
@@ -87,6 +89,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter = 0 ;
                 this.setPicturesOfMoving(1 , rightCounter);
                 rightCounter ++ ;
+                counter ++;
 
             }
             else if (xCord > human.getxCord()) {
@@ -94,18 +97,22 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter =  rightCounter = downCounter = 0;
                 this.setPicturesOfMoving(3 , leftCounter);
                 leftCounter ++ ;
+                counter ++;
             }
-            if (yCord < human.getyCord()) {
-                yCord++;
-                upCounter = rightCounter = leftCounter =0;
-                this.setPicturesOfMoving(2 , downCounter);
-                downCounter ++ ;            }
-            else if (yCord > human.getyCord()) {
-                yCord--;
-                rightCounter = downCounter = leftCounter = 0;
-                this.setPicturesOfMoving(0, upCounter);
-                upCounter ++;
-             }
+            if( counter == 10) {
+                counter = 0;
+                if (yCord < human.getyCord()) {
+                    yCord++;
+                    upCounter = rightCounter = leftCounter = 0;
+                    this.setPicturesOfMoving(2, downCounter);
+                    downCounter++;
+                } else if (yCord > human.getyCord()) {
+                    yCord--;
+                    rightCounter = downCounter = leftCounter = 0;
+                    this.setPicturesOfMoving(0, upCounter);
+                    upCounter++;
+                }
+            }
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
             try {
                 Thread.sleep((long) (1000 / (speedOfMoving * 5)));
@@ -138,6 +145,8 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter = 0 ;
                 this.setPicturesOfMoving(1 , rightCounter);
                 rightCounter ++ ;
+                counter ++;
+                wentRight = true;
 
 
             }
@@ -146,21 +155,26 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter =  rightCounter = downCounter = 0;
                 this.setPicturesOfMoving(3 , leftCounter);
                 leftCounter ++ ;
+                counter++;
+                wentRight = true;
 
             }
-            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-            if (this.yCord < yEnd) {
-                yCord++;
-                upCounter = rightCounter = leftCounter =0;
-                this.setPicturesOfMoving(2 , downCounter);
-                downCounter ++ ;
-            }
-            else if (this.yCord > yEnd) {
-                yCord--;
-                rightCounter = downCounter = leftCounter = 0;
-                this.setPicturesOfMoving(0, upCounter);
-                upCounter ++;
+//            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+            if( ! wentRight  ||  counter == 5) {
+                counter =0;
+                wentRight = false;
+                if (this.yCord < yEnd) {
+                    yCord++;
+                    upCounter = rightCounter = leftCounter = 0;
+                    this.setPicturesOfMoving(2, downCounter);
+                    downCounter++;
+                } else if (this.yCord > yEnd) {
+                    yCord--;
+                    rightCounter = downCounter = leftCounter = 0;
+                    this.setPicturesOfMoving(0, upCounter);
+                    upCounter++;
 
+                }
             }
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
@@ -196,7 +210,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
              thirdPartOfTheName =   leftCounter = 0;
 
             this.picutreName = "W" +this.getPlayerNumber() + "" + direction + "" + thirdPartOfTheName + ".png";
-            System.out.println("pictureName is \t" +this.picutreName);
         }
     } // TODO  : for soldier
 
@@ -297,7 +310,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        this.health -= health;
     }
 
     public statesOfMovement getStateOfMove() {
