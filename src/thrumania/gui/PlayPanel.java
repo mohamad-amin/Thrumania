@@ -151,8 +151,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
                         y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
                      Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
-
-
+                        if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
                       if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
                         add(HumanManagers.getSharedInstance().getHumans()[i].get(j));

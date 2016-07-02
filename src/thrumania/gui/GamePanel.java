@@ -90,6 +90,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
     public void paint(Graphics g) {
         super.paint(g);
         int seasonnum = giveMeSeasonNum();
+        System.out.println("season is\t"+ season );
         this.drawingOcean(g);
         int re = Constants.Drawer_HIGHT+1; if (start.getRow()==Constants.MATRIX_HEIGHT-Constants.Drawer_HIGHT) re= Constants.Drawer_HIGHT;
         int ce = Constants.DRAWER_WIDTH+1; if (start.getColumn()==Constants.MATRIX_WIDTH-Constants.DRAWER_WIDTH) ce= Constants.DRAWER_WIDTH;
@@ -581,6 +582,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
 
     public void setSeason(Constants.Seasons season) {
         this.season = season;
+        System.out.println("seaon LOOOOOOOL\t"+ season);
     }
 
     public Constants.DayTime getDayTime() {

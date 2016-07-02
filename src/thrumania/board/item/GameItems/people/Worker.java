@@ -4,6 +4,7 @@ import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Inside.GoldMine;
 import thrumania.board.item.MapItems.Inside.StoneMine;
 import thrumania.board.item.MapItems.Inside.Tree;
@@ -63,7 +64,7 @@ public class Worker extends Human {
 
         // aks :
         // TODO : setting pictures while moving ( sequence of pictures )
-        super.picutreName = "manStanding.png";
+        super.picutreName = "W033.png";
         // masir
 
         // booleans :
@@ -99,8 +100,9 @@ public class Worker extends Human {
         if (this.canGoMountain)
             speedOfMoving = speedOfMoving / 2;
     }
-    protected void determiningSpeedOfCollectingItems(){
+    protected void determiningSpeedOfCollectingItems(DeadElements  element){
 
+            element.is
         // TODO : if that source has  its quarry the speed should : * 2
         // TODO @amirhosein  :   first amirhosein should put a boolean  variable to the trees and gold mines and stone mines too  see wether there is any quarry assigned to that resource or not
 

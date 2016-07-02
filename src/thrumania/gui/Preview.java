@@ -34,7 +34,7 @@ public class Preview extends Timer {
                 seasons =gamePanel.getSeason();
                 if( seasons == Constants.Seasons.WINTER) seasons = Constants.Seasons.SPRING;
                 else seasons = Constants.Seasons.values()[seasons.getValue()+1];
-
+                System.out.println(seasons);
                 gamePanel.setSeason(seasons);
                 gamePanel.dispatchEvent(new SimpleMessages(gamePanel , Messages.REPAINT ));
             }
@@ -47,7 +47,6 @@ public class Preview extends Timer {
         timerTask = new TimerTask() {
             @Override
             public void run() {
-
                 if ( gamePanel.getDayTime() == Constants.DayTime.NIGHT) gamePanel.setDayTime(Constants.DayTime.MORNING);
                 else if( gamePanel.getDayTime() == Constants.DayTime.MORNING ) gamePanel.setDayTime( Constants.DayTime.NIGHT);
                 gamePanel.dispatchEvent(new SimpleMessages(gamePanel , Messages.REPAINT));

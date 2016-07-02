@@ -37,6 +37,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected LiveElements constructingThisBuilding = null;
     protected  Coordinate coordinate;
     protected Human humanIsAttacking = null;
+    private  int upCounter  = 0, rightCounter = 0 , downCounter = 0 , leftCounter  =0 ;
 
 
 
@@ -112,16 +113,39 @@ public abstract class Human extends InsideElementsItems implements Runnable {
             this.determiningSpeedOfMoving();
 
 
-            if (this.xCord < xEnd)
+            if (this.xCord < xEnd) {
                 xCord++;
-            else if (this.xCord > xEnd)
+                leftCounter = 0 ;
+                downCounter = 0 ;
+                upCounter = 0 ;
+                this.setPicturesOfMoving(1 , rightCounter);
+                rightCounter ++ ;
+
+
+            }
+            else if (this.xCord > xEnd) {
                 xCord--;
+                upCounter =  rightCounter = downCounter = 0;
+                this.setPicturesOfMoving(3 , leftCounter);
+                leftCounter ++ ;
+
+            }
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-            if (this.yCord < yEnd)
+            if (this.yCord < yEnd) {
                 yCord++;
-            else if (this.yCord > yEnd)
+                upCounter = rightCounter = leftCounter =0;
+                this.setPicturesOfMoving(2 , downCounter);
+                downCounter ++ ;
+            }
+            else if (this.yCord > yEnd) {
                 yCord--;
+                rightCounter = downCounter = leftCounter = 0;
+                this.setPicturesOfMoving(0, upCounter);
+                upCounter ++;
+
+            }
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+
 
 
             try {
@@ -135,6 +159,28 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
     }
+    // 0 -> up
+    // 1 -> right
+    // 2 -> down
+    // 3 -> left
+
+
+    private void setPicturesOfMoving( int direction , int thirdPartOfTheName) {
+
+        if (this instanceof Worker) {
+            if (direction == 0 && thirdPartOfTheName >= 8)
+               thirdPartOfTheName =  upCounter = 0;
+            else if (direction == 1 && thirdPartOfTheName >= 8)
+                thirdPartOfTheName = rightCounter = 0;
+            else if (direction == 2 && thirdPartOfTheName >= 8)
+              thirdPartOfTheName =   downCounter = 0;
+            else if (direction == 3 && thirdPartOfTheName >= 8)
+             thirdPartOfTheName =   leftCounter = 0;
+
+            this.picutreName = "W" +this.getPlayerNumber() + "" + direction + "" + thirdPartOfTheName + ".png";
+            System.out.println("pictureName is \t" +this.picutreName);
+        }
+    } // TODO  : for soldier
 
 
 
