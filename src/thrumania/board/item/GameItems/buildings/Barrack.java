@@ -5,6 +5,8 @@ import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
 import thrumania.utils.Coordinate;
 
+import java.awt.*;
+
 /**
  * Created by AMIR on 7/1/2016.
  */
@@ -21,6 +23,11 @@ public class Barrack extends LiveElements {
         summerPictureName = pictureName;
         autumnPictureName = pictureName;
         winterPictureName = pictureName;
+    }
+
+    @Override
+    public void paintingOptions(Graphics g) {
+
     }
 }
 

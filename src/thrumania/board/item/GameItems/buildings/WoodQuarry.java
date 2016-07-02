@@ -5,6 +5,8 @@ import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
 import thrumania.utils.Coordinate;
 
+import java.awt.*;
+
 /**
  * Created by AMIR on 6/28/2016.
  */
@@ -26,4 +28,8 @@ public class WoodQuarry extends LiveElements {
         winterPictureName = pictureName;
     }
 
+    @Override
+    public void paintingOptions(Graphics g) {
+
+    }
 }

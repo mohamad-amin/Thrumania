@@ -102,7 +102,10 @@ public class Worker extends Human {
     }
     protected void determiningSpeedOfCollectingItems(DeadElements  element){
 
-            element.is
+            if(! element.getHaveBuildingAssignedTo())
+                speadOfCollectingItems = 20 ;
+            else
+                speadOfCollectingItems = 40 ;
         // TODO : if that source has  its quarry the speed should : * 2
         // TODO @amirhosein  :   first amirhosein should put a boolean  variable to the trees and gold mines and stone mines too  see wether there is any quarry assigned to that resource or not
 
@@ -475,4 +478,8 @@ public class Worker extends Human {
 
     }
 
+    @Override
+    public void paintingOptions(Graphics g) {
+
+    }
 }

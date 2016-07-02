@@ -334,6 +334,10 @@ public class Soldier extends Human {
     }
 
 
+    @Override
+    public void paintingOptions(Graphics g) {
+
+    }
 }
 
 

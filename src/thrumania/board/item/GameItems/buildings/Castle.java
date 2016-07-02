@@ -4,6 +4,8 @@ import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
 import thrumania.utils.Coordinate;
 
+import java.awt.*;
+
 /**
  * Created by sina on 6/24/16.
  */
@@ -24,4 +26,8 @@ public class Castle extends LiveElements {
 
     }
 
+    @Override
+    public void paintingOptions(Graphics g) {
+
+    }
 }
