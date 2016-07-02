@@ -1,5 +1,6 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
@@ -31,12 +32,14 @@ public class Worker extends Human {
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
+    private int MAX_RESOURCE_CAPACITY = 300;
 
     private Coordinate resourceCoordinate;
 
     public Worker(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber) {
         // moshakhasat :
         super.health = 500;
+        // TODO: DAMAGE IS IN RATE OF .5
         super.damageUnit = 20;
         //TODO : 15
         super.visibilityUnit = 100;
@@ -59,13 +62,13 @@ public class Worker extends Human {
         super.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
         // aks :
+        // TODO : setting pictures while moving ( sequence of pictures )
         super.picutreName = "manStanding.png";
         // masir
 
         // booleans :
         super.isAlive = true;
-//        super.isAttackMove = false;
-//        super.isKillingOpponent = false;
+
         this.isCapacityOfCollectingItemsFull = false;
         this.canGoMountain = false;
 
@@ -82,8 +85,6 @@ public class Worker extends Human {
     }
 
 
-
-
     @Override
     protected void determiningSpeedOfMoving() {
 
@@ -97,6 +98,13 @@ public class Worker extends Human {
             this.speedOfMoving = 3;
         if (this.canGoMountain)
             speedOfMoving = speedOfMoving / 2;
+    }
+    protected void determiningSpeedOfCollectingItems(){
+
+        // TODO : if that source has  its quarry the speed should : * 2
+        // TODO @amirhosein  :   first amirhosein should put a boolean  variable to the trees and gold mines and stone mines too  see wether there is any quarry assigned to that resource or not
+
+
     }
 
     @Override
@@ -164,30 +172,8 @@ public class Worker extends Human {
 
     }
 
-    public void examiningPath2() {
-
-
-        while (!pathOfCoordinates.isEmpty()) {
-
-
-            if (pathOfCoordinates.peek().equals(coordinate))
-                pathOfCoordinates.pop();
-            if (!pathOfCoordinates.isEmpty() && this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
-                regularMove(pathOfCoordinates.pop());
-
-
-            } else {
-
-                while (!pathOfCoordinates.isEmpty())
-                    pathOfCoordinates.pop();
-            }
-        }
-
-
-    }
-
     public void examiningPath3() {
-//        System.out.println("state move is " + stateOfMove.toString());
+
         switch (stateOfMove) {
             case STOP: {
                 canLookForOpponent = true;
@@ -285,7 +271,6 @@ public class Worker extends Human {
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
-//?                    isAttackMove = false;
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else {
@@ -307,7 +292,6 @@ public class Worker extends Human {
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
-//                    isAttackMove = false;
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
@@ -450,13 +434,28 @@ public class Worker extends Human {
 
 
     // TODO : we should check the path for builidings
+    private boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
+
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+            if (cell.getInsideElementsItems() instanceof Barrack || cell.getInsideElementsItems() instanceof Castle ||
+                    cell.getInsideElementsItems() instanceof Farm || cell.getInsideElementsItems() instanceof MineQuarry
+                    || cell.getInsideElementsItems() instanceof WoodQuarry)
+                return true;
+        }
+
+        return false;
+
+    }
+
     private boolean checkWetherTheGoalCellIsResourcesOrNot(Coordinate crd) {
 
 
         if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
             if (cell.getInsideElementsItems() != null) {
-                if (cell.getInsideElementsItems() instanceof Tree || cell.getInsideElementsItems() instanceof StoneMine || cell.getInsideElementsItems() instanceof GoldMine)
+                if (cell.getInsideElementsItems() instanceof Tree || cell.getInsideElementsItems() instanceof StoneMine
+                        || cell.getInsideElementsItems() instanceof GoldMine)
                     return true;
             }
 

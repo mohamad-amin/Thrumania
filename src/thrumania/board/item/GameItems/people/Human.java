@@ -60,9 +60,9 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected MapProcessor mapProcessor;
     protected boolean isExecuted = false;
     protected int playerNumber;
-    protected boolean isAttackMove ;
-    protected  boolean isKillingOpponent = false;
-    protected boolean constructingIsDone = false;
+
+
+
     protected Stack<Coordinate> pathOfCoordinates = new Stack<>();
     protected int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE;
 
@@ -223,21 +223,6 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
 
-    public boolean isAttackMove() {
-        return isAttackMove;
-    }
-
-    public void setAttackMove(boolean attackMove) {
-        isAttackMove = attackMove;
-    }
-
-    public void setKillingOpponent(boolean killingOpponent) {
-        isKillingOpponent = killingOpponent;
-    }
-
-    public boolean isKillingOpponent() {
-        return isKillingOpponent;
-    }
 
     public Stack<Coordinate> getPathOfCoordinates() {
         return pathOfCoordinates;

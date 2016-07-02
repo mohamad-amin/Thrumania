@@ -9,7 +9,7 @@ import thrumania.utils.Coordinate;
  * Created by AMIR on 7/1/2016.
  */
 public class MineQuarry extends LiveElements{
-
+    //    TODO : @amirhosein :  requirments for building one
     public MineQuarry(Coordinate realPosition, Coordinate startingPoint , int sideNumber ) {
         side = new Side(sideNumber);
         this.startingPoint = startingPoint;

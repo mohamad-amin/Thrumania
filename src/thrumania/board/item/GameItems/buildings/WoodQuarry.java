@@ -10,6 +10,8 @@ import thrumania.utils.Coordinate;
  */
 public class WoodQuarry extends LiveElements {
 
+    //    TODO : @amirhosein :  requirments for building one
+
 
     public WoodQuarry(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
         side = new Side(sideNumber);

@@ -8,7 +8,7 @@ import thrumania.utils.Coordinate;
  * Created by sina on 6/24/16.
  */
 public class Castle extends LiveElements {
-
+// TODO  : IS NEAR THE OCEAN
 
     public Castle(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
 

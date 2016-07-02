@@ -29,6 +29,7 @@ public class Soldier extends Human {
 
         // moshakhasat ;
         super.health = 1000;
+        // TODO: DAMAGE IS IN RATE OF .5
         super.damageUnit = 70;
         super.visibilityUnit = 250;
         super.foodReq = 2000;
@@ -61,8 +62,8 @@ public class Soldier extends Human {
         // booleans
 
         super.isAlive = true;
-        super.isAttackMove = false;
-        super.isKillingOpponent = false;
+
+
         super.isSelectedByPlayer = false;
 
 
@@ -130,8 +131,6 @@ public class Soldier extends Human {
     }
 
 
-
-
     public void examiningPath2() {
 
         // TODO : fix this sleep
@@ -171,7 +170,7 @@ public class Soldier extends Human {
 
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
-                } else  if( pathOfCoordinates.isEmpty()){
+                } else if (pathOfCoordinates.isEmpty()) {
                     if (humanIsAttacking == null)
                         if (canLookForOpponent)
                             humanIsAttacking = seeAnyFoes();
@@ -200,11 +199,10 @@ public class Soldier extends Human {
                 if (!pathOfCoordinates.isEmpty()) {
                     System.out.println("Hello 1");
 
-                    if (! this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
+                    if (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
                         System.out.println("Hello 2");
                         regularMove(pathOfCoordinates.pop());
-                    }
-                    else {
+                    } else {
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.STOP;

@@ -8,13 +8,13 @@ import thrumania.utils.Coordinate;
 /**
  * Created by AMIR on 7/1/2016.
  */
-public class Barrack extends LiveElements    {
+public class Barrack extends LiveElements {
 
-    public Barrack(Coordinate realPosition, Coordinate startingPoint , int sideNumber ) {
+    public Barrack(Coordinate realPosition, Coordinate startingPoint, int sideNumber) {
         side = new Side(sideNumber);
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
-        this.health = new Health(5000,5000);
+        this.health = new Health(5000, 5000);
 
         String pictureName = "castle.png";
         springPictureName = pictureName;
@@ -22,6 +22,7 @@ public class Barrack extends LiveElements    {
         autumnPictureName = pictureName;
         winterPictureName = pictureName;
     }
+}
 
     // TODO : @amirhosein notice that buldings cant be build at  starting points of castles
-}
+

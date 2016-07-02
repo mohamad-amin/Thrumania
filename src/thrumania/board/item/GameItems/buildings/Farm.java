@@ -9,6 +9,8 @@ import thrumania.utils.Coordinate;
  * Created by AMIR on 7/1/2016.
  */
 public class Farm extends LiveElements {
+
+    //    TODO : @amirhosein :  requirments for building one
     public Farm(Coordinate realPosition, Coordinate startingPoint , int sideNumber ) {
 
         this.side = new Side(sideNumber);
@@ -24,3 +26,7 @@ public class Farm extends LiveElements {
 
     }
 }
+
+// TODO : @amirhosein : do buildings hace starting point ?
+//TODo : i know castle have and Barrak and Port have but how about mina and gold and farm?
+

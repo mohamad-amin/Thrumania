@@ -9,6 +9,7 @@ import thrumania.utils.Coordinate;
  * Created by AMIR on 7/1/2016.
  */
 public class Port extends LiveElements {
+//    TODO : @amirhosein :  requirments for building one
 private Coordinate neighborsea;
     public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber ) {
         this.side = new Side(sideNumber);

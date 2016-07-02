@@ -2,7 +2,7 @@ package thrumania.gui;
 
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.buildings.Castle;
-import thrumania.board.item.GameItems.people.Soldier;
+import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
@@ -41,7 +41,7 @@ public class PlayFrame extends JFrame {
         this.map = map;
         this.setSize(d);
         this.setLayout(null);
-        this.setLocation(0,0);
+        this.setLocation(0, 0);
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         this.setUndecorated(true);
         this.setAlwaysOnTop(true);
@@ -58,9 +58,7 @@ public class PlayFrame extends JFrame {
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
         this.add(playPanel);
-        this.add(new PlayRightPanel(playPanel ));
-
-
+        this.add(new PlayRightPanel(playPanel));
 
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -72,20 +70,21 @@ public class PlayFrame extends JFrame {
         MapProcessor processor = new MapProcessor(map.getCells());
         processor.newInitializeStrongholds();
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
-        int count =0;
+        int count = 0;
         for (Cell cell : strongholdPositions) {
-            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(),count);
+            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count);
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
-            count ++;
+            count++;
         }
     }
-    private void initializingHumans(Castle castle){
+
+    private void initializingHumans(Castle castle) {
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
 
-        Soldier worker = new Soldier(playPanel , map ,castle.getStartingPoint().getColumn() *  Constants.CELL_SIZE  + Constants.CELL_SIZE / 10 , castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10 , castle.getSide().getNumberOfPlayer() );
-//        worker.setHomeCastleCoordinate(castle.getStartingPoint());
+        Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
+        worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
 
     }
@@ -100,8 +99,8 @@ public class PlayFrame extends JFrame {
         Coordinate position;
         Cell[][] cells = new Cell[ids.length][ids[0].length];
         Map map = new Map(ids.length, ids[0].length);
-        for (int i=0; i<ids.length; i++) {
-            for (int j=0; j<ids[0].length; j++) {
+        for (int i = 0; i < ids.length; i++) {
+            for (int j = 0; j < ids[0].length; j++) {
                 position = new Coordinate(i, j);
                 switch (ids[i][j]) {
                     case Constants.LOW_LAND_ID:

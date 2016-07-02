@@ -334,31 +334,31 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
                 if (gameSelectedElement instanceof Worker) {
 //                    System.out.println("1");
-                    if (((Worker) gameSelectedElement).isAttackMove()) {
-                        ((Worker) gameSelectedElement).setAttackMove(false);
-
-                        ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-
-                    }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
-                        ((Worker) gameSelectedElement).setKillingOpponent(false);
-                        ((Worker) gameSelectedElement).setAttackMove(false);
-                    ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-                    }
+//                    if (((Worker) gameSelectedElement).isAttackMove()) {
+//                        ((Worker) gameSelectedElement).setAttackMove(false);
+//
+//                        ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
+//
+//                    }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
+//                        ((Worker) gameSelectedElement).setKillingOpponent(false);
+//                        ((Worker) gameSelectedElement).setAttackMove(false);
+//                    ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
+//                    }
 
                     setHumanAction(x, y);
 
 
                 } else if (gameSelectedElement instanceof Soldier) {
-                   if( ((Soldier) gameSelectedElement).isAttackMove()) {
-                       ((Soldier) gameSelectedElement).setAttackMove(false);
+//                   if( ((Soldier) gameSelectedElement).isAttackMove()) {
+//                       ((Soldier) gameSelectedElement).setAttackMove(false);
+//
+//                       ((Soldier) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
+//                   }
+//                    else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
+//                       ((Soldier) gameSelectedElement).setKillingOpponent(false);
+//                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
 
-                       ((Soldier) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-                   }
-                    else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
-                       ((Soldier) gameSelectedElement).setKillingOpponent(false);
-                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
-
-                   }
+//                   }
                     setHumanAction(x, y);
                 }
 
