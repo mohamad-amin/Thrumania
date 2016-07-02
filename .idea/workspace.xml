@@ -1,22 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="making code organize">
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="adding picture and improving workers">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W000.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W001.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W002.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W003.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W004.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W005.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W006.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W007.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W010.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W011.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W012.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W013.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W014.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W015.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W016.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W017.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W020.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W021.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W022.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W023.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W024.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W025.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W026.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W027.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W030.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W031.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W032.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W033.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W034.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W035.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W036.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/W037.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/foodResource.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/goldResource.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/ironResource.png" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/images/woodResource.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Barrack.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Barrack.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Farm.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Farm.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/MineQuarry.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/MineQuarry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Port.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Port.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/WoodQuarry.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/WoodQuarry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/InsideElementsItems.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/InsideElementsItems.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Agliculture.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Agliculture.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/GoldMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/GoldMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/SmallFish.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/SmallFish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/StoneMine.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/StoneMine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -60,16 +85,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="WoodQuarry.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/WoodQuarry.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Castle.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -80,10 +95,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Health.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Health.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Health.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.13786764">
+            <state vertical-scroll-proportion="0.0">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
               <folding />
             </state>
@@ -100,34 +115,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Port.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Port.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="32" column="0" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Human.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Human.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
+            <state vertical-scroll-proportion="0.50676984">
+              <caret line="107" column="1" selection-start-line="107" selection-start-column="1" selection-end-line="107" selection-end-column="1" />
               <folding>
-                <element signature="method#attackMove#0;class#Human#0" expanded="false" />
+                <element signature="e#7322#7323#0" expanded="true" />
+                <element signature="e#7365#7366#0" expanded="true" />
+                <element signature="e#8584#8585#0" expanded="true" />
+                <element signature="e#8623#8624#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Soldier.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -135,11 +133,55 @@
       <file leaf-file-name="Worker.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="482" column="0" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
+            <state vertical-scroll-proportion="-6.3703704">
+              <caret line="296" column="31" selection-start-line="296" selection-start-column="24" selection-end-line="296" selection-end-column="34" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PlayPanel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="593" column="22" selection-start-line="593" selection-start-column="22" selection-end-line="593" selection-end-column="22" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#24635#24636#0" expanded="true" />
+                <element signature="e#24665#24666#0" expanded="true" />
+                <element signature="e#24708#24709#0" expanded="true" />
+                <element signature="e#24747#24748#0" expanded="true" />
+                <element signature="e#24852#24853#0" expanded="true" />
+                <element signature="e#24891#24892#0" expanded="true" />
+                <element signature="e#24996#24997#0" expanded="true" />
+                <element signature="e#25035#25036#0" expanded="true" />
+                <element signature="e#25144#25145#0" expanded="true" />
+                <element signature="e#25185#25186#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Tree.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DeadElements.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -196,10 +238,8 @@
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Side.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/Cell.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/Preview.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/utils/Constants.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/InsideElementsItems.java" />
@@ -209,13 +249,15 @@
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/StoneMine.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Agliculture.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/WoodQuarry.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Port.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/MineQuarry.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Farm.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Barrack.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
       </list>
     </option>
   </component>
@@ -289,15 +331,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="utils" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -311,271 +345,11 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="managers" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="main" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="gui" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MapItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Inside" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GameItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GameItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="people" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GameItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="LiveElementItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="Thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="thrumania" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="item" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="GameItems" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="buildings" />
+              <option name="myItemId" value="images" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1138,13 +912,7 @@
       <workItem from="1467325528655" duration="4417000" />
       <workItem from="1467355894918" duration="2034000" />
       <workItem from="1467360242367" duration="35678000" />
-      <workItem from="1467444034951" duration="7663000" />
-    </task>
-    <task id="LOCAL-00012" summary="nothing special&#10;">
-      <created>1463882384561</created>
-      <option name="number" value="00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1463882384561</updated>
+      <workItem from="1467444034951" duration="12079000" />
     </task>
     <task id="LOCAL-00013" summary="zoom and scroll">
       <created>1463909431891</created>
@@ -1434,33 +1202,39 @@
       <option name="project" value="LOCAL" />
       <updated>1467456758775</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="adding painting method too all">
+      <created>1467457441971</created>
+      <option name="number" value="00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1467457441971</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="329588000" />
+    <option name="totallyTimeSpent" value="334004000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3282532" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.5083333" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.51111114" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32585597" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.49166667" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32942554" sideWeight="0.4888889" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32916668" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10694444" sideWeight="0.4939551" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10694444" sideWeight="0.4939551" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2957435" sideWeight="0.5060449" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26260257" sideWeight="0.49722221" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.26143023" sideWeight="0.49444443" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1510,7 +1284,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handling inside cell elements" />
     <MESSAGE value="handling ocean" />
     <MESSAGE value="handling preview" />
     <MESSAGE value="handling night" />
@@ -1535,7 +1308,8 @@
     <MESSAGE value="figtingmove finished" />
     <MESSAGE value="compeleting soldier way of moving&#10;" />
     <MESSAGE value="making code organize" />
-    <option name="LAST_COMMIT_MESSAGE" value="making code organize" />
+    <MESSAGE value="adding painting method too all" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding painting method too all" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1549,12 +1323,18 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java</url>
-          <line>169</line>
+          <line>187</line>
           <properties />
           <option name="timeStamp" value="71" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java</url>
+          <line>188</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="72" />
+      <option name="time" value="73" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1834,38 +1614,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.925926">
-          <caret line="160" column="0" selection-start-line="160" selection-start-column="0" selection-end-line="160" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/utils/Constants.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="40" selection-start-line="20" selection-start-column="40" selection-end-line="20" selection-end-column="40" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="74" column="30" selection-start-line="74" selection-start-column="30" selection-end-line="74" selection-end-column="30" />
-          <folding>
-            <element signature="e#1617#1618#0" expanded="true" />
-            <element signature="e#1652#1653#0" expanded="true" />
-            <element signature="e#1696#1697#0" expanded="true" />
-            <element signature="e#1738#1739#0" expanded="true" />
-            <element signature="e#1805#1806#0" expanded="true" />
-            <element signature="e#1867#1868#0" expanded="true" />
-            <element signature="e#1917#1918#0" expanded="true" />
-            <element signature="e#1962#1963#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1907,16 +1660,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="8" selection-start-line="26" selection-start-column="8" selection-end-line="26" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/StoneMine.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1935,31 +1678,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
-          <folding>
-            <element signature="method#attackMove#0;class#Human#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="482" column="0" selection-start-line="482" selection-start-column="0" selection-end-line="482" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2013,9 +1736,70 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Health.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.13786764">
+        <state vertical-scroll-proportion="0.0">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="33" selection-start-line="9" selection-start-column="33" selection-end-line="9" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="22" selection-start-line="7" selection-start-column="22" selection-end-line="7" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="593" column="22" selection-start-line="593" selection-start-column="22" selection-end-line="593" selection-end-column="22" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#24635#24636#0" expanded="true" />
+            <element signature="e#24665#24666#0" expanded="true" />
+            <element signature="e#24708#24709#0" expanded="true" />
+            <element signature="e#24747#24748#0" expanded="true" />
+            <element signature="e#24852#24853#0" expanded="true" />
+            <element signature="e#24891#24892#0" expanded="true" />
+            <element signature="e#24996#24997#0" expanded="true" />
+            <element signature="e#25035#25036#0" expanded="true" />
+            <element signature="e#25144#25145#0" expanded="true" />
+            <element signature="e#25185#25186#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.3703704">
+          <caret line="296" column="31" selection-start-line="296" selection-start-column="24" selection-end-line="296" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.50676984">
+          <caret line="107" column="1" selection-start-line="107" selection-start-column="1" selection-end-line="107" selection-end-column="1" />
+          <folding>
+            <element signature="e#7322#7323#0" expanded="true" />
+            <element signature="e#7365#7366#0" expanded="true" />
+            <element signature="e#8584#8585#0" expanded="true" />
+            <element signature="e#8623#8624#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

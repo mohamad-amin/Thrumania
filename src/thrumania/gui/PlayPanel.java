@@ -585,4 +585,39 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     public Coordinate getStart() {
         return start;
     }
+
+    public int getGoldRes() {
+        return goldRes;
+    }
+
+    public void setGoldRes(int goldRes) {
+        this.goldRes += goldRes;
+    }
+
+    public int getFoodRes() {
+
+        return foodRes;
+    }
+
+    public void setFoodRes(int foodRes) {
+        this.foodRes += foodRes;
+    }
+
+    public int getIronRes() {
+
+        return ironRes;
+    }
+
+    public void setIronRes(int ironRes) {
+        this.ironRes += ironRes;
+    }
+
+    public int getWoordRes() {
+
+        return woordRes;
+    }
+
+    public void setWoordRes(int woordRes) {
+        this.woordRes += woordRes;
+    }
 }

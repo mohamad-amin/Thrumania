@@ -80,14 +80,32 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
         if (IntegerUtils.getDistanceOfTWoIntegers(xCord, human.getxCord()) > distanceShouldKeepWhenAttacking || IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
             this.determiningSpeedOfMoving();
-            if (xCord < human.getxCord())
+            if (xCord < human.getxCord()) {
                 xCord++;
-            else if (xCord > human.getxCord())
+                leftCounter = 0 ;
+                downCounter = 0 ;
+                upCounter = 0 ;
+                this.setPicturesOfMoving(1 , rightCounter);
+                rightCounter ++ ;
+
+            }
+            else if (xCord > human.getxCord()) {
                 xCord--;
-            if (yCord < human.getyCord())
+                upCounter =  rightCounter = downCounter = 0;
+                this.setPicturesOfMoving(3 , leftCounter);
+                leftCounter ++ ;
+            }
+            if (yCord < human.getyCord()) {
                 yCord++;
-            else if (yCord > human.getyCord())
+                upCounter = rightCounter = leftCounter =0;
+                this.setPicturesOfMoving(2 , downCounter);
+                downCounter ++ ;            }
+            else if (yCord > human.getyCord()) {
                 yCord--;
+                rightCounter = downCounter = leftCounter = 0;
+                this.setPicturesOfMoving(0, upCounter);
+                upCounter ++;
+             }
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
             try {
                 Thread.sleep((long) (1000 / (speedOfMoving * 5)));
