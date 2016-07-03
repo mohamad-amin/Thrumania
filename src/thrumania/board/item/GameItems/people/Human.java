@@ -40,6 +40,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     private  int upCounter  = 0, rightCounter = 0 , downCounter = 0 , leftCounter  =0 ;
     private int counter = 0;
     private  boolean wentRight = false;
+    protected boolean hasAttacked = false;
 
 
 
