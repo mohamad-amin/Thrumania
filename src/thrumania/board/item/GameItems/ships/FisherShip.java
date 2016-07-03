@@ -11,6 +11,7 @@ import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
+import java.util.Stack;
 
 /**
  * Created by sina on 7/3/16.
@@ -225,20 +226,41 @@ private  void  checkWetherTheCapacityIsFull(){
 
     }
 
-//    private Coordinate findTheBestPlaceToEmptyResources(){
+    private Coordinate findTheBestPlaceToEmptyResources(){
+        Stack<Coordinate> path1 = new Stack<>();
+        Stack<Coordinate> path2 = new Stack<>();
 //        ArrayList<Coordinate> possibleCoordinates  = new ArrayList<>();
-//        for (int  i =0 ; i< PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
+        Coordinate bestCoord = null;
+        for (int  i =0 ; i< PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
+          if ( bestCoord == null)
+              bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
+            else {
+              path1 = mapProcessor.getPath(coordinate , bestCoord , this);
+              path2 = mapProcessor.getPath(coordinate , PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea(), this);
+              if( path1.size() > path2.size())
+                  bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
+          }
+
+
+
 //            possibleCoordinates.add( PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate());
 //            possibleCoordinates.add(HomeCastleCoordinate);
-//
-//        }
-//
+
+        }
+        // TODO for path 2
+        path1 = mapProcessor.getPath(coordinate , bestCoord, this);
+        path2 = mapProcessor.getPath(coordinate , HomeCastleCoordinate, this);
+        if ( path1.size() > path2.size())
+            bestCoord = HomeCastleCoordinate;
+
+        return  bestCoord;
+
 //        Collections.sort(possibleCoordinates);
 
 
 
-//
-//    }
+
+    }
 
     @Override
     public void paintingOptions(Graphics g) {
