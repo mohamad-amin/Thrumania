@@ -10,17 +10,28 @@ import thrumania.utils.Coordinate;
  * Created by sina on 5/22/16.
  */
 public  abstract  class LiveElements extends DeadElements{
+    protected boolean underConstructed = true;
     protected Capacity capicity;
     protected Side side;
     protected Health health;
     protected Coordinate realPosition;
     protected Coordinate startingPoint;
     protected boolean canMove = true;
-
+    protected int ConstructorsWorking;
+    protected int maxOfConstructor;
     public Coordinate getStartingPoint() {return startingPoint;}
     public Coordinate getCastlePosition() {return realPosition;}
     public void setStartingPoint(Coordinate startingPoint) {this.startingPoint = startingPoint;}
     public void setRealPosition(Coordinate castlePosition) {this.realPosition = castlePosition;}
+
+    public abstract void constructed();
+
+    protected void setWithOnePicture(String pictureName){
+        springPictureName = pictureName;
+        summerPictureName = pictureName;
+        autumnPictureName = pictureName;
+        winterPictureName = pictureName;
+    }
 
     public Side getSide() {
         return side;

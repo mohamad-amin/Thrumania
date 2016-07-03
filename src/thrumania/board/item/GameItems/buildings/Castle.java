@@ -22,16 +22,17 @@ public class Castle extends LiveElements {
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
 
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("castle.png");
 
     }
 
     @Override
     public void paintingOptions(Graphics g) {
         g.drawImage(ImageUtils.getImage("castle.jpg"),0,0,Constants.CELL_SIZE,Constants.CELL_SIZE,null);
+    }
+
+    @Override
+    public void constructed() {
+        //nothing to say :|||||||
     }
 }

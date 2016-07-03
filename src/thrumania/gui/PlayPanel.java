@@ -461,7 +461,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
         InsideElementsItems temp = findingwhichHumanIsClicked(x,y);
         if(temp!= null) return temp;
-         return map.getCell(realx,realy).getInsideElementsItems();
+         return map.getCell(realy,realx).getInsideElementsItems();
     }
 
     private void setHumanAction(int x, int y) {

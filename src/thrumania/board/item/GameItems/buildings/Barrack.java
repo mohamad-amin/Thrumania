@@ -18,16 +18,18 @@ public class Barrack extends LiveElements {
         this.realPosition = realPosition;
         this.health = new Health(5000, 5000);
 
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("construction.png");
     }
 
     @Override
     public void paintingOptions(Graphics g) {
 
+    }
+
+    @Override
+    public void constructed() {
+        underConstructed = false;
+        setWithOnePicture("barrak.png");
     }
 }
 

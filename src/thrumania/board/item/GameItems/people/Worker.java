@@ -1,6 +1,9 @@
 package thrumania.board.item.GameItems.people;
 
-import thrumania.board.item.GameItems.buildings.*;
+import thrumania.board.item.GameItems.buildings.Barrack;
+import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.buildings.MineQuarry;
+import thrumania.board.item.GameItems.buildings.WoodQuarry;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
@@ -17,7 +20,6 @@ import thrumania.messages.Messages;
 import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
-import thrumania.utils.ImageUtils;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
@@ -627,7 +629,7 @@ public class Worker extends Human {
         if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
             if (cell.getInsideElementsItems() instanceof Barrack || cell.getInsideElementsItems() instanceof Castle ||
-                    cell.getInsideElementsItems() instanceof Farm || cell.getInsideElementsItems() instanceof MineQuarry
+                     cell.getInsideElementsItems() instanceof MineQuarry
                     || cell.getInsideElementsItems() instanceof WoodQuarry)
                 return true;
         }
