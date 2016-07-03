@@ -75,4 +75,8 @@ public abstract class DeadElements extends InsideElementsItems {
     public void HaveBuildingAssignedTo(boolean haveBuildingAssignedTo) {
         this.haveBuildingAssignedTo = haveBuildingAssignedTo;
     }
+
+    public void setMAX_CAPACITY(int MAX_CAPACITY) {
+        this.MAX_CAPACITY -= MAX_CAPACITY;
+    }
 }

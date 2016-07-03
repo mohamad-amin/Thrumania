@@ -11,10 +11,12 @@ import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.Messages;
 import thrumania.utils.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
@@ -585,6 +587,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.miniMap.updateFocus(start);
         repaint();
     }
+
+    @Override
+    protected void processComponentEvent(ComponentEvent e) {
+        if (e.getID() == Messages.REPAINT) this.repaint();
+        super.processComponentEvent(e);
+    }
+
 
     //Todo optimizing game panel like this;
     public Coordinate getStart() {
