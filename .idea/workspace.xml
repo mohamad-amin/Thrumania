@@ -75,8 +75,8 @@
       <file leaf-file-name="PlayFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="399">
-              <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
+            <state relative-caret-position="381">
+              <caret line="137" column="48" selection-start-line="137" selection-start-column="48" selection-end-line="137" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -898,7 +898,7 @@
       <workItem from="1467061103334" duration="9467000" />
       <workItem from="1467070928742" duration="4383000" />
       <workItem from="1467457190314" duration="105000" />
-      <workItem from="1467533604345" duration="6072000" />
+      <workItem from="1467533604345" duration="6123000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1229,11 +1229,18 @@
       <option name="project" value="LOCAL" />
       <updated>1467543556489</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="Fixed Highland save and load problems&#10;">
+      <created>1467543584458</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1467543584458</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258132000" />
+    <option name="totallyTimeSpent" value="258183000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1711,8 +1718,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
+        <state relative-caret-position="381">
+          <caret line="137" column="48" selection-start-line="137" selection-start-column="48" selection-end-line="137" selection-end-column="48" />
           <folding />
         </state>
       </provider>
