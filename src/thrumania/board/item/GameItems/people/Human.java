@@ -41,6 +41,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     private int counter = 0;
     private  boolean wentRight = false;
     protected boolean hasAttacked = false;
+    protected boolean isHumanInsideTheShip = false;
 
 
 
@@ -82,7 +83,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
         if (IntegerUtils.getDistanceOfTWoIntegers(xCord, human.getxCord()) > distanceShouldKeepWhenAttacking
-                && IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
+                || IntegerUtils.getDistanceOfTWoIntegers(yCord, human.getyCord()) > distanceShouldKeepWhenAttacking) {
             this.determiningSpeedOfMoving();
             if (xCord < human.getxCord()) {
                 xCord++;

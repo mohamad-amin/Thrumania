@@ -1,6 +1,9 @@
 package thrumania.board.item.GameItems.ships;
 
 import thrumania.board.item.InsideElementsItems;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
@@ -106,6 +109,17 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
 
 
     }
+
+
+    protected   boolean checkWetherGoalIsLand(Coordinate crd){
+
+        Cell cell = map.getCell(crd.getRow() , crd.getColumn());
+        if( cell instanceof HighLand || cell instanceof LowLand)
+            return  true;
+        return false;
+    }
+
+
     // 0 -> up
     // 1 -> right
     // 2 -> down

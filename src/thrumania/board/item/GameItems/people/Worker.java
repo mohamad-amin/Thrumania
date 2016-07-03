@@ -141,7 +141,6 @@ public class Worker extends Human {
 
         if (IntegerUtils.getDistanceOfTWoIntegers(this.xCord,
                 human.getxCord()) < this.visibilityUnit) {
-
             if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
                     human.getyCord()) < this.visibilityUnit) {
                 return true;
@@ -245,7 +244,7 @@ public class Worker extends Human {
             }
 
             case MOVING_BY_ORDERED: {
-                canLookForOpponent = true;
+
                 // TODO : we should check the path for builidings
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
@@ -293,7 +292,7 @@ public class Worker extends Human {
 
                         if (pathOfCoordinates.peek().equals(coordinate))
                             pathOfCoordinates.pop();
-                        if (!pathOfCoordinates.isEmpty() && !this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek()))
+                        if (!pathOfCoordinates.isEmpty() && (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())|| checkWetherGoalCellIsHighLand(pathOfCoordinates.peek() ) ) )
                             regularMove(pathOfCoordinates.pop());
                         else {
                             while (!pathOfCoordinates.isEmpty()) {
@@ -360,6 +359,7 @@ public class Worker extends Human {
                                     System.out.println("fuck fuck fuck");
                                     humanIsAttacking.setAlive(false);
                                     playPanel.remove(humanIsAttacking);
+                                    playPanel.revalidate();
                                     HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
                                     stateOfMove = statesOfMovement.STOP;
 
@@ -394,15 +394,12 @@ public class Worker extends Human {
                     stateOfMove = statesOfMovement.ATTACKING;
 
                 } else if (!this.isThisHumanVisible(humanIsAttacking)) {
-//                    isAttackMove = false;
                     humanIsAttacking = null;
                     if (!pathOfCoordinates.isEmpty())
                         stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                     else stateOfMove = statesOfMovement.STOP;
 
 
-                } else {
-                    System.out.println("++++++++++++++++++++here222 +++++++++++++++++");
                 }
                 break;
             }
@@ -418,8 +415,6 @@ public class Worker extends Human {
                             humanIsAttacking = seeAnyFoes();
                         } else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-//                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
-//                        isAttackMove = true;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.ATTACKING;
@@ -660,6 +655,16 @@ public class Worker extends Human {
         } else {
             return true;
         }
+
+
+    }
+    private  boolean checkWetherGoalCellIsHighLand(Coordinate crd){
+
+
+        Cell cell = map.getCell(crd.getRow() , crd.getColumn());
+        if( cell instanceof HighLand)
+            return  true;
+        else return false;
 
 
     }

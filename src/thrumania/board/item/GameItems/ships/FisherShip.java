@@ -1,8 +1,6 @@
 package thrumania.board.item.GameItems.ships;
 
 import thrumania.board.item.MapItems.Cells.Cell;
-import thrumania.board.item.MapItems.Cells.HighLand;
-import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Inside.SmallFish;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
@@ -40,6 +38,7 @@ public class FisherShip extends  Ships{
         super.goldReq =250 ;
         super.isAlive = true;
         this.mapProcessor = new MapProcessor(map.getCells());
+        // TODO : doing set size in playpanel
         this.setSize(d);
         this.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
 
@@ -58,14 +57,6 @@ public class FisherShip extends  Ships{
     }
 
 
-
-    private  boolean checkWetherGoalIsLand(Coordinate crd){
-
-        Cell cell = map.getCell(crd.getRow() , crd.getColumn());
-        if( cell instanceof HighLand || cell instanceof LowLand)
-            return  true;
-        return false;
-    }
     private  boolean checkWetherGoalHasFishResource(Coordinate crd){
 
         Cell cell = map.getCell(crd.getRow() , crd.getColumn());
@@ -98,30 +89,22 @@ public class FisherShip extends  Ships{
                         }else moveState = StatesOfMoving.STOP;
                     }else if( isCapacityOfCollectingResourcesFUll){
 
-
+                        // check to see it should empty or not
                         if(checkWheterThereIsInthePlaceToEmptyResources())
                         {
                             // TODO : empting resources
                         }else {
+                        // we should find the best place for making empty and move to that place
 
-
-
-
+                            moveState = StatesOfMoving.MOVE_BY_ORDER;
                             // find the best place to go
                         }
 
-
-
-
-
+                    }else if( resourceCoordinate != null){
+                        pathOfCoordinates = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                        moveState = StatesOfMoving.MOVE_BY_ORDER;
 
                     }
-
-
-
-
-
-
 
 
                 }
@@ -131,6 +114,28 @@ public class FisherShip extends  Ships{
             }
             case  MOVE_BY_ORDER:{
 
+                if (  ! pathOfCoordinates.isEmpty() && pathOfCoordinates.peek().equals(coordinate)) {
+                    pathOfCoordinates.pop();
+                    moveState  = StatesOfMoving.STOP;
+                }
+
+                if( ! pathOfCoordinates.isEmpty()) {
+
+                    if (super.checkWetherGoalIsLand(pathOfCoordinates.peek()))
+                    {
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        moveState = StatesOfMoving.STOP;
+                    }else if( pathOfCoordinates.size() == 1 && checkWetherGoalHasFishResource(pathOfCoordinates.peek()))
+                    {
+                        resourceCoordinate = pathOfCoordinates.pop();
+                        moveState = StatesOfMoving.COLLECTING_FISH;
+                    }else
+                    super.regularMove(pathOfCoordinates.pop());
+
+
+                }
+
 
                 // TODO:
 
@@ -139,8 +144,26 @@ public class FisherShip extends  Ships{
 
             case COLLECTING_FISH:
             {
+                this.checkWetherTheCapacityIsFull();
+                if( !pathOfCoordinates.isEmpty())
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
+                else {
+                    if( isCapacityOfCollectingResourcesFUll)
+                    {
 
-                // TODO :
+                        moveState = StatesOfMoving.COLLECTING_FISH_IS_DONE;
+
+                    }
+                    else {
+                        // TODO : collect shit
+
+
+                    }
+
+
+
+                }
+
 
 
             break;
@@ -148,7 +171,13 @@ public class FisherShip extends  Ships{
 
             case COLLECTING_FISH_IS_DONE:
             {
+                if( !pathOfCoordinates.isEmpty())
+                    moveState =StatesOfMoving.MOVE_BY_ORDER;
+                else if( false ){
 
+                    // TODO : find the best way
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
+                }
 
                 // TODO :
                 break;
@@ -219,13 +248,8 @@ private  void  checkWetherTheCapacityIsFull(){
     public void run() {
         while ( isAlive){
             this.consumingFood();
-
-
-
-
-
-
-
+            if( canMove)
+            examiningPath();
 
         }
 
