@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Improvements to finding path">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Map.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Map.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class" />
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Fixed Highland save and load problems&#10;">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/Cell.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/Cell.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/LowLand.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/LowLand.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/GamePanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -81,8 +75,8 @@
       <file leaf-file-name="PlayFrame.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="501">
-              <caret line="151" column="16" selection-start-line="151" selection-start-column="16" selection-end-line="151" selection-end-column="16" />
+            <state relative-caret-position="399">
+              <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -314,35 +308,14 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/.idea/workspace.xml</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Map.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/GamePanel.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/MiniMapPanel.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview$1.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/Preview.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$DayTime.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Elements.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$Seasons.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants$ZoomScales.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/Constants.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/utils/IntegerUtils.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/ocean1.jpg</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Castle.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElements.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/InsideElementsItems.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Map.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/game/MapProcessor.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/GamePanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/MenuPanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/MiniMapPanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/ContainerShip.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/Ships.java</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/Preview.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/managers/HumanManagers.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/utils/Constants.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/utils/IntegerUtils.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -350,67 +323,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W000.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W001.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W002.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W003.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W004.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W005.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W006.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W007.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W010.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W011.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W012.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W013.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W014.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W015.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W016.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W017.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W020.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W021.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W022.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W023.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W024.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W025.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W026.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W027.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W030.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W031.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W032.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W033.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W034.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W035.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W036.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/W037.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/foodResource.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/goldResource.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/ironResource.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/res/images/woodResource.png</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Capacity.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Health.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElementItems/Side.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElements.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Barrack.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Farm.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/MineQuarry.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/Port.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/buildings/WoodQuarry.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/ContainerShip.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/Ships.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/Cell.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/HighLand.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/LowLand.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cells/Sea.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Agliculture.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/GoldMine.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/SmallFish.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/StoneMine.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/Tree.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/PlayBottomPanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/gui/PlayRightPanel.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/utils/TimerTaskUtils.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/managers/PortsManager.java</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/managers/ShipsManager.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -418,30 +332,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/alaki/alaki.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/GameItems/Alaki.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Agliculture.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Cell.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/GoldMine.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/HighLand.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/LowLand.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/MapElement.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Sea.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/SmallFish.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/StoneMine.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/out/production/Thrumania/thrumania/board/item/MapItems/Tree.class</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/alaki/alaki.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/GameItems/Alaki.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Agliculture.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Cell.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/GoldMine.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/HighLand.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/LowLand.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/MapElement.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Sea.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/SmallFish.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/StoneMine.java</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/src/thrumania/board/item/MapItems/Tree.java</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -1008,7 +898,7 @@
       <workItem from="1467061103334" duration="9467000" />
       <workItem from="1467070928742" duration="4383000" />
       <workItem from="1467457190314" duration="105000" />
-      <workItem from="1467533604345" duration="6025000" />
+      <workItem from="1467533604345" duration="6072000" />
     </task>
     <task id="LOCAL-00001" summary="implementing bottomPanel class">
       <created>1463680904988</created>
@@ -1332,11 +1222,18 @@
       <option name="project" value="LOCAL" />
       <updated>1467074660804</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Fixed Highland save and load problems&#10;">
+      <created>1467543556489</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1467543556489</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258085000" />
+    <option name="totallyTimeSpent" value="258132000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1056" extended-state="6" />
@@ -1349,7 +1246,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32604167" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32604167" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.271875" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32832617" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1360,7 +1257,7 @@
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2957435" sideWeight="0.5060449" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.37708333" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37708333" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1408,7 +1305,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="implementing bottom panel class" />
     <MESSAGE value="Fixed right panel and bottom panel problems" />
     <MESSAGE value="moving some methods to constant and IntegerUtils from right/bottom Panel" />
     <MESSAGE value="nothing special&#10;" />
@@ -1433,7 +1329,8 @@
     <MESSAGE value="Improved castle positioning" />
     <MESSAGE value="Improvements to MapProcessor" />
     <MESSAGE value="Improvements to finding path" />
-    <option name="LAST_COMMIT_MESSAGE" value="Improvements to finding path" />
+    <MESSAGE value="Fixed Highland save and load problems&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Highland save and load problems&#10;" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1814,8 +1711,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="501">
-          <caret line="151" column="16" selection-start-line="151" selection-start-column="16" selection-end-line="151" selection-end-column="16" />
+        <state relative-caret-position="399">
+          <caret line="138" column="28" selection-start-line="138" selection-start-column="28" selection-end-line="138" selection-end-column="28" />
           <folding />
         </state>
       </provider>
