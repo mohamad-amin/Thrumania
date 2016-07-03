@@ -13,6 +13,7 @@ import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
 import thrumania.messages.Messages;
 import thrumania.utils.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentEvent;
@@ -379,21 +380,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         @Override
         public void mouseClicked(MouseEvent e) {
             // tODO Check it
-            int x, y;
+            int x, y , realx, realy;
             x = (e.getX() + start.getColumn() * Constants.CELL_SIZE);
             y = (e.getY() + start.getRow() * Constants.CELL_SIZE);
-            int tempx, tempy;
-            tempx = x*ZeroScale/Constants.CELL_SIZE;
-            tempy = y*ZeroScale/Constants.CELL_SIZE;
+            realx = (e.getX()/Constants.CELL_SIZE)+start.getColumn();
+            realy = (e.getY()/Constants.CELL_SIZE)+start.getRow();
 
             // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                 System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                 //TODO : finding which element is clicked
-                gameSelectedElement = findingwhichHumanIsClicked(x, y);
+                gameSelectedElement = findingwhichElementIsClicked(x, y, realx,realy);
                 System.out.println(gameSelectedElement);
                 playBottomPanel.repaint();
-
 
             } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
 
@@ -457,6 +456,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             isScoralling = false;
             scoralSide = 4;
         }
+    }
+
+    private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
+        InsideElementsItems temp = findingwhichHumanIsClicked(x,y);
+        if(temp!= null) return temp;
+         return map.getCell(realx,realy).getInsideElementsItems();
     }
 
     private void setHumanAction(int x, int y) {
