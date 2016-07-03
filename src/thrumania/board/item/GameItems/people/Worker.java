@@ -13,6 +13,8 @@ import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.Messages;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -50,6 +52,7 @@ public class Worker extends Human {
         super.damageUnit = 20;
         //TODO : 15
         super.visibilityUnit = 100;
+        // requiments :
         super.foodReq = 1000;
         super.woodReq = 0;
         super.goldReq = 0;
@@ -162,14 +165,14 @@ public class Worker extends Human {
         return capacityOfCollectingWood;
     }
 
-    public void setCapacityOfCollectingItems(int capacityOfCollectingItems) {
+    public void setCapacityOfCollectingItems(int capacityOfCollectingWood) {
         this.capacityOfCollectingWood = capacityOfCollectingWood;
     }
 
-    private boolean checkWheterCapacityIsFull() {
+    private void checkWheterCapacityIsFull() {
         if( capacityOfCollectingWood == MAX_RESOURCE_CAPACITY || capacityOfCollectingGold == MAX_RESOURCE_CAPACITY || capacityOfCollectingStone == MAX_RESOURCE_CAPACITY)
-            return true;
-        else return  false;
+            isCapacityOfCollectingItemsFull =true;
+        else isCapacityOfCollectingItemsFull = false;
 
 
     }
@@ -177,6 +180,7 @@ public class Worker extends Human {
     @Override
     public void run() {
         while (isAlive) {
+
 
             examiningPath3();
 
@@ -195,7 +199,7 @@ public class Worker extends Human {
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else if (pathOfCoordinates.isEmpty()) {
 // second if someone is attacking , go for it
-
+                        checkWheterCapacityIsFull();
                     if (humanIsAttacking == null)
                         if (canLookForOpponent)
                             humanIsAttacking = seeAnyFoes();
@@ -209,15 +213,20 @@ public class Worker extends Human {
                             playPanel.setIronRes(capacityOfCollectingStone);
                             playPanel.setWoordRes(capacityOfCollectingWood);
                             playPanel.setGoldRes(capacityOfCollectingGold);
-                            capacityOfCollectingStone =0;
+                            capacityOfCollectingWood =0;
                             capacityOfCollectingStone = 0;
                             capacityOfCollectingGold =0;
 
-                            isCapacityOfCollectingItemsFull = false;
+                            this.checkWheterCapacityIsFull();
                             if (resourceCoordinate != null) {
                                 pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                                 stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                             }
+
+
+                        }else {
+                            pathOfCoordinates = getMapProcessor().getPath(coordinate , getHomeCastleCoordinate() , this);
+                            stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
                         }
 
@@ -233,6 +242,7 @@ public class Worker extends Human {
             }
 
             case MOVING_BY_ORDERED: {
+                canLookForOpponent = true;
                 // TODO : we should check the path for builidings
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
@@ -240,24 +250,34 @@ public class Worker extends Human {
                     } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                     System.out.println("path path path 3333333");
-//                    isAttackMove = true;
-//TODO : add picture moving for htis part
+                    while ( !pathOfCoordinates.isEmpty())
+                        pathOfCoordinates.pop();
+
                     stateOfMove = statesOfMovement.ATTACKING;
 
                 } else if (!pathOfCoordinates.isEmpty()) {
-                    if (checkWetherTheGoalCellIsResourcesOrNot(pathOfCoordinates.peek())) {
-                        elementIsBeingCollected = map.getCell(pathOfCoordinates.peek().getRow() , pathOfCoordinates.peek().getColumn()).getInsideElementsItems();
-                        if (pathOfCoordinates.peek().getRow() > coordinate.getRow())
-                            yCord += 10;
-                        else if (pathOfCoordinates.peek().getRow() < coordinate.getRow())
-                            yCord -= 10;
-                        if (pathOfCoordinates.peek().getColumn() > coordinate.getColumn())
-                            xCord += 10;
-                        else if (pathOfCoordinates.pop().getColumn() < coordinate.getColumn())
-                            xCord -= 10;
-                        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
+
+                    if (pathOfCoordinates.size() == 1 && checkWetherTheGoalCellIsResourcesOrNot(pathOfCoordinates.peek())) {
+                        Coordinate tempC = pathOfCoordinates.pop();
+                        resourceCoordinate =tempC;
+//                        coordinate = tempC;
+                        elementIsBeingCollected = map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).getInsideElementsItems();
+//                        System.out.println("paht 1 is \t" + pathOfCoordinates);
+//                        elementIsBeingCollected = map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).getInsideElementsItems();
+//                        if (tempC.getRow() > coordinate.getRow())
+//                            yCord += 10;
+//                        else if (tempC.getRow() < coordinate.getRow())
+//                            yCord -= 10;
+//                        System.out.println("paht 2 is \t" + pathOfCoordinates);
+//                        if (tempC.getColumn() > coordinate.getColumn()) {
+//                            xCord += 10;
+//                            System.out.println("paht 3 is \t" + pathOfCoordinates);
+//                        }
+//                        else if (tempC.getColumn() < coordinate.getColumn())
+//                            xCord -= 10;
+//                        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
                         // TODO : handle it for tree if one tree is done go for te closest one if jungle is finished
-                        resourceCoordinate = coordinate;
+
                         stateOfMove = statesOfMovement.Collecting_Item;
 
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
@@ -288,12 +308,7 @@ public class Worker extends Human {
                 break;
             }
             case ATTACKING: {
-                try {
-                    Thread.sleep(150);
-                } catch (InterruptedException e) {
 
-
-                }
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
@@ -301,10 +316,10 @@ public class Worker extends Human {
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else {
                     if (isThisHumanVisible(humanIsAttacking))
-
                         attackMove(humanIsAttacking);
+                    else stateOfMove = statesOfMovement.STOP;
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
-//                        isKillingOpponent = true;
+                       boolean b = ( IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking);
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         this.stateOfMove = statesOfMovement.KILLING;
@@ -391,7 +406,7 @@ public class Worker extends Human {
                 break;
             }
             case Collecting_Item: {
-
+                System.out.println("Now We are going to collect :D :D :D :D");
                 constructingThisBuilding = null;
 
                 if (!pathOfCoordinates.isEmpty())
@@ -410,22 +425,103 @@ public class Worker extends Human {
                     } else {
 
                             if ( elementIsBeingCollected != null) {
+                                    checkWheterCapacityIsFull();
+                                    if (!isCapacityOfCollectingItemsFull) {
 
-                                    if (!checkWheterCapacityIsFull()) {
                                         this.determiningSpeedOfCollectingItems(elementIsBeingCollected);
-                                        new java.util.Timer().schedule(new TimerTask() {
+//                                        new java.util.Timer().schedule(new TimerTask() {
+//
+//                                            @Override
+//                                            public void run() {
+//                                                if(  ( (DeadElements )elementIsBeingCollected ).getMAX_CAPACITY() == 0)
+//                                                {
+//                                                    map.getCell( resourceCoordinate.getRow() , resourceCoordinate.getColumn()).setInsideElementsItems(null);
+//                                                    playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT ));
+//                                                    if( isCapacityOfCollectingItemsFull)
+//                                                        stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
+//                                                    else
+//                                                        stateOfMove = statesOfMovement.STOP;
+//                                                }
+//                                                if( elementIsBeingCollected instanceof  Tree) {
+//                                                    if( ((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
+//                                                        capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
+//                                                        ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
+//
+//                                                    }else {
+//                                                        capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
+//                                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
+//                                                    }
+//
+//                                                }
+//                                                else if( elementIsBeingCollected instanceof GoldMine) {
+//                                                    if( ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold)
+//                                                    {
+//                                                        capacityOfCollectingGold +=  ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
+//                                                        ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
+//
+//                                                    }else {
+//                                                        capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
+//                                                        ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
+//                                                    }
+//                                                }
+//                                                else if( elementIsBeingCollected instanceof  StoneMine) {
+//                                                    if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()){
+//                                                        capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
+//                                                        ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
+//
+//                                                    }
+//                                                    capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
+//                                                    ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
+//                                                }
+//
+//                                            }
 
-                                            @Override
-                                            public void run() {
-                                                if( elementIsBeingCollected instanceof  Tree)
+//                                        }, 1000 / speadOfCollectingItems);
+                                        try {
+                                            Thread.sleep(1000 / speadOfCollectingItems);
+                                        } catch (InterruptedException e) {
+                                            e.printStackTrace();
+                                        }
+                                        if(  ( (DeadElements )elementIsBeingCollected ).getMAX_CAPACITY() == 0)
+                                        {
+                                            map.getCell( resourceCoordinate.getRow() , resourceCoordinate.getColumn()).setInsideElementsItems(null);
+                                            playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT ));
+                                            if( isCapacityOfCollectingItemsFull)
+                                                stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
+                                            else
+                                                stateOfMove = statesOfMovement.STOP;
+                                        }
+                                        if( elementIsBeingCollected instanceof  Tree) {
+                                            if( ((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
+                                                capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
+                                                ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
+
+                                            }else {
                                                 capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
-                                                else if( elementIsBeingCollected instanceof GoldMine)
-                                                    capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
-                                                else if( elementIsBeingCollected instanceof  StoneMine)
-                                                    capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
+                                                ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
                                             }
 
-                                        }, 1000 / speadOfCollectingItems);
+                                        }
+                                                else if( elementIsBeingCollected instanceof GoldMine) {
+                                            if( ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold)
+                                            {
+                                                capacityOfCollectingGold +=  ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
+                                                ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
+
+                                            }else {
+                                                capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
+                                                ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
+                                            }
+                                        }
+                                                else if( elementIsBeingCollected instanceof  StoneMine) {
+                                            if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()){
+                                                capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
+                                                ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
+
+                                            }
+                                            capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
+                                            ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
+                                        }
 
 
                                     } else
@@ -434,7 +530,10 @@ public class Worker extends Human {
 
 
 
-                            }else stateOfMove = statesOfMovement.STOP;
+                            }else {
+                                stateOfMove = statesOfMovement.STOP;
+                                System.out.println("oh oh oh woods are getting fucked here LOOL");
+                            }
 
 // TODO check for bug
 
