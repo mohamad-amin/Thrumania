@@ -7,6 +7,7 @@ import thrumania.board.item.MapItems.Inside.SmallFish;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
+import thrumania.managers.PortsManager;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -19,11 +20,13 @@ import java.awt.*;
 public class FisherShip extends  Ships{
     // in rate of 1 second
     private int speedOfCollectingFood = 50 ;
-    private  int capacityOfCollectingRecourses = 1200;
+    private  int capacityOfCollectingRecourses = 0;
+    private int MAX_CAPACITY_OF_COLLECTING_FISH = 1200;
     private  boolean isCapacityOfCollectingResourcesFUll =false;
     private boolean isWinter = false;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
-    private  Coordinate ResourceCoordinate = null;
+    private  Coordinate resourceCoordinate = null;
+    private Coordinate whereToEmptiResources;
 
     public FisherShip(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber){
         super.unitOfConsumingFood = 1;
@@ -55,13 +58,7 @@ public class FisherShip extends  Ships{
     }
 
 
-    private void deterimingCanMove(){
 
-        if ( playPanel.getSeason() != Constants.Seasons.WINTER)
-            super.canMove = true;
-        else canMove = false;
-
-    }
     private  boolean checkWetherGoalIsLand(Coordinate crd){
 
         Cell cell = map.getCell(crd.getRow() , crd.getColumn());
@@ -79,16 +76,139 @@ public class FisherShip extends  Ships{
 
 
     }
-
-    private void move (Coordinate end){
-
+    private void examiningPath(){
 
 
+        switch (moveState){
 
+
+            case  STOP:
+            {
+                if( !pathOfCoordinates.isEmpty()){
+
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
+
+                }else if( pathOfCoordinates.isEmpty()){
+                    checkWetherTheCapacityIsFull();
+                    if( ! isCapacityOfCollectingResourcesFUll){
+
+                        if( resourceCoordinate != null){
+                            pathOfCoordinates = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                            moveState = StatesOfMoving.MOVE_BY_ORDER;
+                        }else moveState = StatesOfMoving.STOP;
+                    }else if( isCapacityOfCollectingResourcesFUll){
+
+
+                        if(checkWheterThereIsInthePlaceToEmptyResources())
+                        {
+                            // TODO : empting resources
+                        }else {
+
+
+
+
+                            // find the best place to go
+                        }
+
+
+
+
+
+
+                    }
+
+
+
+
+
+
+
+
+                }
+
+//                TODO :
+                break;
+            }
+            case  MOVE_BY_ORDER:{
+
+
+                // TODO:
+
+                break;
+            }
+
+            case COLLECTING_FISH:
+            {
+
+                // TODO :
+
+
+            break;
+            }
+
+            case COLLECTING_FISH_IS_DONE:
+            {
+
+
+                // TODO :
+                break;
+            }
+
+
+
+
+
+
+
+
+
+
+
+        }
 
 
     }
 
+
+private  void  checkWetherTheCapacityIsFull(){
+
+    if( capacityOfCollectingRecourses == MAX_CAPACITY_OF_COLLECTING_FISH  )
+        isCapacityOfCollectingResourcesFUll = true;
+    else isCapacityOfCollectingResourcesFUll = false;
+
+}
+
+    private boolean checkWheterThereIsInthePlaceToEmptyResources(){
+
+        if ( coordinate.equals(HomeCastleCoordinate))
+            return true ;
+        else{
+
+            for ( int i =0 ; i < PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
+
+                if( PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate().equals(coordinate))
+                    return true;
+            }
+            return  false;
+
+        }
+
+    }
+
+//    private Coordinate findTheBestPlaceToEmptyResources(){
+//        ArrayList<Coordinate> possibleCoordinates  = new ArrayList<>();
+//        for (int  i =0 ; i< PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
+//            possibleCoordinates.add( PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate());
+//            possibleCoordinates.add(HomeCastleCoordinate);
+//
+//        }
+//
+//        Collections.sort(possibleCoordinates);
+
+
+
+//
+//    }
 
     @Override
     public void paintingOptions(Graphics g) {
@@ -97,6 +217,17 @@ public class FisherShip extends  Ships{
 
     @Override
     public void run() {
+        while ( isAlive){
+            this.consumingFood();
+
+
+
+
+
+
+
+
+        }
 
     }
 }

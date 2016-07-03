@@ -4,7 +4,7 @@ package thrumania.utils;
  * Created bcolumn mohamadamin on 5/18/16.
  */
 
-public class Coordinate {
+public class Coordinate  {
 
     private int row, column;
     private    int  canAddCounter = 1 ;
@@ -60,6 +60,7 @@ public class Coordinate {
     public String toString() {
         return String.format("(%d,%d)", row, column);
     }
+
 
 
 }

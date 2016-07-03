@@ -13,6 +13,7 @@ import java.awt.*;
 public class Port extends LiveElements {
 //    TODO : @amirhosein :  requirments for building one
 private Coordinate neighborsea;
+    private  Coordinate portsCoordinate;
     public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber ) {
         this.side = new Side(sideNumber);
         this.startingPoint = startingPoint;
@@ -26,6 +27,23 @@ private Coordinate neighborsea;
         autumnPictureName = pictureName;
         winterPictureName = pictureName;
 
+    }
+
+
+    public Coordinate getPortsCoordinate() {
+        return portsCoordinate;
+    }
+
+    public void setPortsCoordinate(Coordinate portsCoordinate) {
+        this.portsCoordinate = portsCoordinate;
+    }
+
+    public Coordinate getNeighborsea() {
+        return neighborsea;
+    }
+
+    public void setNeighborsea(Coordinate neighborsea) {
+        this.neighborsea = neighborsea;
     }
 
     @Override

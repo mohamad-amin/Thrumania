@@ -288,13 +288,8 @@ public class Soldier extends Human {
                     // TODO : killing
 
                 } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                    try {
-                        Thread.sleep(50);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
 
-                    while (! pathOfCoordinates.isEmpty())
+                        while (! pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                     stateOfMove = statesOfMovement.ATTACKING;
 

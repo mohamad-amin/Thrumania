@@ -11,6 +11,8 @@ import java.awt.*;
  */
 public class Castle extends LiveElements {
 // TODO  : IS NEAR THE OCEAN
+    private boolean isNearWater = false;
+    private  Coordinate waterStartingPoint;
 
     public Castle(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
 
@@ -29,5 +31,13 @@ public class Castle extends LiveElements {
     @Override
     public void paintingOptions(Graphics g) {
 
+    }
+
+    public boolean isNearWater() {
+        return isNearWater;
+    }
+
+    public void setNearWater(boolean nearWater) {
+        isNearWater = nearWater;
     }
 }

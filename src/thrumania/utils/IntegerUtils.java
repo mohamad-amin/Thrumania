@@ -36,4 +36,14 @@ public class IntegerUtils {
 
         return Math.abs(a - b);
     }
+
+    public static double fisaghooresAlgorithm(Coordinate crd1 , Coordinate crd2){
+        double result =0 ;
+
+        result = Math.sqrt(  Math.pow(  crd1.getRow()  - crd2.getRow() , 2 ) + Math.pow( crd1.getColumn() - crd2.getColumn() , 2   ));
+        return  result;
+
+
+
+    }
 }

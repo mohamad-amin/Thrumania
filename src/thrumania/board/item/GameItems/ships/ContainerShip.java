@@ -10,6 +10,7 @@ public class ContainerShip extends  Ships {
 
 
 
+
     @Override
     public void paintingOptions(Graphics g) {
 
@@ -17,6 +18,18 @@ public class ContainerShip extends  Ships {
 
     @Override
     public void run() {
+
+        while ( isAlive){
+
+
+
+
+
+
+
+
+
+        }
 
     }
 }
