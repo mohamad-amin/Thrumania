@@ -14,24 +14,26 @@ public class WoodQuarry extends LiveElements {
 
     //    TODO : @amirhosein :  requirments for building one
 
-
     public WoodQuarry(Coordinate realPosition, Coordinate startingPoint ,int sideNumber ) {
         side = new Side(sideNumber);
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health (2000,2000);
-
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("construction.png");
     }
+
+
 
     @Override
     public void paintingOptions(Graphics g) {
         //health
         //side
         //capacity
+    }
+
+    @Override
+    public void constructed() {
+        underConstructed = false;
+        setWithOnePicture("woodquarry.png");
     }
 }

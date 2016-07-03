@@ -17,12 +17,7 @@ public class MineQuarry extends LiveElements{
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health(2000,2000);
-
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("construction.png");
     }
 
     @Override
@@ -30,5 +25,11 @@ public class MineQuarry extends LiveElements{
         //health
         //side
         //capacity
+    }
+
+    @Override
+    public void constructed() {
+        underConstructed = false;
+        setWithOnePicture("minequarry.png");
     }
 }

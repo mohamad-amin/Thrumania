@@ -24,11 +24,7 @@ public class Castle extends LiveElements {
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
 
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("castle.png");
 
     }
 
@@ -43,5 +39,10 @@ public class Castle extends LiveElements {
 
     public void setNearWater(boolean nearWater) {
         isNearWater = nearWater;
+    }
+
+    @Override
+    public void constructed() {
+        //nothing to say :|||||||
     }
 }

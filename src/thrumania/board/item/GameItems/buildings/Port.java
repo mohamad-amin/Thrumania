@@ -22,11 +22,7 @@ private Coordinate neighborsea;
         this.neighborsea= neighbourSea;
         this.health = new Health(3000,3000);
 
-        String pictureName = "castle.png";
-        springPictureName = pictureName;
-        summerPictureName = pictureName;
-        autumnPictureName = pictureName;
-        winterPictureName = pictureName;
+        setWithOnePicture("construction.png");
 
     }
 
@@ -55,5 +51,11 @@ private Coordinate neighborsea;
         //capacity of food stored
         //side
         //health
+    }
+
+    @Override
+    public void constructed() {
+        underConstructed = false;
+        setWithOnePicture("port.png");
     }
 }
