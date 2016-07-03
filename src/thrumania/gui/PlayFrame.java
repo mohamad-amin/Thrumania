@@ -134,18 +134,17 @@ public class PlayFrame extends JFrame {
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.STONE_ID:
-                        // Todo: fix it when highland is added
-                        cell = new LowLand(position);
+                        cell = new HighLand(position);
                         cell.setInsideElementsItems(new StoneMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.GOLD_ID:
-                        cell = new LowLand(position);
+                        cell = new HighLand(position);
                         cell.setInsideElementsItems(new GoldMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.FISH_ID:
-                        cell = new LowLand(position);
+                        cell = new Sea(position);
                         cell.setInsideElementsItems(new SmallFish());
                         cell.setPictureName(pictureNames[i][j]);
                         break;

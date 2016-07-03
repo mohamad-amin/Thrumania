@@ -79,7 +79,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
         stateQueue = new FixedQueue<>(Constants.STATE_QUEUE_SIZE);
         this.season = Constants.Seasons.SPRING;
         this.dayTime = Constants.DayTime.MORNING;
-
     }
 
     public Constants.ZoomScales getZoomScale() {
@@ -99,13 +98,17 @@ public class GamePanel extends JPanel implements MouseInputListener {
             int c=-1; if (start.getColumn()==0) c=0;
             for (; c < ce; c++) {
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof LowLand || map.getCells()[r + start.getRow()][c + start.getColumn()] instanceof HighLand) {
-                        g.drawImage(
-                                ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
-                                c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
-                                r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                Constants.CELL_SIZE,
-                                Constants.CELL_SIZE,
-                                null);
+                        try {
+                            g.drawImage(
+                                    ImageUtils.getImage(Integer.toString(Integer.parseInt(map.getCells()[r + start.getRow()][c + start.getColumn()].getPictureNameWithoutExtension()) + seasonnum * 16) + ".png"),
+                                    c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
+                                    r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
+                                    Constants.CELL_SIZE,
+                                    Constants.CELL_SIZE,
+                                    null);
+                        } catch (Exception e) {
+                            System.out.println(new Coordinate(r+start.getRow(), c+start.getColumn()));
+                        }
                     }
                 if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems() != null) {
                     if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("Tree"))
@@ -113,7 +116,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                                 c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
                                 r * Constants.CELL_SIZE - Constants.INSIDE_CELL_ELEMENT_SIZE+(int) (continuousMovement.getRow() * Constants.CELL_SIZE),
                                 Constants.CELL_SIZE, Constants.CELL_SIZE, null);
-//Todo Sina whats the meaning of  +10 we have difrent scales
+                        //Todo Sina whats the meaning of  +10 we have difrent scales
                     else if (map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems().getClass().getSimpleName().equals("StoneMine"))
                         g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
                                 c * Constants.CELL_SIZE+(int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
@@ -183,6 +186,9 @@ public class GamePanel extends JPanel implements MouseInputListener {
             for (int j=0; j<ids[0].length; j++) {
                 ids[i][j] = cells[i][j].getId();
                 pictureNames[i][j] = cells[i][j].getPictureName();
+                if (!(cells[i][j] instanceof Sea) && cells[i][j].getPictureName().contains("Ocean")) {
+                    System.out.println("Fuck" + new Coordinate(i,j) + cells[i][j].getPictureName());
+                }
             }
         }
         HashMap<Integer, Object> map = new HashMap<>();
@@ -203,8 +209,6 @@ public class GamePanel extends JPanel implements MouseInputListener {
                 JOptionPane.showMessageDialog(this, "Couldn't save map :(", "Save Map", JOptionPane.INFORMATION_MESSAGE);
             }
         }
-
-
     }
 
     private void loadMapFromFile() {
@@ -266,18 +270,17 @@ public class GamePanel extends JPanel implements MouseInputListener {
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.STONE_ID:
-                        // Todo: fix it when highland is added
-                        cell = new LowLand(position);
+                        cell = new HighLand(position);
                         cell.setInsideElementsItems(new StoneMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.GOLD_ID:
-                        cell = new LowLand(position);
+                        cell = new HighLand(position);
                         cell.setInsideElementsItems(new GoldMine());
                         cell.setPictureName(pictureNames[i][j]);
                         break;
                     case Constants.FISH_ID:
-                        cell = new LowLand(position);
+                        cell = new Sea(position);
                         cell.setInsideElementsItems(new SmallFish());
                         cell.setPictureName(pictureNames[i][j]);
                         break;

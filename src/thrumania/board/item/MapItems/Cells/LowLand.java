@@ -1,8 +1,6 @@
 package thrumania.board.item.MapItems.Cells;
 
 import thrumania.board.item.MapItems.Inside.Agliculture;
-import thrumania.board.item.MapItems.Inside.GoldMine;
-import thrumania.board.item.MapItems.Inside.StoneMine;
 import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -54,14 +52,9 @@ public class LowLand extends Cell {
     @Override
     public byte getId() {
         if (getInsideElementsItems() instanceof Tree) {
-        //Todo: @Amirhosein: // FIXME: 6/5/16 with highland
             return Constants.TREE_ID;
         } else if (getInsideElementsItems() instanceof Agliculture) {
             return Constants.AGRICULTURE_ID;
-        } else if (getInsideElementsItems() instanceof StoneMine) {
-            return Constants.STONE_ID;
-        } else if (getInsideElementsItems() instanceof GoldMine) {
-            return Constants.GOLD_ID;
         } else return Constants.LOW_LAND_ID;
     }
 

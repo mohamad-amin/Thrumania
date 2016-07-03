@@ -96,7 +96,8 @@ public abstract class Cell {
         if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() < 3) return cells[i][j+1];
         return null;
     }
-//Todo Mohammad amin fix this
+
+    //Todo Mohammad amin fix this
     public Cell getNeighbourSea(Cell[][] cells){
         return null;
     }
