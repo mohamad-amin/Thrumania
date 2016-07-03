@@ -35,5 +35,5 @@ public class Farm extends LiveElements {
 }
 
 // TODO : @amirhosein : do buildings hace starting point ?
-//TODo : i know castle have and Barrak and Port have but how about mina and gold and farm?
+//TODo : i know castle have and Barrak and Port have but how about mine and gold and farm?
 

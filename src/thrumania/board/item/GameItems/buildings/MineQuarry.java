@@ -27,6 +27,8 @@ public class MineQuarry extends LiveElements{
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //health
+        //side
+        //capacity
     }
 }

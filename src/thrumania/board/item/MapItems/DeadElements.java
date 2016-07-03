@@ -11,9 +11,13 @@ public abstract class DeadElements extends InsideElementsItems {
     protected String autumnPictureName ;
     protected String winterPictureName ;
     protected int eachElementCapacity;
-    protected int MAX_CAPACITY = 100 ;
+    public int MAX_CAPACITY = 100 ;
     protected  int speedCollectingWood = 20;
     protected boolean haveBuildingAssignedTo = false;
+
+    public void setMAX_CAPACITY(int MAX_CAPACITY) {
+        this.MAX_CAPACITY -= MAX_CAPACITY;
+    }
 
     public int getEachElementCapacity() {
         return eachElementCapacity;
@@ -74,9 +78,5 @@ public abstract class DeadElements extends InsideElementsItems {
 
     public void HaveBuildingAssignedTo(boolean haveBuildingAssignedTo) {
         this.haveBuildingAssignedTo = haveBuildingAssignedTo;
-    }
-
-    public void setMAX_CAPACITY(int MAX_CAPACITY) {
-        this.MAX_CAPACITY -= MAX_CAPACITY;
     }
 }

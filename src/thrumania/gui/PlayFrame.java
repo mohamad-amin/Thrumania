@@ -27,6 +27,7 @@ public class PlayFrame extends JFrame {
     private Map map;
     private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
     private PlayPanel playPanel;
+    private PlayBottomPanel playBottomPanel;
     private MiniMapPanel miniMapPanel;
 
 
@@ -53,12 +54,17 @@ public class PlayFrame extends JFrame {
         this.add(miniMapPanel);
         map.setMiniMap(miniMapPanel);
 
+        playBottomPanel = new PlayBottomPanel();
         playPanel = new PlayPanel(map, miniMapPanel);
+        playBottomPanel.setPlayPanel(playPanel);
+        playPanel.setPlayBottomPanel(playBottomPanel);
         loadStrongholds();
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
+
         this.add(playPanel);
         this.add(new PlayRightPanel(playPanel));
+        this.add(playBottomPanel);
 
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

@@ -30,6 +30,8 @@ public class WoodQuarry extends LiveElements {
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //health
+        //side
+        //capacity
     }
 }

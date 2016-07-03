@@ -20,11 +20,11 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
-
 /**
  * Created by mohamadamin on 6/24/16.
  */
 public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
+    private Constants.Elements selectedElements ;
     private Map map;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
@@ -33,7 +33,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
     private Preview preview;
-
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
@@ -44,7 +43,18 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private int goldRes = 0;
     private boolean isScoralling = false;
     int scoralSide = 4;
+    private int ZeroScale = Constants.giveMeZeroScale();
+
+    public Constants.Elements getSelectedElements() {
+        return selectedElements;
+    }
+
+    public void setSelectedElements(Constants.Elements selectedElement) {
+        this.selectedElements = selectedElement;
+    }
+
     FloatingCoordinate continuousMovement = new FloatingCoordinate(0, 0);
+    private PlayBottomPanel playBottomPanel;
 //    private woodR
 
     public PlayPanel(Map map, MiniMapPanel panel) {
@@ -149,16 +159,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setIcon(
                                 new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans()[i].get(j).getPicutreName())));
                         int x1, y1;
+                        //TODO we should correct human by  * (Constants.CELL_SIZE / Constants.giveMeZeroScale())
 //                        System.out.println("player real x is \t " + HumanManagers.getSharedInstance().getHumans()[0].get(j).getxCord() + "   and real y is \t" + HumanManagers.getSharedInstance().getHumans()[0].get(j).getyCord() );
-                        x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
-                        y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                        x1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord()  * Constants.CELL_SIZE / ZeroScale) - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
+                        y1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord()  * Constants.CELL_SIZE / ZeroScale) - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
 //                        System.out.println("x is \t" + x1 + "   y1 is \t"+ y1);
+//                        Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
+                       // if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
                         Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
 //                        if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
 //                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
 //                        if( x1 > 0 && y1 > 0 && x1 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE  && y1 <Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
                                 //                           System.out.println("player team is \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j).getPlayerNumber());
-                          revalidate();
+//                          revalidate();
                           HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
                            add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
 //                       }
@@ -170,6 +183,22 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             }
         });
 
+    }
+
+    public void fixingPositions(){
+        System.out.println(Constants.CELL_SIZE);
+        for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
+            for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
+                System.out.println(i);
+                System.out.println(j);
+                System.out.println(HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE));
+                System.out.println(HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE));
+                int x1, y1;
+                x1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
+                y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+            }
+        }
     }
 
 
@@ -194,6 +223,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     @Override
     public void mouseDragged(MouseEvent e) {
+
     }
 
     @Override
@@ -320,23 +350,49 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         start = coordinate;
     }
 
+    public InsideElementsItems getGameSelectedElement() {
+        return gameSelectedElement;
+    }
+
+    public void setPlayBottomPanel(PlayBottomPanel playBottomPanel) {
+        this.playBottomPanel = playBottomPanel;
+    }
+
+    public void zoomIn() {
+        int column = Constants.DRAWER_WIDTH/2 + start.getColumn();
+        int row = Constants.Drawer_HIGHT/2 + start.getRow();
+        zoomScale = Constants.incScale(zoomScale);
+        fixingStartInZoom(row, column);
+        repaint();
+        this.miniMap.updateFocus(start);
+    }
+
+    public void zoomOut(){
+        int column = Constants.DRAWER_WIDTH/2 + start.getColumn();
+        int row = Constants.Drawer_HIGHT/2 + start.getRow();
+        zoomScale = Constants.decScale(zoomScale);
+        fixingStartInZoom(row, column);
+        repaint();
+        this.miniMap.updateFocus(start);
+    }
+
     private class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
             // tODO Check it
-            int x, y;
-            x = e.getX() + start.getColumn() * Constants.CELL_SIZE;
-            y = e.getY() + start.getRow() * Constants.CELL_SIZE;
-
+            int x, y , realx, realy;
+            x = (e.getX() + start.getColumn() * Constants.CELL_SIZE);
+            y = (e.getY() + start.getRow() * Constants.CELL_SIZE);
+            realx = (e.getX()/Constants.CELL_SIZE)+start.getColumn();
+            realy = (e.getY()/Constants.CELL_SIZE)+start.getRow();
 
             // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                 System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
-
-
+                //TODO : finding which element is clicked
+                gameSelectedElement = findingwhichElementIsClicked(x, y, realx,realy);
                 System.out.println(gameSelectedElement);
-                gameSelectedElement = findingwhichHumanIsClicked(x, y);
-
+                playBottomPanel.repaint();
 
             } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
 
@@ -352,7 +408,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 //                        ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
 //
 //                    }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
-//                        ((Worker) gameSelectedElement).setKillingOpponent(false);
+//
+//      ((Worker) gameSelectedElement).setKillingOpponent(false);
 //                        ((Worker) gameSelectedElement).setAttackMove(false);
 //                    ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
 //                    }
@@ -399,6 +456,12 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             isScoralling = false;
             scoralSide = 4;
         }
+    }
+
+    private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
+        InsideElementsItems temp = findingwhichHumanIsClicked(x,y);
+        if(temp!= null) return temp;
+         return map.getCell(realx,realy).getInsideElementsItems();
     }
 
     private void setHumanAction(int x, int y) {

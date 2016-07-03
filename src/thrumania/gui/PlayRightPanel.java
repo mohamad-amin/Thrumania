@@ -54,9 +54,9 @@ public class PlayRightPanel extends JPanel {
         int elementCounter = 18;
         // upArrow :
         if (IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2, verticalSpaceBetweenElements * elementCounter, d.width + elementSize, verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord, mouseYcord)) {
-//            playPanel.setSelectedElelements(Constants.Elements.UP_ARROW);
+            playPanel.setSelectedElements(Constants.Elements.UP_ARROW);
             this.upArrowIsSelected = true;
-//            playPanel.scrollUp();
+            playPanel.scrollUp();
 
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -78,9 +78,9 @@ public class PlayRightPanel extends JPanel {
         elementCounter+= 4;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 + horizontalSpaceBetweenElements  , verticalSpaceBetweenElements * elementCounter , d.width / 2  + horizontalSpaceBetweenElements   + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
             // Constants.selectedElement = Constants.Elements.RIGHT_ARROW;
-//            playPanel.setSelectedElelements(Constants.Elements.RIGHT_ARROW);
+            playPanel.setSelectedElements(Constants.Elements.RIGHT_ARROW);
             rightArrowIsSelected = true;
-//            playPanel.scrollRight();
+            playPanel.scrollRight();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -98,9 +98,9 @@ public class PlayRightPanel extends JPanel {
         // left  arrow :
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width / 2 - horizontalSpaceBetweenElements  , verticalSpaceBetweenElements * elementCounter , d.width / 2  - horizontalSpaceBetweenElements   + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)) {
 
-//            playPanel.setSelectedElelements( Constants.Elements.LEFT_ARROW);
+            playPanel.setSelectedElements( Constants.Elements.LEFT_ARROW);
             leftArrowIsSelected = true;
-//            playPanel.scrollLeft();
+            playPanel.scrollLeft();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -119,9 +119,9 @@ public class PlayRightPanel extends JPanel {
         elementCounter +=4 ;
         if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 , verticalSpaceBetweenElements * elementCounter , d.width/2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord )) {
 
-//            playPanel.setSelectedElelements(  Constants.Elements.DOWN_ARROW);
+            playPanel.setSelectedElements(  Constants.Elements.DOWN_ARROW);
             downArrowIsSelected = true;
-//            playPanel.scrollDown();
+            playPanel.scrollDown();
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
 
@@ -174,6 +174,7 @@ public class PlayRightPanel extends JPanel {
         elementCounter += 6;
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements / 2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 - horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.ZOOM_IN);
+            playPanel.zoomIn();
             zoomInIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -191,6 +192,7 @@ public class PlayRightPanel extends JPanel {
         // zoom out :
         if ( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 + horizontalSpaceBetweenElements / 2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + horizontalSpaceBetweenElements / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.ZOOM_OUT);
+            playPanel.zoomOut();
             zoomOutIsSelected = true;
             repaint();
             new java.util.Timer().schedule(new TimerTask() {
@@ -204,45 +206,9 @@ public class PlayRightPanel extends JPanel {
             }, 110);
 
         }
-        // undo :
-        elementCounter +=6;
-        if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , d.width /2 - horizontalSpaceBetweenElements /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-//            playPanel.setSelectedElelements(Constants.Elements.UNDO);
-            undoIsSelected = true;
-            repaint();
-            new java.util.Timer().schedule(new TimerTask() {
-
-                @Override
-                public void run() {
-                    undoIsSelected = false;
-                    repaint();
-                }
-
-            }, 110);
-
-
-        }
-        // rodo:
-        if( IntegerUtils.isInSideTheRangeOfCordinates(d.width/2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , d.width /2 + horizontalSpaceBetweenElements /2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
-//            playPanel.setSelectedElelements(Constants.Elements.REDO);
-            redoIsSelelcted = true;
-            repaint();
-            new java.util.Timer().schedule(new TimerTask() {
-
-                @Override
-                public void run() {
-                    redoIsSelelcted = false;
-                    repaint();
-                }
-
-            }, 110);
-
-
-
-        }
         // exit :
         elementCounter +=6;
-        if( IntegerUtils.isInSideTheRangeOfCordinates(d.width /2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize , mouseXcord , mouseYcord)){
+        if( IntegerUtils.isInSideTheRangeOfCordinates(d.width /2 , verticalSpaceBetweenElements * elementCounter , d.width / 2 + elementSize , verticalSpaceBetweenElements * elementCounter + elementSize, mouseXcord , mouseYcord)){
 //            playPanel.setSelectedElelements(Constants.Elements.EXIT);
             exitIsSelected  = true;
             repaint();
@@ -335,20 +301,10 @@ public class PlayRightPanel extends JPanel {
             g.drawImage(ImageUtils.getImage("zoomOutRightPanel.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
         else if ( zoomOutIsSelected)
             g.drawImage(ImageUtils.getImage("zoomOutRightPanelHoover.png"), d.width / 2 + horizontalSpaceBetweenElements / 2, verticalSpaceBetweenElements * elementCounter, elementSize, elementSize, null);
-        // undo
-        elementCounter += 6;
-        if( ! undoIsSelected)
-            g.drawImage(ImageUtils.getImage("undoRightPanel.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
-        else if( undoIsSelected)
-            g.drawImage(ImageUtils.getImage("undoRightPanelHoover.png"), d.width /2 - horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null);
-        // redo
-        if( ! redoIsSelelcted)
-            g.drawImage(ImageUtils.getImage("redoRightPanel.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
-        else if( redoIsSelelcted)
-            g.drawImage(ImageUtils.getImage("redoRightPanelHoover.png"), d.width /2 + horizontalSpaceBetweenElements /2 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize, null);
-        // exit :
+                // exit :
         elementCounter +=6;
         if( ! exitIsSelected)
+            //TODO HOW TO HANDLE NEW MENUFRAME????
             g.drawImage(ImageUtils.getImage("exitRightPanel.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);
         else if( exitIsSelected)
             g.drawImage(ImageUtils.getImage("exitRightPanelHoover.png"), d.width /2 , verticalSpaceBetweenElements * elementCounter , elementSize +10 , elementSize + 10 , null);

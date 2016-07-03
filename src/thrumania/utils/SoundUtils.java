@@ -21,6 +21,8 @@ public class SoundUtils {
             clip = AudioSystem.getClip();
             AudioInputStream inputStream = AudioSystem.getAudioInputStream(new File(name));
             clip.open(inputStream);
+        }catch(FileNotFoundException e){
+            System.out.println("wave file not found.");
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {
