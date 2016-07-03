@@ -99,6 +99,19 @@ public abstract class Cell {
 
     //Todo Mohammad amin fix this
     public Cell getNeighbourSea(Cell[][] cells){
+        int i = getPosition().getRow(), j = getPosition().getColumn();
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
+                cells[i-1][j-1].getId() > 5) return cells[i-1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() > 5) return cells[i-1][j];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
+                cells[i-1][j+1].getId() > 5) return cells[i-1][j+1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
+                cells[i+1][j-1].getId() > 5) return cells[i+1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() > 5) return cells[i+1][j];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
+                cells[i+1][j+1].getId() > 5) return cells[i+1][j+1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() > 5) return cells[i][j-1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() > 5) return cells[i][j+1];
         return null;
     }
 
