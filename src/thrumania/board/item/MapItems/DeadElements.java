@@ -14,6 +14,8 @@ public abstract class DeadElements extends InsideElementsItems {
     public int MAX_CAPACITY = 100 ;
     protected  int speedCollectingWood = 20;
     protected boolean haveBuildingAssignedTo = false;
+    // - 1 -> means for all teams
+    protected int playerNumber = -1 ;
 
     public void setMAX_CAPACITY(int MAX_CAPACITY) {
         this.MAX_CAPACITY -= MAX_CAPACITY;
@@ -78,5 +80,13 @@ public abstract class DeadElements extends InsideElementsItems {
 
     public void HaveBuildingAssignedTo(boolean haveBuildingAssignedTo) {
         this.haveBuildingAssignedTo = haveBuildingAssignedTo;
+    }
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
     }
 }

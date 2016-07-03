@@ -1,16 +1,20 @@
 package thrumania.board.item.GameItems.ships;
 
 import thrumania.board.item.GameItems.buildings.*;
+import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.EmptyingHuman;
+import thrumania.messages.PickingHumanUp;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by sina on 7/3/16.
@@ -21,6 +25,9 @@ public class ContainerShip extends  Ships {
     private boolean isCapacityOfHavingPeopleInsideFull = false;
     private boolean canEmptyPoeple = false;
     private  boolean canTakePoeple = false;
+    private ArrayList<Human> indsideHumans  = new ArrayList<>();
+    private Coordinate coordinateWhereHumanIsSettingToMap;
+    private Human humanWhomeIsGoingToTheShip;
 
     public ContainerShip(PlayPanel playPanel , Map map  , int xCord , int yCord , int playNumber) {
 
@@ -70,8 +77,10 @@ public class ContainerShip extends  Ships {
                     !(cell.getInsideElementsItems() instanceof Farm) || !(cell.getInsideElementsItems() instanceof MineQuarry)
                     || !(cell.getInsideElementsItems() instanceof WoodQuarry) ||
                     !(cell.getInsideElementsItems() instanceof Barrack)) {
-               if(capaciyOfHavingHumanInside > 0)
-                canEmptyPoeple = true;
+               if(capaciyOfHavingHumanInside > 0) {
+                   canEmptyPoeple = true;
+                   coordinateWhereHumanIsSettingToMap = crd ;
+               }
             }else canEmptyPoeple = false;
 
         }else  canEmptyPoeple = false;
@@ -95,9 +104,7 @@ public class ContainerShip extends  Ships {
 
                 if ( ! pathOfCoordinates.isEmpty()){
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
-
                 }
-
 
 
 
@@ -109,22 +116,80 @@ public class ContainerShip extends  Ships {
             {
                 boolean isGoingToPickUp = false;
 
-                if( pathOfCoordinates.equals(coordinate))
-                    pathOfCoordinates.pop();
 
-                if( capaciyOfHavingHumanInside != MAX_CAPACITY_OF_HAVING_PEOPLE_INSIDE && checkWetherGoalIsLand(pathOfCoordinates.peek())  && isAnyHumanTooPickUp(pathOfCoordinates.peek())){
+                if( ! pathOfCoordinates.isEmpty()) {
+                    if (pathOfCoordinates.equals(coordinate))
+                        pathOfCoordinates.pop();
+                        checkWetherCanEmptyShipOnGoalCell(pathOfCoordinates.peek());
+                        checkWetherCapacityIsFull();
+                    if (pathOfCoordinates.size() == 1 && isCapacityOfHavingPeopleInsideFull && checkWetherGoalIsLand(pathOfCoordinates.peek()) && isAnyHumanTooPickUp(pathOfCoordinates.peek())) {
                         isGoingToPickUp = true;
-                    while (! pathOfCoordinates.isEmpty())
-                        pathOfCoordinates.pop();
-                    canTakePoeple =true;
-                    canEmptyPoeple = false;
-                }else if(! isGoingToPickUp &&  capaciyOfHavingHumanInside != 0 &&  checkWetherGoalIsLand(pathOfCoordinates.peek()))
-                {
-                    isGoingToPickUp = false;
-                    while (! pathOfCoordinates.isEmpty())
-                        pathOfCoordinates.pop();
-                    canEmptyPoeple =true;
-                    canTakePoeple = false;
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        canTakePoeple = true;
+                        canEmptyPoeple = false;
+                        moveState = StatesOfMoving.COLLECTING_HUMAN;
+                    } else if (pathOfCoordinates.size() == 1 && !isGoingToPickUp && capaciyOfHavingHumanInside != 0 && checkWetherGoalIsLand(pathOfCoordinates.peek()) && canEmptyPoeple) {
+                        isGoingToPickUp = false;
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        canEmptyPoeple = true;
+                        canTakePoeple = false;
+                        moveState = StatesOfMoving.EMPTYING_HUMAN;
+                    } else {
+                        regularMove(pathOfCoordinates.pop());
+
+
+                    }
+                }else if ( pathOfCoordinates.isEmpty())
+                    moveState =  StatesOfMoving.STOP;
+
+
+
+                break;
+            }
+            case COLLECTING_HUMAN:{
+                checkWetherCapacityIsFull();
+                if ( ! pathOfCoordinates.isEmpty())
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
+                else if( pathOfCoordinates.isEmpty()){
+                    if( canTakePoeple){
+                        playPanel.dispatchEvent(new PickingHumanUp(this , this ,humanWhomeIsGoingToTheShip));
+                        moveState = StatesOfMoving.COLLECTING_HUMAN_IS_DONE;
+
+                    }else moveState = StatesOfMoving.STOP;
+
+
+                }
+
+
+                break;
+            }
+
+
+            case  COLLECTING_HUMAN_IS_DONE:{
+
+                // TODO :
+
+                moveState = StatesOfMoving.STOP;
+                break;
+            }
+
+            case  EMPTYING_HUMAN:{
+
+                if( ! pathOfCoordinates.isEmpty())
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
+                else if ( pathOfCoordinates.isEmpty()){
+                    if( canEmptyPoeple){
+
+                        playPanel.dispatchEvent(new EmptyingHuman(playPanel , this , coordinateWhereHumanIsSettingToMap));
+                        moveState = StatesOfMoving.EMPTYING_HUMAN_IS_DONE;
+                        canEmptyPoeple = false;
+
+
+                    }
+
+
 
 
 
@@ -137,25 +202,13 @@ public class ContainerShip extends  Ships {
 
 
 
-
-                break;
-            }
-            case COLLECTING_HUMAN:{
-
-
-
-
-
-
-
                 break;
             }
 
+            case  EMPTYING_HUMAN_IS_DONE:{
+                // TODO :
 
-            case  COLLECTING_HUMAN_IS_DONE:{
-
-
-
+                moveState = StatesOfMoving.STOP;
 
 
 
@@ -188,8 +241,10 @@ public class ContainerShip extends  Ships {
         for ( int i =0 ; i < HumanManagers.getSharedInstance().getHumans()[playerNumber].size() ; i++){
 
 
-            if( HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getCoordinate().equals(crd))
-                return  true;
+            if( HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getCoordinate().equals(crd)) {
+                humanWhomeIsGoingToTheShip = HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i) ;
+                return true;
+            }
         }
         return  false ;
 
@@ -205,11 +260,36 @@ public class ContainerShip extends  Ships {
 
         while ( isAlive){
             consumingFood();
-//            if(canMove)
+            if(canMove)
+                examiningPath();
 
 
 
         }
 
+    }
+
+    public boolean isCanTakePoeple() {
+        return canTakePoeple;
+    }
+
+    public void setCanTakePoeple(boolean canTakePoeple) {
+        this.canTakePoeple = canTakePoeple;
+    }
+
+    public ArrayList<Human> getIndsideHumans() {
+        return indsideHumans;
+    }
+
+    public void setIndsideHumans(ArrayList<Human> indsideHumans) {
+        this.indsideHumans = indsideHumans;
+    }
+
+    public boolean isCanEmptyPoeple() {
+        return canEmptyPoeple;
+    }
+
+    public void setCanEmptyPoeple(boolean canEmptyPoeple) {
+        this.canEmptyPoeple = canEmptyPoeple;
     }
 }

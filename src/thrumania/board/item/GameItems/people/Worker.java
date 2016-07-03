@@ -263,7 +263,15 @@ public class Worker extends Human {
                         Coordinate tempC = pathOfCoordinates.pop();
                         resourceCoordinate =tempC;
 //                        coordinate = tempC;
-                        elementIsBeingCollected = map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).getInsideElementsItems();
+                        if( this.checkWetherThisWorkerCanCollectThisItem(map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).getInsideElementsItems())) {
+                            elementIsBeingCollected = map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).getInsideElementsItems();
+                            stateOfMove = statesOfMovement.Collecting_Item;
+                        }else {
+
+                            resourceCoordinate = null;
+                            stateOfMove = statesOfMovement.STOP;
+                        }
+
 //                        System.out.println("paht 1 is \t" + pathOfCoordinates);
 //                        elementIsBeingCollected = map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).getInsideElementsItems();
 //                        if (tempC.getRow() > coordinate.getRow())
@@ -280,7 +288,6 @@ public class Worker extends Human {
 //                        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
                         // TODO : handle it for tree if one tree is done go for te closest one if jungle is finished
 
-                        stateOfMove = statesOfMovement.Collecting_Item;
 
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
@@ -478,39 +485,35 @@ public class Worker extends Human {
                                         } catch (InterruptedException e) {
                                             e.printStackTrace();
                                         }
-                                        if(  ( (DeadElements )elementIsBeingCollected ).getMAX_CAPACITY() == 0)
-                                        {
-                                            map.getCell( resourceCoordinate.getRow() , resourceCoordinate.getColumn()).setInsideElementsItems(null);
-                                            playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT ));
-                                            if( isCapacityOfCollectingItemsFull)
+                                        if (((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0) {
+                                            map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).setInsideElementsItems(null);
+                                            playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
+                                            if (isCapacityOfCollectingItemsFull)
                                                 stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
                                             else
                                                 stateOfMove = statesOfMovement.STOP;
                                         }
-                                        if( elementIsBeingCollected instanceof  Tree) {
-                                            if( ((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
+                                        if (elementIsBeingCollected instanceof Tree) {
+                                            if (((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
                                                 capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
                                                 ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                            }else {
+                                            } else {
                                                 capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
                                                 ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
                                             }
 
-                                        }
-                                                else if( elementIsBeingCollected instanceof GoldMine) {
-                                            if( ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold)
-                                            {
-                                                capacityOfCollectingGold +=  ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
+                                        } else if (elementIsBeingCollected instanceof GoldMine) {
+                                            if (((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold) {
+                                                capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
                                                 ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                            }else {
+                                            } else {
                                                 capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
                                                 ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
                                             }
-                                        }
-                                                else if( elementIsBeingCollected instanceof  StoneMine) {
-                                            if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()){
+                                        } else if (elementIsBeingCollected instanceof StoneMine) {
+                                            if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()) {
                                                 capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
                                                 ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
 
@@ -617,6 +620,19 @@ public class Worker extends Human {
         }
     }
 
+
+    private boolean checkWetherThisWorkerCanCollectThisItem(InsideElementsItems crd ){
+//        Cell cell = map.getCell(crd.getRow() , crd.getColumn());
+        if (crd instanceof  DeadElements){
+
+            if( ( ((DeadElements) crd).getPlayerNumber() == -1 ||  ((DeadElements) crd).getPlayerNumber() == this.playerNumber))
+                return  true;
+            else return  false;
+        }
+        return  false;
+
+
+    }
 
     // TODO : we should check the path for builidings
     private boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {

@@ -4,14 +4,17 @@ package thrumania.gui;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
+import thrumania.board.item.GameItems.ships.Ships;
 import thrumania.board.item.InsideElementsItems;
-import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
+import thrumania.managers.ShipsManager;
+import thrumania.messages.EmptyingHuman;
 import thrumania.messages.Messages;
+import thrumania.messages.PickingHumanUp;
 import thrumania.utils.*;
 
 import javax.swing.*;
@@ -20,11 +23,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 /**
  * Created by mohamadamin on 6/24/16.
  */
 public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
-    private Constants.Elements selectedElements ;
+    private Constants.Elements selectedElements;
     private Map map;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
@@ -161,19 +165,21 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         int x1, y1;
                         //TODO we should correct human by  * (Constants.CELL_SIZE / Constants.giveMeZeroScale())
 //                        System.out.println("player real x is \t " + HumanManagers.getSharedInstance().getHumans()[0].get(j).getxCord() + "   and real y is \t" + HumanManagers.getSharedInstance().getHumans()[0].get(j).getyCord() );
-                        x1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord()  * Constants.CELL_SIZE / ZeroScale) - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
-                        y1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord()  * Constants.CELL_SIZE / ZeroScale) - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
+                        x1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() * Constants.CELL_SIZE / ZeroScale) - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
+                        y1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() * Constants.CELL_SIZE / ZeroScale) - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
 //                        System.out.println("x is \t" + x1 + "   y1 is \t"+ y1);
 //                        Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
-                       // if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
-                        Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
+                        // if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
+                        Coordinate tempCrd = IntegerUtils.getCoordinateWithXAndY(x1, y1);
 //                        if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
 //                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
 //                        if( x1 > 0 && y1 > 0 && x1 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE  && y1 <Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
-                                //                           System.out.println("player team is \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j).getPlayerNumber());
+                        //                           System.out.println("player team is \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j).getPlayerNumber());
 //                          revalidate();
-                          HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
-                           add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
+                        if (!HumanManagers.getSharedInstance().getHumans()[i].get(j).isHumanInsideTheShip()) {
+                            HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+                            add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
+                        }
 //                       }
 
 
@@ -185,7 +191,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     }
 
-    public void fixingPositions(){
+    public void fixingPositions() {
         System.out.println(Constants.CELL_SIZE);
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
             for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
@@ -330,6 +336,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     private Human findingwhichHumanIsClicked(int x, int y) {
+        // TODO : handling same team number for clicking
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
             for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
@@ -345,6 +352,22 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         return null;
 
     }
+    private  Ships findingWhichShipIsClicked ( int x , int y){
+        // TODO : handling same team number for clicking
+        Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
+
+        for ( int i = 0  ; i <ShipsManager.getShipInstance().getShips().length ; i++ ){
+            for (int j = 0; j < ShipsManager.getShipInstance().getShips()[i].size(); j++) {
+                if (ShipsManager.getShipInstance().getShips()[i].get(j).getCoordinate().equals(coord)){
+
+                    return  ShipsManager.getShipInstance().getShips()[i].get(j);
+                }
+
+            }
+
+        }
+        return  null;
+    }
 
     public void setStart(Coordinate coordinate) {
         start = coordinate;
@@ -359,17 +382,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     public void zoomIn() {
-        int column = Constants.DRAWER_WIDTH/2 + start.getColumn();
-        int row = Constants.Drawer_HIGHT/2 + start.getRow();
+        int column = Constants.DRAWER_WIDTH / 2 + start.getColumn();
+        int row = Constants.Drawer_HIGHT / 2 + start.getRow();
         zoomScale = Constants.incScale(zoomScale);
         fixingStartInZoom(row, column);
         repaint();
         this.miniMap.updateFocus(start);
     }
 
-    public void zoomOut(){
-        int column = Constants.DRAWER_WIDTH/2 + start.getColumn();
-        int row = Constants.Drawer_HIGHT/2 + start.getRow();
+    public void zoomOut() {
+        int column = Constants.DRAWER_WIDTH / 2 + start.getColumn();
+        int row = Constants.Drawer_HIGHT / 2 + start.getRow();
         zoomScale = Constants.decScale(zoomScale);
         fixingStartInZoom(row, column);
         repaint();
@@ -380,17 +403,17 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         @Override
         public void mouseClicked(MouseEvent e) {
             // tODO Check it
-            int x, y , realx, realy;
+            int x, y, realx, realy;
             x = (e.getX() + start.getColumn() * Constants.CELL_SIZE);
             y = (e.getY() + start.getRow() * Constants.CELL_SIZE);
-            realx = (e.getX()/Constants.CELL_SIZE)+start.getColumn();
-            realy = (e.getY()/Constants.CELL_SIZE)+start.getRow();
+            realx = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
+            realy = (e.getY() / Constants.CELL_SIZE) + start.getRow();
 
             // TODO : handling teams in selection
             if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                 System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                 //TODO : finding which element is clicked
-                gameSelectedElement = findingwhichElementIsClicked(x, y, realx,realy);
+                gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
                 System.out.println(gameSelectedElement);
                 playBottomPanel.repaint();
 
@@ -398,38 +421,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
 
                 // use right click to move else it it would realese the selected element
-
-
-                if (gameSelectedElement instanceof Worker) {
-//                    System.out.println("1");
-//                    if (((Worker) gameSelectedElement).isAttackMove()) {
-//                        ((Worker) gameSelectedElement).setAttackMove(false);
-//
-//                        ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-//
-//                    }else if( ((Worker) gameSelectedElement).isKillingOpponent()) {
-//
-//      ((Worker) gameSelectedElement).setKillingOpponent(false);
-//                        ((Worker) gameSelectedElement).setAttackMove(false);
-//                    ((Worker) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-//                    }
-
+                if (gameSelectedElement instanceof Human)
                     setHumanAction(x, y);
-
-
-                } else if (gameSelectedElement instanceof Soldier) {
-//                   if( ((Soldier) gameSelectedElement).isAttackMove()) {
-//                       ((Soldier) gameSelectedElement).setAttackMove(false);
-//
-//                       ((Soldier) gameSelectedElement).setStateOfMove(Human.statesOfMovement.MOVING_BY_ORDERED);
-//                   }
-//                    else if( ((Soldier) gameSelectedElement).isKillingOpponent()) {
-//                       ((Soldier) gameSelectedElement).setKillingOpponent(false);
-//                       ((Soldier) gameSelectedElement).setHumanIsAttacking(null);
-
-//                   }
-                    setHumanAction(x, y);
-                }
+                else if (gameSelectedElement instanceof Ships)
+                    setShipAction(x ,y);
 
 
             }
@@ -459,15 +454,19 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
-        InsideElementsItems temp = findingwhichHumanIsClicked(x,y);
-        if(temp!= null) return temp;
-         return map.getCell(realy,realx).getInsideElementsItems();
+        InsideElementsItems temp = findingwhichHumanIsClicked(x, y);
+        if (temp != null)
+            return temp;
+            temp = findingWhichShipIsClicked(x , y);
+            if (temp !=  null)
+                return  temp ;
+        return map.getCell(realy, realx).getInsideElementsItems();
     }
 
     private void setHumanAction(int x, int y) {
 
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
-        Cell cell = map.getCell(coord.getRow(), coord.getColumn());
+//        Cell cell = map.getCell(coord.getRow(), coord.getColumn());
 
 
 //        if ( cell.getInsideElementsItems() == null){
@@ -481,7 +480,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 ((Worker) gameSelectedElement).setPathOfCoordinates(
                         ((Worker) gameSelectedElement).getMapProcessor().getPath(
                                 ((Worker) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
-            }else {
+            } else {
                 System.out.println("path path path paht 555555");
                 ((Worker) gameSelectedElement).setPathOfCoordinates(
                         ((Worker) gameSelectedElement).getMapProcessor().getPath(
@@ -490,40 +489,56 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             }
 
 
-
-//            if (!((Worker) gameSelectedElement).isExecuted()) {
-//                ((Worker) gameSelectedElement).setExecuted(true);
-//                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
-//            }
-
-
         } else if (gameSelectedElement instanceof Soldier) {
 
-            if( ! ((Soldier) gameSelectedElement).getPathOfCoordinates().isEmpty()){
+            if (!((Soldier) gameSelectedElement).getPathOfCoordinates().isEmpty()) {
 
                 ((Soldier) gameSelectedElement).setPathOfCoordinates(
                         ((Soldier) gameSelectedElement).getMapProcessor().getPath(
-                                ((Soldier) gameSelectedElement).getPathOfCoordinates().peek() , coord , gameSelectedElement));
+                                ((Soldier) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
 
-            }else {
+            } else {
                 ((Soldier) gameSelectedElement).setPathOfCoordinates(
                         ((Soldier) gameSelectedElement).getMapProcessor().getPath(
                                 ((Soldier) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
 
 
             }
-            if (!((Soldier) gameSelectedElement).isExecuted()) {
-                ((Soldier) gameSelectedElement).setExecuted(true);
-                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
-            }
-
-
+//            if (!((Soldier) gameSelectedElement).isExecuted()) {
+//                ((Soldier) gameSelectedElement).setExecuted(true);
+//                HumanManagers.getSharedInstance().getThreadPoolExecutor().execute((Human) gameSelectedElement);
+//            }
 
 
         }
 
 
     }
+
+    private void setShipAction(int x, int y) {
+        Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
+
+        if (gameSelectedElement instanceof Ships) {
+
+            if (!((Ships) gameSelectedElement).getPathOfCoordinates().isEmpty()) {
+                ((Ships) gameSelectedElement).setPathOfCoordinates(((Ships) gameSelectedElement).getMapProcessor().getPath(
+                        ((Ships) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
+
+
+            } else if (((Ships) gameSelectedElement).getPathOfCoordinates().isEmpty()){
+
+                ((Ships) gameSelectedElement).setPathOfCoordinates(((Ships) gameSelectedElement).getMapProcessor().getPath(
+                        ((Ships) gameSelectedElement).getCoordinate() , coord , gameSelectedElement));
+
+
+            }
+
+
+        }
+
+
+    }
+
 
     public void fixingStartInZoom(int x, int y) {
         int startX = x - ((Constants.Drawer_HIGHT / 2) + (Constants.Drawer_HIGHT % 2));
@@ -653,8 +668,45 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     @Override
     protected void processComponentEvent(ComponentEvent e) {
-        if (e.getID() == Messages.REPAINT) this.repaint();
+        if (e.getID() == Messages.REPAINT) {
+            this.repaint();
+        } else if (e.getID() == Messages.EMPTING_HUMAN) {
+            EmptyingHuman r = (EmptyingHuman) e;
+            emptyHumanFromShip(r);
+
+        } else if (e.getID() == Messages.PICKING_HUMAN_UP) {
+
+            PickingHumanUp r = (PickingHumanUp) e;
+            pickHumanUp(r);
+
+
+        }
+
         super.processComponentEvent(e);
+
+    }
+
+    private void pickHumanUp(PickingHumanUp pickingHumanUp) {
+        pickingHumanUp.getContainerShip().getIndsideHumans().add(pickingHumanUp.getHuman());
+        pickingHumanUp.getHuman().setHumanInsideTheShip(true);
+        this.remove(pickingHumanUp.getHuman());
+        pickingHumanUp.getHuman().setVisible(false);
+        this.repaint();
+
+
+    }
+
+    private void emptyHumanFromShip(EmptyingHuman emptyingHuman) {
+
+        while (!emptyingHuman.getContainerShip().getIndsideHumans().isEmpty()) {
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setCoordinate(emptyingHuman.getEndCoord());
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setxCord(IntegerUtils.getXAndYWithCoordinate(emptyingHuman.getEndCoord())[0]);
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setyCord(IntegerUtils.getXAndYWithCoordinate(emptyingHuman.getEndCoord())[1]);
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setHumanInsideTheShip(false);
+            emptyingHuman.getContainerShip().getIndsideHumans().remove(0);
+        }
+
+
     }
 
 

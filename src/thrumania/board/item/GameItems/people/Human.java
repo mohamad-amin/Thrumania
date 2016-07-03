@@ -45,6 +45,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
 
+
     // this enum stands for both worker and soldier , but soldier does not have "COLLECTING_ITEM_IS_DONE" state
     public   enum statesOfMovement  {
            STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE
@@ -129,9 +130,10 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     }
     protected void regularMove(Coordinate end) {
         int xEnd, yEnd;
-
-        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
-        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
+        this.xCord = IntegerUtils.getXAndYWithCoordinate(coordinate)[0];
+        this.yCord = IntegerUtils.getXAndYWithCoordinate(coordinate)[1];
+//        this.xCord = coordinate.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
+//        this.yCord = coordinate.getRow() * Constants.CELL_SIZE;
         xEnd = end.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10;
         yEnd = end.getRow() * Constants.CELL_SIZE;
 
@@ -331,4 +333,13 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     public void setHumanIsAttacking(Human humanIsAttacking) {
         this.humanIsAttacking = humanIsAttacking;
     }
+
+    public boolean isHumanInsideTheShip() {
+        return isHumanInsideTheShip;
+    }
+
+    public void setHumanInsideTheShip(boolean humanInsideTheShip) {
+        isHumanInsideTheShip = humanInsideTheShip;
+    }
+
 }

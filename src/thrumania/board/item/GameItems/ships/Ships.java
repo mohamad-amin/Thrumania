@@ -42,7 +42,7 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
 
     public   enum  StatesOfMoving{
 
-        STOP , MOVE_BY_ORDER , COLLECTING_FISH , COLLECTING_FISH_IS_DONE , COLLECTING_HUMAN , COLLECTING_HUMAN_IS_DONE
+        STOP , MOVE_BY_ORDER , COLLECTING_FISH , COLLECTING_FISH_IS_DONE , COLLECTING_HUMAN , COLLECTING_HUMAN_IS_DONE , EMPTYING_HUMAN , EMPTYING_HUMAN_IS_DONE
     }
 
     public  StatesOfMoving moveState = StatesOfMoving.STOP;

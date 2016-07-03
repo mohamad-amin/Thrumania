@@ -24,9 +24,10 @@ public class IntegerUtils {
     }
 
     public static int[] getXAndYWithCoordinate(Coordinate crd) {
+        // TODO :
         int[] cords = new int[2];
-        cords[0] = crd.getColumn() * Constants.CELL_SIZE;
-        cords[1] = crd.getRow() * Constants.CELL_SIZE;
+        cords[0] = crd.getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10 ;
+        cords[1] = crd.getRow() * Constants.CELL_SIZE  + Constants.CELL_SIZE / 10 ;
         return cords;
 
     }

@@ -121,7 +121,7 @@ public class FisherShip extends  Ships{
 
                 if( ! pathOfCoordinates.isEmpty()) {
 
-                    if (super.checkWetherGoalIsLand(pathOfCoordinates.peek()))
+                    if ( super.checkWetherGoalIsLand(pathOfCoordinates.peek()))
                     {
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
@@ -134,7 +134,8 @@ public class FisherShip extends  Ships{
                     super.regularMove(pathOfCoordinates.pop());
 
 
-                }
+                }else if( pathOfCoordinates.isEmpty())
+                    moveState = StatesOfMoving.STOP;
 
 
                 // TODO:
