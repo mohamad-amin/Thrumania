@@ -11,7 +11,8 @@ import java.awt.*;
  * Created by AMIR on 7/1/2016.
  */
 public class Port extends LiveElements {
-//    TODO : @amirhosein :  requirments for building one
+    //TODO : @amirhosein :  requirments for building one
+    //TODO : @amirhossein : building a ship
 private Coordinate neighborsea;
     public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber ) {
         this.side = new Side(sideNumber);
@@ -30,6 +31,11 @@ private Coordinate neighborsea;
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //task : building ship(not available if no one is in the port)
+        //worker inside
+        //ships produced
+        //capacity of food stored
+        //side
+        //health
     }
 }

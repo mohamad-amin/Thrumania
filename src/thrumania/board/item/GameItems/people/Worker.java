@@ -17,6 +17,7 @@ import thrumania.messages.Messages;
 import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.ImageUtils;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
@@ -72,7 +73,7 @@ public class Worker extends Human {
 
         // aks :
         // TODO : setting pictures while moving ( sequence of pictures )
-        super.picutreName = "W033.png";
+        super.picutreName ="W033.png";
         // masir
 
         // booleans :
@@ -663,6 +664,10 @@ public class Worker extends Human {
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //health
+        //side
+        //capacity fulled
+        //task
+        //food consuming
     }
 }

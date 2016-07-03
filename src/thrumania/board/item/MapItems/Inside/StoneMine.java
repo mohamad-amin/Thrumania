@@ -54,6 +54,8 @@ public class StoneMine extends DeadElements {
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //capacity remaintig
+        //side
+        //health
     }
 }

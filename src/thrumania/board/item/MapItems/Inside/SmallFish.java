@@ -9,8 +9,6 @@ import java.awt.*;
 public class SmallFish extends DeadElements {
 
     public SmallFish() {
-
-
         super.springPictureName = "smallFish.png";
         super.summerPictureName = "smallFish.png";
         super.autumnPictureName = "smallFish.png";
@@ -20,6 +18,8 @@ public class SmallFish extends DeadElements {
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //side
+        //health
+        //capacity
     }
 }

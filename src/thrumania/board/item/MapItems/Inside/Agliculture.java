@@ -20,6 +20,9 @@ public class Agliculture extends DeadElements {
 
     @Override
     public void paintingOptions(Graphics g) {
-
+        //product produced
+        //time for bardasht!
+        //side
+        //health
     }
 }

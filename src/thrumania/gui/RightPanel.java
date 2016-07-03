@@ -19,7 +19,8 @@ import java.util.TimerTask;
  */
 public class RightPanel extends JPanel {
 
-    private Dimension d = new Dimension(this.getToolkit().getScreenSize().width - Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
+    private Dimension d = new Dimension(this.getToolkit().getScreenSize().width -
+            Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private int elementSize = 40;
     private int verticalSpaceBetweenElements = 40;
     private int horizontalSpaceBetweenElements = 45;
@@ -55,7 +56,6 @@ public class RightPanel extends JPanel {
         this.setLayout(null);
 
         this.addMouseListener(new MyMouseListener1());
-
 
     }
 
