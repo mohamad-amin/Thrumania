@@ -256,6 +256,11 @@ public class ContainerShip extends  Ships {
     }
 
     @Override
+    public void findingSelectedObject(int x, int y) {
+
+    }
+
+    @Override
     public void run() {
 
         while ( isAlive){

@@ -2,6 +2,8 @@ package thrumania.board.item.MapItems;
 
 import thrumania.board.item.InsideElementsItems;
 
+import java.awt.*;
+
 /**
  * Created by AMIR on 6/28/2016.
  */
@@ -80,6 +82,22 @@ public abstract class DeadElements extends InsideElementsItems {
 
     public void HaveBuildingAssignedTo(boolean haveBuildingAssignedTo) {
         this.haveBuildingAssignedTo = haveBuildingAssignedTo;
+    }
+
+    @Override
+    public void paintingOptions(Graphics g) {
+        super.paint(g);
+
+        Font myFont = new Font("Party Business", Font.BOLD, 20);
+        g.setFont(myFont);
+        g.setColor(Color.WHITE);
+        g.drawString("Capacity :", 150, 30);
+        g.drawString((Integer.toString(getMAX_CAPACITY())), 300, 30);
+    }
+
+    @Override
+    public void findingSelectedObject(int x, int y) {
+
     }
 
     public int getPlayerNumber() {

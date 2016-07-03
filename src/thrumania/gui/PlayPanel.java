@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 
+import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
@@ -455,9 +456,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
         InsideElementsItems temp = findingwhichHumanIsClicked(x, y);
-        if (temp != null)
-            return temp;
-            temp = findingWhichShipIsClicked(x , y);
+        if (temp != null) return temp;
+           // temp = findingWhichShipIsClicked(x , y);
             if (temp !=  null)
                 return  temp ;
         return map.getCell(realy, realx).getInsideElementsItems();
@@ -748,5 +748,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void setWoordRes(int woordRes) {
         this.woordRes += woordRes;
+    }
+
+    public void buildWorker(Castle castle){
+        Worker worker = new Worker(this, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
+        worker.setHomeCastleCoordinate(castle.getStartingPoint());
+        HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
+        Thread thread = new Thread(worker);
+        thread.start();
     }
 }

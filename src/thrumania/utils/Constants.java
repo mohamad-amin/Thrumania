@@ -27,6 +27,11 @@ public class Constants {
             DISTANCE_HIGHLAND_HIGHLAND = 2,
             DISTANCE_ISLAND_DISTINGUISHER = (MATRIX_WIDTH > MATRIX_HEIGHT) ? MATRIX_WIDTH * 5 : MATRIX_HEIGHT * 5;
 
+    public enum BottomPanelSelected {
+        addWorker, addSoldier, addContainerShip, addFisherShip
+
+    }
+
     public static int DRAWER_WIDTH = 32;
     public static int Drawer_HIGHT = 18;
     public static int[][] zoomNumbers = {
@@ -37,6 +42,7 @@ public class Constants {
             {62, 78, 21, 12}
     };
     public static long scrollSpeed = 50;
+    public static int sizeOfInformationBar = 14;
 
 
     public enum Elements {

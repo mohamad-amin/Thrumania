@@ -693,4 +693,9 @@ public class Worker extends Human {
         //task
         //food consuming
     }
+
+    @Override
+    public void findingSelectedObject(int x, int y) {
+
+    }
 }

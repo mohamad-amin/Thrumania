@@ -1,13 +1,11 @@
 package thrumania.gui;
 
-import com.sun.javafx.tk.*;
 import thrumania.utils.Constants;
 import thrumania.utils.ImageUtils;
 import thrumania.utils.IntegerUtils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.Toolkit;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.TimerTask;
@@ -281,14 +279,11 @@ public class BottomPanel extends JPanel {
 //
     }
 
-
     class MymouseListener implements MouseListener {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-
             findingSelectedObject(e.getX(), e.getY());
-
         }
 
         @Override

@@ -372,6 +372,11 @@ public class Soldier extends Human {
         //health
         //side
     }
+
+    @Override
+    public void findingSelectedObject(int x, int y) {
+
+    }
 }
 
 

@@ -1,7 +1,6 @@
 package thrumania.board.item.MapItems.Inside;
-import thrumania.board.item.MapItems.DeadElements;
 
-import java.awt.*;
+import thrumania.board.item.MapItems.DeadElements;
 
 /**
  * Created by sina on 5/18/16.
@@ -18,10 +17,4 @@ public class SmallFish extends DeadElements {
 
     }
 
-    @Override
-    public void paintingOptions(Graphics g) {
-        //side
-        //health
-        //capacity
-    }
 }

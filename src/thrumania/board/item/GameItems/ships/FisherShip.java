@@ -323,6 +323,11 @@ private  void  checkWetherTheCapacityIsFull(){
     }
 
     @Override
+    public void findingSelectedObject(int x, int y) {
+
+    }
+
+    @Override
     public void run() {
         while ( isAlive){
             this.consumingFood();

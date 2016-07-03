@@ -3,9 +3,14 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.gui.PlayBottomPanel;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.ImageUtils;
+import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
+import java.util.TimerTask;
 
 /**
  * Created by AMIR on 7/1/2016.
@@ -15,7 +20,8 @@ public class Port extends LiveElements {
     //TODO : @amirhossein : building a ship
 private Coordinate neighborsea;
     private  Coordinate portsCoordinate;
-    public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber ) {
+    public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber , PlayBottomPanel playBottomPanel) {
+        this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
@@ -45,12 +51,63 @@ private Coordinate neighborsea;
 
     @Override
     public void paintingOptions(Graphics g) {
-        //task : building ship(not available if no one is in the port)
-        //worker inside
-        //ships produced
-        //capacity of food stored
-        //side
-        //health
+        super.paint(g);
+
+        Font myFont = new Font("Party Business", Font.BOLD, 20);
+        g.setFont(myFont);
+        g.setColor(Color.WHITE);
+        g.drawString("health :" , 150 ,30);
+        g.drawString((Integer.toString( health.getHealth())),300,30);
+        g.drawString("Side :" , 150,60);
+        g.drawString((Integer.toString(side.getNumberOfPlayer()+1)),300,60);
+
+        int elementCounter = Constants.sizeOfInformationBar;
+        if (!b1IsSelected)
+            g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+        else if (b1IsSelected) {
+            g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b2IsSelected)
+            g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+        else if (b2IsSelected) {
+            g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+        }
+    }
+
+    @Override
+    public void findingSelectedObject(int mouseXcord, int mouseYcord) {
+        int elementCounter = Constants.sizeOfInformationBar;
+        //addingShip
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addFisherShip);
+            playBottomPanel.function();
+            b1IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b1IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+
+            }, 110);
+        }
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addContainerShip);
+            playBottomPanel.function();
+            b2IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b2IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+
+            }, 110);
+        }
     }
 
     @Override

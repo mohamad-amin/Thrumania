@@ -3,8 +3,6 @@ package thrumania.board.item.MapItems.Inside;
 import thrumania.board.item.MapItems.DeadElements;
 import thrumania.utils.Coordinate;
 
-import java.awt.*;
-
 /**
  * Created by sina on 5/22/16.
  */
@@ -52,10 +50,5 @@ public class StoneMine extends DeadElements {
         this.stoneRight = stoneRight;
     }
 
-    @Override
-    public void paintingOptions(Graphics g) {
-        //capacity remaintig
-        //side
-        //health
-    }
+
 }
