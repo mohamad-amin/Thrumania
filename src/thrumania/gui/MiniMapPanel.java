@@ -10,12 +10,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
 /**
  * Created by sina on 5/18/16.
  */
 
-public class MiniMapPanel extends JPanel implements MouseListener {
+public class MiniMapPanel extends JPanel implements MouseListener, MouseMotionListener {
 
     private Dimension d = new Dimension(this.getToolkit().getScreenSize().width - Constants.DRAWER_WIDTH * Constants.CELL_SIZE, this.getToolkit().getScreenSize().height - Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Map map;
@@ -31,6 +32,7 @@ public class MiniMapPanel extends JPanel implements MouseListener {
         this.setSize(d);
         this.setLayout(null);
         this.addMouseListener(this);
+        this.addMouseMotionListener(this);
     }
 
     public void setGamePanel(GamePanel panel) {
@@ -117,4 +119,26 @@ public class MiniMapPanel extends JPanel implements MouseListener {
     @Override
     public void mouseExited(MouseEvent e) {}
 
+    @Override
+    public void mouseDragged(MouseEvent e) {
+        int x = (int) e.getPoint().getX();
+        int y = (int) e.getPoint().getY();
+        System.out.println("Here with " + new Coordinate(x ,y));
+        x -= getBoxWidth()/2;
+        y -= getBoxHeight()/2;
+        if (x < 0) x = 0;
+        if (y < 0) y = 0;
+        if (x > getWidth()-getBoxWidth()) x = getWidth()-getBoxWidth();
+        if (y > getHeight()-getBoxHeight()) y = getHeight()-getBoxHeight();
+        x /= cellSize;
+        y /= cellSize;
+        updateFocus(new Coordinate(y, x));
+        if (gamePanel != null) gamePanel.setStart(new Coordinate(y, x));
+        else if (playPanel != null) playPanel.setStart(new Coordinate(y, x));
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 }
