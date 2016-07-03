@@ -33,7 +33,7 @@ public class Worker extends Human {
     private int capacityOfCollectingWood =0 ;
     private int capacityOfCollectingStone =0;
     private int capacityOfCollectingGold =0 ;
-    private boolean hasAttacked = false;
+
 
     private boolean isCapacityOfCollectingItemsFull;
     private int speadOfCollectingItems;
@@ -63,7 +63,7 @@ public class Worker extends Human {
 
 
 
-        super.isSelectedByPlayer = false;
+//        super.isSelectedByPlayer = false;
         // mokhtasat :
         super.xCord = xCord;
         super.yCord = yCord;
@@ -319,7 +319,6 @@ public class Worker extends Human {
                         attackMove(humanIsAttacking);
                     else stateOfMove = statesOfMovement.STOP;
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
-                       boolean b = ( IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking);
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         this.stateOfMove = statesOfMovement.KILLING;
@@ -340,7 +339,6 @@ public class Worker extends Human {
                         IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord())
                                 <= distanceShouldKeepWhenAttacking) {
 
-                    // TODO : handle : dead and kill
                     if (!hasAttacked){
                         hasAttacked = true;
 

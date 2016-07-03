@@ -154,7 +154,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         y1 = HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
 //                        System.out.println("x is \t" + x1 + "   y1 is \t"+ y1);
                         Coordinate tempCrd= IntegerUtils.getCoordinateWithXAndY(x1 , y1);
-                        if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
+//                        if( IntegerUtils.isInRange(0 , Constants.MATRIX_WIDTH, tempCrd.getColumn()) && IntegerUtils.isInRange(0 , Constants.MATRIX_HEIGHT , tempCrd.getRow() - 1))
 //                      if(!( map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() != null && map.getCell(tempCrd.getRow() + 1,tempCrd.getColumn()).getInsideElementsItems() instanceof Tree))
 //                        if( x1 > 0 && y1 > 0 && x1 < Constants.DRAWER_WIDTH * Constants.CELL_SIZE  && y1 <Constants.Drawer_HIGHT * Constants.CELL_SIZE) {
                                 //                           System.out.println("player team is \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j).getPlayerNumber());

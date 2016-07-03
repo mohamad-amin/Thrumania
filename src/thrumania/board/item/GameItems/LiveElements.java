@@ -15,6 +15,7 @@ public  abstract  class LiveElements extends DeadElements{
     protected Health health;
     protected Coordinate realPosition;
     protected Coordinate startingPoint;
+    protected boolean canMove = true;
 
     public Coordinate getStartingPoint() {return startingPoint;}
     public Coordinate getCastlePosition() {return realPosition;}
