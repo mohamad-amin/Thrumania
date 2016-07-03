@@ -1,11 +1,15 @@
 package thrumania.board.item.GameItems.ships;
 
+import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Inside.SmallFish;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.PortsManager;
+import thrumania.messages.Messages;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -26,7 +30,7 @@ public class FisherShip extends  Ships{
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
     private  Coordinate resourceCoordinate = null;
     private Coordinate whereToEmptiResources;
-
+    private InsideElementsItems elementIsBeingCollected = null;
     public FisherShip(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber){
         super.unitOfConsumingFood = 1;
         super.playPanel = playPanel;
@@ -93,7 +97,12 @@ public class FisherShip extends  Ships{
                         // check to see it should empty or not
                         if(checkWheterThereIsInthePlaceToEmptyResources())
                         {
-                            // TODO : empting resources
+                            playPanel.setFoodRes( capacityOfCollectingRecourses);
+                            capacityOfCollectingRecourses = 0;
+                            if( resourceCoordinate!= null )
+                                pathOfCoordinates  = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                                moveState =StatesOfMoving.MOVE_BY_ORDER;
+
                         }else {
                         // we should find the best place for making empty and move to that place
 
@@ -157,6 +166,51 @@ public class FisherShip extends  Ships{
 
                     }
                     else {
+
+                        if (((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0) {
+                            map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).setInsideElementsItems(null);
+                            playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
+                            if (isCapacityOfCollectingResourcesFUll)
+                                moveState = StatesOfMoving.COLLECTING_HUMAN_IS_DONE;
+                            else
+                                moveState = StatesOfMoving.STOP;
+                        }
+
+                        if (elementIsBeingCollected != null)
+                        {
+
+                            try {
+                                Thread.sleep(1000 / speedOfCollectingFood );
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+
+
+                                if ( ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() != 0){
+
+                                    if( ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() < ((DeadElements) elementIsBeingCollected).getEachElementCapacity()){
+
+                                        capacityOfCollectingRecourses += ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY();
+                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getMAX_CAPACITY());
+                                    }else {
+
+                                        capacityOfCollectingRecourses += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
+                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
+
+                                    }
+
+
+
+
+                            }
+
+
+
+
+
+
+
+                        }
                         // TODO : collect shit
 
 
@@ -175,9 +229,10 @@ public class FisherShip extends  Ships{
             {
                 if( !pathOfCoordinates.isEmpty())
                     moveState =StatesOfMoving.MOVE_BY_ORDER;
-                else if( false ){
-
-                    // TODO : find the best way
+//                else if( false ){
+                else{
+                    // TODO :
+                    pathOfCoordinates = findTheBestPlaceToEmptyResources();
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
                 }
 
@@ -226,9 +281,9 @@ private  void  checkWetherTheCapacityIsFull(){
 
     }
 
-    private Coordinate findTheBestPlaceToEmptyResources(){
-        Stack<Coordinate> path1 = new Stack<>();
-        Stack<Coordinate> path2 = new Stack<>();
+    private Stack<Coordinate> findTheBestPlaceToEmptyResources(){
+        Stack<Coordinate> path1 ;
+        Stack<Coordinate> path2 ;
 //        ArrayList<Coordinate> possibleCoordinates  = new ArrayList<>();
         Coordinate bestCoord = null;
         for (int  i =0 ; i< PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
@@ -251,9 +306,9 @@ private  void  checkWetherTheCapacityIsFull(){
         path1 = mapProcessor.getPath(coordinate , bestCoord, this);
         path2 = mapProcessor.getPath(coordinate , HomeCastleCoordinate, this);
         if ( path1.size() > path2.size())
-            bestCoord = HomeCastleCoordinate;
+          return path2;
 
-        return  bestCoord;
+        return  path1;
 
 //        Collections.sort(possibleCoordinates);
 

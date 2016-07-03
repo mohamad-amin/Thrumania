@@ -13,6 +13,8 @@ public class SmallFish extends DeadElements {
         super.summerPictureName = "smallFish.png";
         super.autumnPictureName = "smallFish.png";
         super.winterPictureName = "smallFish.png";
+        super.eachElementCapacity = 50;
+
 
     }
 
