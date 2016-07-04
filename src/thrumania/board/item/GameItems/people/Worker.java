@@ -202,10 +202,10 @@ public class Worker extends Human {
                 } else if (pathOfCoordinates.isEmpty()) {
 // second if someone is attacking , go for it
                         checkWheterCapacityIsFull();
-                    if (humanIsAttacking == null)
-                        if (canLookForOpponent)
-                            humanIsAttacking = seeAnyFoes();
-                        else humanIsAttacking = null;
+                   // if (humanIsAttacking == null)
+                       // if (canLookForOpponent)
+                           // humanIsAttacking = seeAnyFoes();
+                      //  else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                         stateOfMove = statesOfMovement.ATTACKING;
                     } else if (isCapacityOfCollectingItemsFull) {
@@ -248,7 +248,7 @@ public class Worker extends Human {
                 // TODO : we should check the path for builidings
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
-                        humanIsAttacking = seeAnyFoes();
+//                        humanIsAttacking = seeAnyFoes();
                     } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                     System.out.println("path path path 3333333");
@@ -324,6 +324,7 @@ public class Worker extends Human {
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else {
+                    System.out.println("herer  hererhrwkrfsdaklfsajf;asdflkasdjf;lsdafldsafj;");
                     if (isThisHumanVisible(humanIsAttacking))
                         attackMove(humanIsAttacking);
                     else stateOfMove = statesOfMovement.STOP;

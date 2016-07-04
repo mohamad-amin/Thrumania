@@ -65,9 +65,9 @@ public class Castle extends LiveElements {
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("farmer.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("farmer2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         }
     }
 
@@ -87,7 +87,6 @@ public class Castle extends LiveElements {
                     b1IsSelected = false;
                     playBottomPanel.repaint();
                 }
-
             }, 110);
         }
     }

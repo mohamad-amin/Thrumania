@@ -335,8 +335,6 @@ private  void  checkWetherTheCapacityIsFull(){
             this.consumingFood();
             if( canMove)
             examiningPath();
-
         }
-
     }
 }

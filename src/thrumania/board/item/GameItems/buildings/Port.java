@@ -63,15 +63,15 @@ private Coordinate neighborsea;
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("fishership.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("fishership2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         }
         elementCounter+=2;
         if (!b2IsSelected)
-            g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("containership.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (b2IsSelected) {
-            g.drawImage(ImageUtils.getImage("OceanBottomPanelHoover.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("containership2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         }
     }
 
