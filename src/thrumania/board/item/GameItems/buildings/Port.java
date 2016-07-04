@@ -28,6 +28,7 @@ private Coordinate neighborsea;
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.neighborsea= neighbourSea;

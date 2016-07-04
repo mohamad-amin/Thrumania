@@ -17,7 +17,6 @@ public abstract class DeadElements extends InsideElementsItems {
     protected  int speedCollectingWood = 20;
     protected boolean haveBuildingAssignedTo = false;
     // - 1 -> means for all teams
-    protected int playerNumber = -1 ;
 
     public void setMAX_CAPACITY(int MAX_CAPACITY) {
         this.MAX_CAPACITY -= MAX_CAPACITY;
@@ -93,6 +92,8 @@ public abstract class DeadElements extends InsideElementsItems {
         g.setColor(Color.WHITE);
         g.drawString("Capacity :", 150, 30);
         g.drawString((Integer.toString(getMAX_CAPACITY())), 300, 30);
+        g.drawString("Side :", 150, 600);
+        g.drawString((Integer.toString(getPlayerNumber())), 300, 60);
     }
 
     @Override
@@ -100,11 +101,4 @@ public abstract class DeadElements extends InsideElementsItems {
 
     }
 
-    public int getPlayerNumber() {
-        return playerNumber;
-    }
-
-    public void setPlayerNumber(int playerNumber) {
-        this.playerNumber = playerNumber;
-    }
 }

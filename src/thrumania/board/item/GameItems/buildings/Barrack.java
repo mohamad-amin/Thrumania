@@ -24,6 +24,7 @@ public class Barrack extends LiveElements {
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health(5000, 5000);

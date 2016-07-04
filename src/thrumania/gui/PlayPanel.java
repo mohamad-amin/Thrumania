@@ -157,7 +157,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     System.out.println("kalak");
                 }
             }
-
         }
     }
 
@@ -444,8 +443,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                     //TODO : finding which element is clicked
                     gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
-
-
+                    System.out.println(gameSelectedElement);
                     playBottomPanel.repaint();
                 } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
                     // use right click to move else it it would realese the selected element
