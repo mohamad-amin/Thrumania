@@ -37,6 +37,7 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
     @Override
     public void paint(Graphics g) {
         super.paint(g);
+        //g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
         InsideElementsItems gameSelectedElement = playPanel.getGameSelectedElement();
         if(gameSelectedElement!=null) gameSelectedElement.paintingOptions(g);
     }
@@ -82,6 +83,19 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
             case addContainerShip:
                 break;
             case addFisherShip:
+                break;
+            case buildingBarak:
+
+                break;
+            case buildingFarm:
+                break;
+            case buildingMinequarry:
+                break;
+            case buildingPort:
+                break;
+            case buildingWoodquarry:
+                break;
+            case mountainwaer:
                 break;
         }
     }

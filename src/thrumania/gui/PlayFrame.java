@@ -78,7 +78,7 @@ public class PlayFrame extends JFrame {
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
-            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel);
+            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,map);
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
             count++;
@@ -89,7 +89,7 @@ public class PlayFrame extends JFrame {
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
 
-        Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
+        Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer(),playBottomPanel);
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
         Thread thread = new Thread(worker);

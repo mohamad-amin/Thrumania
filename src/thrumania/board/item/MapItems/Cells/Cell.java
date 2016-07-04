@@ -10,7 +10,15 @@ import thrumania.utils.IntegerUtils;
  */
 
 public abstract class Cell {
+    public boolean isCanSetBuilding() {
+        return canSetBuilding;
+    }
 
+    public void setCanSetBuilding(boolean canSetBuilding) {
+        this.canSetBuilding = canSetBuilding;
+    }
+
+    protected boolean canSetBuilding = true;
     private int islandId = -1;
     private String pictureName;
     private Coordinate position;

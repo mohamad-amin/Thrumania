@@ -26,9 +26,10 @@ public class Constants {
             DISTANCE_LOWLAND_LOWLAND = 1,
             DISTANCE_HIGHLAND_HIGHLAND = 2,
             DISTANCE_ISLAND_DISTINGUISHER = (MATRIX_WIDTH > MATRIX_HEIGHT) ? MATRIX_WIDTH * 5 : MATRIX_HEIGHT * 5;
+    public static int OcupationOfQuarry = 10;
 
     public enum BottomPanelSelected {
-        addWorker, addSoldier, addContainerShip, addFisherShip
+        addWorker, addSoldier, addContainerShip, buildingBarak, buildingMinequarry, buildingWoodquarry, buildingPort, mountainwaer, buildingFarm, addFisherShip
 
     }
 

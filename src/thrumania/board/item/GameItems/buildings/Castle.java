@@ -3,6 +3,7 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -21,7 +22,9 @@ public class Castle extends LiveElements {
     private boolean isNearWater = false;
     private  Coordinate waterStartingPoint;
 
-    public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel) {
+    public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel , Map map) {
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
+        map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel= playBottomPanel;
         this.side = new Side(sideNumber);
         this.startingPoint = startingPoint;
@@ -65,9 +68,9 @@ public class Castle extends LiveElements {
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("farmer.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("farmer.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("farmer2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("farmer2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         }
     }
 
@@ -76,7 +79,7 @@ public class Castle extends LiveElements {
         int elementCounter = Constants.sizeOfInformationBar;
 
         //addingworker
-        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
             playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addWorker);
             playBottomPanel.function();
             b1IsSelected = true;

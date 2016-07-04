@@ -14,12 +14,14 @@ import thrumania.board.item.MapItems.Inside.StoneMine;
 import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
+import thrumania.gui.PlayBottomPanel;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
 import thrumania.messages.Messages;
 import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
+import thrumania.utils.ImageUtils;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
@@ -48,7 +50,8 @@ public class Worker extends Human {
 
     private Coordinate resourceCoordinate;
 
-    public Worker(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber) {
+    public Worker(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber, PlayBottomPanel playBottomPanel) {
+        this.playBottomPanel = playBottomPanel;
         // moshakhasat :
         super.health = 500;
         // TODO: DAMAGE IS IN RATE OF .5
@@ -125,7 +128,7 @@ public class Worker extends Human {
 
     @Override
     protected Human seeAnyFoes() {
-
+    synchronized (HumanManagers.getSharedInstance().getHumans()) {
         for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
             if (i != this.playerNumber)
                 for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++)
@@ -134,7 +137,7 @@ public class Worker extends Human {
         }
 
         return null;
-
+    }
     }
 
     private boolean isThisHumanVisible(Human human) {
@@ -688,15 +691,147 @@ public class Worker extends Human {
 
     @Override
     public void paintingOptions(Graphics g) {
-        //health
-        //side
-        //capacity fulled
-        //task
-        //food consuming
+        super.paint(g);
+
+        Font myFont = new Font("Party Business", Font.BOLD, 20);
+        g.setFont(myFont);
+        g.setColor(Color.WHITE);
+        g.drawString("health :" , 150 ,30);
+        g.drawString((Integer.toString( health)),300,30);
+        g.drawString("Side :" , 150,60);
+        g.drawString((Integer.toString(playerNumber+1)),300,60);
+
+        int elementCounter = Constants.sizeOfInformationBar;
+        if (!b1IsSelected)
+            g.drawImage(ImageUtils.getImage("barakmaking.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b1IsSelected) {
+            g.drawImage(ImageUtils.getImage("barakmaking2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b2IsSelected)
+            g.drawImage(ImageUtils.getImage("minequarrymaking.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b2IsSelected) {
+            g.drawImage(ImageUtils.getImage("minequarrymaking2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b3IsSelected)
+            g.drawImage(ImageUtils.getImage("woodquarrymaking.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b3IsSelected) {
+            g.drawImage(ImageUtils.getImage("woodquarrymaking2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b4IsSelected)
+            g.drawImage(ImageUtils.getImage("portmaking.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b4IsSelected) {
+            g.drawImage(ImageUtils.getImage("portmaking2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b5IsSelected)
+            g.drawImage(ImageUtils.getImage("farmmaking.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b5IsSelected) {
+            g.drawImage(ImageUtils.getImage("farmmaking2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
+        elementCounter+=2;
+        if (!b6IsSelected)
+            g.drawImage(ImageUtils.getImage("mountainwear.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        else if (b6IsSelected) {
+            g.drawImage(ImageUtils.getImage("mountainwear2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+        }
     }
 
     @Override
-    public void findingSelectedObject(int x, int y) {
+    public void findingSelectedObject(int mouseXcord, int mouseYcord) {
+        int elementCounter = Constants.sizeOfInformationBar;
 
+        //Barrak
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.buildingBarak);
+            playBottomPanel.function();
+            b1IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b1IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
+
+        //minequarry
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.buildingMinequarry);
+            playBottomPanel.function();
+            b2IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b2IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
+
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.buildingWoodquarry);
+            playBottomPanel.function();
+            b3IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b3IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
+
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.buildingPort);
+            playBottomPanel.function();
+            b4IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b4IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
+
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.buildingFarm);
+            playBottomPanel.function();
+            b5IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b5IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
+
+        elementCounter+=2;
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+            playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.mountainwaer);
+            playBottomPanel.function();
+            b6IsSelected = true;
+            playBottomPanel.repaint();
+            new java.util.Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    b6IsSelected = false;
+                    playBottomPanel.repaint();
+                }
+            }, 110);
+        }
     }
 }

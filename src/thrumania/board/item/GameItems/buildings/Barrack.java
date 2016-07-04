@@ -3,6 +3,7 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -17,7 +18,10 @@ import java.util.TimerTask;
  */
 public class Barrack extends LiveElements {
 
-    public Barrack(Coordinate realPosition, Coordinate startingPoint, int sideNumber, PlayBottomPanel playBottomPanel) {
+    public Barrack(Coordinate realPosition, Coordinate startingPoint, int sideNumber, PlayBottomPanel playBottomPanel, Map map) {
+        this.map = map;
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
+        map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         side = new Side(sideNumber);
         this.startingPoint = startingPoint;
@@ -47,9 +51,9 @@ public class Barrack extends LiveElements {
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("soldier.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("soldier.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("soldier2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("soldier2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         }
     }
 
@@ -58,7 +62,7 @@ public class Barrack extends LiveElements {
         int elementCounter = Constants.sizeOfInformationBar;
 
         //addingSoldier
-        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
             playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addSoldier);
             playBottomPanel.function();
             b1IsSelected = true;

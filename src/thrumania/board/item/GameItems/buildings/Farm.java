@@ -3,6 +3,7 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.utils.Coordinate;
 
@@ -13,7 +14,10 @@ import java.awt.*;
  */
 public class Farm extends LiveElements {
     private  Coordinate portsCoordinate;
-    public Farm (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber , PlayBottomPanel playBottomPanel) {
+    public Farm (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber , PlayBottomPanel playBottomPanel, Map map) {
+        this.map = map;
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
+        map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
         this.startingPoint = startingPoint;

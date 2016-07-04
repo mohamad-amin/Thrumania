@@ -33,6 +33,10 @@ public  abstract  class LiveElements extends DeadElements{
         winterPictureName = pictureName;
     }
 
+    public void destroy (){
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setInsideElementsItems(null);
+    }
+
     public Side getSide() {
         return side;
     }

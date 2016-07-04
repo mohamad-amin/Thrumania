@@ -3,6 +3,7 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -20,7 +21,11 @@ public class Port extends LiveElements {
     //TODO : @amirhossein : building a ship
 private Coordinate neighborsea;
     private  Coordinate portsCoordinate;
-    public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber , PlayBottomPanel playBottomPanel) {
+    public Port (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber ,
+                 PlayBottomPanel playBottomPanel,Map map) {
+        this.map = map;
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
+        map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
         this.startingPoint = startingPoint;
@@ -63,15 +68,15 @@ private Coordinate neighborsea;
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("fishership.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("fishership.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("fishership2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("fishership2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         }
         elementCounter+=2;
         if (!b2IsSelected)
-            g.drawImage(ImageUtils.getImage("containership.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("containership.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         else if (b2IsSelected) {
-            g.drawImage(ImageUtils.getImage("containership2.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("containership2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         }
     }
 
@@ -79,7 +84,7 @@ private Coordinate neighborsea;
     public void findingSelectedObject(int mouseXcord, int mouseYcord) {
         int elementCounter = Constants.sizeOfInformationBar;
         //addingShip
-        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
             playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addFisherShip);
             playBottomPanel.function();
             b1IsSelected = true;
@@ -94,7 +99,7 @@ private Coordinate neighborsea;
             }, 110);
         }
         elementCounter+=2;
-        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, d.height / 4, elementCounter * spaceBetweenElements + elementsSize, d.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
+        if (IntegerUtils.isInSideTheRangeOfCordinates(elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementCounter * spaceBetweenElements + elementsSize, sizeOfBottom.height / 4 + elementsSize, mouseXcord, mouseYcord)) {
             playBottomPanel.setBottomPanelSelected(Constants.BottomPanelSelected.addContainerShip);
             playBottomPanel.function();
             b2IsSelected = true;

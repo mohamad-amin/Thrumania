@@ -426,8 +426,6 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     setHumanAction(x, y);
                 else if (gameSelectedElement instanceof Ships)
                     setShipAction(x ,y);
-
-
             }
 
         }
@@ -752,13 +750,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     public void buildWorker(Castle castle){
-
-
-        Worker worker = new Worker(this , map , IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[0] , IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[1] , castle.getSide().getNumberOfPlayer());
-        worker.setHomeCastleCoordinate(castle.getStartingPoint());
-        HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
-        HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
-
-
+        synchronized (HumanManagers.getSharedInstance().getHumans()) {
+            Worker worker = new Worker(this, map, IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[0], IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[1], castle.getSide().getNumberOfPlayer(),playBottomPanel);
+            worker.setHomeCastleCoordinate(castle.getStartingPoint());
+            HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
+            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
+        }
     }
 }
