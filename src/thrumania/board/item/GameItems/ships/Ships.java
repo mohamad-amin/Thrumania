@@ -130,7 +130,7 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
 // tODO : for ship
         if (this instanceof FisherShip) {
             if (direction == 0 && thirdPartOfTheName >= 8)
-                thirdPartOfTheName =  upCounter = 0;
+                 upCounter = 0;
             else if (direction == 1 && thirdPartOfTheName >= 8)
                 thirdPartOfTheName = rightCounter = 0;
             else if (direction == 2 && thirdPartOfTheName >= 8)
@@ -138,7 +138,7 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
             else if (direction == 3 && thirdPartOfTheName >= 8)
                 thirdPartOfTheName =   leftCounter = 0;
 // TODO : fix the first number : playerNumber
-            pictureName = "W" + 0 + "" + direction + "" + thirdPartOfTheName + ".png";
+            pictureName = "F" + playerNumber % 4 + "" + direction  +".png";
         }
     } // TODO  : for soldier
 

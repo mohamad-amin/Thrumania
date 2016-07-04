@@ -120,4 +120,5 @@ private Coordinate neighborsea;
         underConstructed = false;
         setWithOnePicture("port.png");
     }
+
 }
