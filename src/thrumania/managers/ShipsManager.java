@@ -20,6 +20,9 @@ public class ShipsManager {
 
             shipInstance = new ShipsManager();
             shipInstance.ships = new ArrayList[Constants.NUMBER_OF_PLAYERS];
+            for (int i = 0; i < shipInstance.ships.length; i++) {
+                shipInstance.ships[i] = new ArrayList<>();
+            }
 
         }
         return  shipInstance;
@@ -34,5 +37,13 @@ public class ShipsManager {
 
     public void setShips(ArrayList<Ships>[] ships) {
         this.ships = ships;
+    }
+
+    public static ThreadPoolExecutor getShipThreadPoolExecuter() {
+        return shipThreadPoolExecuter;
+    }
+
+    public static void setShipThreadPoolExecuter(ThreadPoolExecutor shipThreadPoolExecuter) {
+        ShipsManager.shipThreadPoolExecuter = shipThreadPoolExecuter;
     }
 }

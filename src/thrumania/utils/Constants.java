@@ -33,6 +33,11 @@ public class Constants {
 
     }
 
+    public enum BuildSomething {
+        woodquarry, barrak, farm, minequarry, port
+
+    }
+
     public static int DRAWER_WIDTH = 32;
     public static int Drawer_HIGHT = 18;
     public static int[][] zoomNumbers = {

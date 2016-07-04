@@ -1,17 +1,21 @@
 package thrumania.gui;
 
 
-import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.GameItems.people.Worker;
+import thrumania.board.item.GameItems.ships.ContainerShip;
+import thrumania.board.item.GameItems.ships.FisherShip;
 import thrumania.board.item.GameItems.ships.Ships;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.Cells.Sea;
 import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
+import thrumania.managers.PortsManager;
 import thrumania.managers.ShipsManager;
 import thrumania.messages.EmptyingHuman;
 import thrumania.messages.Messages;
@@ -42,6 +46,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
+    private Constants.BuildSomething buildSomething = null;
     // needed for the resources :
     private int woordRes = 0;
     private int ironRes = 0;
@@ -50,6 +55,15 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     private boolean isScoralling = false;
     int scoralSide = 4;
     private int ZeroScale = Constants.giveMeZeroScale();
+    private int playernumber;
+
+    public Constants.BuildSomething getBuildSomething() {
+        return buildSomething;
+    }
+
+    public void setBuildSomething(Constants.BuildSomething buildSomething) {
+        this.buildSomething = buildSomething;
+    }
 
     public Constants.Elements getSelectedElements() {
         return selectedElements;
@@ -62,8 +76,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     FloatingCoordinate continuousMovement = new FloatingCoordinate(0, 0);
     private PlayBottomPanel playBottomPanel;
 //    private woodR
-
-    public PlayPanel(Map map, MiniMapPanel panel) {
+//Todo player number for teams
+    public PlayPanel(Map map, MiniMapPanel panel,int playernumber) {
+        this.playernumber = playernumber;
         this.miniMap = panel;
         this.map = map;
         this.setLayout(null);
@@ -413,22 +428,26 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             realx = (e.getX() / Constants.CELL_SIZE) + start.getColumn();
             realy = (e.getY() / Constants.CELL_SIZE) + start.getRow();
 
-            // TODO : handling teams in selection
-            if (e.getModifiersEx() == 0 && e.getButton() == 1) {
-                System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
-                //TODO : finding which element is clicked
-                gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
-                System.out.println(gameSelectedElement);
-                playBottomPanel.repaint();
-
-            } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
-
-
-                // use right click to move else it it would realese the selected element
-                if (gameSelectedElement instanceof Human)
-                    setHumanAction(x, y);
-                else if (gameSelectedElement instanceof Ships)
-                    setShipAction(x ,y);
+            if (buildSomething!=null) {
+                building(realx , realy);
+                System.out.println("game selected is .....");
+                setHumanAction(x , y);
+            }
+            else {
+                // TODO : handling teams in selectio
+                if (e.getModifiersEx() == 0 && e.getButton() == 1) {
+                    System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
+                    //TODO : finding which element is clicked
+                    gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
+                    System.out.println(gameSelectedElement);
+                    playBottomPanel.repaint();
+                } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
+                    // use right click to move else it it would realese the selected element
+                    if (gameSelectedElement instanceof Human)
+                        setHumanAction(x, y);
+                    else if (gameSelectedElement instanceof Ships)
+                        setShipAction(x, y);
+                }
             }
 
         }
@@ -770,5 +789,92 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
             HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
         }
+    }
+
+    public void buildContainerShip(Port port) {
+        synchronized (ShipsManager.getShipInstance().getShips()) {
+            System.out.println("hellohello");
+            ContainerShip containerShip = new ContainerShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[0],
+                    IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[1], port.getSide().getNumberOfPlayer());
+            ShipsManager.getShipInstance().getShips()[containerShip.getPlayerNumber()].add(containerShip);
+            ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(containerShip);
+        }
+    }
+
+    public void buildFisherShip(Port port) {
+        synchronized (ShipsManager.getShipInstance().getShips()) {
+            FisherShip fisherShip = new FisherShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[0],
+                    IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[1], port.getSide().getNumberOfPlayer());
+            ShipsManager.getShipInstance().getShips()[fisherShip.getPlayerNumber()].add(fisherShip);
+            ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(fisherShip);
+        }
+    }
+
+    public void building(int realx,int realy){
+        Coordinate realPosition = new Coordinate(realx,realy);
+        switch (buildSomething){
+            case port :
+                if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
+                    if (map.getCell(realy, realx).getCanSetBuilding()) {
+                        if (Requirements.Port(foodRes,goldRes,ironRes)){
+                            if(map.getCell(realx,realy).getNeighbourSea(map.getCells()).getPosition()!=null) {
+                                Port p = new Port(realPosition,
+                                        map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
+                                        map.getCell(realx, realy).getNeighbourSea(map.getCells()).getPosition(),
+                                        playernumber, playBottomPanel, map);
+                                map.getCell(realy, realx).setInsideElementsItems(p);
+                                PortsManager.getPortSharedInstance().getPorts()[playernumber].add(p);
+                            }
+                        }
+                    }
+                }
+                break;
+            case barrak :
+                if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
+                    if (map.getCell(realy, realx).getCanSetBuilding()) {
+                        if (Requirements.Barrak(foodRes,goldRes,ironRes)){
+                            map.getCell(realy, realx).setInsideElementsItems(new Barrack(realPosition,
+                                    map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
+                                    playernumber, playBottomPanel, map));
+                        }
+                    }
+                }
+                break;
+            case woodquarry :
+                if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
+                    if (map.getCell(realy, realx).getCanSetBuilding()) {
+                        if (Requirements.WoodQuarry(foodRes,goldRes,ironRes)){
+                            map.getCell(realy, realx).setInsideElementsItems(new WoodQuarry(realPosition,
+                                    map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
+                                    playernumber, playBottomPanel, map));
+                        }
+                    }
+                }
+                break;
+            case minequarry :
+                if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
+                    if (map.getCell(realy, realx).getCanSetBuilding()) {
+                        if (Requirements.MineQuarry(foodRes,goldRes,ironRes)){
+                            map.getCell(realy, realx).setInsideElementsItems(new MineQuarry(realPosition,
+                                    map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
+                                    playernumber, playBottomPanel, map));
+                        }
+                    }
+                }
+                break;
+            case farm :
+                if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
+                    if (map.getCell(realy, realx).getCanSetBuilding()) {
+                        if (Requirements.Farm(foodRes,goldRes,ironRes)){
+                            map.getCell(realy, realx).setInsideElementsItems(new Farm(realPosition,
+                                    map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
+                                    playernumber, playBottomPanel, map));
+                        }
+                    }
+                }
+                break;
+        }
+        repaint();
+        buildSomething =null;
     }
 }

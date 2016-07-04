@@ -22,7 +22,10 @@ public  static PortsManager getPortSharedInstance(){
 
         portInstance = new PortsManager();
         portInstance.ports =  new ArrayList[Constants.NUMBER_OF_PLAYERS];
+        for (int i = 0; i < portInstance.ports.length; i++) {
+            portInstance.ports[i] = new ArrayList<Port>();
 
+        }
 
     }
     return  portInstance;

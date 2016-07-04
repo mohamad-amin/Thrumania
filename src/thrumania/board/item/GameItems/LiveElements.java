@@ -9,7 +9,7 @@ import thrumania.utils.Coordinate;
 /**
  * Created by sina on 5/22/16.
  */
-public  abstract  class LiveElements extends DeadElements {
+public  abstract  class LiveElements extends DeadElements{
     protected boolean underConstructed = true;
     protected Capacity capicity;
     protected Side side;
@@ -45,8 +45,10 @@ public  abstract  class LiveElements extends DeadElements {
         winterPictureName = pictureName;
     }
 
-    public void destroy() {
-        map.getCell(realPosition.getRow(), realPosition.getColumn()).setInsideElementsItems(null);
+    public void destroy (){
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(true);
+        map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(true);
+        map.getCell(realPosition.getRow(),realPosition.getColumn()).setInsideElementsItems(null);
     }
 
     public Side getSide() {
