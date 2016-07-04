@@ -40,7 +40,8 @@ public class BottomPanel extends JPanel {
         this.setLayout(null);
         this.addMouseListener(new MymouseListener());
         this.gamePanel = gamePanel;
-
+        Color color = new Color(221 ,231 ,220);
+         this.setBackground(color);
         //  Button button1 = new Button("sina", "OceanBottomPanel.png", 0 ,100 , new Dimension(50,50));
 //        this.add(button1);
 //        this.add( new ImageIcon(ImageUtils.getImage("rightPanel.jpg")))
@@ -220,7 +221,8 @@ public class BottomPanel extends JPanel {
         super.paint(g);
         int elementCounter = 1;
 
-        g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
+//        g.drawImage(ImageUtils.getImage("rightPanel.jpg"), 0, 0, d.width, d.height, null);
+
         if (!deepSeaIsSelected)
             g.drawImage(ImageUtils.getImage("OceanBottomPanel.png"), elementCounter * spaceBetweenElements, d.height / 4, elementsSize, elementsSize, null);
         else if (deepSeaIsSelected) {

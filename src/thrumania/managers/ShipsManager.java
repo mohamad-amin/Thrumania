@@ -4,6 +4,7 @@ import thrumania.board.item.GameItems.ships.Ships;
 import thrumania.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
 
 /**
@@ -23,7 +24,7 @@ public class ShipsManager {
             for (int i = 0; i < shipInstance.ships.length; i++) {
                 shipInstance.ships[i] = new ArrayList<>();
             }
-
+            shipThreadPoolExecuter =  (ThreadPoolExecutor) Executors.newCachedThreadPool();
         }
         return  shipInstance;
 

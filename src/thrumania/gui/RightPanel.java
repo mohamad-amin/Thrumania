@@ -52,7 +52,8 @@ public class RightPanel extends JPanel {
 
         this.setLocation(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, 0);
         this.setSize(d);
-
+        Color color = new Color(228,225,254);
+        this.setBackground(color);
         this.setLayout(null);
 
         this.addMouseListener(new MyMouseListener1());
@@ -338,7 +339,7 @@ public class RightPanel extends JPanel {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.drawImage(ImageUtils.getImage("bottomPanel.jpg"), 0, 0, d.width, d.height, null);
+//        g.drawImage(ImageUtils.getImage("bottomPanel.jpg"), 0, 0, d.width, d.height, null);
 
         int elementCounter = 1;
         // impelenting arrow keys

@@ -221,7 +221,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
             else if (direction == 3 && thirdPartOfTheName >= 8)
              thirdPartOfTheName =   leftCounter = 0;
 // TODO : fix the first number : playerNumber
-            this.picutreName = "W" + 0 + "" + direction + "" + thirdPartOfTheName + ".png";
+            this.picutreName = "W" + playerNumber % 4 + "" + direction + "" + thirdPartOfTheName + ".png";
         }
     } // TODO  : for soldier
 
