@@ -74,7 +74,7 @@ public class FisherShip extends  Ships{
     }
     private void examiningPath(){
 
-
+// TODO : we Should set the homecoordinate of ship
         switch (moveState){
 
 
@@ -303,12 +303,14 @@ private  void  checkWetherTheCapacityIsFull(){
 
         }
         // TODO for path 2
-        path1 = mapProcessor.getPath(coordinate , bestCoord, this);
-        path2 = mapProcessor.getPath(coordinate , HomeCastleCoordinate, this);
-        if ( path1.size() > path2.size())
-          return path2;
+        path1 = mapProcessor.getPath(coordinate, bestCoord, this);
+        if ( this.HomeCastleCoordinate != null) {
+            path2 = mapProcessor.getPath(coordinate, HomeCastleCoordinate, this);
+            if (path1.size() > path2.size())
+                return path2;
 
-        return  path1;
+            return path1;
+        }else return   path1;
 
 //        Collections.sort(possibleCoordinates);
 
