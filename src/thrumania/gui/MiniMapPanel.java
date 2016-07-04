@@ -126,7 +126,6 @@ public class MiniMapPanel extends JPanel implements MouseListener, MouseMotionLi
     public void mouseDragged(MouseEvent e) {
         int x = (int) e.getPoint().getX();
         int y = (int) e.getPoint().getY();
-        System.out.println("Here with " + new Coordinate(x ,y));
         x -= getBoxWidth()/2;
         y -= getBoxHeight()/2;
         if (x < 0) x = 0;

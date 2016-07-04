@@ -372,6 +372,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     public void setStart(Coordinate coordinate) {
         start = coordinate;
+        repaint();
     }
 
     public InsideElementsItems getGameSelectedElement() {
