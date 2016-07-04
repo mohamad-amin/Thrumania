@@ -2,6 +2,9 @@ package thrumania.board.item.GameItems.people;
 
 import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.InsideElementsItems;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.game.MapProcessor;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -42,6 +45,9 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     private  boolean wentRight = false;
     protected boolean hasAttacked = false;
     protected boolean isHumanInsideTheShip = false;
+    protected InsideElementsItems elementIsBeingCollected;
+    protected InsideElementsItems onTheWayBuilding ;
+
 
 
 
@@ -196,6 +202,22 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
     }
+
+
+    protected boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
+
+        if( map.getCell(crd.getRow() , crd.getColumn())  instanceof LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand){
+            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+                this.onTheWayBuilding = cell.getInsideElementsItems();
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
     // 0 -> up
     // 1 -> right
     // 2 -> down

@@ -44,9 +44,6 @@ public class Worker extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE -5 , Constants.CELL_SIZE - 5);
     private int MAX_RESOURCE_CAPACITY = 300;
-    private InsideElementsItems elementIsBeingCollected;
-    private InsideElementsItems onTheWayBuilding ;
-
 
     private Coordinate resourceCoordinate;
 
@@ -743,19 +740,6 @@ public class Worker extends Human {
     }
 
     // TODO : we should check the path for builidings
-    private boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
-
-        if( map.getCell(crd.getRow() , crd.getColumn())  instanceof  LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof  HighLand){
-            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
-                this.onTheWayBuilding = cell.getInsideElementsItems();
-                return true;
-            }
-        }
-
-        return false;
-
-    }
 
     private boolean checkWetherTheGoalCellIsResourcesOrNot(Coordinate crd) {
 

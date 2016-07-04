@@ -1,5 +1,7 @@
 package thrumania.board.item.GameItems.people;
 
+import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
@@ -7,7 +9,9 @@ import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.Messages;
 import thrumania.messages.RemovingFromPanel;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -22,7 +26,7 @@ public class Soldier extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
     private Human humanIsAttacking = null;
-
+    private InsideElementsItems onTheWayBuilding ;
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber) {
 
@@ -165,7 +169,21 @@ public class Soldier extends Human {
                     if (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
 
                         regularMove(pathOfCoordinates.pop());
-                    } else {
+                    }else if ( pathOfCoordinates.size() == 1 &&  checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
+
+                        if( onTheWayBuilding != null &&  ((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber){
+
+                            this.stateOfMove  = statesOfMovement.DESTRUCTION_BUILDINGS;
+                        } else {
+
+                            while (! pathOfCoordinates.isEmpty())
+                                pathOfCoordinates.pop();
+                            stateOfMove = statesOfMovement.STOP;
+                        }
+
+
+
+                    } else{
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.STOP;
@@ -330,6 +348,45 @@ public class Soldier extends Human {
                 } else {
                     stateOfMove = statesOfMovement.STOP;
                 }
+                break;
+            }
+            case  DESTRUCTION_BUILDINGS:{
+
+                if (   ((LiveElements) onTheWayBuilding).isUnderConstructed()){
+
+                    try {
+                        Thread.sleep( 1000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    ((LiveElements) onTheWayBuilding).destroy();
+                    onTheWayBuilding = null;
+                    stateOfMove = statesOfMovement.STOP;
+                    playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT));
+
+
+
+                }else {
+
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    ((LiveElements) onTheWayBuilding).destroy();
+                    onTheWayBuilding = null;
+                    stateOfMove = statesOfMovement.STOP;
+                    playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT));
+
+
+
+                }
+
+
+
+
                 break;
             }
 
