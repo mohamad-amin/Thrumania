@@ -75,7 +75,7 @@ public class Worker extends Human {
 
         // aks :
         // TODO : setting pictures while moving ( sequence of pictures )
-        super.picutreName ="W033.png";
+        super.picutreName ="W" + playerNumber %4 + "33.png";
         // masir
 
         // booleans :

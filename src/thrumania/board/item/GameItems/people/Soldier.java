@@ -44,7 +44,8 @@ public class Soldier extends Human {
 
         // aks :
         // TODO : changing picure of shape
-        super.picutreName = "manStanding.png";
+        super.picutreName ="S" + playerNumber %4 + "00.png";
+
         // TODO:
 
         // mokhtasat
