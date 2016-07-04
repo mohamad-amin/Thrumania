@@ -48,7 +48,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     // this enum stands for both worker and soldier , but soldier does not have "COLLECTING_ITEM_IS_DONE" state
     public   enum statesOfMovement  {
-           STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE
+           STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE , CONSTRUCTING_HUMAN , CONSTRUCTING_HUMAN_IS_DONE , DESTRUCTION_BUILDINGS
     }
     protected statesOfMovement stateOfMove  = statesOfMovement.ATTACKING.STOP;
 
@@ -91,7 +91,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 leftCounter = 0 ;
                 downCounter = 0 ;
                 upCounter = 0 ;
-//                this.setPicturesOfMoving(1 , rightCounter);
+                this.setPicturesOfMoving(1 , rightCounter);
                 rightCounter ++ ;
                 counter ++;
 
@@ -99,7 +99,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
             else if (xCord > human.getxCord()) {
                 xCord--;
                 upCounter =  rightCounter = downCounter = 0;
-//                this.setPicturesOfMoving(3 , leftCounter);
+                this.setPicturesOfMoving(3 , leftCounter);
                 leftCounter ++ ;
                 counter ++;
             }
@@ -108,12 +108,12 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 if (yCord < human.getyCord()) {
                     yCord++;
                     upCounter = rightCounter = leftCounter = 0;
-//                    this.setPicturesOfMoving(2, downCounter);
+                    this.setPicturesOfMoving(2, downCounter);
                     downCounter++;
                 } else if (yCord > human.getyCord()) {
                     yCord--;
                     rightCounter = downCounter = leftCounter = 0;
-//                    this.setPicturesOfMoving(0, upCounter);
+                    this.setPicturesOfMoving(0, upCounter);
                     upCounter++;
                 }
 //            }
@@ -220,6 +220,22 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
 
+    protected boolean isThisHumanVisible(Human human) {
+
+        if (IntegerUtils.getDistanceOfTWoIntegers(this.xCord,
+                human.getxCord()) < this.visibilityUnit) {
+            if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
+                    human.getyCord()) < this.visibilityUnit) {
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+
+    }
 
 
 
@@ -342,4 +358,8 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         isHumanInsideTheShip = humanInsideTheShip;
     }
 
+
+    public int getDamageUnit() {
+        return damageUnit;
+    }
 }

@@ -1,9 +1,6 @@
 package thrumania.board.item.GameItems.people;
 
-import thrumania.board.item.GameItems.buildings.Barrack;
-import thrumania.board.item.GameItems.buildings.Castle;
-import thrumania.board.item.GameItems.buildings.MineQuarry;
-import thrumania.board.item.GameItems.buildings.WoodQuarry;
+import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
@@ -17,8 +14,7 @@ import thrumania.game.MapProcessor;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
-import thrumania.messages.Messages;
-import thrumania.messages.SimpleMessages;
+import thrumania.messages.RemovingFromPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -44,7 +40,7 @@ public class Worker extends Human {
     private int speadOfCollectingItems;
     private PlayPanel playPanel;
     private Map map;
-    private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
+    private Dimension d = new Dimension(Constants.CELL_SIZE -5 , Constants.CELL_SIZE - 5);
     private int MAX_RESOURCE_CAPACITY = 300;
     private InsideElementsItems elementIsBeingCollected;
 
@@ -57,7 +53,7 @@ public class Worker extends Human {
         // TODO: DAMAGE IS IN RATE OF .5
         super.damageUnit = 20;
         //TODO : 15
-        super.visibilityUnit = 100;
+        super.visibilityUnit = 80;
         // requiments :
         super.foodReq = 1000;
         super.woodReq = 0;
@@ -116,10 +112,10 @@ public class Worker extends Human {
     }
     protected void determiningSpeedOfCollectingItems(InsideElementsItems  element){
 
-            if(! ((DeadElements) element).getHaveBuildingAssignedTo())
-                speadOfCollectingItems = 20 ;
-            else
-                speadOfCollectingItems = 40 ;
+        if(! ((DeadElements) element).getHaveBuildingAssignedTo())
+            speadOfCollectingItems = 20 ;
+        else
+            speadOfCollectingItems = 40 ;
         // TODO : if that source has  its quarry the speed should : * 2
         // TODO @amirhosein  :   first amirhosein should put a boolean  variable to the trees and gold mines and stone mines too  see wether there is any quarry assigned to that resource or not
 
@@ -128,32 +124,22 @@ public class Worker extends Human {
 
     @Override
     protected Human seeAnyFoes() {
-    synchronized (HumanManagers.getSharedInstance().getHumans()) {
-        for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
-            if (i != this.playerNumber)
-                for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++)
-                    if (isThisHumanVisible(HumanManagers.getSharedInstance().getHumans()[i].get(j)))
-                        return HumanManagers.getSharedInstance().getHumans()[i].get(j);
-        }
 
-        return null;
-    }
-    }
+        synchronized (HumanManagers.getSharedInstance().getHumans()) {
+            for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
+                if (i != this.playerNumber)
+                    for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
+//                    System.out.println("error is here \t" + HumanManagers.getSharedInstance().getHumans()[i].get(j));
+                        if (isThisHumanVisible(HumanManagers.getSharedInstance().getHumans()[i].get(j)))
+                            return HumanManagers.getSharedInstance().getHumans()[i].get(j);
 
-    private boolean isThisHumanVisible(Human human) {
-
-        if (IntegerUtils.getDistanceOfTWoIntegers(this.xCord,
-                human.getxCord()) < this.visibilityUnit) {
-            if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
-                    human.getyCord()) < this.visibilityUnit) {
-                return true;
-
+                    }
             }
 
-        }
 
-        return false;
+        return null;
 
+    }
 
     }
 
@@ -204,11 +190,11 @@ public class Worker extends Human {
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 } else if (pathOfCoordinates.isEmpty()) {
 // second if someone is attacking , go for it
-                        checkWheterCapacityIsFull();
-                   // if (humanIsAttacking == null)
-                       // if (canLookForOpponent)
-                           // humanIsAttacking = seeAnyFoes();
-                      //  else humanIsAttacking = null;
+                    checkWheterCapacityIsFull();
+                    if (humanIsAttacking == null)
+                        if (canLookForOpponent)
+                            humanIsAttacking = seeAnyFoes();
+                        else humanIsAttacking = null;
                     if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                         stateOfMove = statesOfMovement.ATTACKING;
                     } else if (isCapacityOfCollectingItemsFull) {
@@ -251,7 +237,7 @@ public class Worker extends Human {
                 // TODO : we should check the path for builidings
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
-//                        humanIsAttacking = seeAnyFoes();
+                        humanIsAttacking = seeAnyFoes();
                     } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
                     System.out.println("path path path 3333333");
@@ -294,7 +280,16 @@ public class Worker extends Human {
 
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
-                    }else if( false){
+                    }else if(!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
+                        if( false){
+
+                            // TODO :it was under construction
+                        }
+                        else{
+
+
+                            // tODO ; dont go into it
+                        }
                         // TODO check next one is building which is under construction or not ....... if it is then ......
 
                     }
@@ -302,15 +297,16 @@ public class Worker extends Human {
 
                         if (pathOfCoordinates.peek().equals(coordinate))
                             pathOfCoordinates.pop();
-                        if (!pathOfCoordinates.isEmpty() && (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())|| checkWetherGoalCellIsHighLand(pathOfCoordinates.peek() ) ) )
-                            regularMove(pathOfCoordinates.pop());
-                        else {
-                            while (!pathOfCoordinates.isEmpty()) {
-                                pathOfCoordinates.pop();
-                                stateOfMove = statesOfMovement.STOP;
-                            }
+                        if (!pathOfCoordinates.isEmpty() && (  !this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek() ) ) )
+                            if (  canGoMountain   || ! checkWetherGoalCellIsHighLand(pathOfCoordinates.peek()))
+                                regularMove(pathOfCoordinates.pop());
+                            else {
+                                while (!pathOfCoordinates.isEmpty()) {
+                                    pathOfCoordinates.pop();
+                                    stateOfMove = statesOfMovement.STOP;
+                                }
 
-                        }
+                            }
 
 
                         if (pathOfCoordinates.isEmpty())
@@ -326,17 +322,19 @@ public class Worker extends Human {
                 if (!pathOfCoordinates.isEmpty()) {
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                } else {
-                    System.out.println("herer  hererhrwkrfsdaklfsajf;asdflkasdjf;lsdafldsafj;");
-                    if (isThisHumanVisible(humanIsAttacking))
-                        attackMove(humanIsAttacking);
-                    else stateOfMove = statesOfMovement.STOP;
+                }else if (humanIsAttacking != null) {
+
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         this.stateOfMove = statesOfMovement.KILLING;
+
+                    } else {
+                        if (isThisHumanVisible(humanIsAttacking))
+                            attackMove(humanIsAttacking);
+                        else stateOfMove = statesOfMovement.STOP;
                     }
-                }
+                } else stateOfMove = statesOfMovement.STOP ;
 
 
                 break;
@@ -355,34 +353,95 @@ public class Worker extends Human {
                     if (!hasAttacked){
                         hasAttacked = true;
 
-                    new java.util.Timer().schedule(new TimerTask() {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        hasAttacked = false ;
+                        if (humanIsAttacking != null)
+                        {
+                            if( this.health > 0 ) {
+                                System.out.print(getHealth());
+                                this.setHealth(humanIsAttacking.getDamageUnit());
+                                stateOfMove = statesOfMovement.ATTACKING;
+                            } if( health <= 0){
 
+                                synchronized (HumanManagers.getSharedInstance().getHumans()) {
+                                    System.out.println("in the synchronize");
+//                                    playPanel.remove(this);
+//                                    playPanel.revalidate();
+//                                    playPanel.removeNotify();
+//                                    playPanel.repaint();
+                                    playPanel.dispatchEvent(new RemovingFromPanel(playPanel , this));
 
-                        @Override
-
-                        public void run() {
-                            hasAttacked = false;
-                            if (humanIsAttacking != null) {
-                                if (humanIsAttacking.getHealth() > 0) {
-                                    System.out.println("health is  +\t " + getHealth() + "team number is"  + getPlayerNumber());
-                                    humanIsAttacking.setHealth(damageUnit);
-                                } else {
-                                    System.out.println("fuck fuck fuck");
-                                    humanIsAttacking.setAlive(false);
-                                    playPanel.remove(humanIsAttacking);
-                                    playPanel.revalidate();
-                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
-                                    stateOfMove = statesOfMovement.STOP;
-
-
+                            // humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
+                                    HumanManagers.getSharedInstance().getHumans()[playerNumber].remove(this);
+//                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    this.setAlive(false);
+//                                    System.out.println(HumanManagers.getSharedInstance().getHumans()[playerNumber]);
+                                    break;
                                 }
+
                             }
 
-                        }
+
+//                            if( humanIsAttacking.getHealth() > 0){
+//                                humanIsAttacking.setHealth(damageUnit);
+//                                stateOfMove = statesOfMovement.ATTACKING;
+//                            }else {
+//
+//
+//                                if( humanIsAttacking != null) {
+//                                    System.out.println("fuck fuck fuck");
+//                                    humanIsAttacking.setAlive(false);
+//                                    playPanel.remove(humanIsAttacking);
+//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
+//                                    HumanManagers.getSharedInstance().getThreadPoolExecutor().remove(humanIsAttacking);
+//                                    humanIsAttacking = null;
+//
+//                                    playPanel.removeNotify();
+//                                    playPanel.revalidate();
+//                                    playPanel.repaint();
+//                                    stateOfMove = statesOfMovement.STOP;
+//
+//                                }else stateOfMove = statesOfMovement.STOP;
 
 
-                    },1000);
-                }
+                        }else stateOfMove = statesOfMovement.STOP;
+                    }
+
+
+
+//                    new java.util.Timer().schedule(new TimerTask() {
+
+
+//                        @Override
+//
+//                        public void run() {
+//                            hasAttacked = false;
+//                            if (humanIsAttacking != null) {
+//                                if (humanIsAttacking.getHealth() > 0) {
+//                                    System.out.println("health is  +\t " + getHealth() + "team number is"  + getPlayerNumber());
+//                                    humanIsAttacking.setHealth(damageUnit);
+//                                } else {
+//                                    System.out.println("fuck fuck fuck");
+//                                    humanIsAttacking.setAlive(false);
+//                                    playPanel.remove(humanIsAttacking);
+//                                    playPanel.revalidate();
+//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
+//                                    stateOfMove = statesOfMovement.STOP;
+//
+//
+//                                }
+//                            }
+//
+//                        }
+//
+//
+//                    },1000);
+
+
                     try {
                         Thread.sleep(3);
                     } catch (InterruptedException e) {
@@ -404,13 +463,15 @@ public class Worker extends Human {
 
                     stateOfMove = statesOfMovement.ATTACKING;
 
-                } else if (!this.isThisHumanVisible(humanIsAttacking)) {
+                } else if (humanIsAttacking != null && !this.isThisHumanVisible(humanIsAttacking)) {
                     humanIsAttacking = null;
                     if (!pathOfCoordinates.isEmpty())
                         stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                     else stateOfMove = statesOfMovement.STOP;
 
 
+                }else {
+                    stateOfMove =statesOfMovement.STOP;
                 }
                 break;
             }
@@ -431,11 +492,11 @@ public class Worker extends Human {
                         stateOfMove = statesOfMovement.ATTACKING;
                     } else {
 
-                            if ( elementIsBeingCollected != null) {
-                                    checkWheterCapacityIsFull();
-                                    if (!isCapacityOfCollectingItemsFull) {
+                        if ( elementIsBeingCollected != null) {
+                            checkWheterCapacityIsFull();
+                            if (!isCapacityOfCollectingItemsFull) {
 
-                                        this.determiningSpeedOfCollectingItems(elementIsBeingCollected);
+                                this.determiningSpeedOfCollectingItems(elementIsBeingCollected);
 //                                        new java.util.Timer().schedule(new TimerTask() {
 //
 //                                            @Override
@@ -484,59 +545,52 @@ public class Worker extends Human {
 //                                            }
 
 //                                        }, 1000 / speadOfCollectingItems);
-                                        try {
-                                            Thread.sleep(1000 / speadOfCollectingItems);
-                                        } catch (InterruptedException e) {
-                                            e.printStackTrace();
-                                        }
-                                        if (((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0) {
-                                            map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).setInsideElementsItems(null);
-                                            playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
-                                            if (isCapacityOfCollectingItemsFull)
-                                                stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
-                                            else
-                                                stateOfMove = statesOfMovement.STOP;
-                                        }
-                                        if (elementIsBeingCollected instanceof Tree) {
-                                            if (((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
-                                                capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
-                                                ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
+                                try {
+                                    Thread.sleep(1000 / speadOfCollectingItems);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                                if (((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0)
+                                if (elementIsBeingCollected instanceof Tree) {
+                                    if (((Tree) elementIsBeingCollected).getMAX_CAPACITY() < ((Tree) elementIsBeingCollected).getEachElementCapacity()) {
+                                        capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
+                                        ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                            } else {
-                                                capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
-                                                ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
-                                            }
+                                    } else {
+                                        capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
+                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
+                                    }
 
-                                        } else if (elementIsBeingCollected instanceof GoldMine) {
-                                            if (((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold) {
-                                                capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
-                                                ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
+                                } else if (elementIsBeingCollected instanceof GoldMine) {
+                                    if (((GoldMine) elementIsBeingCollected).getMAX_CAPACITY() < capacityOfCollectingGold) {
+                                        capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
+                                        ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                            } else {
-                                                capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
-                                                ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
-                                            }
-                                        } else if (elementIsBeingCollected instanceof StoneMine) {
-                                            if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()) {
-                                                capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
-                                                ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
+                                    } else {
+                                        capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
+                                        ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
+                                    }
+                                } else if (elementIsBeingCollected instanceof StoneMine) {
+                                    if (((StoneMine) elementIsBeingCollected).getMAX_CAPACITY() < ((StoneMine) elementIsBeingCollected).getEachElementCapacity()) {
+                                        capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
+                                        ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                            }
-                                            capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
-                                            ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
-                                        }
+                                    }
+                                    capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
+                                    ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
+                                }
 
 
-                                    } else
-                                        stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
+                            } else
+                                stateOfMove = statesOfMovement.COLLECTING_ITEM_IS_DONE;
 
 
 
 
-                            }else {
-                                stateOfMove = statesOfMovement.STOP;
-                                System.out.println("oh oh oh woods are getting fucked here LOOL");
-                            }
+                        }else {
+                            stateOfMove = statesOfMovement.STOP;
+                            System.out.println("oh oh oh woods are getting fucked here LOOL");
+                        }
 
 // TODO check for bug
 
@@ -641,12 +695,17 @@ public class Worker extends Human {
     // TODO : we should check the path for builidings
     private boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
 
-        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+//        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
+//            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+//            if (cell.getInsideElementsItems() instanceof Barrack || cell.getInsideElementsItems() instanceof Castle ||
+//                     cell.getInsideElementsItems() instanceof MineQuarry
+//                    || cell.getInsideElementsItems() instanceof WoodQuarry)
+//                return true;
+//        }
+        if( map.getCell(crd.getRow() , crd.getColumn())  instanceof  LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof  HighLand){
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-            if (cell.getInsideElementsItems() instanceof Barrack || cell.getInsideElementsItems() instanceof Castle ||
-                     cell.getInsideElementsItems() instanceof MineQuarry
-                    || cell.getInsideElementsItems() instanceof WoodQuarry)
-                return true;
+            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements)
+                return true ;
         }
 
         return false;

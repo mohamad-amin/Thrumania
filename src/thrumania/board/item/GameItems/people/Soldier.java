@@ -7,12 +7,12 @@ import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.RemovingFromPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
 import java.awt.*;
-import java.util.TimerTask;
 
 /**
  * Created by sina on 6/24/16.
@@ -22,7 +22,6 @@ public class Soldier extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
     private Human humanIsAttacking = null;
-    private int distanceShouldKeepWhenAttacking = Constants.CELL_SIZE / 7;
 
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber) {
@@ -31,7 +30,7 @@ public class Soldier extends Human {
         super.health = 1000;
         // TODO: DAMAGE IS IN RATE OF .5
         super.damageUnit = 70;
-        super.visibilityUnit = 250;
+        super.visibilityUnit = 150;
         super.foodReq = 2000;
         super.ironReq = 500;
         super.goldReq = 250;
@@ -102,23 +101,6 @@ public class Soldier extends Human {
 
     }
 
-    private boolean isThisHumanVisible(Human human) {
-
-        if (IntegerUtils.getDistanceOfTWoIntegers(this.xCord,
-                human.getxCord()) < this.visibilityUnit) {
-
-            if (IntegerUtils.getDistanceOfTWoIntegers(this.yCord,
-                    human.getyCord()) < this.visibilityUnit) {
-                return true;
-
-            }
-
-        }
-
-        return false;
-
-
-    }
 
     @Override
     public void run() {
@@ -131,31 +113,7 @@ public class Soldier extends Human {
     }
 
 
-    public void examiningPath2() {
 
-        // TODO : fix this sleep
-
-        try {
-            Thread.sleep(1);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        while (!pathOfCoordinates.isEmpty()) {
-            System.out.println("path is \t" + pathOfCoordinates);
-
-            if (pathOfCoordinates.peek().equals(coordinate))
-                pathOfCoordinates.pop();
-            if (!pathOfCoordinates.isEmpty() && this.checkWetherTheGoalCellIsAvailableForGoing(pathOfCoordinates.peek()))
-                regularMove(pathOfCoordinates.pop());
-            else {
-                while (!pathOfCoordinates.isEmpty())
-                    pathOfCoordinates.pop();
-            }
-        }
-
-
-    }
 
     private void examiningPath() {
 //        System.out.println("state is \t"+ stateOfMove);
@@ -183,27 +141,29 @@ public class Soldier extends Human {
                 }
 
 
-
                 break;
             }
             case MOVING_BY_ORDERED: {
+
+                // TODO : buildings
+//                if (pathOfCoordinates.isEmpty())
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
                         humanIsAttacking = seeAnyFoes();
                     } else humanIsAttacking = null;
                 if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-                    while (! pathOfCoordinates.isEmpty() )
+                    while (!pathOfCoordinates.isEmpty())
                         pathOfCoordinates.pop();
                     canLookForOpponent = false;
                     stateOfMove = statesOfMovement.ATTACKING;
-                } else if (!pathOfCoordinates.isEmpty() && pathOfCoordinates.peek().equals(coordinate))
-                    pathOfCoordinates.pop();
+                }else if( !pathOfCoordinates.isEmpty()) {
 
-                if (!pathOfCoordinates.isEmpty()) {
-                    System.out.println("Hello 1");
+                    if ( pathOfCoordinates.peek().equals(coordinate))
+                        pathOfCoordinates.pop();
+
 
                     if (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
-                        System.out.println("Hello 2");
+
                         regularMove(pathOfCoordinates.pop());
                     } else {
                         while (!pathOfCoordinates.isEmpty())
@@ -221,34 +181,32 @@ public class Soldier extends Human {
             }
 
             case ATTACKING: {
-                {
-
-                    canLookForOpponent = false;
-                    if (!pathOfCoordinates.isEmpty()) {
-                        humanIsAttacking = null;
-                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                    } else {
-                        if (humanIsAttacking != null && isThisHumanVisible(humanIsAttacking))
-                            attackMove(humanIsAttacking);
-                        else stateOfMove = statesOfMovement.STOP;
-                        if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
-                            while (!pathOfCoordinates.isEmpty())
-                                pathOfCoordinates.pop();
-                            canLookForOpponent = false;
-                            this.stateOfMove = statesOfMovement.KILLING;
-                        }
-                    }
-
-
-                    break;
-                }
-            }
-
-            case KILLING: {
 
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
+                    humanIsAttacking = null;
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                }else if (humanIsAttacking != null) {
 
+                    if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+                        this.stateOfMove = statesOfMovement.KILLING;
+
+                    } else {
+                        if (isThisHumanVisible(humanIsAttacking))
+                            attackMove(humanIsAttacking);
+                        else stateOfMove = statesOfMovement.STOP;
+                    }
+                } else stateOfMove = statesOfMovement.STOP ;
+
+
+                break;
+            }
+
+            case KILLING: {
+                canLookForOpponent = false;
+                if (!pathOfCoordinates.isEmpty()) {
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
 
@@ -257,71 +215,92 @@ public class Soldier extends Human {
                         IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord())
                                 <= distanceShouldKeepWhenAttacking) {
 
-                    if (!hasAttacked){
+                    if (!hasAttacked) {
                         hasAttacked = true;
 
-                        new java.util.Timer().schedule(new TimerTask() {
+                        try {
+                            Thread.sleep(100);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        hasAttacked = false;
+                        if (humanIsAttacking != null) {
+                            if (this.health > 0) {
+                                System.out.print(getHealth());
+                                this.setHealth(humanIsAttacking.getDamageUnit());
+                                stateOfMove = statesOfMovement.ATTACKING;
+                            }
+                            if (health <= 0) {
 
+                                synchronized (HumanManagers.getSharedInstance().getHumans()) {
+                                    playPanel.dispatchEvent(new RemovingFromPanel(playPanel, this));
 
-                            @Override
-
-                            public void run() {
-                                hasAttacked = false;
-                                if (humanIsAttacking != null) {
-                                    if (humanIsAttacking.getHealth() > 0) {
-                                        System.out.println("health is  +\t " + getHealth() + "team number is"  + getPlayerNumber());
-                                        humanIsAttacking.setHealth(damageUnit);
-                                    } else {
-                                        System.out.println("fuck fuck fuck");
-                                        humanIsAttacking.setAlive(false);
-                                        playPanel.remove(humanIsAttacking);
-                                        HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
-                                        stateOfMove = statesOfMovement.STOP;
-
-
-                                    }
+                                    // humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
+                                    HumanManagers.getSharedInstance().getHumans()[playerNumber].remove(this);
+//                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    this.setAlive(false);
+//                                    System.out.println(HumanManagers.getSharedInstance().getHumans()[playerNumber]);
+                                    break;
                                 }
 
                             }
-                        },1000);
+
+
+//                            if( humanIsAttacking.getHealth() > 0){
+//                                humanIsAttacking.setHealth(damageUnit);
+//                                stateOfMove = statesOfMovement.ATTACKING;
+//                            }else {
+//
+//
+//                                if( humanIsAttacking != null) {
+//                                    System.out.println("fuck fuck fuck");
+//                                    humanIsAttacking.setAlive(false);
+//                                    playPanel.remove(humanIsAttacking);
+//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
+//                                    HumanManagers.getSharedInstance().getThreadPoolExecutor().remove(humanIsAttacking);
+//                                    humanIsAttacking = null;
+//
+//                                    playPanel.removeNotify();
+//                                    playPanel.revalidate();
+//                                    playPanel.repaint();
+//                                    stateOfMove = statesOfMovement.STOP;
+//
+//                                }else stateOfMove = statesOfMovement.STOP;
+
+
+                        } else stateOfMove = statesOfMovement.STOP;
                     }
-                    // TODO : killing
-
-                } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
-
-                        while (! pathOfCoordinates.isEmpty())
-                            pathOfCoordinates.pop();
-                    stateOfMove = statesOfMovement.ATTACKING;
-
-                } else if (!this.isThisHumanVisible(humanIsAttacking)) {
-//                    isAttackMove = false;
-                    humanIsAttacking = null;
-                    if (!pathOfCoordinates.isEmpty())
-                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                    else stateOfMove = statesOfMovement.STOP;
 
 
-                } else {
+//                    new java.util.Timer().schedule(new TimerTask() {
 
-                    // TODO : handle : dead and kill
-                    new java.util.Timer().schedule(new TimerTask() {
 
-                        @Override
-                        public void run() {
-                            Human human = seeAnyFoes();
-                            if (human != null)
-                                if (human.getHealth() > 0)
-                                    human.setHealth(human.getHealth() - damageUnit);
-//                            else  TODO : set this guy  dead ; we can also handle this part by means of "message passing"
+//                        @Override
+//
+//                        public void run() {
+//                            hasAttacked = false;
+//                            if (humanIsAttacking != null) {
+//                                if (humanIsAttacking.getHealth() > 0) {
+//                                    System.out.println("health is  +\t " + getHealth() + "team number is"  + getPlayerNumber());
+//                                    humanIsAttacking.setHealth(damageUnit);
+//                                } else {
+//                                    System.out.println("fuck fuck fuck");
+//                                    humanIsAttacking.setAlive(false);
+//                                    playPanel.remove(humanIsAttacking);
+//                                    playPanel.revalidate();
+//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
+//                                    stateOfMove = statesOfMovement.STOP;
+//
+//
+//                                }
+//                            }
+//
+//                        }
+//
+//
+//                    },1000);
 
-                        }
 
-                    }, 1000);
-                    if (health == 0) {
-                        int a;
-                        // TODO: is dead
-                        // message passing
-                    }
                     try {
                         Thread.sleep(3);
                     } catch (InterruptedException e) {
@@ -330,9 +309,27 @@ public class Soldier extends Human {
 //
 
 
+                    // TODO : killing
+
+                } else if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+                    stateOfMove = statesOfMovement.ATTACKING;
+
+                } else if (humanIsAttacking != null && !this.isThisHumanVisible(humanIsAttacking)) {
+                    humanIsAttacking = null;
+                    if (!pathOfCoordinates.isEmpty())
+                        stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                    else stateOfMove = statesOfMovement.STOP;
+
+
+                } else {
+                    stateOfMove = statesOfMovement.STOP;
                 }
-
-
                 break;
             }
 

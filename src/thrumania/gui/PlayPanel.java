@@ -16,6 +16,7 @@ import thrumania.managers.ShipsManager;
 import thrumania.messages.EmptyingHuman;
 import thrumania.messages.Messages;
 import thrumania.messages.PickingHumanUp;
+import thrumania.messages.RemovingFromPanel;
 import thrumania.utils.*;
 
 import javax.swing.*;
@@ -126,7 +127,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                             g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
                                     c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
                                     r * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE),
-                                    Constants.CELL_SIZE - 10, Constants.CELL_SIZE - 10, null);
+                                    Constants.CELL_SIZE   , Constants.CELL_SIZE  , null);
                         else {
                             g.drawImage(ImageUtils.getImage(getPictureNameAccordingToSeason(season, map.getCells()[r + start.getRow()][c + start.getColumn()].getInsideElementsItems())),
                                     c * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE),
@@ -324,8 +325,9 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     @Override
     public void run() {
         while (gameIsON) {
-
-            this.addingHumansToMap();
+            synchronized (HumanManagers.getSharedInstance().getHumans()) {
+                this.addingHumansToMap();
+            }
 
             try {
                 Thread.sleep(50);
@@ -480,11 +482,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 ((Worker) gameSelectedElement).setPathOfCoordinates(
                         ((Worker) gameSelectedElement).getMapProcessor().getPath(
                                 ((Worker) gameSelectedElement).getPathOfCoordinates().peek(), coord, gameSelectedElement));
+
             } else {
                 System.out.println("path path path paht 555555");
                 ((Worker) gameSelectedElement).setPathOfCoordinates(
                         ((Worker) gameSelectedElement).getMapProcessor().getPath(
                                 ((Worker) gameSelectedElement).getCoordinate(), coord, gameSelectedElement));
+
 
             }
 
@@ -679,11 +683,20 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             PickingHumanUp r = (PickingHumanUp) e;
             pickHumanUp(r);
 
-
+        }else if( e.getID() == Messages.REMOVING_FROM_PANEL){
+            RemovingFromPanel r  = (RemovingFromPanel) e;
+            removingHumanFromPanel(r.getHuman());
         }
 
         super.processComponentEvent(e);
 
+    }
+    private void removingHumanFromPanel(Human human){
+        this.remove(human);
+        this.repaint();
+//        this.removeNotify();
+//        this.revalidate();
+//        this.repaint();
     }
 
     private void pickHumanUp(PickingHumanUp pickingHumanUp) {

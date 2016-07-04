@@ -2,7 +2,7 @@ package thrumania.gui;
 
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.buildings.Castle;
-import thrumania.board.item.GameItems.people.Worker;
+import thrumania.board.item.GameItems.people.Soldier;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
@@ -78,8 +78,8 @@ public class PlayFrame extends JFrame {
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
-            castle.setWaterStartingPoint(cell.getNeighbourSea(map.getCells()).getPosition());
             Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,map);
+            castle.setWaterStartingPoint(cell.getNeighbourSea(map.getCells()).getPosition());
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
             count++;
@@ -90,16 +90,15 @@ public class PlayFrame extends JFrame {
         // each human will go back to it's starting point if its needed to go back to its origin such as castle or troops building
         // TODO : set the right number of humans for each team and castle and also use the method random number
 
-        Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer(),playBottomPanel);
+        Soldier worker = new Soldier(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
-        Thread thread = new Thread(worker);
-        thread.start();
-//        if(! worker.isExecuted())
-//        {
-//            worker.setExecuted(true);
-//            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
-//        }
+
+        if(! worker.isExecuted())
+        {
+            worker.setExecuted(true);
+            HumanManagers.getSharedInstance().getThreadPoolExecutor().submit(worker);
+        }
 
     }
 
