@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Human Finished">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -83,8 +79,10 @@
         <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="183">
-              <caret line="93" column="277" selection-start-line="93" selection-start-column="277" selection-end-line="93" selection-end-column="277" />
-              <folding />
+              <caret line="92" column="277" selection-start-line="92" selection-start-column="277" selection-end-line="92" selection-end-column="277" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,11 +90,12 @@
       <file leaf-file-name="Human.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="300" column="14" selection-start-line="300" selection-start-column="11" selection-end-line="300" selection-end-column="14" />
+            <state relative-caret-position="294">
+              <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
               <folding>
-                <element signature="e#8288#8289#0" expanded="true" />
-                <element signature="e#8319#8320#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#8134#8135#0" expanded="true" />
+                <element signature="e#8165#8166#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -225,9 +224,9 @@
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElements.java" />
         <option value="$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java" />
-        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
         <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Soldier.java" />
+        <option value="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
       </list>
     </option>
   </component>
@@ -552,6 +551,7 @@
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Mappings" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="js-jscs-nodeInterpreter" value="/usr/bin/node" />
+    <property name="ChangesBrowser.SHOW_FLATTEN" value="false" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -1027,13 +1027,6 @@
       <workItem from="1467533604345" duration="10504000" />
       <workItem from="1467622786556" duration="2713000" />
     </task>
-    <task id="LOCAL-00008" summary="moving some methods to constant and IntegerUtils from right/bottom Panel">
-      <created>1463870464259</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1463870464259</updated>
-    </task>
     <task id="LOCAL-00009" summary="moving some methods to constant and IntegerUtils from right/bottom Panel">
       <created>1463871531620</created>
       <option name="number" value="00009" />
@@ -1370,7 +1363,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467659340922</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="Human Finished">
+      <created>1467664201863</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1467664201864</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1630,7 +1630,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="882">
           <caret line="58" column="0" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1885,8 +1887,10 @@
     <entry file="file://$PROJECT_DIR$/src/thrumania/gui/PlayFrame.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="183">
-          <caret line="93" column="277" selection-start-line="93" selection-start-column="277" selection-end-line="93" selection-end-column="277" />
-          <folding />
+          <caret line="92" column="277" selection-start-line="92" selection-start-column="277" selection-end-line="92" selection-end-column="277" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1925,11 +1929,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="300" column="14" selection-start-line="300" selection-start-column="11" selection-end-line="300" selection-end-column="14" />
+        <state relative-caret-position="294">
+          <caret line="312" column="0" selection-start-line="312" selection-start-column="0" selection-end-line="312" selection-end-column="0" />
           <folding>
-            <element signature="e#8288#8289#0" expanded="true" />
-            <element signature="e#8319#8320#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#8134#8135#0" expanded="true" />
+            <element signature="e#8165#8166#0" expanded="true" />
           </folding>
         </state>
       </provider>
