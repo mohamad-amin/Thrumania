@@ -54,8 +54,9 @@ public class PlayFrame extends JFrame {
         this.add(miniMapPanel);
         map.setMiniMap(miniMapPanel);
 
+        //Todo should handle playernumber
         playBottomPanel = new PlayBottomPanel();
-        playPanel = new PlayPanel(map, miniMapPanel);
+        playPanel = new PlayPanel(map, miniMapPanel,0);
         playBottomPanel.setPlayPanel(playPanel);
         playPanel.setPlayBottomPanel(playBottomPanel);
         loadStrongholds();

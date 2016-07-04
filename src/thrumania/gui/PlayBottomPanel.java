@@ -1,8 +1,10 @@
 package thrumania.gui;
 
 import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.buildings.Port;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
+import thrumania.utils.Requirements;
 
 import javax.swing.*;
 import java.awt.*;
@@ -76,26 +78,36 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
     public void function() {
         switch (bottomPanelSelected){
             case addWorker:
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.buildWorker((Castle) playPanel.getGameSelectedElement());
                 break;
             case addSoldier:
-                break;
-            case addContainerShip:
-                break;
-            case addFisherShip:
-                break;
-            case buildingBarak:
 
                 break;
+            case addContainerShip:
+                if (Requirements.ContainerShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                    playPanel.buildContainerShip((Port) playPanel.getGameSelectedElement());
+                break;
+            case addFisherShip:
+                if (Requirements.ContainerShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                    playPanel.buildFisherShip((Port) playPanel.getGameSelectedElement());
+                break;
+            case buildingBarak:
+                playPanel.setBuildSomething(Constants.BuildSomething.barrak);
+                break;
             case buildingFarm:
+                playPanel.setBuildSomething(Constants.BuildSomething.farm);
                 break;
             case buildingMinequarry:
+                playPanel.setBuildSomething(Constants.BuildSomething.minequarry);
                 break;
             case buildingPort:
+                playPanel.setBuildSomething(Constants.BuildSomething.port);
                 break;
             case buildingWoodquarry:
+                playPanel.setBuildSomething(Constants.BuildSomething.woodquarry);
                 break;
-            case mountainwaer:
+            case mountainwaer: //Todo
                 break;
         }
     }

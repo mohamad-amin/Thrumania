@@ -10,9 +10,7 @@ import thrumania.utils.IntegerUtils;
  */
 
 public abstract class Cell {
-    public boolean isCanSetBuilding() {
-        return canSetBuilding;
-    }
+    public boolean getCanSetBuilding(){return canSetBuilding;}
 
     public void setCanSetBuilding(boolean canSetBuilding) {
         this.canSetBuilding = canSetBuilding;

@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class Farm extends LiveElements {
     private  Coordinate portsCoordinate;
-    public Farm (Coordinate realPosition, Coordinate startingPoint, Coordinate neighbourSea, int sideNumber , PlayBottomPanel playBottomPanel, Map map) {
+    public Farm (Coordinate realPosition, Coordinate startingPoint, int sideNumber , PlayBottomPanel playBottomPanel, Map map) {
         this.map = map;
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);

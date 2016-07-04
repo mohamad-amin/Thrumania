@@ -172,10 +172,7 @@ public class Worker extends Human {
     @Override
     public void run() {
         while (isAlive) {
-
-
             examiningPath3();
-
         }
 
 
