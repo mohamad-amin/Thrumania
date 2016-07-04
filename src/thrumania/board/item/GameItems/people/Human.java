@@ -48,7 +48,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     // this enum stands for both worker and soldier , but soldier does not have "COLLECTING_ITEM_IS_DONE" state
     public   enum statesOfMovement  {
-           STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE , CONSTRUCTING_HUMAN , CONSTRUCTING_HUMAN_IS_DONE , DESTRUCTION_BUILDINGS
+           STOP ,  ATTACKING , KILLING , MOVING_BY_ORDERED , COLLECTING_ITEM_IS_DONE , Collecting_Item , CONSTRUCTING_ITEM , CONSTRUCTING_ITEM_IS_DONE  , DESTRUCTION_BUILDINGS
     }
     protected statesOfMovement stateOfMove  = statesOfMovement.ATTACKING.STOP;
 

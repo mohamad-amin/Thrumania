@@ -14,7 +14,9 @@ import thrumania.game.MapProcessor;
 import thrumania.gui.PlayBottomPanel;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.messages.Messages;
 import thrumania.messages.RemovingFromPanel;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -43,6 +45,8 @@ public class Worker extends Human {
     private Dimension d = new Dimension(Constants.CELL_SIZE -5 , Constants.CELL_SIZE - 5);
     private int MAX_RESOURCE_CAPACITY = 300;
     private InsideElementsItems elementIsBeingCollected;
+    private InsideElementsItems onTheWayBuilding ;
+
 
     private Coordinate resourceCoordinate;
 
@@ -281,15 +285,34 @@ public class Worker extends Human {
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
                     }else if(!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
-                        if( false){
+                        if( onTheWayBuilding != null && ((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber){
 
-                            // TODO :it was under construction
+                            if( ((LiveElements) onTheWayBuilding).isUnderConstructed() ){
+                                if(((LiveElements) onTheWayBuilding).getConstructorsWorking() < ((LiveElements) onTheWayBuilding).getMaxOfConstructor() )
+                                {
+                                    stateOfMove = statesOfMovement.CONSTRUCTING_ITEM;
+
+
+                                }else {
+
+                                    while(! pathOfCoordinates.isEmpty())
+                                        pathOfCoordinates.pop();
+                                    stateOfMove = statesOfMovement.STOP;
+
+                                }
+
+
+
+                            }else {
+                                while (! pathOfCoordinates.isEmpty())
+                                    pathOfCoordinates.pop();
+                                stateOfMove = statesOfMovement.STOP;
+                            }
+
                         }
-                        else{
+                        else
+                            stateOfMove = statesOfMovement.DESTRUCTION_BUILDINGS;
 
-
-                            // tODO ; dont go into it
-                        }
                         // TODO check next one is building which is under construction or not ....... if it is then ......
 
                     }
@@ -368,11 +391,7 @@ public class Worker extends Human {
                             } if( health <= 0){
 
                                 synchronized (HumanManagers.getSharedInstance().getHumans()) {
-                                    System.out.println("in the synchronize");
-//                                    playPanel.remove(this);
-//                                    playPanel.revalidate();
-//                                    playPanel.removeNotify();
-//                                    playPanel.repaint();
+
                                     playPanel.dispatchEvent(new RemovingFromPanel(playPanel , this));
 
                             // humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
@@ -384,28 +403,6 @@ public class Worker extends Human {
                                 }
 
                             }
-
-
-//                            if( humanIsAttacking.getHealth() > 0){
-//                                humanIsAttacking.setHealth(damageUnit);
-//                                stateOfMove = statesOfMovement.ATTACKING;
-//                            }else {
-//
-//
-//                                if( humanIsAttacking != null) {
-//                                    System.out.println("fuck fuck fuck");
-//                                    humanIsAttacking.setAlive(false);
-//                                    playPanel.remove(humanIsAttacking);
-//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
-//                                    HumanManagers.getSharedInstance().getThreadPoolExecutor().remove(humanIsAttacking);
-//                                    humanIsAttacking = null;
-//
-//                                    playPanel.removeNotify();
-//                                    playPanel.revalidate();
-//                                    playPanel.repaint();
-//                                    stateOfMove = statesOfMovement.STOP;
-//
-//                                }else stateOfMove = statesOfMovement.STOP;
 
 
                         }else stateOfMove = statesOfMovement.STOP;
@@ -653,11 +650,14 @@ public class Worker extends Human {
                         stateOfMove = statesOfMovement.ATTACKING;
                     } else {
 
-
-
-                        //TODO : CONSTRUCITNG
-
-                        stateOfMove = statesOfMovement.CONSTRUCTING_ITEM_IS_DONE;
+                        try {
+                            Thread.sleep(3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        ((LiveElements) onTheWayBuilding).constructed();
+                        playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
+                        stateOfMove = statesOfMovement.STOP;
 
 
                     }
@@ -671,6 +671,56 @@ public class Worker extends Human {
                 if (resourceCoordinate != null)
                     pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                 stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+
+                break;
+            }
+            case DESTRUCTION_BUILDINGS:
+            {
+                if (humanIsAttacking == null)
+                    if (canLookForOpponent) {
+                        humanIsAttacking = seeAnyFoes();
+                    } else humanIsAttacking = null;
+                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+//                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+//                        isAttackMove = true;
+                    while (!pathOfCoordinates.isEmpty())
+                        pathOfCoordinates.pop();
+                    stateOfMove = statesOfMovement.ATTACKING;
+                }
+                if( ! pathOfCoordinates.isEmpty())
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                else if( pathOfCoordinates.isEmpty()){
+
+                    if( ((LiveElements) onTheWayBuilding).isUnderConstructed()){
+                        try {
+                            Thread.sleep( 3000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        ((LiveElements) onTheWayBuilding).destroy();
+                        onTheWayBuilding = null;
+                        stateOfMove = statesOfMovement.STOP;
+                        playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
+                    }else {
+
+                        try {
+                            Thread.sleep(5000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                        ((LiveElements) onTheWayBuilding).destroy();
+                        onTheWayBuilding = null;
+                        stateOfMove = statesOfMovement.STOP;
+                        playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
+
+
+                    }
+
+
+
+                }
+
 
                 break;
             }
@@ -695,17 +745,12 @@ public class Worker extends Human {
     // TODO : we should check the path for builidings
     private boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
 
-//        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
-//            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-//            if (cell.getInsideElementsItems() instanceof Barrack || cell.getInsideElementsItems() instanceof Castle ||
-//                     cell.getInsideElementsItems() instanceof MineQuarry
-//                    || cell.getInsideElementsItems() instanceof WoodQuarry)
-//                return true;
-//        }
         if( map.getCell(crd.getRow() , crd.getColumn())  instanceof  LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof  HighLand){
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements)
-                return true ;
+            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+                this.onTheWayBuilding = cell.getInsideElementsItems();
+                return true;
+            }
         }
 
         return false;
