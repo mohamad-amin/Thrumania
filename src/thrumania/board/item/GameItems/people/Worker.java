@@ -281,7 +281,8 @@ public class Worker extends Human {
 
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
-                    }else if(!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
+                    }
+                    else if(!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
                         if( onTheWayBuilding != null && ((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber){
 
                             if( ((LiveElements) onTheWayBuilding).isUnderConstructed() ){
@@ -739,6 +740,7 @@ public class Worker extends Human {
 
     }
 
+
     // TODO : we should check the path for builidings
 
     private boolean checkWetherTheGoalCellIsResourcesOrNot(Coordinate crd) {
@@ -922,4 +924,24 @@ public class Worker extends Human {
             }, 110);
         }
     }
+
+
+
+    protected boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
+        System.out.println("coordinate of this check i s\t" + crd);
+        System.out.println("map is\t" + map);
+        System.out.println(map.getCell(crd.getRow() , crd.getColumn()));
+        if(  map.getCell(crd.getRow() , crd.getColumn())  instanceof LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand){
+            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+            System.out.println(cell);
+            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+                this.onTheWayBuilding = cell.getInsideElementsItems();
+                return true;
+            }
+        }
+
+        return false;
+
+    }
+
 }

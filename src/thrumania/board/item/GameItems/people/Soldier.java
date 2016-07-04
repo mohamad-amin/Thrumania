@@ -431,6 +431,24 @@ public class Soldier extends Human {
     public void findingSelectedObject(int x, int y) {
 
     }
+
+
+    protected boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
+        System.out.println("coordinate of this check i s\t" + crd);
+        System.out.println("map is\t" + map);
+        System.out.println(map.getCell(crd.getRow() , crd.getColumn()));
+        if(  map.getCell(crd.getRow() , crd.getColumn())  instanceof LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand){
+            Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+            System.out.println(cell);
+            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+                this.onTheWayBuilding = cell.getInsideElementsItems();
+                return true;
+            }
+        }
+
+        return false;
+
+    }
 }
 
 
