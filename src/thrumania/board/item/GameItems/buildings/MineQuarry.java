@@ -22,6 +22,7 @@ public class MineQuarry extends LiveElements{
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health(2000,2000);
@@ -33,10 +34,10 @@ task one is occupy
 task two is unoccupy
  */
     private void ChangeElementsPlayerNumber(int task) {
-        int startx = (-(Constants.OcupationOfQuarry))+ realPosition.getRow();
-        int starty = (-(Constants.OcupationOfQuarry))+ realPosition.getColumn();
-        int endx = (Constants.OcupationOfQuarry)+ realPosition.getRow();
-        int endy = (Constants.OcupationOfQuarry)+ realPosition.getColumn();
+        int startx = (-(Constants.OcupationOfQuarry))+ realPosition.getColumn();
+        int starty = (-(Constants.OcupationOfQuarry))+ realPosition.getRow();
+        int endx = (Constants.OcupationOfQuarry)+ realPosition.getColumn();
+        int endy = (Constants.OcupationOfQuarry)+ realPosition.getRow();
         if (startx < 0 ) startx =0;
         if (starty < 0) starty = 0;
         if (endx >= Constants.MATRIX_HEIGHT) endx = Constants.MATRIX_HEIGHT -1;

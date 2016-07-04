@@ -20,6 +20,7 @@ public class Farm extends LiveElements {
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health(3000,3000);

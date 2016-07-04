@@ -27,6 +27,7 @@ public class Castle extends LiveElements {
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel= playBottomPanel;
         this.side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         health = new Health(10000,10000);

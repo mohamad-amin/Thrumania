@@ -3,6 +3,7 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
@@ -20,10 +21,12 @@ public class WoodQuarry extends LiveElements {
 
     public WoodQuarry(Coordinate realPosition, Coordinate startingPoint , int sideNumber , PlayBottomPanel playBottomPanel,Map map) {
         this.map= map;
+        System.out.println("hi" + realPosition.getRow()+" "+realPosition.getColumn());
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playBottomPanel = playBottomPanel;
         this.side = new Side(sideNumber);
+        this.playerNumber = sideNumber;
         this.startingPoint = startingPoint;
         this.realPosition = realPosition;
         this.health = new Health (2000,2000);
@@ -32,19 +35,23 @@ public class WoodQuarry extends LiveElements {
     }
 
     private void ChangeElementsPlayerNumber(int task) {
-        int startx = (-(Constants.OcupationOfQuarry))+ realPosition.getRow();
-        int starty = (-(Constants.OcupationOfQuarry))+ realPosition.getColumn();
-        int endx = (Constants.OcupationOfQuarry)+ realPosition.getRow();
-        int endy = (Constants.OcupationOfQuarry)+ realPosition.getColumn();
+        int startx = (-(Constants.OcupationOfQuarry))+ realPosition.getColumn();
+        int starty = (-(Constants.OcupationOfQuarry))+ realPosition.getRow();
+        int endx = (Constants.OcupationOfQuarry)+ realPosition.getColumn();
+        int endy = (Constants.OcupationOfQuarry)+ realPosition.getRow();
         if (startx < 0 ) startx =0;
         if (starty < 0) starty = 0;
         if (endx >= Constants.MATRIX_HEIGHT) endx = Constants.MATRIX_HEIGHT -1;
         if (endy >= Constants.MATRIX_WIDTH) endy = Constants.MATRIX_WIDTH -1;
         for (int i = startx; i<=endx ;i++){
             for (int j = starty; j<=endy ;j++){
-                if (map.getCell(i,j).getInsideElementsItems() instanceof Tree){
-                    if (task ==1) Occupy(i,j);
-                    else UnOccupy(i,j);
+                if (map.getCell(i,j) instanceof LowLand) {
+                    if (map.getCell(i,j).getInsideElementsItems()!=null && map.getCell(i, j).getInsideElementsItems() instanceof Tree) {
+                        if (task == 1) {
+                            System.out.println("hi" + i + " " +j);
+                            Occupy(i, j);
+                        } else UnOccupy(i, j);
+                    }
                 }
             }
         }

@@ -22,6 +22,7 @@ public abstract class InsideElementsItems extends JLabel {
     protected boolean b7IsSelected = false;
     protected boolean b8IsSelected = false;
     protected boolean b9IsSelected = false;
+    protected int playerNumber = -1 ;
     protected Dimension sizeOfBottom = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE,
             getToolkit().getScreenSize().height - Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     protected int elementsSize = 50;
@@ -30,4 +31,12 @@ public abstract class InsideElementsItems extends JLabel {
     public abstract void paintingOptions(Graphics g);
 
     public abstract void findingSelectedObject(int x, int y);
+
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public void setPlayerNumber(int playerNumber) {
+        this.playerNumber = playerNumber;
+    }
 }
