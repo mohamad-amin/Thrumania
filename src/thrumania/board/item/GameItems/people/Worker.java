@@ -280,11 +280,14 @@ public class Worker extends Human {
 
                     }
                     else if(!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
+                        System.out.println(((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer()  +" number e ane ?");
+                        System.out.println("   number e sina" + playerNumber);
                         if( onTheWayBuilding != null && ((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber){
-
+                            System.out.println("****************");
                             if( ((LiveElements) onTheWayBuilding).isUnderConstructed() ){
                                 if(((LiveElements) onTheWayBuilding).getConstructorsWorking() < ((LiveElements) onTheWayBuilding).getMaxOfConstructor() )
                                 {
+                                    pathOfCoordinates.pop();
                                     stateOfMove = statesOfMovement.CONSTRUCTING_ITEM;
 
 
@@ -663,9 +666,21 @@ public class Worker extends Human {
             }
 
             case CONSTRUCTING_ITEM_IS_DONE: {
-                if (resourceCoordinate != null)
+                if (humanIsAttacking == null)
+                    if (canLookForOpponent) {
+                        humanIsAttacking = seeAnyFoes();
+                    } else humanIsAttacking = null;
+                if (humanIsAttacking != null && this.isThisHumanVisible(humanIsAttacking)) {
+//                        pathOfCoordinates = mapProcessor.getPath(coordinate, humanIsAttacking.getCoordinate(), this);
+//                        isAttackMove = true;
+                    while (!pathOfCoordinates.isEmpty())
+                        pathOfCoordinates.pop();
+                    stateOfMove = statesOfMovement.ATTACKING;
+                }else
+                if (resourceCoordinate != null) {
                     pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
-                stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                    stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
+                }else stateOfMove = statesOfMovement.STOP;
 
                 break;
             }
@@ -925,12 +940,8 @@ public class Worker extends Human {
 
 
     protected boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
-        System.out.println("coordinate of this check i s\t" + crd);
-        System.out.println("map is\t" + map);
-        System.out.println(map.getCell(crd.getRow() , crd.getColumn()));
         if(  map.getCell(crd.getRow() , crd.getColumn())  instanceof LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand){
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-            System.out.println(cell);
             if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
                 this.onTheWayBuilding = cell.getInsideElementsItems();
                 return true;
