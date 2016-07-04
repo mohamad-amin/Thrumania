@@ -78,6 +78,7 @@ public class PlayFrame extends JFrame {
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
+            castle.setWaterStartingPoint(cell.getNeighbourSea(map.getCells()).getPosition());
             Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,map);
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
