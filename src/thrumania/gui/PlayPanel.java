@@ -821,7 +821,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                                 Port p = new Port(realPosition,
                                         map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
                                         map.getCell(realx, realy).getNeighbourSea(map.getCells()).getPosition(),
-                                        playernumber, playBottomPanel, map);
+                                        (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map);
                                 map.getCell(realy, realx).setInsideElementsItems(p);
                                 PortsManager.getPortSharedInstance().getPorts()[playernumber].add(p);
                             }
@@ -835,7 +835,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         if (Requirements.Barrak(foodRes,goldRes,ironRes)){
                             map.getCell(realy, realx).setInsideElementsItems(new Barrack(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    playernumber, playBottomPanel, map));
+                                    (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
                         }
                     }
                 }
@@ -846,7 +846,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         if (Requirements.WoodQuarry(foodRes,goldRes,ironRes)){
                             map.getCell(realy, realx).setInsideElementsItems(new WoodQuarry(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    playernumber, playBottomPanel, map));
+                                    (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
                         }
                     }
                 }
@@ -857,7 +857,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         if (Requirements.MineQuarry(foodRes,goldRes,ironRes)){
                             map.getCell(realy, realx).setInsideElementsItems(new MineQuarry(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    playernumber, playBottomPanel, map));
+                                    (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
                         }
                     }
                 }
@@ -868,7 +868,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                         if (Requirements.Farm(foodRes,goldRes,ironRes)){
                             map.getCell(realy, realx).setInsideElementsItems(new Farm(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    playernumber, playBottomPanel, map));
+                                    (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
                         }
                     }
                 }
