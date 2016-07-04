@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="improving Soldier &#10;&#10;">
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="improving Human">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElements.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/LiveElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Human.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -154,8 +151,8 @@
       <file leaf-file-name="Worker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-396">
-              <caret line="659" column="99" selection-start-line="659" selection-start-column="99" selection-end-line="659" selection-end-column="99" />
+            <state relative-caret-position="9">
+              <caret line="685" column="41" selection-start-line="685" selection-start-column="41" selection-end-line="685" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#checkWetherTheGoalCellIsResourcesOrNot#0;class#Worker#0" expanded="false" />
@@ -957,13 +954,6 @@
       <workItem from="1467533604345" duration="10504000" />
       <workItem from="1467622786556" duration="2713000" />
     </task>
-    <task id="LOCAL-00005" summary="implementing bottom panel class">
-      <created>1463748924635</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1463748924635</updated>
-    </task>
     <task id="LOCAL-00006" summary="implementing bottom panel class">
       <created>1463861545379</created>
       <option name="number" value="00006" />
@@ -1300,7 +1290,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467650650708</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="improving Human">
+      <created>1467653166791</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1467653166791</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1376,7 +1373,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="again push" />
     <MESSAGE value="adding tree to game panel ( still with one bug)" />
     <MESSAGE value="implementing fish" />
     <MESSAGE value="fixing bugs of drawing trees and adding picture of gold mine" />
@@ -1401,7 +1397,8 @@
     <MESSAGE value="Added getNeighbourSea Method to cell" />
     <MESSAGE value="Added set nearest water" />
     <MESSAGE value="improving Soldier &#10;&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="improving Soldier &#10;&#10;" />
+    <MESSAGE value="improving Human" />
+    <option name="LAST_COMMIT_MESSAGE" value="improving Human" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1848,8 +1845,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-396">
-          <caret line="659" column="99" selection-start-line="659" selection-start-column="99" selection-end-line="659" selection-end-column="99" />
+        <state relative-caret-position="9">
+          <caret line="685" column="41" selection-start-line="685" selection-start-column="41" selection-end-line="685" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#checkWetherTheGoalCellIsResourcesOrNot#0;class#Worker#0" expanded="false" />
