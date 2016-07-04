@@ -2,6 +2,8 @@ package thrumania.gui;
 
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Map;
+import thrumania.messages.Messages;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -105,6 +107,7 @@ public class MiniMapPanel extends JPanel implements MouseListener, MouseMotionLi
         updateFocus(new Coordinate(y, x));
         if (gamePanel != null) gamePanel.setStart(new Coordinate(y, x));
         else if (playPanel != null) playPanel.setStart(new Coordinate(y, x));
+        playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT));
     }
 
     @Override

@@ -456,10 +456,11 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
 
     private InsideElementsItems findingwhichElementIsClicked(int x, int y, int realx, int realy) {
         InsideElementsItems temp = findingwhichHumanIsClicked(x, y);
-        if (temp != null) return temp;
-           // temp = findingWhichShipIsClicked(x , y);
-            if (temp !=  null)
-                return  temp ;
+        if (temp != null)
+            return temp;
+//            temp = findingWhichShipIsClicked(x , y);
+//            if (temp !=  null)
+//                return  temp ;
         return map.getCell(realy, realx).getInsideElementsItems();
     }
 
@@ -751,10 +752,13 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
     }
 
     public void buildWorker(Castle castle){
-        Worker worker = new Worker(this, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer());
+
+
+        Worker worker = new Worker(this , map , IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[0] , IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[1] , castle.getSide().getNumberOfPlayer());
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
-        Thread thread = new Thread(worker);
-        thread.start();
+        HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
+
+
     }
 }
