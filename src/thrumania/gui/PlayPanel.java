@@ -806,6 +806,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             FisherShip fisherShip = new FisherShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[0],
                     IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[1], port.getSide().getNumberOfPlayer());
             ShipsManager.getShipInstance().getShips()[fisherShip.getPlayerNumber()].add(fisherShip);
+            System.out.println("fisher ship is      +" + fisherShip);
             ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(fisherShip);
         }
     }
@@ -817,10 +818,10 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                 if (map.getCell(realy,realx)!=null && !(map.getCell(realy,realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
                         if (Requirements.Port(foodRes,goldRes,ironRes)){
-                            if(map.getCell(realx,realy).getNeighbourSea(map.getCells()).getPosition()!=null) {
+                            if(map.getCell(realy,realx).getNeighbourSea(map.getCells()).getPosition()!=null) {
                                 Port p = new Port(realPosition,
                                         map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                        map.getCell(realx, realy).getNeighbourSea(map.getCells()).getPosition(),
+                                        map.getCell(realy, realx).getNeighbourSea(map.getCells()).getPosition(),
                                         (((Human)gameSelectedElement)).getPlayerNumber(), playBottomPanel, map);
                                 map.getCell(realy, realx).setInsideElementsItems(p);
                                 PortsManager.getPortSharedInstance().getPorts()[playernumber].add(p);
