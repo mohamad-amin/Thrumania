@@ -146,6 +146,11 @@ public class MenuPanel extends JPanel {
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
+            }else if ( exitIsSelected){
+
+
+                System.exit(0);
+
             }
 
             SoundUtils.soundIsAlive = false;
