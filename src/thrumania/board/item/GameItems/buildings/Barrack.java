@@ -78,6 +78,7 @@ public class Barrack extends LiveElements {
             }, 110);
         }
     }
+
 }
 
     // TODO : @amirhosein notice that buldings cant be build at  starting points of castles

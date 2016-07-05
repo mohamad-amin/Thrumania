@@ -32,6 +32,8 @@ public class Castle extends LiveElements {
     private PlayPanel playPanel;
     private PlayFrame playFrame;
 
+    private int teamId;
+
     public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel ,PlayPanel playPanel,PlayFrame playFrame, Map map) {
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
@@ -44,6 +46,16 @@ public class Castle extends LiveElements {
         this.realPosition = realPosition;
         health = new Health(10000,10000);
         setWithOnePicture("castle.png");
+    }
+
+
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public boolean isNearWater() {

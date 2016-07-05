@@ -503,7 +503,7 @@ public class GamePanel extends Panels implements MouseInputListener {
         SmallFish smallFishTemp = new SmallFish();
         temp = map.getCell(row, column);
         System.out.println(temp.isLand());
-        if (! ( temp.getId() < 6) && temp.getInsideElementsItems() == null) {
+        if (! ( temp.getId() < Constants.SEA_ID) && temp.getInsideElementsItems() == null) {
 
             System.out.println("here3");
             temp.setInsideElementsItems(smallFishTemp);

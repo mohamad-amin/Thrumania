@@ -157,12 +157,45 @@ public class Constants {
     }
 
     public static final byte
-            SEA_ID = 6, LOW_LAND_ID = 0, HIGH_LAND_ID = 3, DEEP_SEA_ID = 8,
-            FISH_ID = 7, TREE_ID = 1, STONE_ID = 4, GOLD_ID = 5, AGRICULTURE_ID = 2;
+            LOW_LAND_ID = 0,
+            TREE_ID = 1,
+            AGRICULTURE_ID = 2,
+            BARRACK_ID = 3,
+            CASTLE_ID = 4,
+            FARM_ID = 5,
+            WOOD_QUARRY_ID = 6,
+            SOLDIER_ID = 7,
+            WORKER_ID = 8,
+            HIGH_LAND_ID = 20,
+            GOLD_ID = 21,
+            STONE_ID = 22,
+            MINE_QUARRY_ID = 23,
+            SEA_ID = 40,
+            FISH_ID = 41,
+            CONTAINER_SHIP_ID = 42,
+            FISHER_SHIP_ID = 43,
+            DEEP_SEA_ID = 60;
 
     public static int giveMeZeroScale() {
         if(isMac) return zoomNumbers[2][0];
         else return zoomNumbers[2][1];
+    }
+
+    public static int[] maxHumanId;
+    public static int getNextHumanId(int teamId) {
+        return maxHumanId[teamId]++;
+    }
+    public static void initializeHumanIds(int teams) {
+        maxHumanId = new int[teams];
+    }
+
+    public static int[] maxShipId;
+    public static int getNextShipId(int teamId) {
+        if (maxShipId == null) maxShipId = new int[maxHumanId.length];
+        return maxShipId[teamId]++;
+    }
+    public static void initializeShipIds(int teams) {
+        maxShipId = new int[teams];
     }
 
 }

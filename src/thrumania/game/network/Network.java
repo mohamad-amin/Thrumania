@@ -19,12 +19,16 @@ public abstract class Network {
     private ServerHandler serverHandler;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-    private HashMap<String, Object> gameMap;
+    private HashMap<Integer, Object> gameMap;
 
-    public final static int HUMAN_MOVE = 0,
-            SHIP_MOVE = 1;
+    public final static int HUMAN_ACTION = 0,
+            SHIP_ACTION = 1,
+            ADD_WORKER = 2,
+            ADD_SOLDIER = 3,
+            ADD_CONTAINER_SHIP = 4,
+            ADD_FISHER_SHIP = 5;
 
-    public Network(PlayPanel panel, int numberOfPlayers, HashMap<String, Object> map) {
+    public Network(PlayPanel panel, int numberOfPlayers, HashMap<Integer, Object> map) {
         this.numberOfPlayers = numberOfPlayers;
         this.gameMap = map;
         this.panel = panel;
@@ -41,8 +45,8 @@ public abstract class Network {
         }
     }
 
-    private void sendData() {
-
+    public void sendData(HashMap<Integer, Object> data) {
+        serverHandler.addToSendStack(data);
     }
 
     public void close() {

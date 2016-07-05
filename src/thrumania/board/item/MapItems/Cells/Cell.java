@@ -89,35 +89,34 @@ public abstract class Cell {
     public Cell getNeighborLand(Cell[][] cells) {
         int i = getPosition().getRow(), j = getPosition().getColumn();
         if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
-                cells[i-1][j-1].getId() < 3) return cells[i-1][j-1];
-        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() < 3) return cells[i-1][j];
+                cells[i-1][j-1].getId() < Constants.HIGH_LAND_ID) return cells[i-1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() < Constants.HIGH_LAND_ID) return cells[i-1][j];
         if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
-                cells[i-1][j+1].getId() < 3) return cells[i-1][j+1];
+                cells[i-1][j+1].getId() < Constants.HIGH_LAND_ID) return cells[i-1][j+1];
         if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
-                cells[i+1][j-1].getId() < 3) return cells[i+1][j-1];
-        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() < 3) return cells[i+1][j];
+                cells[i+1][j-1].getId() < Constants.HIGH_LAND_ID) return cells[i+1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() < Constants.HIGH_LAND_ID) return cells[i+1][j];
         if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
-                cells[i+1][j+1].getId() < 3) return cells[i+1][j+1];
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() < 3) return cells[i][j-1];
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() < 3) return cells[i][j+1];
+                cells[i+1][j+1].getId() < Constants.HIGH_LAND_ID) return cells[i+1][j+1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() < Constants.HIGH_LAND_ID) return cells[i][j-1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() < Constants.HIGH_LAND_ID) return cells[i][j+1];
         return null;
     }
 
-    //Todo Mohammad amin fix this
     public Cell getNeighbourSea(Cell[][] cells){
         int i = getPosition().getRow(), j = getPosition().getColumn();
         if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
-                cells[i-1][j-1].getId() > 5) return cells[i-1][j-1];
-        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() > 5) return cells[i-1][j];
+                cells[i-1][j-1].getId() > Constants.SEA_ID - 1) return cells[i-1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && cells[i-1][j].getId() > Constants.SEA_ID - 1) return cells[i-1][j];
         if (IntegerUtils.isInRange(0, cells.length-1, i-1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
-                cells[i-1][j+1].getId() > 5) return cells[i-1][j+1];
+                cells[i-1][j+1].getId() > Constants.SEA_ID - 1) return cells[i-1][j+1];
         if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j-1) &&
-                cells[i+1][j-1].getId() > 5) return cells[i+1][j-1];
-        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() > 5) return cells[i+1][j];
+                cells[i+1][j-1].getId() > Constants.SEA_ID - 1) return cells[i+1][j-1];
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && cells[i+1][j].getId() > Constants.SEA_ID - 1) return cells[i+1][j];
         if (IntegerUtils.isInRange(0, cells.length-1, i+1) && IntegerUtils.isInRange(0, cells[0].length-1, j+1) &&
-                cells[i+1][j+1].getId() > 5) return cells[i+1][j+1];
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() > 5) return cells[i][j-1];
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() > 5) return cells[i][j+1];
+                cells[i+1][j+1].getId() > Constants.SEA_ID - 1) return cells[i+1][j+1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && cells[i][j-1].getId() > Constants.SEA_ID - 1) return cells[i][j-1];
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && cells[i][j+1].getId() > Constants.SEA_ID - 1) return cells[i][j+1];
         return null;
     }
 

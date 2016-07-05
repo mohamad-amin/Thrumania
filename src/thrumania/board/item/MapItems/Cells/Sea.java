@@ -1,5 +1,7 @@
 package thrumania.board.item.MapItems.Cells;
 
+import thrumania.board.item.GameItems.ships.ContainerShip;
+import thrumania.board.item.GameItems.ships.FisherShip;
 import thrumania.board.item.MapItems.Inside.SmallFish;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -47,6 +49,10 @@ public class Sea extends Cell {
     public byte getId() {
         if (getInsideElementsItems() instanceof SmallFish) {
             return Constants.FISH_ID;
+        } if (getInsideElementsItems() instanceof ContainerShip) {
+            return Constants.CONTAINER_SHIP_ID;
+        } if (getInsideElementsItems() instanceof FisherShip) {
+            return Constants.FISHER_SHIP_ID;
         } else return Constants.SEA_ID;
     }
 }

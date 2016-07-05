@@ -233,16 +233,16 @@ public class MapProcessor {
     private int getDetachingEdgeWeight(int i, int j, int x, int y, InsideElementsItems item) {
         int result = Constants.DISTANCE_ISLAND_DISTINGUISHER;
         if (item instanceof Human) {
-            if (cells[i][j].getId() < 3) {
-                if (cells[x][y].getId() < 3) {
+            if (cells[i][j].getId() < Constants.HIGH_LAND_ID) {
+                if (cells[x][y].getId() < Constants.HIGH_LAND_ID) {
                     result = Constants.DISTANCE_LOWLAND_LOWLAND;
-                } else if (cells[x][y].getId() < 6) {
+                } else if (cells[x][y].getId() < Constants.SEA_ID) {
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
                 }
-            } else if (cells[i][j].getId() < 6) {
-                if (cells[x][y].getId() < 3) {
+            } else if (cells[i][j].getId() < Constants.SEA_ID) {
+                if (cells[x][y].getId() < Constants.HIGH_LAND_ID) {
                     result = Constants.DISTANCE_LOWLAND_HIGHLAND;
-                } else if (cells[x][y].getId() < 6) {
+                } else if (cells[x][y].getId() < Constants.SEA_ID) {
                     result = Constants.DISTANCE_HIGHLAND_HIGHLAND;
                 }
             }
@@ -256,47 +256,15 @@ public class MapProcessor {
             if (cells[x][y].getInsideElementsItems() != null && !(cells[x][y].getInsideElementsItems() instanceof Tree))
                 return Constants.DISTANCE_ISLAND_DISTINGUISHER;
         } else {
-            if (cells[i][j].getId() >= 6) {
-                if (cells[x][y].getId() >= 8) {
+            if (cells[i][j].getId() >= Constants.SEA_ID) {
+                if (cells[x][y].getId() >= Constants.DEEP_SEA_ID) {
                     return Constants.DISTANCE_WATER_WATER;
-                } else if (cells[x][y].getId() >= 6) {
+                } else if (cells[x][y].getId() >= Constants.SEA_ID) {
                     return Constants.DISTANCE_WATER_WATER;
                 }
             }
         }
         if ((int) (Math.pow(i-x, 2) + Math.pow(j-y, 2)) > 1) result += 1;
-        return result;
-    }
-
-    private int getXXXEdgeWeight(int i, int j, int x, int y) {
-        int result = Integer.MAX_VALUE;
-        if (cells[i][j].getId() < 3) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_LOWLAND_LOWLAND;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_LOWLAND_HIGHLAND;
-            } else if (cells[x][y].getId() < 8) {
-                result = Constants.DISTANCE_WATER_LAND;
-            }
-        } else if (cells[i][j].getId() < 6) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_LOWLAND_HIGHLAND;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_HIGHLAND_HIGHLAND;
-            } else {
-                result = Constants.DISTANCE_WATER_WATER;
-            }
-        } else if (cells[i][j].getId() < 8) {
-            if (cells[x][y].getId() < 3) {
-                result = Constants.DISTANCE_WATER_LAND;
-            } else if (cells[x][y].getId() < 6) {
-                result = Constants.DISTANCE_WATER_WATER;
-            } else if (cells[x][y].getId() < 8) {
-                // Todo: maybe
-            }
-        } else {
-            // Todo maybe
-        }
         return result;
     }
 
@@ -307,7 +275,7 @@ public class MapProcessor {
         boolean added;
         for (int i=0; i<cells.length; i++) {
             for (int j=0; j<cells[0].length; j++) {
-                if (cells[i][j].getId() >= 6) continue;
+                if (cells[i][j].getId() >= Constants.SEA_ID) continue;
                 z = 0;
                 added = false;
                 for (List<Cell> island : islands) {
@@ -399,7 +367,7 @@ public class MapProcessor {
         for (int i=0; i<cells.length; i++) {
             for (int j=0; j<cells[0].length; j++) {
                 if (visited[i][j]) continue;
-                if (cells[i][j].getId() < 6) {
+                if (cells[i][j].getId() < Constants.SEA_ID) {
                     registerIsland(i, j, z);
                     z++;
                 }
@@ -431,10 +399,10 @@ public class MapProcessor {
             freeIslands.add(true);
             freeIslandsCount++;
         }
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && !visited[i][j+1] && cells[i][j+1].getId()<6) registerIsland(i, j+1, id);
-        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && !visited[i][j-1] && cells[i][j-1].getId()<6) registerIsland(i, j-1, id);
-        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && !visited[i+1][j] && cells[i+1][j].getId()<6) registerIsland(i+1, j, id);
-        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && !visited[i-1][j] && cells[i-1][j].getId()<6) registerIsland(i-1, j, id);
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j+1) && !visited[i][j+1] && cells[i][j+1].getId()<Constants.SEA_ID) registerIsland(i, j+1, id);
+        if (IntegerUtils.isInRange(0, cells[0].length-1, j-1) && !visited[i][j-1] && cells[i][j-1].getId()<Constants.SEA_ID) registerIsland(i, j-1, id);
+        if (IntegerUtils.isInRange(0, cells.length-1, i+1) && !visited[i+1][j] && cells[i+1][j].getId()<Constants.SEA_ID) registerIsland(i+1, j, id);
+        if (IntegerUtils.isInRange(0, cells.length-1, i-1) && !visited[i-1][j] && cells[i-1][j].getId()<Constants.SEA_ID) registerIsland(i-1, j, id);
     }
 
     public List<Cell> findCastlePositions(int howMany) {

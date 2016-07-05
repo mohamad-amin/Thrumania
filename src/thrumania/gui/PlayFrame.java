@@ -25,12 +25,12 @@ import java.util.List;
  */
 public class PlayFrame extends JFrame {
 
-    private Map map;
-    private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
-    private PlayPanel playPanel;
-    private PlayBottomPanel playBottomPanel;
-    private MiniMapPanel miniMapPanel;
-    private PlayRightPanel playRightPanel;
+    protected Map map;
+    protected Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
+    protected PlayPanel playPanel;
+    protected PlayBottomPanel playBottomPanel;
+    protected MiniMapPanel miniMapPanel;
+    protected PlayRightPanel playRightPanel;
     AIManager virtals;
 
     public AIManager getVirtals() {
@@ -65,7 +65,7 @@ public class PlayFrame extends JFrame {
 
         //Todo should handle playernumber
         playBottomPanel = new PlayBottomPanel();
-        playPanel = new PlayPanel(map, miniMapPanel,0);
+        playPanel = new PlayPanel(map, miniMapPanel,0, null);
         playBottomPanel.setPlayPanel(playPanel);
         playPanel.setPlayBottomPanel(playBottomPanel);
         loadStrongholds();
@@ -94,10 +94,12 @@ public class PlayFrame extends JFrame {
         MapProcessor processor = new MapProcessor(map.getCells());
         processor.newInitializeStrongholds();
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
+        Constants.initializeHumanIds(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
             Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,playPanel,this,map);
             castle.setWaterStartingPoint(cell.getNeighbourSea(map.getCells()).getPosition());
+            castle.setTeamId(count);
             cell.setInsideElementsItems(castle);
             this.initializingHumans(castle);
             count++;
@@ -111,9 +113,9 @@ public class PlayFrame extends JFrame {
         Worker worker = new Worker(playPanel, map, castle.getStartingPoint().getColumn() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getStartingPoint().getRow() * Constants.CELL_SIZE + Constants.CELL_SIZE / 10, castle.getSide().getNumberOfPlayer(), playBottomPanel);
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
-
-        if(! worker.isExecuted())
-        {
+        worker.setTeamId(castle.getTeamId());
+        worker.setHumanId(Constants.getNextShipId(castle.getTeamId()));
+        if(! worker.isExecuted()) {
             worker.setExecuted(true);
             HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
         }

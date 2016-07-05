@@ -40,6 +40,9 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     private  int upCounter  = 0, rightCounter = 0 , downCounter = 0 , leftCounter  =0 ;
     private int counter = 0;
     private  boolean wentRight = false;
+    private int humanId;
+    private int teamId;
+
     protected boolean hasAttacked = false;
     protected boolean isHumanInsideTheShip = false;
     protected InsideElementsItems elementIsBeingCollected;
@@ -132,6 +135,23 @@ public abstract class Human extends InsideElementsItems implements Runnable {
         }
 
     }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
+
+    public int getHumanId() {
+        return humanId;
+    }
+
+    public void setHumanId(int humanId) {
+        this.humanId = humanId;
+    }
+
     protected void regularMove(Coordinate end) {
         int xEnd, yEnd;
         this.xCord = IntegerUtils.getXAndYWithCoordinate(coordinate)[0];

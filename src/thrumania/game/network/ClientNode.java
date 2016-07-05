@@ -14,7 +14,7 @@ public class ClientNode extends Network {
 
     private String machineName;
 
-    public ClientNode(PlayPanel playPanel, int numberOfPlayers, HashMap<String, Object> map, String machineName) {
+    public ClientNode(PlayPanel playPanel, int numberOfPlayers, HashMap<Integer, Object> map, String machineName) {
         super(playPanel, numberOfPlayers, map);
         this.machineName = machineName;
         connect();

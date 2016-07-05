@@ -14,10 +14,11 @@ public class ServerNode extends Network {
 
     private String machineName;
 
-    public ServerNode(PlayPanel panel, int numberOfPlayers, HashMap<String, Object> map, String machineName) {
+    public ServerNode(PlayPanel panel, int numberOfPlayers, HashMap<Integer, Object> map, String machineName) {
         super(panel, numberOfPlayers, map);
         this.machineName = machineName;
         connect();
+        super.sendData(map);
     }
 
     @Override
