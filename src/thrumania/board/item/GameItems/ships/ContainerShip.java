@@ -272,6 +272,7 @@ public class ContainerShip extends  Ships {
 
         while ( isAlive){
             consumingFood();
+            deterimingCanMove();
             if(canMove)
                 examiningPath();
 

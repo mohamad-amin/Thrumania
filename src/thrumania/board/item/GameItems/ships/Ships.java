@@ -140,14 +140,14 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
 // TODO : fix the first number : playerNumber
             pictureName = "F" + playerNumber % 4 + "" + direction  +".png";
         }
-    } // TODO  : for soldier
+    }
 
 
 
 
 
 
-    private void deterimingCanMove(){
+    protected void deterimingCanMove(){
 
         if ( playPanel.getSeason() != Constants.Seasons.WINTER)
             canMove = true;
