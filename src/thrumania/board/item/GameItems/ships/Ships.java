@@ -231,4 +231,12 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
     public MapProcessor getMapProcessor() {
         return mapProcessor;
     }
+
+    public boolean isAlive() {
+        return isAlive;
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
+    }
 }

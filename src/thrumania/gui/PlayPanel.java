@@ -17,10 +17,7 @@ import thrumania.board.item.MapItems.Map;
 import thrumania.managers.HumanManagers;
 import thrumania.managers.PortsManager;
 import thrumania.managers.ShipsManager;
-import thrumania.messages.EmptyingHuman;
-import thrumania.messages.Messages;
-import thrumania.messages.PickingHumanUp;
-import thrumania.messages.RemovingFromPanel;
+import thrumania.messages.*;
 import thrumania.utils.*;
 
 import javax.swing.*;
@@ -730,6 +727,9 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         } else if (e.getID() == Messages.REMOVING_FROM_PANEL) {
             RemovingFromPanel r = (RemovingFromPanel) e;
             removingHumanFromPanel(r.getHuman());
+        }else if( e.getID() == Messages.REMOVING_SHIP_FROM_PANEL){
+            RemovingShipsFromPanel r = ( RemovingShipsFromPanel) e;
+            removingSHips(r.getShips());
         }
 
         super.processComponentEvent(e);
@@ -752,6 +752,11 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         pickingHumanUp.getHuman().setVisible(false);
         this.repaint();
 
+
+    }
+    private void removingSHips(Ships ships){
+        this.remove(ships);
+        ships.setVisible(false);
 
     }
 

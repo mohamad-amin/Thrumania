@@ -9,7 +9,9 @@ import thrumania.gui.PlayBottomPanel;
 import thrumania.gui.PlayFrame;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
+import thrumania.managers.ShipsManager;
 import thrumania.messages.Messages;
+import thrumania.messages.RemovingShipsFromPanel;
 import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -116,6 +118,16 @@ public class Castle extends LiveElements {
                 playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
                 playFrame.getVirtals().kill(playerNumber);
             }
+        }
+
+        for ( int i =0  ;  i< ShipsManager.getShipInstance().getShips()[playerNumber].size() ; i++){
+
+
+            ShipsManager.getShipInstance().getShips()[playerNumber].get(i).setAlive(false);
+            ShipsManager.getShipInstance().getShips()[playerNumber].remove(i);
+            playPanel.dispatchEvent(new RemovingShipsFromPanel(playPanel,ShipsManager.getShipInstance().getShips()[playerNumber].get(i)));
+
+
         }
     }
 }
