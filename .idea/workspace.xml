@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="game is almost finished imroving container ship&#10;">
+    <list default="true" id="94839bcd-2b42-4058-bb6d-33a8aeff2e92" name="Default" comment="Fixing worker bug and fisher">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$12.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$13.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$13.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$MyMouseListener1.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel$MyMouseListener1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" afterPath="$PROJECT_DIR$/out/production/Thrumania/thrumania/gui/RightPanel.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/DeadElements.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/SmallFish.java" afterPath="$PROJECT_DIR$/src/thrumania/board/item/MapItems/Inside/SmallFish.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/PlayPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" afterPath="$PROJECT_DIR$/src/thrumania/gui/RightPanel.java" />
     </list>
     <ignored path="Thrumania.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -58,8 +56,10 @@
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="189">
-              <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-              <folding />
+              <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -67,8 +67,8 @@
       <file leaf-file-name="Worker.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="189">
-              <caret line="327" column="60" selection-start-line="327" selection-start-column="60" selection-end-line="327" selection-end-column="60" />
+            <state relative-caret-position="129">
+              <caret line="323" column="37" selection-start-line="323" selection-start-column="37" selection-end-line="323" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="method#checkWetherTheGoalCellIsResourcesOrNot#0;class#Worker#0" expanded="false" />
@@ -837,13 +837,6 @@
       <workItem from="1467670111053" duration="6010000" />
       <workItem from="1467695613824" duration="959000" />
     </task>
-    <task id="LOCAL-00016" summary="again push">
-      <created>1463920229790</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1463920229790</updated>
-    </task>
     <task id="LOCAL-00017" summary="adding tree to game panel ( still with one bug)">
       <created>1463956224143</created>
       <option name="number" value="00017" />
@@ -1180,7 +1173,14 @@
       <option name="project" value="LOCAL" />
       <updated>1467707114711</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="Fixing worker bug and fisher">
+      <created>1467718264350</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1467718264350</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1256,7 +1256,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="handling preview" />
     <MESSAGE value="handling night" />
     <MESSAGE value="        handling night" />
     <MESSAGE value="Added Save" />
@@ -1281,7 +1280,8 @@
     <MESSAGE value="bug fixed" />
     <MESSAGE value="Fixed Crossing Buildings and basic network&#10;" />
     <MESSAGE value="game is almost finished imroving container ship&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="game is almost finished imroving container ship&#10;" />
+    <MESSAGE value="Fixing worker bug and fisher" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixing worker bug and fisher" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -1379,25 +1379,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</url>
-          <line>278</line>
+          <line>277</line>
           <properties />
           <option name="timeStamp" value="59" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</url>
-          <line>279</line>
+          <line>278</line>
           <properties />
           <option name="timeStamp" value="60" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</url>
-          <line>280</line>
+          <line>279</line>
           <properties />
           <option name="timeStamp" value="62" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</url>
-          <line>281</line>
+          <line>280</line>
           <properties />
           <option name="timeStamp" value="63" />
         </line-breakpoint>
@@ -1415,7 +1415,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java</url>
-          <line>276</line>
+          <line>275</line>
           <properties class="thrumania.board.item.GameItems.ships.FisherShip" method="findTheBestPlaceToEmptyResources" />
           <option name="timeStamp" value="61" />
         </line-breakpoint>
@@ -1760,8 +1760,10 @@
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/ships/FisherShip.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
-          <caret line="35" column="15" selection-start-line="35" selection-start-column="15" selection-end-line="35" selection-end-column="15" />
-          <folding />
+          <caret line="34" column="15" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="15" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1785,8 +1787,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/thrumania/board/item/GameItems/people/Worker.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="327" column="60" selection-start-line="327" selection-start-column="60" selection-end-line="327" selection-end-column="60" />
+        <state relative-caret-position="129">
+          <caret line="323" column="37" selection-start-line="323" selection-start-column="37" selection-end-line="323" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="method#checkWetherTheGoalCellIsResourcesOrNot#0;class#Worker#0" expanded="false" />
