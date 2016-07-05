@@ -57,6 +57,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     int scoralSide = 4;
     private int ZeroScale = Constants.giveMeZeroScale();
     private int playernumber;
+    private int tempNumberOfPlayers;
 
     public Constants.BuildSomething getBuildSomething() {
         return buildSomething;
@@ -94,6 +95,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
+        tempNumberOfPlayers = Constants.NUMBER_OF_PLAYERS;
 //        this.preview =  new Preview(this, 20000);
 
 
@@ -348,6 +350,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     @Override
     public void run() {
+        checkWetherISGameFinished();
         while (gameIsON) {
 
             synchronized (HumanManagers.getSharedInstance().getHumans()) {
@@ -367,6 +370,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
 
         }
+        System.exit(0);
     }
 
     private Human findingwhichHumanIsClicked(int x, int y) {
@@ -918,6 +922,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             @Override
             public void run() {
 
+
                 for (int i = 0; i < ShipsManager.getShipInstance().getShips().length; i++) {
 
                     for (int j = 0; j < ShipsManager.getShipInstance().getShips()[i].size(); j++) {
@@ -949,7 +954,23 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     public void setDayTime(Constants.DayTime dayTime) {
         this.dayTime = dayTime;
     }
+    private void checkWetherISGameFinished(){
+
+        if  ( tempNumberOfPlayers == 1){
+
+            gameIsON = false;
+
+        }
+        else gameIsON = true;
 
 
+    }
 
+    public int getTempNumberOfPlayers() {
+        return tempNumberOfPlayers;
+    }
+
+    public void setTempNumberOfPlayers(int tempNumberOfPlayers) {
+        this.tempNumberOfPlayers = tempNumberOfPlayers;
+    }
 }
