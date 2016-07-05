@@ -168,7 +168,7 @@ public class Soldier extends Human {
                         pathOfCoordinates.pop();
 
 
-                    if (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
+                    if (canGoMountain || !this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
 
                         regularMove(pathOfCoordinates.pop());
                     }else if ( pathOfCoordinates.size() == 1 &&  checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){

@@ -44,6 +44,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected boolean isHumanInsideTheShip = false;
     protected InsideElementsItems elementIsBeingCollected;
     protected InsideElementsItems onTheWayBuilding;
+    protected boolean canGoMountain = false;
 
 
 
@@ -382,5 +383,13 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
     public int getDamageUnit() {
         return damageUnit;
+    }
+
+    public boolean isCanGoMountain() {
+        return canGoMountain;
+    }
+
+    public void setCanGoMountain(boolean canGoMountain) {
+        this.canGoMountain = canGoMountain;
     }
 }
