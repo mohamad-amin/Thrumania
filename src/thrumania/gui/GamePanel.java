@@ -23,7 +23,7 @@ import java.util.TimerTask;
  * Created by sina on 5/18/16.
  */
 
-public class GamePanel extends JPanel implements MouseInputListener {
+public class GamePanel extends Panels implements MouseInputListener {
 
     private Map map;
     private FixedQueue<HashMap<Integer, Object>> stateQueue;
@@ -553,7 +553,7 @@ public class GamePanel extends JPanel implements MouseInputListener {
                     null);
         } else {
             //Todo ocean1night
-            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
                     (Constants.DRAWER_WIDTH+2)*Constants.CELL_SIZE ,

@@ -128,7 +128,7 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
 
     private void setPicturesOfMoving( int direction , int thirdPartOfTheName) {
 // tODO : for ship
-        if (this instanceof FisherShip) {
+        if (this instanceof FisherShip ||  this instanceof  ContainerShip) {
             if (direction == 0 && thirdPartOfTheName >= 8)
                  upCounter = 0;
             else if (direction == 1 && thirdPartOfTheName >= 8)

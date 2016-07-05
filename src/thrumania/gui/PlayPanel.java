@@ -33,20 +33,22 @@ import java.awt.event.MouseMotionListener;
 /**
  * Created by mohamadamin on 6/24/16.
  */
-public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
+public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private Constants.Elements selectedElements;
     private Map map;
     private Coordinate start = new Coordinate(0, 0);
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private MiniMapPanel miniMap;
-    private Constants.Seasons season;
-    private Constants.DayTime dayTime;
+
+
     private Preview preview;
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
     private boolean gameIsON;
     private Constants.BuildSomething buildSomething = null;
+    private Constants.Seasons season;
+    private Constants.DayTime dayTime;
     // needed for the resources :
     private int woordRes = 0;
     private int ironRes = 0;
@@ -93,6 +95,8 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
+        preview =  new Preview(this, 10000);
+
 
 
     }
@@ -233,7 +237,7 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
                     null);
         } else {
             //Todo ocean1night
-            g.drawImage(ImageUtils.getImage("ocean1.jpg"),
+            g.drawImage(ImageUtils.getImage("ocean1Night.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
                     (Constants.DRAWER_WIDTH + 2) * Constants.CELL_SIZE,
@@ -913,6 +917,14 @@ public class PlayPanel extends JPanel implements MouseMotionListener, Runnable {
             }
         });
 
+    }
+
+    public Constants.DayTime getDayTime() {
+        return dayTime;
+    }
+
+    public void setDayTime(Constants.DayTime dayTime) {
+        this.dayTime = dayTime;
     }
 
 
