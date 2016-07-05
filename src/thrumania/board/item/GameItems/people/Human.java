@@ -222,6 +222,20 @@ public abstract class Human extends InsideElementsItems implements Runnable {
              thirdPartOfTheName =   leftCounter = 0;
 // TODO : fix the first number : playerNumber
             this.picutreName = "W" + playerNumber % 4 + "" + direction + "" + thirdPartOfTheName + ".png";
+        }else  if( this instanceof  Soldier){
+
+            if (direction == 0 && thirdPartOfTheName >= 8)
+                thirdPartOfTheName =  upCounter = 0;
+            else if (direction == 1 && thirdPartOfTheName >= 8)
+                thirdPartOfTheName = rightCounter = 0;
+            else if (direction == 2 && thirdPartOfTheName >= 8)
+                thirdPartOfTheName =   downCounter = 0;
+            else if (direction == 3 && thirdPartOfTheName >= 8)
+                thirdPartOfTheName =   leftCounter = 0;
+            this.picutreName = "S" + playerNumber % 4 + "" + direction + "" + thirdPartOfTheName + ".png";
+
+
+
         }
     } // TODO  : for soldier
 

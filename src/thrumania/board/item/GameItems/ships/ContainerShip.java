@@ -44,7 +44,7 @@ public class ContainerShip extends  Ships {
         super.unitOfConsumingFood = 1;
         this.canMove = true;
         super.isAlive = true;
-        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
+        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";tl
 
     }
     private void consumingFood(){
