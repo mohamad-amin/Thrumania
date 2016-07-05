@@ -212,7 +212,6 @@ public class FisherShip extends  Ships{
 
 
                         }
-                        // TODO : collect shit
 
 
                     }
@@ -334,6 +333,7 @@ private  void  checkWetherTheCapacityIsFull(){
     public void run() {
         while ( isAlive){
             this.consumingFood();
+            deterimingCanMove();
             if( canMove)
             examiningPath();
         }
