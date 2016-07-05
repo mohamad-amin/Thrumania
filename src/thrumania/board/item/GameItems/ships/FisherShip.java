@@ -27,11 +27,12 @@ public class FisherShip extends  Ships{
     private int MAX_CAPACITY_OF_COLLECTING_FISH = 1200;
     private  boolean isCapacityOfCollectingResourcesFUll =false;
     private boolean isWinter = false;
-    private Dimension d = new Dimension(Constants.CELL_SIZE  - 10  , Constants.CELL_SIZE - 10);
+    private Dimension d = new Dimension(Constants.CELL_SIZE    , Constants.CELL_SIZE );
     private  Coordinate resourceCoordinate = null;
     private Coordinate whereToEmptiResources;
     private InsideElementsItems elementIsBeingCollected = null;
     public FisherShip(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber){
+        this.playerNumber = playerNumber;
         super.unitOfConsumingFood = 1;
         super.playPanel = playPanel;
         super.map = map;
