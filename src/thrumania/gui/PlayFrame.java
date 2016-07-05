@@ -39,7 +39,6 @@ public class PlayFrame extends JFrame {
     }
 
     private void loadFrame(Map map) {
-
         this.map = map;
         this.setSize(d);
         this.setLayout(null);

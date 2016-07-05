@@ -43,7 +43,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
     protected boolean hasAttacked = false;
     protected boolean isHumanInsideTheShip = false;
     protected InsideElementsItems elementIsBeingCollected;
-    protected InsideElementsItems onTheWayBuilding ;
+    protected InsideElementsItems onTheWayBuilding;
 
 
 

@@ -143,4 +143,5 @@ public class MiniMapPanel extends JPanel implements MouseListener, MouseMotionLi
     public void mouseMoved(MouseEvent e) {
 
     }
+
 }

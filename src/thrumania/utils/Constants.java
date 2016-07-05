@@ -19,6 +19,7 @@ public class Constants {
     public static int INSIDE_CELL_ELEMENT_SIZE = CELL_SIZE / 2;
     public static int STATE_QUEUE_SIZE = 50;
     public static int NUMBER_OF_PLAYERS;
+    public static int NETWORK_PORT = 9442;
 
     public final static int DISTANCE_WATER_WATER = 4,
             DISTANCE_WATER_LAND = 3,
