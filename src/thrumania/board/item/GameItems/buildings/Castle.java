@@ -21,6 +21,7 @@ public class Castle extends LiveElements {
 // TODO  : IS NEAR THE OCEAN
     private boolean isNearWater = false;
     private  Coordinate waterStartingPoint;
+    private int teamId;
 
     public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel , Map map) {
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
@@ -32,6 +33,14 @@ public class Castle extends LiveElements {
         this.realPosition = realPosition;
         health = new Health(10000,10000);
         setWithOnePicture("castle.png");
+    }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
     }
 
     public boolean isNearWater() {

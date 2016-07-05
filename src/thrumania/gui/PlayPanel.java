@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 
+import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
@@ -14,6 +15,7 @@ import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Cells.Sea;
 import thrumania.board.item.MapItems.DeadElements;
 import thrumania.board.item.MapItems.Map;
+import thrumania.game.network.Network;
 import thrumania.managers.HumanManagers;
 import thrumania.managers.PortsManager;
 import thrumania.managers.ShipsManager;
@@ -29,6 +31,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.HashMap;
 
 /**
  * Created by mohamadamin on 6/24/16.
@@ -48,15 +51,15 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
     // needed for the resources :
-    private int woordRes = 1000;
-    private int ironRes = 1000;
-    private int foodRes = 1000;
-    private int goldRes = 1000;
+    private int woordRes = 0;
+    private int ironRes = 0;
+    private int foodRes = 0;
+    private int goldRes = 0;
     private boolean isScoralling = false;
     int scoralSide = 4;
     private int ZeroScale = Constants.giveMeZeroScale();
     private int playernumber;
-    private int tempNumberOfPlayers;
+    private Network network;
 
     public Constants.BuildSomething getBuildSomething() {
         return buildSomething;
@@ -78,8 +81,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private PlayBottomPanel playBottomPanel;
 
     //    private woodR
-//Todo player number for teams
-    public PlayPanel(Map map, MiniMapPanel panel, int playernumber) {
+    //Todo player number for teams
+    public PlayPanel(Map map, MiniMapPanel panel, int playernumber, Network network) {
         this.playernumber = playernumber;
         this.miniMap = panel;
         this.map = map;
@@ -94,11 +97,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-        tempNumberOfPlayers = Constants.NUMBER_OF_PLAYERS;
+        this.network = network;
 //        this.preview =  new Preview(this, 20000);
-
-
-
     }
 
     @Override
@@ -187,10 +187,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setIcon(
                                 new ImageIcon(ImageUtils.getImage(HumanManagers.getSharedInstance().getHumans()[i].get(j).getPicutreName())));
-
-
-
-
                         int x1, y1;
                         //TODO we should correct human by  * (Constants.CELL_SIZE / Constants.giveMeZeroScale())
                         x1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getxCord() * Constants.CELL_SIZE / ZeroScale) - start.getColumn() * Constants.CELL_SIZE + (int) (continuousMovement.getColumn() * Constants.CELL_SIZE);
@@ -313,8 +309,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
                 if (crd.equals(HumanManagers.getSharedInstance().getHumans()[i].get(j).getCoordinate()))
                     return HumanManagers.getSharedInstance().getHumans()[i].get(j);
-
-
             }
 
 
@@ -349,7 +343,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     @Override
     public void run() {
-        checkWetherISGameFinished();
         while (gameIsON) {
 
             synchronized (HumanManagers.getSharedInstance().getHumans()) {
@@ -369,7 +362,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
 
         }
-        System.exit(0);
     }
 
     private Human findingwhichHumanIsClicked(int x, int y) {
@@ -438,10 +430,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.miniMap.updateFocus(start);
     }
 
-    public Map getMap() {
-        return map;
-    }
-
     private class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -457,21 +445,37 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                 System.out.println("game selected is .....");
                 setHumanAction(x, y);
             } else {
-                // TODO : handling teams in selectio
+                // TODO : handling teams in selection
                 if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                     System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                     //TODO : finding which element is clicked
- //                   if (((findingwhichElementIsClicked(x, y, realx, realy))!=null&&((findingwhichElementIsClicked(x, y, realx, realy)).getPlayerNumber() == playernumber))) {
-                        gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
-                        System.out.println(gameSelectedElement);
-                        playBottomPanel.repaint();
- //                   }
+                    gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
+                    System.out.println(gameSelectedElement);
+                    if( gameSelectedElement instanceof LiveElements )
+                    System.out.println( "Starting point is " + ( (LiveElements)  gameSelectedElement ).getStartingPoint());
+                    playBottomPanel.repaint();
                 } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
                     // use right click to move else it it would realese the selected element
-                    if (gameSelectedElement instanceof Human)
+                    if (gameSelectedElement instanceof Human) {
+                        HashMap<Integer, Object> sendData = new HashMap<>();
+                        sendData.put(0, Network.HUMAN_ACTION);
+                        sendData.put(1, ((Human) gameSelectedElement).getCoordinate().getRow());
+                        sendData.put(2, ((Human) gameSelectedElement).getCoordinate().getColumn());
+                        sendData.put(3, x);
+                        sendData.put(4, y);
+                        network.sendData(sendData);
                         setHumanAction(x, y);
-                    else if (gameSelectedElement instanceof Ships)
+                    }
+                    else if (gameSelectedElement instanceof Ships) {
+                        HashMap<Integer, Object> sendData = new HashMap<>();
+                        sendData.put(0, Network.SHIP_ACTION);
+                        sendData.put(1, ((Ships) gameSelectedElement).getCoordinate().getRow());
+                        sendData.put(2, ((Ships) gameSelectedElement).getCoordinate().getColumn());
+                        sendData.put(3, x);
+                        sendData.put(4, y);
+                        network.sendData(sendData);
                         setShipAction(x, y);
+                    }
                 }
             }
 
@@ -509,7 +513,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         return map.getCell(realy, realx).getInsideElementsItems();
     }
 
-    private void setHumanAction(int x, int y) {
+    public void setHumanAction(int x, int y) {
 
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
 //        Cell cell = map.getCell(coord.getRow(), coord.getColumn());
@@ -563,7 +567,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     }
 
-    private void setShipAction(int x, int y) {
+    public void setShipAction(int x, int y) {
         Coordinate coord = IntegerUtils.getCoordinateWithXAndY(x, y);
 
         if (gameSelectedElement instanceof Ships) {
@@ -816,10 +820,18 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     public void buildWorker(Castle castle) {
         synchronized (HumanManagers.getSharedInstance().getHumans()) {
+            // TODO Network
             Worker worker = new Worker(this, map, IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[0], IntegerUtils.getXAndYWithCoordinate(castle.getStartingPoint())[1], castle.getSide().getNumberOfPlayer(), playBottomPanel);
             worker.setHomeCastleCoordinate(castle.getStartingPoint());
+            worker.setTeamId(castle.getTeamId());
             HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
             HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
+            HashMap<Integer, Object> sendData = new HashMap<>();
+            sendData.put(0, Network.ADD_WORKER);
+            sendData.put(1, castle.getSide());
+            sendData.put(2, castle.getRealPosition().getRow());
+            sendData.put(3, castle.getRealPosition().getColumn());
+            network.sendData(sendData);
         }
     }
 
@@ -827,27 +839,49 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         synchronized (HumanManagers.getSharedInstance().getHumans()) {
             Soldier soldier = new Soldier(this, map, IntegerUtils.getXAndYWithCoordinate(barrak.getStartingPoint())[0], IntegerUtils.getXAndYWithCoordinate(barrak.getStartingPoint())[1], barrak.getSide().getNumberOfPlayer(), playBottomPanel);
             soldier.setHomeCastleCoordinate(barrak.getStartingPoint());
+            soldier.setTeamId(soldier.getTeamId());
             HumanManagers.getSharedInstance().getHumans()[soldier.getPlayerNumber()].add(soldier);
             HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(soldier);
+            HashMap<Integer, Object> sendData = new HashMap<>();
+            sendData.put(0, Network.ADD_SOLDIER);
+            sendData.put(1, barrak.getSide());
+            sendData.put(2, barrak.getRealPosition().getRow());
+            sendData.put(3, barrak.getRealPosition().getColumn());
+            network.sendData(sendData);
         }
     }
 
     public void buildContainerShip(Port port) {
         synchronized (ShipsManager.getShipInstance().getShips()) {
+            // TODO Network
             System.out.println("hellohello");
             ContainerShip containerShip = new ContainerShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[0],
                     IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[1], port.getSide().getNumberOfPlayer());
             ShipsManager.getShipInstance().getShips()[containerShip.getPlayerNumber()].add(containerShip);
             ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(containerShip);
+            HashMap<Integer, Object> sendData = new HashMap<>();
+            sendData.put(0, Network.ADD_CONTAINER_SHIP);
+            sendData.put(1, port.getSide());
+            sendData.put(2, port.getRealPosition().getRow());
+            sendData.put(3, port.getRealPosition().getColumn());
+            network.sendData(sendData);
         }
     }
 
     public void buildFisherShip(Port port) {
         synchronized (ShipsManager.getShipInstance().getShips()) {
+            // TODO Network
             FisherShip fisherShip = new FisherShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[0],
                     IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[1], port.getSide().getNumberOfPlayer());
             ShipsManager.getShipInstance().getShips()[fisherShip.getPlayerNumber()].add(fisherShip);
+            System.out.println("fisher ship is      +" + fisherShip);
             ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(fisherShip);
+            HashMap<Integer, Object> sendData = new HashMap<>();
+            sendData.put(0, Network.ADD_FISHER_SHIP);
+            sendData.put(1, port.getSide());
+            sendData.put(2, port.getRealPosition().getRow());
+            sendData.put(3, port.getRealPosition().getColumn());
+            network.sendData(sendData);
         }
     }
 
@@ -864,7 +898,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                                         map.getCell(realy, realx).getNeighbourSea(map.getCells()).getPosition(),
                                         (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map);
                                 map.getCell(realy, realx).setInsideElementsItems(p);
-                                PortsManager.getPortSharedInstance().getPorts()[(((Human) gameSelectedElement)).getPlayerNumber()].add(p);
+                                PortsManager.getPortSharedInstance().getPorts()[playernumber].add(p);
                             }
                         }
                     }
@@ -925,7 +959,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             @Override
             public void run() {
 
-
                 for (int i = 0; i < ShipsManager.getShipInstance().getShips().length; i++) {
 
                     for (int j = 0; j < ShipsManager.getShipInstance().getShips()[i].size(); j++) {
@@ -957,23 +990,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     public void setDayTime(Constants.DayTime dayTime) {
         this.dayTime = dayTime;
     }
-    private void checkWetherISGameFinished(){
-
-        if  ( tempNumberOfPlayers == 1){
-
-            gameIsON = false;
-
-        }
-        else gameIsON = true;
 
 
-    }
 
-    public int getTempNumberOfPlayers() {
-        return tempNumberOfPlayers;
-    }
-
-    public void setTempNumberOfPlayers(int tempNumberOfPlayers) {
-        this.tempNumberOfPlayers = tempNumberOfPlayers;
-    }
 }

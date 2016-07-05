@@ -1,5 +1,11 @@
 package thrumania.board.item.MapItems.Cells;
 
+import thrumania.board.item.GameItems.buildings.Barrack;
+import thrumania.board.item.GameItems.buildings.Castle;
+import thrumania.board.item.GameItems.buildings.Farm;
+import thrumania.board.item.GameItems.buildings.WoodQuarry;
+import thrumania.board.item.GameItems.people.Soldier;
+import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.MapItems.Inside.Agliculture;
 import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.utils.Constants;
@@ -55,6 +61,18 @@ public class LowLand extends Cell {
             return Constants.TREE_ID;
         } else if (getInsideElementsItems() instanceof Agliculture) {
             return Constants.AGRICULTURE_ID;
+        } else if (getInsideElementsItems() instanceof Barrack) {
+            return Constants.BARRACK_ID;
+        } else if (getInsideElementsItems() instanceof Castle) {
+            return Constants.CASTLE_ID;
+        } else if (getInsideElementsItems() instanceof Farm) {
+            return Constants.FARM_ID;
+        } else if (getInsideElementsItems() instanceof WoodQuarry) {
+            return Constants.WOOD_QUARRY_ID;
+        } else if (getInsideElementsItems() instanceof Soldier) {
+            return Constants.SOLDIER_ID;
+        } else if (getInsideElementsItems() instanceof Worker) {
+            return Constants.WORKER_ID;
         } else return Constants.LOW_LAND_ID;
     }
 

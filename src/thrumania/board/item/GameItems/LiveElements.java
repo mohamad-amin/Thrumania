@@ -45,6 +45,10 @@ public  abstract  class LiveElements extends DeadElements{
         winterPictureName = pictureName;
     }
 
+    public Coordinate getRealPosition() {
+        return realPosition;
+    }
+
     public void destroy (){
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(true);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(true);

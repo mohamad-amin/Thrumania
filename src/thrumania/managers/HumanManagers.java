@@ -33,7 +33,6 @@ public class HumanManagers {
              instance.humans = new ArrayList[Constants.NUMBER_OF_PLAYERS];
              for (int i = 0; i < instance.humans.length; i++) {
                  instance.humans[i] = new ArrayList<Human>();
-
              }
              threadPoolExecutor = (ThreadPoolExecutor) Executors.newCachedThreadPool();
 //                threadPoolExecutor = new ThreadPoolExecutor(250);

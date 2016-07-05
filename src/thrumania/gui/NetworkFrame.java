@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by mohamadamin on 6/24/16.
  */
-public class PlayFrame extends JFrame {
+public class NetworkFrame extends JFrame {
 
     private Map map;
     private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
@@ -33,7 +33,7 @@ public class PlayFrame extends JFrame {
     private PlayRightPanel playRightPanel;
 
 
-    public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
+    public NetworkFrame(HashMap<Integer, Object> loadedMap, int players) {
         Constants.NUMBER_OF_PLAYERS = players;
         Side.setNumberOfPlayers(players);
         loadFrame(loadMapFromHash(loadedMap));
@@ -86,6 +86,7 @@ public class PlayFrame extends JFrame {
         MapProcessor processor = new MapProcessor(map.getCells());
         processor.newInitializeStrongholds();
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
+        Constants.initializeHumanIds(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
             Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,map);
@@ -105,8 +106,8 @@ public class PlayFrame extends JFrame {
         worker.setHomeCastleCoordinate(castle.getStartingPoint());
         HumanManagers.getSharedInstance().getHumans()[worker.getPlayerNumber()].add(worker);
         worker.setTeamId(castle.getTeamId());
-        if(! worker.isExecuted())
-        {
+        worker.setHumanId(Constants.getNextShipId(castle.getTeamId()));
+        if(! worker.isExecuted()) {
             worker.setExecuted(true);
             HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(worker);
         }

@@ -12,9 +12,9 @@ import java.util.concurrent.ThreadPoolExecutor;
  */
 public class ShipsManager {
 
-    static ShipsManager shipInstance ;
-    private ArrayList<Ships> [] ships ;
-    static ThreadPoolExecutor shipThreadPoolExecuter ;
+    static ShipsManager shipInstance;
+    private ArrayList<Ships> [] ships;
+    static ThreadPoolExecutor shipThreadPoolExecuter;
 
     public static  ShipsManager getShipInstance () {
         if ( shipInstance == null){

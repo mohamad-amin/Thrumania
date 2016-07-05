@@ -40,9 +40,27 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
     private int counter = 0;
     private  boolean wentRight = false;
 
-    public   enum  StatesOfMoving{
+    private int shipId;
+    private int teamId;
 
+    public   enum  StatesOfMoving{
         STOP , MOVE_BY_ORDER , COLLECTING_FISH , COLLECTING_FISH_IS_DONE , COLLECTING_HUMAN , COLLECTING_HUMAN_IS_DONE , EMPTYING_HUMAN , EMPTYING_HUMAN_IS_DONE
+    }
+
+    public int getTeamId() {
+        return teamId;
+    }
+
+    public void setTeamId(int teamId) {
+        this.teamId = teamId;
+    }
+
+    public int getShipId() {
+        return shipId;
+    }
+
+    public void setShipId(int shipId) {
+        this.shipId = shipId;
     }
 
     public  StatesOfMoving moveState = StatesOfMoving.STOP;

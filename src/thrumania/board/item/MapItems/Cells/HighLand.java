@@ -1,5 +1,6 @@
 package thrumania.board.item.MapItems.Cells;
 
+import thrumania.board.item.GameItems.buildings.MineQuarry;
 import thrumania.board.item.MapItems.Inside.GoldMine;
 import thrumania.board.item.MapItems.Inside.StoneMine;
 import thrumania.utils.Constants;
@@ -55,6 +56,8 @@ public class HighLand extends Cell {
             return Constants.STONE_ID;
         } else if (getInsideElementsItems() instanceof GoldMine) {
             return Constants.GOLD_ID;
+        } else if (getInsideElementsItems() instanceof MineQuarry) {
+            return Constants.MINE_QUARRY_ID;
         } else return Constants.HIGH_LAND_ID;
     }
 
