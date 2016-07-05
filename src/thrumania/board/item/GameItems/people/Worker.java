@@ -31,7 +31,6 @@ import java.util.TimerTask;
 // TODO : Program's speed due to  two tings : having ThreadPool ,  and  curculating through all humans cuz of having one array list :
 // TODO :  we can hve hashmap  and for
 public class Worker extends Human {
-    private boolean canGoMountain;
     // TODO : worker's Order
     private int capacityOfCollectingWood = 0;
     private int capacityOfCollectingStone = 0;
@@ -146,13 +145,7 @@ public class Worker extends Human {
     }
 
 
-    public boolean isCanGoMountain() {
-        return canGoMountain;
-    }
 
-    public void setCanGoMountain(boolean canGoMountain) {
-        this.canGoMountain = canGoMountain;
-    }
 
     public int getCapacityOfCollectinWood() {
         return capacityOfCollectingWood;

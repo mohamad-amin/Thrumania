@@ -94,4 +94,10 @@ public class Castle extends LiveElements {
             }, 110);
         }
     }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
+    }
 }

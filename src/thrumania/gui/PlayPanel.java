@@ -1,7 +1,6 @@
 package thrumania.gui;
 
 
-import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
@@ -94,7 +93,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-//        this.preview =  new Preview(this, 20000);
+        this.preview =  new Preview(this, 20000);
 
 
 
@@ -435,6 +434,10 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.miniMap.updateFocus(start);
     }
 
+    public Map getMap() {
+        return map;
+    }
+
     private class GamePanelMouseListener implements MouseListener {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -454,11 +457,11 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                 if (e.getModifiersEx() == 0 && e.getButton() == 1) {
                     System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                     //TODO : finding which element is clicked
-                    gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
-                    System.out.println(gameSelectedElement);
-                    if( gameSelectedElement instanceof LiveElements )
-                    System.out.println( "Starting point is " + ( (LiveElements)  gameSelectedElement ).getStartingPoint());
-                    playBottomPanel.repaint();
+ //                   if (((findingwhichElementIsClicked(x, y, realx, realy))!=null&&((findingwhichElementIsClicked(x, y, realx, realy)).getPlayerNumber() == playernumber))) {
+                        gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
+                        System.out.println(gameSelectedElement);
+                        playBottomPanel.repaint();
+ //                   }
                 } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
                     // use right click to move else it it would realese the selected element
                     if (gameSelectedElement instanceof Human)

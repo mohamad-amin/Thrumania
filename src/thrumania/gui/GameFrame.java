@@ -48,7 +48,6 @@ public class GameFrame extends JFrame {
         gamePanel.requestFocus();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
-
     }
 
 
