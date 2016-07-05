@@ -13,7 +13,7 @@ import java.util.TimerTask;
 /**
  * Created by sina on 6/28/16.
  */
-public class PlayRightPanel extends JPanel {
+public class PlayRightPanel extends JPanel implements Runnable {
 
     private Dimension d = new Dimension(this.getToolkit().getScreenSize().width - Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private int elementSize ;
@@ -228,7 +228,13 @@ public class PlayRightPanel extends JPanel {
 
 
 
+    }private  void seetingBoard(Graphics g){
+        g.setColor(Color.RED);
+
+
+
     }
+
 
     @Override
     public void paint(Graphics g) {
@@ -240,19 +246,22 @@ public class PlayRightPanel extends JPanel {
         int elementCounter = 1;
         // implementing resources :
 
-
         // wood
         //g.setColor(Color.WHITE);
 
       //  g.fillRect(d.width /6 , verticalSpaceBetweenElements * elementCounter - 10 , elementSize * 5 , elementSize * 5 );
-        g.drawImage(ImageUtils.getImage("woodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-         elementCounter +=4;
+        g.setColor(Color.RED);
+        g.drawImage(ImageUtils.getImage("woodResource.png"), d.width / 5  , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
+        g.drawString( playPanel.getWoordRes() + "", d.width / 5 +  100, verticalSpaceBetweenElements * elementCounter + 20);
+        elementCounter +=4;
         g.drawImage(ImageUtils.getImage("ironResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
+        g.drawString(playPanel.getIronRes() + "" , d.width / 5  + 100, verticalSpaceBetweenElements * elementCounter + 20);
         elementCounter +=4 ;
-        g.drawImage(ImageUtils.getImage("goldResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
+        g.drawImage(ImageUtils.getImage("goldResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter  + 20, elementSize , elementSize , null );
+        g.drawString(playPanel.getGoldRes() + "" , d.width / 5 +100 , verticalSpaceBetweenElements * elementCounter + 20 );
         elementCounter +=4 ;
-        g.drawImage(ImageUtils.getImage("foodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-
+        g.drawImage(ImageUtils.getImage("foodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter + 20, elementSize , elementSize , null );
+        g.drawString(playPanel.getFoodRes() + "" , d.width / 5  + 100, verticalSpaceBetweenElements * elementCounter + 20 );
 //         impelenting arrow keys
 //         Up :'
         elementCounter += 5;
@@ -312,12 +321,17 @@ public class PlayRightPanel extends JPanel {
 //        repaint();
     }
 
-
-
-
-
-
-
+    @Override
+    public void run() {
+        while (playPanel.gameIsON) {
+            repaint();
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     private  class  PlayRightPanelMouseListener implements MouseListener{

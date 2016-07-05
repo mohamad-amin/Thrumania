@@ -703,4 +703,6 @@ public class GamePanel extends Panels implements MouseInputListener {
         this.miniMap.updateFocus(start);
         repaint();
     }
+
+
 }

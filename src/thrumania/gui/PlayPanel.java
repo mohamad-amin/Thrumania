@@ -45,7 +45,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private Preview preview;
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
-    private boolean gameIsON;
+    public boolean gameIsON;
     private Constants.BuildSomething buildSomething = null;
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
@@ -95,7 +95,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-        preview =  new Preview(this, 10000);
+        this.preview =  new Preview(this, 20000);
 
 
 
@@ -342,6 +342,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     @Override
     public void run() {
         while (gameIsON) {
+
             synchronized (HumanManagers.getSharedInstance().getHumans()) {
                 this.addingHumansToMap();
             }
@@ -926,6 +927,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     public void setDayTime(Constants.DayTime dayTime) {
         this.dayTime = dayTime;
     }
+
 
 
 }

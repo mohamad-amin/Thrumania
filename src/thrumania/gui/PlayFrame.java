@@ -29,6 +29,7 @@ public class PlayFrame extends JFrame {
     private PlayPanel playPanel;
     private PlayBottomPanel playBottomPanel;
     private MiniMapPanel miniMapPanel;
+    private PlayRightPanel playRightPanel;
 
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
@@ -62,9 +63,13 @@ public class PlayFrame extends JFrame {
         loadStrongholds();
         Thread playPanelThread = new Thread(playPanel);
         playPanelThread.start();
+        playRightPanel = new PlayRightPanel(playPanel);
+        Thread plaRightPanelThread = new Thread(playRightPanel);
+        plaRightPanelThread.start();
+
 
         this.add(playPanel);
-        this.add(new PlayRightPanel(playPanel));
+        this.add(playRightPanel);
         this.add(playBottomPanel);
 
 
