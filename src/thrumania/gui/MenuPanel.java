@@ -137,7 +137,7 @@ public class MenuPanel extends JPanel {
                             "New Game", JOptionPane.INFORMATION_MESSAGE);
                     try {
 
-                        new PlayFrame(loadedMap, Integer.valueOf(players));
+                        new PlayFrame(loadedMap, Integer.valueOf(players), false);
                         SoundUtils.clip.stop();
 
                     } catch (Exception exception) {
