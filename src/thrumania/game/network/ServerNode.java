@@ -14,9 +14,9 @@ public class ServerNode extends Network {
 
     private String machineName;
 
-    public ServerNode(PlayPanel panel, int numberOfPlayers, HashMap<Integer, Object> map, String machineName) {
+    public ServerNode(PlayPanel panel, int numberOfPlayers, HashMap<Integer, Object> map) {
         super(panel, numberOfPlayers, map);
-        this.machineName = machineName;
+        System.out.println("Here1");
         connect();
         super.sendData(map);
     }
@@ -26,7 +26,9 @@ public class ServerNode extends Network {
         try {
             ServerSocket server = new ServerSocket(Constants.NETWORK_PORT);
             socket = server.accept();
-            new Thread(new ServerHandler(socket, panel)).start();
+            ServerHandler handler = new ServerHandler(socket, panel);
+            handler.setServer(true);
+            new Thread(handler).start();
         } catch (IOException e) {
             e.printStackTrace();
         }

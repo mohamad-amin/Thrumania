@@ -31,7 +31,8 @@ public class PlayFrame extends JFrame {
     protected PlayBottomPanel playBottomPanel;
     protected MiniMapPanel miniMapPanel;
     protected PlayRightPanel playRightPanel;
-    AIManager virtals;
+    protected AIManager virtals;
+    protected boolean multi;
 
     public AIManager getVirtals() {
         return virtals;
@@ -41,10 +42,19 @@ public class PlayFrame extends JFrame {
         this.virtals = virtals;
     }
 
-    public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
+    public PlayFrame(HashMap<Integer, Object> loadedMap, int players, boolean multi) {
+        this.multi = multi;
         Constants.NUMBER_OF_PLAYERS = players;
         Side.setNumberOfPlayers(players);
         loadFrame(loadMapFromHash(loadedMap));
+    }
+
+    public PlayPanel getPlayPanel() {
+        return playPanel;
+    }
+
+    public void setPlayPanel(PlayPanel playPanel) {
+        this.playPanel = playPanel;
     }
 
     private void loadFrame(Map map) {
@@ -86,7 +96,7 @@ public class PlayFrame extends JFrame {
 
 
         //Todo handle player number
-        virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
+        if (!multi) virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
 
     }
 

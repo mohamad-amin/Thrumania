@@ -3,7 +3,16 @@ package thrumania.game.network;
 import thrumania.board.item.GameItems.buildings.Barrack;
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.buildings.Port;
+import thrumania.board.item.MapItems.Cells.Cell;
+import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Cells.LowLand;
+import thrumania.board.item.MapItems.Cells.Sea;
+import thrumania.board.item.MapItems.Inside.*;
+import thrumania.board.item.MapItems.Map;
+import thrumania.gui.PlayFrame;
 import thrumania.gui.PlayPanel;
+import thrumania.utils.Constants;
+import thrumania.utils.Coordinate;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,11 +31,29 @@ public class ServerHandler implements Runnable {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private Stack<HashMap<Integer, Object>> sendStack;
+    private boolean isServer = false;
+    private int players;
 
     public ServerHandler(Socket socket, PlayPanel panel) {
         this.socket = socket;
         this.playPanel = panel;
         this.sendStack = new Stack<>();
+    }
+
+    public int getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(int players) {
+        this.players = players;
+    }
+
+    public boolean isServer() {
+        return isServer;
+    }
+
+    public void setServer(boolean server) {
+        isServer = server;
     }
 
     public void addToSendStack(HashMap<Integer, Object> data) {
@@ -62,6 +89,73 @@ public class ServerHandler implements Runnable {
         }
     }
 
+    private boolean tryParseMap(HashMap<Integer, Object> hashMap) {
+        try {
+            byte[][] ids = (byte[][]) hashMap.get(2);
+            String[][] pictureNames = (String[][]) hashMap.get(3);
+            Cell cell = null;
+            Coordinate position;
+            Cell[][] cells = new Cell[ids.length][ids[0].length];
+            Map map = new Map(ids.length, ids[0].length);
+            for (int i = 0; i < ids.length; i++) {
+                for (int j = 0; j < ids[0].length; j++) {
+                    position = new Coordinate(i, j);
+                    switch (ids[i][j]) {
+                        case Constants.LOW_LAND_ID:
+                            cell = new LowLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.HIGH_LAND_ID:
+                            cell = new HighLand(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.SEA_ID:
+                            cell = new Sea(position);
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.DEEP_SEA_ID:
+                            // Todo: deep sea
+                            break;
+                        case Constants.AGRICULTURE_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideElementsItems(new Agliculture());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.TREE_ID:
+                            cell = new LowLand(position);
+                            cell.setInsideElementsItems(new Tree());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.STONE_ID:
+                            cell = new HighLand(position);
+                            cell.setInsideElementsItems(new StoneMine());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.GOLD_ID:
+                            cell = new HighLand(position);
+                            cell.setInsideElementsItems(new GoldMine());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                        case Constants.FISH_ID:
+                            cell = new Sea(position);
+                            cell.setInsideElementsItems(new SmallFish());
+                            cell.setPictureName(pictureNames[i][j]);
+                            break;
+                    }
+                    cells[i][j] = cell;
+                }
+            }
+            map.setCells(cells);
+            PlayFrame frame = new PlayFrame(hashMap, players, true);
+            playPanel = frame.getPlayPanel();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    boolean checkedMap = false;
+
     @Override
     public void run() {
         try {
@@ -74,9 +168,13 @@ public class ServerHandler implements Runnable {
                 Object inObject;
                 while ((inObject = input.readObject()) != null) {
                     HashMap<Integer, Object> map = (HashMap) inObject;
+                    if (!checkedMap && !isServer) {
+                        if (tryParseMap(map)) checkedMap = true;
+                    }
                     parseHashMap(map);
                 }
-                Thread.sleep(10);
+                System.out.println("Here");
+                Thread.sleep(20);
             }
         } catch (Exception e) {
             e.printStackTrace();
