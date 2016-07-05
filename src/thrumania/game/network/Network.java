@@ -40,19 +40,6 @@ public abstract class Network {
         }
     }
 
-    public void sendCode(int code) {
-        try {
-            this.outputStream.writeInt(code);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public int getCode() {
-
-        return -1;
-    }
-
     public void close() {
         try {
             outputStream.close();

@@ -27,6 +27,7 @@ public class ServerHandler implements Runnable {
             input = new DataInputStream(socket.getInputStream());
             output = new DataOutputStream(socket.getOutputStream());
             while (true) {
+                
                 Thread.sleep(30);
             }
         } catch (Exception e) {

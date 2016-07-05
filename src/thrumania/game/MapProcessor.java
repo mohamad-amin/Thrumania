@@ -1,11 +1,11 @@
 package thrumania.game;
 
-import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.board.item.MapItems.Cells.Cell;
 import thrumania.board.item.MapItems.Cells.HighLand;
+import thrumania.board.item.MapItems.Inside.Tree;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
@@ -253,8 +253,8 @@ public class MapProcessor {
                 }
             }
             byte id = cells[x][y].getId();
-            if (id == Constants.GOLD_ID || id == Constants.STONE_ID || id == Constants.AGRICULTURE_ID ||
-                    cells[x][y].getInsideElementsItems() instanceof Castle) return Constants.DISTANCE_ISLAND_DISTINGUISHER;
+            if (cells[x][y].getInsideElementsItems() != null && !(cells[x][y].getInsideElementsItems() instanceof Tree))
+                return Constants.DISTANCE_ISLAND_DISTINGUISHER;
         } else {
             if (cells[i][j].getId() >= 6) {
                 if (cells[x][y].getId() >= 8) {
