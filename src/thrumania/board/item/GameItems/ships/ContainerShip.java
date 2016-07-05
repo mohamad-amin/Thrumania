@@ -10,6 +10,7 @@ import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
 import thrumania.messages.EmptyingHuman;
 import thrumania.messages.PickingHumanUp;
+import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.IntegerUtils;
 
@@ -28,9 +29,11 @@ public class ContainerShip extends  Ships {
     private ArrayList<Human> indsideHumans  = new ArrayList<>();
     private Coordinate coordinateWhereHumanIsSettingToMap;
     private Human humanWhomeIsGoingToTheShip;
+    private Dimension d = new Dimension(Constants.CELL_SIZE  - 10  , Constants.CELL_SIZE - 10);
+
 
     public ContainerShip(PlayPanel playPanel , Map map  , int xCord , int yCord , int playNumber) {
-
+        System.out.println("constructed is called");
         super.playPanel = playPanel;
         super.map = map;
         super.mapProcessor  = new MapProcessor(map.getCells());
@@ -44,7 +47,10 @@ public class ContainerShip extends  Ships {
         super.unitOfConsumingFood = 1;
         this.canMove = true;
         super.isAlive = true;
-        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";tl
+        this.playerNumber =playNumber;
+        this.setSize(d);
+
+        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
 
     }
     private void consumingFood(){
@@ -98,7 +104,7 @@ public class ContainerShip extends  Ships {
 
     private  void examiningPath(){
 
-
+        System.out.println("here");
         switch (moveState){
 
             case STOP:{
