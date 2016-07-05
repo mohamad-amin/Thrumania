@@ -1,5 +1,6 @@
 package thrumania.gui;
 
+import thrumania.board.item.GameItems.buildings.Barrack;
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.buildings.Port;
 import thrumania.board.item.InsideElementsItems;
@@ -82,7 +83,8 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
                 playPanel.buildWorker((Castle) playPanel.getGameSelectedElement());
                 break;
             case addSoldier:
-
+                if (Requirements.Soldier(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                    playPanel.buildSoldier((Barrack) playPanel.getGameSelectedElement());
                 break;
             case addContainerShip:
                 if (Requirements.ContainerShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))

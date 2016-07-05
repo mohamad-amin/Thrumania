@@ -52,9 +52,9 @@ public class Barrack extends LiveElements {
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
-            g.drawImage(ImageUtils.getImage("soldier.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("solder.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         else if (b1IsSelected) {
-            g.drawImage(ImageUtils.getImage("soldier2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
+            g.drawImage(ImageUtils.getImage("solder2.png"), elementCounter * spaceBetweenElements, sizeOfBottom.height / 4, elementsSize, elementsSize, null);
         }
     }
 

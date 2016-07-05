@@ -7,6 +7,7 @@ import thrumania.board.item.MapItems.Cells.HighLand;
 import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
+import thrumania.gui.PlayBottomPanel;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
 import thrumania.messages.Messages;
@@ -28,8 +29,8 @@ public class Soldier extends Human {
     private Human humanIsAttacking = null;
     private InsideElementsItems onTheWayBuilding ;
 
-    public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber) {
-
+    public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber, PlayBottomPanel playBottomPanel) {
+        this.playBottomPanel = playBottomPanel;
         // moshakhasat ;
         super.health = 1000;
         // TODO: DAMAGE IS IN RATE OF .5
