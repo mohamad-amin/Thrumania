@@ -10,6 +10,7 @@ import thrumania.board.item.MapItems.Cells.Sea;
 import thrumania.board.item.MapItems.Inside.*;
 import thrumania.board.item.MapItems.Map;
 import thrumania.game.MapProcessor;
+import thrumania.managers.AIManager;
 import thrumania.managers.HumanManagers;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -74,6 +75,10 @@ public class PlayFrame extends JFrame {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setVisible(true);
+
+
+        //Todo handle player number
+        AIManager virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
 
     }
 

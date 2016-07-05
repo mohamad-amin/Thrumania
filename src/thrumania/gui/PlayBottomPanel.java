@@ -3,6 +3,8 @@ package thrumania.gui;
 import thrumania.board.item.GameItems.buildings.Barrack;
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.buildings.Port;
+import thrumania.board.item.GameItems.people.Human;
+import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
 import thrumania.utils.Requirements;
@@ -91,25 +93,32 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
                     playPanel.buildContainerShip((Port) playPanel.getGameSelectedElement());
                 break;
             case addFisherShip:
-                if (Requirements.ContainerShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                     playPanel.buildFisherShip((Port) playPanel.getGameSelectedElement());
                 break;
             case buildingBarak:
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.barrak);
                 break;
             case buildingFarm:
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.farm);
                 break;
             case buildingMinequarry:
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.minequarry);
                 break;
             case buildingPort:
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.port);
                 break;
             case buildingWoodquarry:
+                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.woodquarry);
                 break;
-            case mountainwaer: //Todo
+            case mountainwaer:
+                if ((Human)(playPanel.getGameSelectedElement()) instanceof Worker)
+                    ((Human)(playPanel.getGameSelectedElement())).setCanGoMountain(!((Human)(playPanel.getGameSelectedElement())).isCanGoMountain());
                 break;
         }
     }

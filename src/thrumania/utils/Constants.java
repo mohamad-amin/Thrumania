@@ -12,6 +12,8 @@ public class Constants {
 
     public static final int RANGEOFSCROLL = 80;
     public static final int RATEOFSCROLL = 10;
+    //a square that human is in the middle
+    public static final int RANDOMMOVERANGE = 20;
     public static boolean isMac = false;
     public static int MATRIX_WIDTH = 80;
     public static int MATRIX_HEIGHT = 50;
