@@ -9,6 +9,7 @@ import thrumania.board.item.MapItems.Cells.LowLand;
 import thrumania.board.item.MapItems.Cells.Sea;
 import thrumania.board.item.MapItems.Inside.*;
 import thrumania.board.item.MapItems.Map;
+import thrumania.gui.PlayFrame;
 import thrumania.gui.PlayPanel;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
@@ -30,11 +31,29 @@ public class ServerHandler implements Runnable {
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private Stack<HashMap<Integer, Object>> sendStack;
+    private boolean isServer = false;
+    private int players;
 
     public ServerHandler(Socket socket, PlayPanel panel) {
         this.socket = socket;
         this.playPanel = panel;
         this.sendStack = new Stack<>();
+    }
+
+    public int getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(int players) {
+        this.players = players;
+    }
+
+    public boolean isServer() {
+        return isServer;
+    }
+
+    public void setServer(boolean server) {
+        isServer = server;
     }
 
     public void addToSendStack(HashMap<Integer, Object> data) {
@@ -127,6 +146,8 @@ public class ServerHandler implements Runnable {
                 }
             }
             map.setCells(cells);
+            PlayFrame frame = new PlayFrame(hashMap, players, true);
+            playPanel = frame.getPlayPanel();
             return true;
         } catch (Exception e) {
             return false;
@@ -147,12 +168,13 @@ public class ServerHandler implements Runnable {
                 Object inObject;
                 while ((inObject = input.readObject()) != null) {
                     HashMap<Integer, Object> map = (HashMap) inObject;
-                    if (!checkedMap) {
+                    if (!checkedMap && !isServer) {
                         if (tryParseMap(map)) checkedMap = true;
                     }
                     parseHashMap(map);
                 }
-                Thread.sleep(10);
+                System.out.println("Here");
+                Thread.sleep(20);
             }
         } catch (Exception e) {
             e.printStackTrace();

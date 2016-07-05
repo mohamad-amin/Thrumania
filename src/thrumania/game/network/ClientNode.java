@@ -1,11 +1,9 @@
 package thrumania.game.network;
 
-import thrumania.gui.PlayPanel;
 import thrumania.utils.Constants;
 
 import java.io.IOException;
 import java.net.Socket;
-import java.util.HashMap;
 
 /**
  * Created by mohamadamin on 7/5/16.
@@ -13,9 +11,10 @@ import java.util.HashMap;
 public class ClientNode extends Network {
 
     private String machineName;
-
-    public ClientNode(PlayPanel playPanel, int numberOfPlayers, HashMap<Integer, Object> map, String machineName) {
-        super(playPanel, numberOfPlayers, map);
+    private int s;
+    public ClientNode(int numberOfPlayers, String machineName) {
+        super(null, numberOfPlayers, null);
+        s = numberOfPlayers;
         this.machineName = machineName;
         connect();
     }
@@ -24,7 +23,9 @@ public class ClientNode extends Network {
     void connect() {
         try {
             this.socket = new Socket(machineName, Constants.NETWORK_PORT);
-            new Thread(new ServerHandler(socket, panel)).start();
+            ServerHandler handler = new ServerHandler(socket, null);
+            handler.setPlayers(s);
+            new Thread(handler).start();
         } catch (IOException e) {
             e.printStackTrace();
         }

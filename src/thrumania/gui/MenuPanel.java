@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.item.MapItems.Map;
+import thrumania.game.network.ClientNode;
 import thrumania.game.network.ServerNode;
 import thrumania.utils.Constants;
 import thrumania.utils.FileUtils;
@@ -178,7 +179,11 @@ public class MenuPanel extends JPanel {
                         }
                     }
                 } else {
-
+                    String machineName = JOptionPane.showInputDialog(MenuPanel.this, "Please enter machine name:",
+                            "Network Client", JOptionPane.INFORMATION_MESSAGE);
+                    String players = JOptionPane.showInputDialog(MenuPanel.this, "Please enter players' count:",
+                            "New Game", JOptionPane.INFORMATION_MESSAGE);
+                    ClientNode node = new ClientNode(Integer.valueOf(players), machineName);
                 }
             } else if ( exitIsSelected){
 
