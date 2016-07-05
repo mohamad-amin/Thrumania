@@ -40,7 +40,8 @@ public class Farm extends LiveElements {
 
     @Override
     public void constructed() {
-
+        underConstructed = false;
+        setWithOnePicture("farm.png");
     }
 
     @Override
