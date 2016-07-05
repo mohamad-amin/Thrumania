@@ -80,6 +80,10 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     FloatingCoordinate continuousMovement = new FloatingCoordinate(0, 0);
     private PlayBottomPanel playBottomPanel;
 
+    public Map getMap() {
+        return map;
+    }
+
     //    private woodR
     //Todo player number for teams
     public PlayPanel(Map map, MiniMapPanel panel, int playernumber, Network network) {
@@ -99,6 +103,14 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.season = Constants.Seasons.SPRING;
         this.network = network;
 //        this.preview =  new Preview(this, 20000);
+    }
+
+    public Network getNetwork() {
+        return network;
+    }
+
+    public void setNetwork(Network network) {
+        this.network = network;
     }
 
     @Override
@@ -463,7 +475,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                         sendData.put(2, ((Human) gameSelectedElement).getCoordinate().getColumn());
                         sendData.put(3, x);
                         sendData.put(4, y);
-                        network.sendData(sendData);
+                        if (network != null) network.sendData(sendData);
                         setHumanAction(x, y);
                     }
                     else if (gameSelectedElement instanceof Ships) {
@@ -473,7 +485,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                         sendData.put(2, ((Ships) gameSelectedElement).getCoordinate().getColumn());
                         sendData.put(3, x);
                         sendData.put(4, y);
-                        network.sendData(sendData);
+                        if (network != null) network.sendData(sendData);
                         setShipAction(x, y);
                     }
                 }
@@ -832,7 +844,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             sendData.put(1, castle.getSide());
             sendData.put(2, castle.getRealPosition().getRow());
             sendData.put(3, castle.getRealPosition().getColumn());
-            network.sendData(sendData);
+            if (network != null) network.sendData(sendData);
         }
     }
 
@@ -848,7 +860,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             sendData.put(1, barrak.getSide());
             sendData.put(2, barrak.getRealPosition().getRow());
             sendData.put(3, barrak.getRealPosition().getColumn());
-            network.sendData(sendData);
+            if (network != null) network.sendData(sendData);
         }
     }
 
@@ -865,7 +877,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             sendData.put(1, port.getSide());
             sendData.put(2, port.getRealPosition().getRow());
             sendData.put(3, port.getRealPosition().getColumn());
-            network.sendData(sendData);
+            if (network != null) network.sendData(sendData);
         }
     }
 
@@ -882,8 +894,16 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             sendData.put(1, port.getSide());
             sendData.put(2, port.getRealPosition().getRow());
             sendData.put(3, port.getRealPosition().getColumn());
-            network.sendData(sendData);
+            if (network != null) network.sendData(sendData);
         }
+    }
+
+    public void findAndSetElementSelected(int x, int y) {
+        gameSelectedElement = map.getCell(x, y).getInsideElementsItems();
+    }
+
+    public InsideElementsItems selectElementAt(int x, int y) {
+        return map.getCell(x, y).getInsideElementsItems();
     }
 
     public void building(int realx, int realy) {

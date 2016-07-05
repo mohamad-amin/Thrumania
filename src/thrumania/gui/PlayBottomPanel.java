@@ -80,39 +80,39 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
     public void function() {
         switch (bottomPanelSelected){
             case addWorker:
-                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.buildWorker((Castle) playPanel.getGameSelectedElement());
                 break;
             case addSoldier:
-                if (Requirements.Soldier(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                     playPanel.buildSoldier((Barrack) playPanel.getGameSelectedElement());
                 break;
             case addContainerShip:
-                if (Requirements.ContainerShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                     playPanel.buildContainerShip((Port) playPanel.getGameSelectedElement());
                 break;
             case addFisherShip:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                     playPanel.buildFisherShip((Port) playPanel.getGameSelectedElement());
                 break;
             case buildingBarak:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.barrak);
                 break;
             case buildingFarm:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.farm);
                 break;
             case buildingMinequarry:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.minequarry);
                 break;
             case buildingPort:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.port);
                 break;
             case buildingWoodquarry:
-                if (Requirements.FisherShip(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes()))
+                if (Requirements.Worker(playPanel.getFoodRes(),playPanel.getGoldRes(),playPanel.getIronRes(), playPanel.getWoordRes()))
                 playPanel.setBuildSomething(Constants.BuildSomething.woodquarry);
                 break;
             case mountainwaer:

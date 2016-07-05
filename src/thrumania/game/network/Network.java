@@ -19,7 +19,7 @@ public abstract class Network {
     private ServerHandler serverHandler;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
-    private HashMap<String, Object> gameMap;
+    private HashMap<Integer, Object> gameMap;
 
     public final static int HUMAN_ACTION = 0,
             SHIP_ACTION = 1,
@@ -28,7 +28,7 @@ public abstract class Network {
             ADD_CONTAINER_SHIP = 4,
             ADD_FISHER_SHIP = 5;
 
-    public Network(PlayPanel panel, int numberOfPlayers, HashMap<String, Object> map) {
+    public Network(PlayPanel panel, int numberOfPlayers, HashMap<Integer, Object> map) {
         this.numberOfPlayers = numberOfPlayers;
         this.gameMap = map;
         this.panel = panel;

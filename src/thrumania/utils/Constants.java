@@ -181,4 +181,21 @@ public class Constants {
         else return zoomNumbers[2][1];
     }
 
+    public static int[] maxHumanId;
+    public static int getNextHumanId(int teamId) {
+        return maxHumanId[teamId]++;
+    }
+    public static void initializeHumanIds(int teams) {
+        maxHumanId = new int[teams];
+    }
+
+    public static int[] maxShipId;
+    public static int getNextShipId(int teamId) {
+        if (maxShipId == null) maxShipId = new int[maxHumanId.length];
+        return maxShipId[teamId]++;
+    }
+    public static void initializeShipIds(int teams) {
+        maxShipId = new int[teams];
+    }
+
 }
