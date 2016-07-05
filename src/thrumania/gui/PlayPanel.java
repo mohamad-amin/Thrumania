@@ -40,8 +40,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private Dimension d = new Dimension(Constants.DRAWER_WIDTH * Constants.CELL_SIZE, Constants.Drawer_HIGHT * Constants.CELL_SIZE);
     private Constants.ZoomScales zoomScale = Constants.ZoomScales.ZERO_SCALE;
     private MiniMapPanel miniMap;
-
-
     private Preview preview;
     private InsideElementsItems gameSelectedElement = null;
     private Constants.Elements selectedElelements = Constants.Elements.EMPTY;
@@ -105,7 +103,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         int seasonnum = giveMeSeasonNum();
-        this.drawingOcean(g);
+        this.drawingOcean(g,seasonnum);
         int re = Constants.Drawer_HIGHT + 1;
         if (start.getRow() == Constants.MATRIX_HEIGHT - Constants.Drawer_HIGHT) re = Constants.Drawer_HIGHT;
         int ce = Constants.DRAWER_WIDTH + 1;
@@ -159,6 +157,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                     }
                 } catch (ArrayIndexOutOfBoundsException e) {
                     System.out.println("kalak");
+                } catch (NumberFormatException e){
+
                 }
             }
         }
@@ -227,16 +227,23 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     }
 
 
-    private void drawingOcean(Graphics g) {
+    private void drawingOcean(Graphics g,int season) {
         if (this.dayTime == Constants.DayTime.MORNING) {
+            if (season!=3)
             g.drawImage(ImageUtils.getImage("ocean1.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
                     (Constants.DRAWER_WIDTH + 2) * Constants.CELL_SIZE,
                     (Constants.Drawer_HIGHT + 2) * Constants.CELL_SIZE,
                     null);
+            else
+                g.drawImage(ImageUtils.getImage("ocean1winter.png"),
+                        -Constants.CELL_SIZE,
+                        -Constants.CELL_SIZE,
+                        (Constants.DRAWER_WIDTH + 2) * Constants.CELL_SIZE,
+                        (Constants.Drawer_HIGHT + 2) * Constants.CELL_SIZE,
+                        null);
         } else {
-            //Todo ocean1night
             g.drawImage(ImageUtils.getImage("ocean1Night.jpg"),
                     -Constants.CELL_SIZE,
                     -Constants.CELL_SIZE,
@@ -801,11 +808,20 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         }
     }
 
+    public void buildSoldier(Barrack barrak) {
+        synchronized (HumanManagers.getSharedInstance().getHumans()) {
+            Soldier soldier = new Soldier(this, map, IntegerUtils.getXAndYWithCoordinate(barrak.getStartingPoint())[0], IntegerUtils.getXAndYWithCoordinate(barrak.getStartingPoint())[1], barrak.getSide().getNumberOfPlayer(), playBottomPanel);
+            soldier.setHomeCastleCoordinate(barrak.getStartingPoint());
+            HumanManagers.getSharedInstance().getHumans()[soldier.getPlayerNumber()].add(soldier);
+            HumanManagers.getSharedInstance().getThreadPoolExecutor().execute(soldier);
+        }
+    }
+
     public void buildContainerShip(Port port) {
         synchronized (ShipsManager.getShipInstance().getShips()) {
             System.out.println("hellohello");
-            ContainerShip containerShip = new ContainerShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[0],
-                    IntegerUtils.getXAndYWithCoordinate(port.getStartingPoint())[1], port.getSide().getNumberOfPlayer());
+            ContainerShip containerShip = new ContainerShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[0],
+                    IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[1], port.getSide().getNumberOfPlayer());
             ShipsManager.getShipInstance().getShips()[containerShip.getPlayerNumber()].add(containerShip);
             ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(containerShip);
         }

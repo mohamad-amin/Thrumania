@@ -32,4 +32,8 @@ public class Requirements {
     public static boolean ContainerShip(int foodRes, int goldRes, int ironRes) {
         return true;
     }
+
+    public static boolean Soldier(int foodRes, int goldRes, int ironRes) {
+        return true;
+    }
 }
