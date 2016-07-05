@@ -34,6 +34,7 @@ public class PlayRightPanel extends JPanel implements Runnable {
     private boolean undoIsSelected = false;
     private  boolean redoIsSelelcted =  false;
 
+
 // TODO : implementing  buttons : what happens after clicking them
     public PlayRightPanel(PlayPanel playPanel) {
         this.playPanel = playPanel;
@@ -45,6 +46,8 @@ public class PlayRightPanel extends JPanel implements Runnable {
         if( Constants.isMac)
             elementSize = 40;
         else  elementSize =  40;
+        Color color = new Color(228,225,254);
+        this.setBackground(color);
         this.addMouseListener(new PlayRightPanelMouseListener());
     }
 
@@ -240,7 +243,7 @@ public class PlayRightPanel extends JPanel implements Runnable {
     public void paint(Graphics g) {
         super.paint(g);
 
-        g.drawImage(ImageUtils.getImage("bottomPanel.jpg"), 0, 0, d.width, d.height, null);
+//        g.drawImage(ImageUtils.getImage("bottomPanel.jpg"), 0, 0, d.width, d.height, null);
 
 
         int elementCounter = 1;
@@ -252,16 +255,16 @@ public class PlayRightPanel extends JPanel implements Runnable {
       //  g.fillRect(d.width /6 , verticalSpaceBetweenElements * elementCounter - 10 , elementSize * 5 , elementSize * 5 );
         g.setColor(Color.RED);
         g.drawImage(ImageUtils.getImage("woodResource.png"), d.width / 5  , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-        g.drawString( playPanel.getWoordRes() + "", d.width / 5 +  100, verticalSpaceBetweenElements * elementCounter + 20);
+        g.drawString( playPanel.getWoordRes() + "", d.width / 5 +  50, verticalSpaceBetweenElements * elementCounter + 20);
         elementCounter +=4;
         g.drawImage(ImageUtils.getImage("ironResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter , elementSize , elementSize , null );
-        g.drawString(playPanel.getIronRes() + "" , d.width / 5  + 100, verticalSpaceBetweenElements * elementCounter + 20);
+        g.drawString(playPanel.getIronRes() + "" , d.width / 5  + 50, verticalSpaceBetweenElements * elementCounter + 20);
         elementCounter +=4 ;
         g.drawImage(ImageUtils.getImage("goldResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter  + 20, elementSize , elementSize , null );
-        g.drawString(playPanel.getGoldRes() + "" , d.width / 5 +100 , verticalSpaceBetweenElements * elementCounter + 20 );
+        g.drawString(playPanel.getGoldRes() + "" , d.width / 5 + 50 , verticalSpaceBetweenElements * elementCounter + 20 );
         elementCounter +=4 ;
         g.drawImage(ImageUtils.getImage("foodResource.png"), d.width / 5 , verticalSpaceBetweenElements * elementCounter + 20, elementSize , elementSize , null );
-        g.drawString(playPanel.getFoodRes() + "" , d.width / 5  + 100, verticalSpaceBetweenElements * elementCounter + 20 );
+        g.drawString(playPanel.getFoodRes() + "" , d.width / 5  + 50, verticalSpaceBetweenElements * elementCounter + 20 );
 //         impelenting arrow keys
 //         Up :'
         elementCounter += 5;

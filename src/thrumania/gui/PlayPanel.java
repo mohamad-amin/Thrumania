@@ -910,7 +910,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                         if (Requirements.Farm(foodRes, goldRes, ironRes)) {
                             map.getCell(realy, realx).setInsideElementsItems(new Farm(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
+                                    (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map , this));
                         }
                     }
                 }
