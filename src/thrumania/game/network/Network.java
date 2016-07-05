@@ -16,11 +16,12 @@ public abstract class Network {
     protected Socket socket;
     protected PlayPanel panel;
     private int numberOfPlayers;
+    private ServerHandler serverHandler;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
     private HashMap<String, Object> gameMap;
 
-    public static int HUMAN_MOVE = 0,
+    public final static int HUMAN_MOVE = 0,
             SHIP_MOVE = 1;
 
     public Network(PlayPanel panel, int numberOfPlayers, HashMap<String, Object> map) {
@@ -38,6 +39,10 @@ public abstract class Network {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void sendData() {
+
     }
 
     public void close() {
