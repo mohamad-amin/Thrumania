@@ -25,7 +25,7 @@ import java.awt.*;
 public class Soldier extends Human {
     private PlayPanel playPanel;
     private Map map;
-    private Dimension d = new Dimension(Constants.CELL_SIZE, Constants.CELL_SIZE);
+    private Dimension d = new Dimension(Constants.CELL_SIZE - 5, Constants.CELL_SIZE - 5);
     private Human humanIsAttacking = null;
     private InsideElementsItems onTheWayBuilding ;
 

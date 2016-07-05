@@ -39,11 +39,12 @@ public class Worker extends Human {
 
 
     private boolean isCapacityOfCollectingItemsFull;
-    private int speadOfCollectingItems;
+    private int speadOfCollectingItems = 1;
     private PlayPanel playPanel;
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE - 5, Constants.CELL_SIZE - 5);
     private int MAX_RESOURCE_CAPACITY = 300;
+    private boolean hasKilled = false;
 
     private Coordinate resourceCoordinate;
 
@@ -182,6 +183,7 @@ public class Worker extends Human {
 
         switch (stateOfMove) {
             case STOP: {
+                hasKilled = false;
                 canLookForOpponent = true;
                 if (!pathOfCoordinates.isEmpty()) {
 // first if there is any order to go
@@ -382,11 +384,13 @@ public class Worker extends Human {
                             e.printStackTrace();
                         }
                         hasAttacked = false;
+                        if( ! hasKilled) {
                         if (humanIsAttacking != null) {
                             if (this.health > 0) {
                                 System.out.print(getHealth());
                                 this.setHealth(humanIsAttacking.getDamageUnit());
                                 stateOfMove = statesOfMovement.ATTACKING;
+                            }else stateOfMove  = statesOfMovement.STOP;
                             }
                             if (health <= 0) {
 
@@ -394,9 +398,10 @@ public class Worker extends Human {
 
                                     playPanel.dispatchEvent(new RemovingFromPanel(playPanel, this));
 
-                                    // humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
+                                     humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
                                     HumanManagers.getSharedInstance().getHumans()[playerNumber].remove(this);
-//                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    hasKilled = true;
                                     this.setAlive(false);
 //                                    System.out.println(HumanManagers.getSharedInstance().getHumans()[playerNumber]);
                                     break;
@@ -489,6 +494,7 @@ public class Worker extends Human {
                         if (elementIsBeingCollected != null) {
                             checkWheterCapacityIsFull();
                             if (!isCapacityOfCollectingItemsFull) {
+                                determiningSpeedOfCollectingItems( elementIsBeingCollected);
 
 //                                        new java.util.Timer().schedule(new TimerTask() {
 //

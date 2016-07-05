@@ -49,10 +49,10 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private Constants.Seasons season;
     private Constants.DayTime dayTime;
     // needed for the resources :
-    private int woordRes = 0;
-    private int ironRes = 0;
-    private int foodRes = 0;
-    private int goldRes = 0;
+    private int woordRes = 1000;
+    private int ironRes = 1000;
+    private int foodRes = 1000;
+    private int goldRes = 1000;
     private boolean isScoralling = false;
     int scoralSide = 4;
     private int ZeroScale = Constants.giveMeZeroScale();
