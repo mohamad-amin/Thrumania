@@ -27,7 +27,7 @@ public class FisherShip extends  Ships{
     private int MAX_CAPACITY_OF_COLLECTING_FISH = 1200;
     private  boolean isCapacityOfCollectingResourcesFUll =false;
     private boolean isWinter = false;
-    private Dimension d = new Dimension(Constants.CELL_SIZE    , Constants.CELL_SIZE );
+    private Dimension d = new Dimension(Constants.CELL_SIZE   , Constants.CELL_SIZE   );
     private  Coordinate resourceCoordinate = null;
     private Coordinate whereToEmptiResources;
     private InsideElementsItems elementIsBeingCollected = null;
@@ -47,7 +47,8 @@ public class FisherShip extends  Ships{
         // TODO : doing set size in playpanel
         this.setSize(d);
         this.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
-        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
+//        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
+        pictureName = "F" + playerNumber % 4 + "" + 1  +".png";
 
     }
 

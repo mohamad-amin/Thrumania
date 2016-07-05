@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 
+import thrumania.board.item.GameItems.LiveElements;
 import thrumania.board.item.GameItems.buildings.*;
 import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.GameItems.people.Soldier;
@@ -93,7 +94,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = Constants.DayTime.MORNING;
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
-        this.preview =  new Preview(this, 20000);
+//        this.preview =  new Preview(this, 20000);
 
 
 
@@ -195,11 +196,10 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                         y1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() * Constants.CELL_SIZE / ZeroScale) - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
 
                         Coordinate tempCrd = IntegerUtils.getCoordinateWithXAndY(x1, y1);
-                        if(! HumanManagers.getSharedInstance().getHumans()[i].get(j).isHumanInsideTheShip())
+                        if(! HumanManagers.getSharedInstance().getHumans()[i].get(j).isHumanInsideTheShip()){
                         HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+                       }
                         add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
-
-//                       }
 
 
                     }
@@ -456,6 +456,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                     //TODO : finding which element is clicked
                     gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
                     System.out.println(gameSelectedElement);
+                    if( gameSelectedElement instanceof LiveElements )
+                    System.out.println( "Starting point is " + ( (LiveElements)  gameSelectedElement ).getStartingPoint());
                     playBottomPanel.repaint();
                 } else if (e.getModifiersEx() == 256 && e.getButton() == 3) {
                     // use right click to move else it it would realese the selected element
@@ -748,10 +750,16 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private void emptyHumanFromShip(EmptyingHuman emptyingHuman) {
 
         while (!emptyingHuman.getContainerShip().getIndsideHumans().isEmpty()) {
+            System.out.println("now we are going to empty this guy :\t" + emptyingHuman.getContainerShip().getIndsideHumans().get(0));
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setHumanInsideTheShip(false);
             emptyingHuman.getContainerShip().getIndsideHumans().get(0).setCoordinate(emptyingHuman.getEndCoord());
             emptyingHuman.getContainerShip().getIndsideHumans().get(0).setxCord(IntegerUtils.getXAndYWithCoordinate(emptyingHuman.getEndCoord())[0]);
             emptyingHuman.getContainerShip().getIndsideHumans().get(0).setyCord(IntegerUtils.getXAndYWithCoordinate(emptyingHuman.getEndCoord())[1]);
             emptyingHuman.getContainerShip().getIndsideHumans().get(0).setHumanInsideTheShip(false);
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setIcon(new ImageIcon(ImageUtils.getImage(emptyingHuman.getContainerShip().getIndsideHumans().get(0).getPicutreName())));
+            emptyingHuman.getContainerShip().getIndsideHumans().get(0).setVisible(true);
+            add(emptyingHuman.getContainerShip().getIndsideHumans().get(0));
+
             emptyingHuman.getContainerShip().getIndsideHumans().remove(0);
         }
 
@@ -924,9 +932,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
                         Coordinate tempCrd = IntegerUtils.getCoordinateWithXAndY(x1, y1);
                         ShipsManager.getShipInstance().getShips()[i].get(j).setLocation(x1, y1);
+
                         add(ShipsManager.getShipInstance().getShips()[i].get(j));
-
-
                     }
 
                 }

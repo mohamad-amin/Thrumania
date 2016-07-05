@@ -29,7 +29,7 @@ public class ContainerShip extends  Ships {
     private ArrayList<Human> indsideHumans  = new ArrayList<>();
     private Coordinate coordinateWhereHumanIsSettingToMap;
     private Human humanWhomeIsGoingToTheShip;
-    private Dimension d = new Dimension(Constants.CELL_SIZE  - 10  , Constants.CELL_SIZE - 10);
+    private Dimension d = new Dimension(Constants.CELL_SIZE  + 20   , Constants.CELL_SIZE  + 20 );
 
 
     public ContainerShip(PlayPanel playPanel , Map map  , int xCord , int yCord , int playNumber) {
@@ -49,8 +49,9 @@ public class ContainerShip extends  Ships {
         super.isAlive = true;
         this.playerNumber =playNumber;
         this.setSize(d);
+        this.moveState = StatesOfMoving.STOP;
 
-        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
+        pictureName = "F" + playerNumber % 4 + "" + 3  +".png";
 
     }
     private void consumingFood(){
@@ -104,10 +105,11 @@ public class ContainerShip extends  Ships {
 
     private  void examiningPath(){
 
-        System.out.println("here");
+//        System.out.println("here1234");
         switch (moveState){
 
             case STOP:{
+                System.out.println(" capacity is \t" + this.capaciyOfHavingHumanInside);
 
                 if ( ! pathOfCoordinates.isEmpty()){
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
@@ -121,15 +123,20 @@ public class ContainerShip extends  Ships {
             }
             case MOVE_BY_ORDER:
             {
-                boolean isGoingToPickUp = false;
-
+                 boolean isGoingToPickUp = false;
 
                 if( ! pathOfCoordinates.isEmpty()) {
                     if (pathOfCoordinates.equals(coordinate))
                         pathOfCoordinates.pop();
                         checkWetherCanEmptyShipOnGoalCell(pathOfCoordinates.peek());
                         checkWetherCapacityIsFull();
-                    if (pathOfCoordinates.size() == 1 && isCapacityOfHavingPeopleInsideFull && checkWetherGoalIsLand(pathOfCoordinates.peek()) && isAnyHumanTooPickUp(pathOfCoordinates.peek())) {
+                    if( pathOfCoordinates.size() >1 && checkWetherGoalIsLand(pathOfCoordinates.peek())){
+                        while ( ! pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
+
+                    }
+                 else   if (pathOfCoordinates.size() == 1 && ! isCapacityOfHavingPeopleInsideFull && checkWetherGoalIsLand(pathOfCoordinates.peek()) && isAnyHumanTooPickUp(pathOfCoordinates.peek())) {
+
                         isGoingToPickUp = true;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
@@ -137,6 +144,7 @@ public class ContainerShip extends  Ships {
                         canEmptyPoeple = false;
                         moveState = StatesOfMoving.COLLECTING_HUMAN;
                     } else if (pathOfCoordinates.size() == 1 && !isGoingToPickUp && capaciyOfHavingHumanInside != 0 && checkWetherGoalIsLand(pathOfCoordinates.peek()) && canEmptyPoeple) {
+                        System.out.println("empy empty");
                         isGoingToPickUp = false;
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
@@ -156,13 +164,16 @@ public class ContainerShip extends  Ships {
                 break;
             }
             case COLLECTING_HUMAN:{
+                System.out.println("COllecting HUMAN HUMAN HUMAN");
                 checkWetherCapacityIsFull();
                 if ( ! pathOfCoordinates.isEmpty())
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
                 else if( pathOfCoordinates.isEmpty()){
                     if( canTakePoeple){
                         playPanel.dispatchEvent(new PickingHumanUp(this , this ,humanWhomeIsGoingToTheShip));
-                        moveState = StatesOfMoving.COLLECTING_HUMAN_IS_DONE;
+                        capaciyOfHavingHumanInside++;
+                        canEmptyPoeple = true;
+                        moveState = StatesOfMoving.STOP;
 
                     }else moveState = StatesOfMoving.STOP;
 
@@ -183,15 +194,19 @@ public class ContainerShip extends  Ships {
             }
 
             case  EMPTYING_HUMAN:{
+                System.out.println("emptying Human     ");
 
                 if( ! pathOfCoordinates.isEmpty())
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
                 else if ( pathOfCoordinates.isEmpty()){
+                    System.out.println("emptying human 1 ");
                     if( canEmptyPoeple){
-
+                        System.out.println("emptying Human 2");
                         playPanel.dispatchEvent(new EmptyingHuman(playPanel , this , coordinateWhereHumanIsSettingToMap));
                         moveState = StatesOfMoving.EMPTYING_HUMAN_IS_DONE;
+                        capaciyOfHavingHumanInside = 0;
                         canEmptyPoeple = false;
+                        canTakePoeple = true;
 
 
                     }
