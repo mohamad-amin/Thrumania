@@ -272,8 +272,18 @@ public class ContainerShip extends  Ships {
 
 
     }
+
     @Override
     public void paintingOptions(Graphics g) {
+        super.paint(g);
+
+        Font myFont = new Font("Party Business", Font.BOLD, 20);
+        g.setFont(myFont);
+        g.setColor(Color.WHITE);
+        g.drawString("health :", 150, 30);
+        g.drawString((Integer.toString(health)), 300, 30);
+        g.drawString("Side :", 150, 60);
+        g.drawString((Integer.toString(playerNumber)), 300, 60);
 
     }
 

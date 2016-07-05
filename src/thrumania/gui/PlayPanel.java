@@ -742,6 +742,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     private void removingHumanFromPanel(Human human) {
         this.remove(human);
+        human.setVisible(false);
         this.repaint();
 //        this.removeNotify();
 //        this.revalidate();
@@ -891,7 +892,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             case port:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
-                        if (Requirements.Port(foodRes, goldRes, ironRes)) {
+                        if (Requirements.Port(foodRes, goldRes, ironRes,woordRes)) {
                             if (map.getCell(realy, realx).getNeighbourSea(map.getCells()).getPosition() != null) {
                                 Port p = new Port(realPosition,
                                         map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
@@ -907,7 +908,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             case barrak:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
-                        if (Requirements.Barrak(foodRes, goldRes, ironRes)) {
+                        if (Requirements.Barrak(foodRes, goldRes, ironRes,woordRes)) {
                             map.getCell(realy, realx).setInsideElementsItems(new Barrack(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
                                     (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
@@ -918,7 +919,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             case woodquarry:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
-                        if (Requirements.WoodQuarry(foodRes, goldRes, ironRes)) {
+                        if (Requirements.WoodQuarry(foodRes, goldRes, ironRes,woordRes)) {
                             map.getCell(realy, realx).setInsideElementsItems(new WoodQuarry(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
                                     (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
@@ -929,7 +930,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             case minequarry:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
-                        if (Requirements.MineQuarry(foodRes, goldRes, ironRes)) {
+                        if (Requirements.MineQuarry(foodRes, goldRes, ironRes,woordRes)) {
                             map.getCell(realy, realx).setInsideElementsItems(new MineQuarry(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
                                     (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
@@ -940,10 +941,10 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             case farm:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {
                     if (map.getCell(realy, realx).getCanSetBuilding()) {
-                        if (Requirements.Farm(foodRes, goldRes, ironRes)) {
+                        if (Requirements.Farm(foodRes, goldRes, ironRes,woordRes)) {
                             map.getCell(realy, realx).setInsideElementsItems(new Farm(realPosition,
                                     map.getCell(realy, realx).getNeighborLand(map.getCells()).getPosition(),
-                                    (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map));
+                                    (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map , this));
                         }
                     }
                 }

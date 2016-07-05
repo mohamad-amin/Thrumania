@@ -36,6 +36,7 @@ public abstract  class Ships extends InsideElementsItems implements  Runnable {
     protected  int goldReq;
     protected boolean canMove = true;
     protected  boolean isAlive ;
+    int health =2000;
     private  int upCounter  = 0, rightCounter = 0 , downCounter = 0 , leftCounter  =0 ;
     private int counter = 0;
     private  boolean wentRight = false;

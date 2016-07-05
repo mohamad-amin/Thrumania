@@ -3,8 +3,14 @@ package thrumania.board.item.GameItems.buildings;
 import thrumania.board.item.GameItems.LiveElementItems.Health;
 import thrumania.board.item.GameItems.LiveElementItems.Side;
 import thrumania.board.item.GameItems.LiveElements;
+import thrumania.board.item.GameItems.people.Human;
 import thrumania.board.item.MapItems.Map;
 import thrumania.gui.PlayBottomPanel;
+import thrumania.gui.PlayFrame;
+import thrumania.gui.PlayPanel;
+import thrumania.managers.HumanManagers;
+import thrumania.messages.Messages;
+import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -21,11 +27,14 @@ public class Castle extends LiveElements {
 // TODO  : IS NEAR THE OCEAN
     private boolean isNearWater = false;
     private  Coordinate waterStartingPoint;
-    private int teamId;
+    private PlayPanel playPanel;
+    private PlayFrame playFrame;
 
-    public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel , Map map) {
+    public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel ,PlayPanel playPanel,PlayFrame playFrame, Map map) {
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
+        this.playFrame = playFrame;
+        this.playPanel = playPanel;
         this.playBottomPanel= playBottomPanel;
         this.side = new Side(sideNumber);
         this.playerNumber = sideNumber;
@@ -33,14 +42,6 @@ public class Castle extends LiveElements {
         this.realPosition = realPosition;
         health = new Health(10000,10000);
         setWithOnePicture("castle.png");
-    }
-
-    public int getTeamId() {
-        return teamId;
-    }
-
-    public void setTeamId(int teamId) {
-        this.teamId = teamId;
     }
 
     public boolean isNearWater() {
@@ -107,6 +108,14 @@ public class Castle extends LiveElements {
     @Override
     public void destroy() {
         super.destroy();
-
+        synchronized (HumanManagers.getSharedInstance().getHumans()) {
+            for (int i = 0; i < HumanManagers.getSharedInstance().getHumans()[playerNumber].size() ; i++) {
+                HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).setAlive(false);
+                HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getHumanIsAttacking().setHumanIsAttacking(null);
+                HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getHumanIsAttacking().setStateOfMove(Human.statesOfMovement.STOP);
+                playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
+                playFrame.getVirtals().kill(playerNumber);
+            }
+        }
     }
 }

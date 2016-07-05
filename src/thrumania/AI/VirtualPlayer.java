@@ -8,6 +8,7 @@ import thrumania.gui.PlayPanel;
  */
 public class VirtualPlayer implements Runnable {
     int playernumber;
+    boolean isAlive = true;
     PlayPanel playPanel;
     Functions functions ;
     State state;
@@ -24,7 +25,7 @@ public class VirtualPlayer implements Runnable {
 
     @Override
     public void run() {
-        while(playPanel.gameIsON) {
+        while(playPanel.gameIsON && isAlive) {
             functions.doRandomIn(state.giveMePossibleTasks(),map);
             try {
                 Thread.sleep(1000);
@@ -33,5 +34,9 @@ public class VirtualPlayer implements Runnable {
             }
             state.updateState();
         }
+    }
+
+    public void setAlive(boolean alive) {
+        isAlive = alive;
     }
 }

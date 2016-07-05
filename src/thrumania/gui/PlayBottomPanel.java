@@ -4,7 +4,6 @@ import thrumania.board.item.GameItems.buildings.Barrack;
 import thrumania.board.item.GameItems.buildings.Castle;
 import thrumania.board.item.GameItems.buildings.Port;
 import thrumania.board.item.GameItems.people.Human;
-import thrumania.board.item.GameItems.people.Worker;
 import thrumania.board.item.InsideElementsItems;
 import thrumania.utils.Constants;
 import thrumania.utils.Requirements;
@@ -117,7 +116,6 @@ public class PlayBottomPanel  extends JPanel implements MouseListener {
                 playPanel.setBuildSomething(Constants.BuildSomething.woodquarry);
                 break;
             case mountainwaer:
-                if ((Human)(playPanel.getGameSelectedElement()) instanceof Worker)
                     ((Human)(playPanel.getGameSelectedElement())).setCanGoMountain(!((Human)(playPanel.getGameSelectedElement())).isCanGoMountain());
                 break;
         }

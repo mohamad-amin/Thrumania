@@ -31,7 +31,15 @@ public class PlayFrame extends JFrame {
     private PlayBottomPanel playBottomPanel;
     private MiniMapPanel miniMapPanel;
     private PlayRightPanel playRightPanel;
+    AIManager virtals;
 
+    public AIManager getVirtals() {
+        return virtals;
+    }
+
+    public void setVirtals(AIManager virtals) {
+        this.virtals = virtals;
+    }
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players) {
         Constants.NUMBER_OF_PLAYERS = players;
@@ -78,7 +86,7 @@ public class PlayFrame extends JFrame {
 
 
         //Todo handle player number
-        AIManager virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
+        virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
 
     }
 
@@ -88,7 +96,7 @@ public class PlayFrame extends JFrame {
         List<Cell> strongholdPositions = processor.findCastlePositions(Side.getNumberOfPlayers());
         int count = 0;
         for (Cell cell : strongholdPositions) {
-            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,map);
+            Castle castle = new Castle(cell.getPosition(), cell.getNeighborLand(map.getCells()).getPosition(), count,playBottomPanel,playPanel,this,map);
             castle.setWaterStartingPoint(cell.getNeighbourSea(map.getCells()).getPosition());
             castle.setTeamId(count);
             cell.setInsideElementsItems(castle);
