@@ -43,9 +43,18 @@ public class PlayFrame extends JFrame {
     }
 
     public PlayFrame(HashMap<Integer, Object> loadedMap, int players, boolean multi) {
+        this.multi = multi;
         Constants.NUMBER_OF_PLAYERS = players;
         Side.setNumberOfPlayers(players);
         loadFrame(loadMapFromHash(loadedMap));
+    }
+
+    public PlayPanel getPlayPanel() {
+        return playPanel;
+    }
+
+    public void setPlayPanel(PlayPanel playPanel) {
+        this.playPanel = playPanel;
     }
 
     private void loadFrame(Map map) {

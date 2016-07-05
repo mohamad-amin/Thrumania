@@ -1,6 +1,7 @@
 package thrumania.gui;
 
 import thrumania.board.item.MapItems.Map;
+import thrumania.game.network.ServerNode;
 import thrumania.utils.Constants;
 import thrumania.utils.FileUtils;
 import thrumania.utils.ImageUtils;
@@ -146,7 +147,40 @@ public class MenuPanel extends JPanel {
                                 JOptionPane.INFORMATION_MESSAGE);
                     }
                 }
-            }else if ( exitIsSelected){
+            } else if (playWithYourFriendsIsSelected) {
+                int reply = JOptionPane.showConfirmDialog(null, "Are you server?", "Network Play", JOptionPane.YES_NO_OPTION);
+                if (reply == JOptionPane.YES_OPTION) {
+                    String mapFilePath = "";
+                    JOptionPane.showMessageDialog(MenuPanel.this, "Choose map file", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                    mapFilePath = FileUtils.chooseFile(MenuPanel.this, "data/map");
+                    if  (!FileUtils.isMapFile(mapFilePath)) {
+                        JOptionPane.showMessageDialog(MenuPanel.this,
+                                "The selected file isn't a valid file :(", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                        return;
+                    }
+                    HashMap<Integer, Object> loadedMap = FileUtils.getHashMapFromFile(mapFilePath);
+                    if (loadedMap == null) {
+                        JOptionPane.showMessageDialog(MenuPanel.this,
+                                "Corrupted map, couldn't load :(", "New Game", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        String players = JOptionPane.showInputDialog(MenuPanel.this, "Please enter players' count:",
+                                "New Game", JOptionPane.INFORMATION_MESSAGE);
+                        try {
+
+                            PlayFrame frame = new PlayFrame(loadedMap, Integer.valueOf(players), true);
+                            frame.getPlayPanel().setNetwork(new ServerNode(frame.getPlayPanel(), Integer.valueOf(players), loadedMap));
+                            SoundUtils.clip.stop();
+
+                        } catch (Exception exception) {
+                            exception.printStackTrace();
+                            JOptionPane.showMessageDialog(MenuPanel.this, "Wrong players' count :(", "New Game",
+                                    JOptionPane.INFORMATION_MESSAGE);
+                        }
+                    }
+                } else {
+
+                }
+            } else if ( exitIsSelected){
 
 
                 System.exit(0);

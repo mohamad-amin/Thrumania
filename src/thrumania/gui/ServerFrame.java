@@ -15,6 +15,7 @@ public class ServerFrame extends PlayFrame {
     public ServerFrame(HashMap<Integer, Object> loadedMap, int players) {
         super(loadedMap, players, true);
         network = new ServerNode(playPanel, players, loadedMap);
+        playPanel.setNetwork(network);
     }
 
 }
