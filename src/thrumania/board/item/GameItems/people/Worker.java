@@ -314,20 +314,26 @@ public class Worker extends Human {
 
                         if (pathOfCoordinates.peek().equals(coordinate))
                             pathOfCoordinates.pop();
-                        if (!pathOfCoordinates.isEmpty() && (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())))
-                            if (canGoMountain || !checkWetherGoalCellIsHighLand(pathOfCoordinates.peek()))
-                                regularMove(pathOfCoordinates.pop());
-                            else {
-                                while (!pathOfCoordinates.isEmpty()) {
-                                    pathOfCoordinates.pop();
-                                    stateOfMove = statesOfMovement.STOP;
+                            if (!pathOfCoordinates.isEmpty() && (!this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek()))) {
+                                if (canGoMountain || !checkWetherGoalCellIsHighLand(pathOfCoordinates.peek()))
+                                    regularMove(pathOfCoordinates.pop());
+                                else {
+                                    while (!pathOfCoordinates.isEmpty()) {
+                                        pathOfCoordinates.pop();
+                                        stateOfMove = statesOfMovement.STOP;
+                                    }
+
                                 }
+                            }
+                         if (! pathOfCoordinates.isEmpty() && checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek()))
+                            while (! pathOfCoordinates.isEmpty()) {
+                                pathOfCoordinates.pop();
+                                stateOfMove = statesOfMovement.STOP;
 
                             }
 
-
-                        if (pathOfCoordinates.isEmpty())
-                            stateOfMove = statesOfMovement.STOP;
+//                        if (pathOfCoordinates.isEmpty())
+//                            stateOfMove = statesOfMovement.STOP;
                     }
                 } else stateOfMove = statesOfMovement.STOP;
                 break;
@@ -484,7 +490,6 @@ public class Worker extends Human {
                             checkWheterCapacityIsFull();
                             if (!isCapacityOfCollectingItemsFull) {
 
-                                this.determiningSpeedOfCollectingItems(elementIsBeingCollected);
 //                                        new java.util.Timer().schedule(new TimerTask() {
 //
 //                                            @Override

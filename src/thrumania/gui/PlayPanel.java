@@ -840,7 +840,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
             FisherShip fisherShip = new FisherShip(this, map, IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[0],
                     IntegerUtils.getXAndYWithCoordinate(port.getNeighborsea())[1], port.getSide().getNumberOfPlayer());
             ShipsManager.getShipInstance().getShips()[fisherShip.getPlayerNumber()].add(fisherShip);
-            System.out.println("fisher ship is      +" + fisherShip);
             ShipsManager.getShipInstance().getShipThreadPoolExecuter().execute(fisherShip);
         }
     }
@@ -858,7 +857,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                                         map.getCell(realy, realx).getNeighbourSea(map.getCells()).getPosition(),
                                         (((Human) gameSelectedElement)).getPlayerNumber(), playBottomPanel, map);
                                 map.getCell(realy, realx).setInsideElementsItems(p);
-                                PortsManager.getPortSharedInstance().getPorts()[playernumber].add(p);
+                                PortsManager.getPortSharedInstance().getPorts()[(((Human) gameSelectedElement)).getPlayerNumber()].add(p);
                             }
                         }
                     }

@@ -15,6 +15,7 @@ public class SmallFish extends DeadElements {
         super.eachElementCapacity = 50;
 
 
+
     }
 
 }

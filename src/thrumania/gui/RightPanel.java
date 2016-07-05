@@ -274,6 +274,8 @@ public class RightPanel extends JPanel {
 
             }, 110);
 
+            MenuFrame menuFrame = new MenuFrame();
+
 
 
         }

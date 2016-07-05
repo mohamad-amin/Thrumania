@@ -20,18 +20,19 @@ import java.util.Stack;
 /**
  * Created by sina on 7/3/16.
  */
-public class FisherShip extends  Ships{
+public class FisherShip extends Ships {
     // in rate of 1 second
-    private int speedOfCollectingFood = 50 ;
-    private  int capacityOfCollectingRecourses = 0;
+    private int speedOfCollectingFood = 50;
+    private int capacityOfCollectingRecourses = 0;
     private int MAX_CAPACITY_OF_COLLECTING_FISH = 1200;
-    private  boolean isCapacityOfCollectingResourcesFUll =false;
+    private boolean isCapacityOfCollectingResourcesFUll = false;
     private boolean isWinter = false;
-    private Dimension d = new Dimension(Constants.CELL_SIZE   , Constants.CELL_SIZE   );
-    private  Coordinate resourceCoordinate = null;
+    private Dimension d = new Dimension(Constants.CELL_SIZE + 20, Constants.CELL_SIZE + 20);
+    private Coordinate resourceCoordinate = null;
     private Coordinate whereToEmptiResources;
     private InsideElementsItems elementIsBeingCollected = null;
-    public FisherShip(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber){
+
+    public FisherShip(PlayPanel playPanel, Map map, int xCord, int yCord, int playerNumber) {
         this.playerNumber = playerNumber;
         super.unitOfConsumingFood = 1;
         super.playPanel = playPanel;
@@ -40,20 +41,20 @@ public class FisherShip extends  Ships{
         super.yCord = yCord;
         super.foodReq = 0;
         super.woodReq = 2000;
-        super.ironReq= 500 ;
-        super.goldReq =250 ;
+        super.ironReq = 500;
+        super.goldReq = 250;
         super.isAlive = true;
         this.mapProcessor = new MapProcessor(map.getCells());
         // TODO : doing set size in playpanel
         this.setSize(d);
-        this.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord , yCord);
+        this.coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 //        super.pictureName = "F" + playerNumber % 4 + "" + "1.png";
-        pictureName = "F" + playerNumber % 4 + "" + 1  +".png";
+        pictureName = "F" + playerNumber % 4 + "" + 1 + ".png";
 
     }
 
 
-    private void consumingFood(){
+    private void consumingFood() {
 
         try {
             Thread.sleep(100);
@@ -65,56 +66,60 @@ public class FisherShip extends  Ships{
     }
 
 
-    private  boolean checkWetherGoalHasFishResource(Coordinate crd){
+    private boolean checkWetherGoalHasFishResource(Coordinate crd) {
 
-        Cell cell = map.getCell(crd.getRow() , crd.getColumn());
-        if( cell.getInsideElementsItems() !=null && cell.getInsideElementsItems() instanceof SmallFish )
+        Cell cell = map.getCell(crd.getRow(), crd.getColumn());
+        if (cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof SmallFish)
             return true;
-        else  return  false;
-
+        else return false;
 
 
     }
-    private void examiningPath(){
+
+    private void examiningPath() {
 
 // TODO : we Should set the homecoordinate of ship
-        switch (moveState){
+        switch (moveState) {
 
 
-            case  STOP:
-            {
-                if( !pathOfCoordinates.isEmpty()){
+            case STOP: {
+                System.out.println("Stop state");
+                if (!pathOfCoordinates.isEmpty()) {
 
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
 
-                }else if( pathOfCoordinates.isEmpty()){
+                } else if (pathOfCoordinates.isEmpty()) {
                     checkWetherTheCapacityIsFull();
-                    if( ! isCapacityOfCollectingResourcesFUll){
+                    if (!isCapacityOfCollectingResourcesFUll) {
 
-                        if( resourceCoordinate != null){
-                            pathOfCoordinates = mapProcessor.getPath(coordinate , resourceCoordinate , this);
-                            moveState = StatesOfMoving.MOVE_BY_ORDER;
-                        }else moveState = StatesOfMoving.STOP;
-                    }else if( isCapacityOfCollectingResourcesFUll){
+//                        if (resourceCoordinate != null) {
+//                            System.out.println("lets go back and make fish");
+//                            pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
+//                            moveState = StatesOfMoving.MOVE_BY_ORDER;
+//                        } else moveState = StatesOfMoving.STOP;
+                    } else if (isCapacityOfCollectingResourcesFUll) {
+                        System.out.println("lets empty");
 
                         // check to see it should empty or not
-                        if(checkWheterThereIsInthePlaceToEmptyResources())
-                        {
-                            playPanel.setFoodRes( capacityOfCollectingRecourses);
+                        if (checkWheterThereIsInthePlaceToEmptyResources()) {
+                            System.out.println("we are in the place to empty");
+                            playPanel.setFoodRes(capacityOfCollectingRecourses);
                             capacityOfCollectingRecourses = 0;
-                            if( resourceCoordinate!= null )
-                                pathOfCoordinates  = mapProcessor.getPath(coordinate , resourceCoordinate , this);
-                                moveState =StatesOfMoving.MOVE_BY_ORDER;
+                            if (resourceCoordinate != null)
+                                pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
+                            moveState = StatesOfMoving.MOVE_BY_ORDER;
 
-                        }else {
-                        // we should find the best place for making empty and move to that place
-
+                        } else {
+                            System.out.println("lets find a path to empty");
+                            // we should find the best place for making empty and move to that place
+                            pathOfCoordinates = findTheBestPlaceToEmptyResources();
                             moveState = StatesOfMoving.MOVE_BY_ORDER;
                             // find the best place to go
                         }
 
-                    }else if( resourceCoordinate != null){
-                        pathOfCoordinates = mapProcessor.getPath(coordinate , resourceCoordinate , this);
+                    } else if (resourceCoordinate != null) {
+                        System.out.println("lets go and back fishing");
+                        pathOfCoordinates = mapProcessor.getPath(coordinate, resourceCoordinate, this);
                         moveState = StatesOfMoving.MOVE_BY_ORDER;
 
                     }
@@ -125,30 +130,38 @@ public class FisherShip extends  Ships{
 //                TODO :
                 break;
             }
-            case  MOVE_BY_ORDER:{
+            case MOVE_BY_ORDER: {
+                System.out.println("moveByOrderState");
 
-                if (  ! pathOfCoordinates.isEmpty() && pathOfCoordinates.peek().equals(coordinate)) {
+                if (!pathOfCoordinates.isEmpty() && pathOfCoordinates.peek().equals(coordinate)) {
                     pathOfCoordinates.pop();
-                    moveState  = StatesOfMoving.STOP;
                 }
 
-                if( ! pathOfCoordinates.isEmpty()) {
+                if (!pathOfCoordinates.isEmpty()) {
+                    System.out.println("now we are moving ");
 
-                    if ( super.checkWetherGoalIsLand(pathOfCoordinates.peek()))
-                    {
+                    if (super.checkWetherGoalIsLand(pathOfCoordinates.peek())) {
+                        System.out.println("oh oh here is land we should stop");
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         moveState = StatesOfMoving.STOP;
-                    }else if( pathOfCoordinates.size() == 1 && checkWetherGoalHasFishResource(pathOfCoordinates.peek()))
-                    {
+                    } else if (pathOfCoordinates.size() == 1 && checkWetherGoalHasFishResource(pathOfCoordinates.peek())) {
+                        System.out.println("lets go and fish ");
                         resourceCoordinate = pathOfCoordinates.pop();
+                        elementIsBeingCollected = map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).getInsideElementsItems();
+                        while (!pathOfCoordinates.isEmpty())
+                            pathOfCoordinates.pop();
                         moveState = StatesOfMoving.COLLECTING_FISH;
-                    }else
-                    super.regularMove(pathOfCoordinates.pop());
+                    } else
+                        super.regularMove(pathOfCoordinates.pop());
 
 
-                }else if( pathOfCoordinates.isEmpty())
+                } else if (pathOfCoordinates.isEmpty()) {
+                    while (! pathOfCoordinates.isEmpty())
                     moveState = StatesOfMoving.STOP;
+                    System.out.println("there is no path to go");
+
+                }
 
 
                 // TODO:
@@ -156,148 +169,126 @@ public class FisherShip extends  Ships{
                 break;
             }
 
-            case COLLECTING_FISH:
-            {
-                this.checkWetherTheCapacityIsFull();
-                if( !pathOfCoordinates.isEmpty())
+            case COLLECTING_FISH: {
+                System.out.println("Collecting Fish State");
+
+                if (!pathOfCoordinates.isEmpty())
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
-                else {
-                    if( isCapacityOfCollectingResourcesFUll)
-                    {
+                else if (pathOfCoordinates.isEmpty()) {
 
-                        moveState = StatesOfMoving.COLLECTING_FISH_IS_DONE;
+                    if (elementIsBeingCollected != null) {
+                        checkWetherTheCapacityIsFull();
+                        if (!isCapacityOfCollectingResourcesFUll) {
+                            System.out.println("here we are colllecting fish");
 
-                    }
-                    else {
+                                    if( ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0){
+                                        map.getCell(resourceCoordinate.getRow() , resourceCoordinate.getColumn()).setInsideElementsItems(null);
+                                        playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
+                                        if (isCapacityOfCollectingResourcesFUll){
 
-                        if (((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() == 0) {
-                            map.getCell(resourceCoordinate.getRow(), resourceCoordinate.getColumn()).setInsideElementsItems(null);
-                            playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
-                            if (isCapacityOfCollectingResourcesFUll)
-                                moveState = StatesOfMoving.COLLECTING_HUMAN_IS_DONE;
-                            else
-                                moveState = StatesOfMoving.STOP;
-                        }
+                                            moveState = StatesOfMoving.COLLECTING_FISH_IS_DONE ;
+                                        }else moveState= StatesOfMoving.STOP;
+                                    } else if ( ((DeadElements)  elementIsBeingCollected) instanceof  SmallFish ){
 
-                        if (elementIsBeingCollected != null)
-                        {
+                                        if( ((SmallFish) elementIsBeingCollected).getMAX_CAPACITY() < ((SmallFish) elementIsBeingCollected).getEachElementCapacity()) {
+                                                        capacityOfCollectingRecourses += ((SmallFish) elementIsBeingCollected).getMAX_CAPACITY();
+                                                        ((SmallFish) elementIsBeingCollected).setMAX_CAPACITY(((SmallFish) elementIsBeingCollected).getMAX_CAPACITY());
 
-                            try {
-                                Thread.sleep(1000 / speedOfCollectingFood );
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-
-
-                                if ( ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() != 0){
-
-                                    if( ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY() < ((DeadElements) elementIsBeingCollected).getEachElementCapacity()){
-
-                                        capacityOfCollectingRecourses += ((DeadElements) elementIsBeingCollected).getMAX_CAPACITY();
-                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getMAX_CAPACITY());
-                                    }else {
-
-                                        capacityOfCollectingRecourses += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
-                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
+                                                    }else {
+                                                        capacityOfCollectingRecourses += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
+                                                        ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
+                                                    }
 
                                     }
 
 
 
 
-                            }
+
+                        } else {
+                            moveState =StatesOfMoving.COLLECTING_FISH_IS_DONE;
 
 
-
-
-
-
-
+                            // TODO :
                         }
 
 
-                    }
+                    } else {
+                        moveState = StatesOfMoving.STOP;
 
+                        // TODO :
+                    }
 
 
                 }
 
 
-
-            break;
+                break;
             }
 
-            case COLLECTING_FISH_IS_DONE:
-            {
-                if( !pathOfCoordinates.isEmpty())
-                    moveState =StatesOfMoving.MOVE_BY_ORDER;
+            case COLLECTING_FISH_IS_DONE: {
+                System.out.println("Collecting Fish  is done State");
+                if (!pathOfCoordinates.isEmpty())
+                    moveState = StatesOfMoving.MOVE_BY_ORDER;
 //                else if( false ){
-                else{
-                    // TODO :
+                else {
+                    System.out.println("lets find the best way");
                     pathOfCoordinates = findTheBestPlaceToEmptyResources();
                     moveState = StatesOfMoving.MOVE_BY_ORDER;
                 }
 
-                // TODO :
+
                 break;
             }
 
 
-
-
-
-
-
-
-
-
-
         }
 
 
     }
 
 
-private  void  checkWetherTheCapacityIsFull(){
+    private void checkWetherTheCapacityIsFull() {
 
-    if( capacityOfCollectingRecourses == MAX_CAPACITY_OF_COLLECTING_FISH  )
-        isCapacityOfCollectingResourcesFUll = true;
-    else isCapacityOfCollectingResourcesFUll = false;
+        if (capacityOfCollectingRecourses == MAX_CAPACITY_OF_COLLECTING_FISH)
+            isCapacityOfCollectingResourcesFUll = true;
+        else isCapacityOfCollectingResourcesFUll = false;
 
-}
+    }
 
-    private boolean checkWheterThereIsInthePlaceToEmptyResources(){
+    private boolean checkWheterThereIsInthePlaceToEmptyResources() {
 
-        if ( coordinate.equals(HomeCastleCoordinate))
-            return true ;
-        else{
+        if (coordinate.equals(HomeCastleCoordinate))
+            return true;
+        else {
 
-            for ( int i =0 ; i < PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
+            for (int i = 0; i < PortsManager.getPortSharedInstance().getPorts()[playerNumber].size(); i++) {
 
-                if( PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate().equals(coordinate))
+                if (PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate().equals(coordinate))
                     return true;
             }
-            return  false;
+            return false;
 
         }
 
     }
 
-    private Stack<Coordinate> findTheBestPlaceToEmptyResources(){
+    private Stack<Coordinate> findTheBestPlaceToEmptyResources() {
+        System.out.println("here we find the best way");
         Stack<Coordinate> path1 ;
-        Stack<Coordinate> path2 ;
+        Stack<Coordinate> path2;
 //        ArrayList<Coordinate> possibleCoordinates  = new ArrayList<>();
         Coordinate bestCoord = null;
-        for (int  i =0 ; i< PortsManager.getPortSharedInstance().getPorts()[playerNumber].size() ; i++){
-          if ( bestCoord == null)
-              bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
+        System.out.println("size is  "+ PortsManager.getPortSharedInstance().getPorts()[playerNumber].size());
+        for (int i = 0; i < PortsManager.getPortSharedInstance().getPorts()[playerNumber].size(); i++) {
+            if (bestCoord == null)
+                bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
             else {
-              path1 = mapProcessor.getPath(coordinate , bestCoord , this);
-              path2 = mapProcessor.getPath(coordinate , PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea(), this);
-              if( path1.size() > path2.size())
-                  bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
-          }
-
+                path1 = mapProcessor.getPath(coordinate, bestCoord, this);
+                path2 = mapProcessor.getPath(coordinate, PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea(), this);
+                if (path1.size() > path2.size())
+                    bestCoord = PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getNeighborsea();
+            }
 
 
 //            possibleCoordinates.add( PortsManager.getPortSharedInstance().getPorts()[playerNumber].get(i).getPortsCoordinate());
@@ -306,17 +297,29 @@ private  void  checkWetherTheCapacityIsFull(){
         }
         // TODO for path 2
         path1 = mapProcessor.getPath(coordinate, bestCoord, this);
-        if ( this.HomeCastleCoordinate != null) {
+        if (this.HomeCastleCoordinate != null ) {
+            System.out.println("1");
             path2 = mapProcessor.getPath(coordinate, HomeCastleCoordinate, this);
-            if (path1.size() > path2.size())
-                return path2;
+            if (path1.size() > path2.size() &&  ! path2.isEmpty()) {
+                System.out.println("2");
 
-            return path1;
-        }else return   path1;
+                return path2;
+            }
+        }
+
+            if( path1.isEmpty() && getHomeCastleCoordinate() != null) {
+                System.out.println("3");
+                return mapProcessor.getPath(coordinate, getHomeCastleCoordinate(), this);
+            }
+
+        System.out.println("4");
+                return path1;
+
+
+
+
 
 //        Collections.sort(possibleCoordinates);
-
-
 
 
     }
@@ -333,11 +336,11 @@ private  void  checkWetherTheCapacityIsFull(){
 
     @Override
     public void run() {
-        while ( isAlive){
+        while (isAlive) {
             this.consumingFood();
             deterimingCanMove();
-            if( canMove)
-            examiningPath();
+            if (canMove)
+                examiningPath();
         }
     }
 }

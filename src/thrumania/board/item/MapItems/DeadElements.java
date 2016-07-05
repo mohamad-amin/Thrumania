@@ -13,7 +13,7 @@ public abstract class DeadElements extends InsideElementsItems {
     protected String autumnPictureName ;
     protected String winterPictureName ;
     protected int eachElementCapacity;
-    public int MAX_CAPACITY = 100 ;
+    public int MAX_CAPACITY = 500 ;
     protected  int speedCollectingWood = 20;
     protected boolean haveBuildingAssignedTo = false;
     // - 1 -> means for all teams
