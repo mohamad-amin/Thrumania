@@ -78,7 +78,6 @@ public class Farm extends LiveElements implements  Runnable {
     @Override
     public void run() {
         while ( isAlive){
-
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -86,10 +85,6 @@ public class Farm extends LiveElements implements  Runnable {
             }
         }
         playPanel.setFoodRes(200);
-
-
-
-
     }
 
 
