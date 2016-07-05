@@ -738,6 +738,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     private void removingHumanFromPanel(Human human) {
         this.remove(human);
+        human.setVisible(false);
         this.repaint();
 //        this.removeNotify();
 //        this.revalidate();

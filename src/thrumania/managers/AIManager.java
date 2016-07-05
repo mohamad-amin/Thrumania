@@ -24,4 +24,8 @@ public class AIManager {
             AIThreadPoolExecuter.execute(player[i]);
         }
     }
+
+    public void kill(int playerNumber) {
+        player[playerNumber-1].setAlive(false);
+    }
 }
