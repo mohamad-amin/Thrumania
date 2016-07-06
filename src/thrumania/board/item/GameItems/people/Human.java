@@ -133,6 +133,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
 
 
         }
+        coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
     }
 
@@ -174,8 +175,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter = 0 ;
                 this.setPicturesOfMoving(1 , rightCounter);
                 rightCounter ++ ;
-                counter ++;
-                wentRight = true;
+//                wentRight = true;
 
 
             }
@@ -184,14 +184,14 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                 upCounter =  rightCounter = downCounter = 0;
                 this.setPicturesOfMoving(3 , leftCounter);
                 leftCounter ++ ;
-                counter++;
+
                 wentRight = true;
 
             }
 //            coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
-//            if( ! wentRight  ||  counter == 5) {
-                counter =0;
-                wentRight = false;
+
+//                counter =0;
+//                wentRight = false;
                 if (this.yCord < yEnd) {
                     yCord++;
                     upCounter = rightCounter = leftCounter = 0;
@@ -204,7 +204,7 @@ public abstract class Human extends InsideElementsItems implements Runnable {
                     upCounter++;
 
                 }
-//            }
+
             coordinate = IntegerUtils.getCoordinateWithXAndY(xCord, yCord);
 
 

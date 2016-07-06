@@ -176,7 +176,6 @@ public class Worker extends Human {
 
         switch (stateOfMove) {
             case STOP: {
-                hasKilled = false;
                 canLookForOpponent = true;
                 if (!pathOfCoordinates.isEmpty()) {
 // first if there is any order to go
@@ -386,6 +385,8 @@ public class Worker extends Human {
                             }else stateOfMove  = statesOfMovement.STOP;
                             }
                             if (health <= 0) {
+                                if ( humanIsAttacking instanceof  Soldier)
+                                    ((Soldier) humanIsAttacking).setDontGoKilling(true);
 
                                 synchronized (HumanManagers.getSharedInstance().getHumans()) {
                                     System.out.println("_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
