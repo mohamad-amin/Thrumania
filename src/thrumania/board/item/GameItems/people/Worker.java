@@ -380,7 +380,7 @@ public class Worker extends Human {
                         if( ! hasKilled) {
                         if (humanIsAttacking != null) {
                             if (this.health > 0) {
-                                System.out.print(getHealth());
+                                System.out.println(getHealth());
                                 this.setHealth(humanIsAttacking.getDamageUnit());
                                 stateOfMove = statesOfMovement.ATTACKING;
                             }else stateOfMove  = statesOfMovement.STOP;
@@ -388,6 +388,7 @@ public class Worker extends Human {
                             if (health <= 0) {
 
                                 synchronized (HumanManagers.getSharedInstance().getHumans()) {
+                                    System.out.println("_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
 
                                     playPanel.dispatchEvent(new RemovingFromPanel(playPanel, this));
 
@@ -559,7 +560,14 @@ public class Worker extends Human {
                                         capacityOfCollectingWood += ((Tree) elementIsBeingCollected).getMAX_CAPACITY();
                                         ((Tree) elementIsBeingCollected).setMAX_CAPACITY(((Tree) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                    } else {
+                                    }else if ( ((Tree) elementIsBeingCollected).getEachElementCapacity() >( this.MAX_RESOURCE_CAPACITY   -  this.capacityOfCollectingWood)){
+
+                                        capacityOfCollectingWood += (this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingWood);
+                                        ((Tree) elementIsBeingCollected).setMAX_CAPACITY(   (this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingWood)    );
+
+
+                                    }
+                                    else {
                                         capacityOfCollectingWood += ((DeadElements) elementIsBeingCollected).getEachElementCapacity();
                                         ((DeadElements) elementIsBeingCollected).setMAX_CAPACITY(((DeadElements) elementIsBeingCollected).getEachElementCapacity());
                                     }
@@ -569,7 +577,14 @@ public class Worker extends Human {
                                         capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getMAX_CAPACITY();
                                         ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getMAX_CAPACITY());
 
-                                    } else {
+                                    }  else if( ((GoldMine) elementIsBeingCollected).getEachElementCapacity() >( this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingGold)){
+
+                                        capacityOfCollectingGold += (this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingGold);
+                                        ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY((this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingGold));
+
+                                    }
+
+                                    else {
                                         capacityOfCollectingGold += ((GoldMine) elementIsBeingCollected).getEachElementCapacity();
                                         ((GoldMine) elementIsBeingCollected).setMAX_CAPACITY(((GoldMine) elementIsBeingCollected).getEachElementCapacity());
                                     }
@@ -578,9 +593,16 @@ public class Worker extends Human {
                                         capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getMAX_CAPACITY();
                                         ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getMAX_CAPACITY());
 
+                                    }else if ( ((StoneMine) elementIsBeingCollected).getEachElementCapacity() > ( this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingStone) ){
+
+                                        capacityOfCollectingStone += (this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingStone);
+                                        ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY((this.MAX_RESOURCE_CAPACITY - this.capacityOfCollectingStone));
                                     }
-                                    capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
-                                    ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
+
+                                        else{
+                                        capacityOfCollectingStone += ((StoneMine) elementIsBeingCollected).getEachElementCapacity();
+                                        ((StoneMine) elementIsBeingCollected).setMAX_CAPACITY(((StoneMine) elementIsBeingCollected).getEachElementCapacity());
+                                    }
                                 }
 
 

@@ -99,7 +99,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.gameIsON = true;
         this.season = Constants.Seasons.SPRING;
         this.network = network;
-//        this.preview =  new Preview(this, 20000);
+        this.preview =  new Preview(this, 20000);
     }
 
     public Network getNetwork() {
@@ -191,6 +191,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
+                synchronized (HumanManagers.getSharedInstance().getHumans()){
                 for (int i = 0; i < HumanManagers.getSharedInstance().getHumans().length; i++) {
                     for (int j = 0; j < HumanManagers.getSharedInstance().getHumans()[i].size(); j++) {
 
@@ -202,12 +203,12 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                         y1 = (HumanManagers.getSharedInstance().getHumans()[i].get(j).getyCord() * Constants.CELL_SIZE / ZeroScale) - start.getRow() * Constants.CELL_SIZE + (int) (continuousMovement.getRow() * Constants.CELL_SIZE);
 
                         Coordinate tempCrd = IntegerUtils.getCoordinateWithXAndY(x1, y1);
-                        if(! HumanManagers.getSharedInstance().getHumans()[i].get(j).isHumanInsideTheShip()){
-                        HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
-                       }
+                        if (!HumanManagers.getSharedInstance().getHumans()[i].get(j).isHumanInsideTheShip()) {
+                            HumanManagers.getSharedInstance().getHumans()[i].get(j).setLocation(x1, y1);
+                        }
                         add(HumanManagers.getSharedInstance().getHumans()[i].get(j));
 
-
+                    }
                     }
 
                 }
@@ -753,6 +754,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     }
 
     private void removingHumanFromPanel(Human human) {
+        System.out.println("me me me me me me me me");
         this.remove(human);
         human.setVisible(false);
         this.repaint();

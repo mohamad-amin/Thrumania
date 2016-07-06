@@ -28,6 +28,7 @@ public class Soldier extends Human {
     private Dimension d = new Dimension(Constants.CELL_SIZE - 5, Constants.CELL_SIZE - 5);
     private Human humanIsAttacking = null;
     private InsideElementsItems onTheWayBuilding ;
+    private boolean hasKilled = false;
 
     public Soldier(PlayPanel playPanel, Map map, int x, int y, int playerNumber, PlayBottomPanel playBottomPanel) {
         this.playBottomPanel = playBottomPanel;
@@ -128,6 +129,7 @@ public class Soldier extends Human {
         switch (stateOfMove) {
 
             case STOP: {
+                hasKilled = false;
 
                 canLookForOpponent = true;
                 if (!pathOfCoordinates.isEmpty()) {
@@ -202,11 +204,12 @@ public class Soldier extends Human {
 
             case ATTACKING: {
 
+
                 canLookForOpponent = false;
                 if (!pathOfCoordinates.isEmpty()) {
                     humanIsAttacking = null;
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
-                }else if (humanIsAttacking != null) {
+                } else if (humanIsAttacking != null) {
 
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
                         while (!pathOfCoordinates.isEmpty())
@@ -218,7 +221,7 @@ public class Soldier extends Human {
                             attackMove(humanIsAttacking);
                         else stateOfMove = statesOfMovement.STOP;
                     }
-                } else stateOfMove = statesOfMovement.STOP ;
+                } else stateOfMove = statesOfMovement.STOP;
 
 
                 break;
@@ -244,48 +247,31 @@ public class Soldier extends Human {
                             e.printStackTrace();
                         }
                         hasAttacked = false;
-                        if (humanIsAttacking != null) {
-                            if (this.health > 0) {
-                                System.out.print(getHealth());
-                                this.setHealth(humanIsAttacking.getDamageUnit());
-                                stateOfMove = statesOfMovement.ATTACKING;
+                        if( ! hasKilled) {
+                            if (humanIsAttacking != null) {
+                                if (this.health > 0) {
+                                    System.out.println(getHealth());
+                                    this.setHealth(humanIsAttacking.getDamageUnit());
+                                    stateOfMove = statesOfMovement.ATTACKING;
+                                }else stateOfMove  = statesOfMovement.STOP;
                             }
                             if (health <= 0) {
 
                                 synchronized (HumanManagers.getSharedInstance().getHumans()) {
+                                    System.out.println("_+_+_+_+_+_+_+_+_+_+_+_+_+_+_+");
+
                                     playPanel.dispatchEvent(new RemovingFromPanel(playPanel, this));
 
-                                    // humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
+                                    humanIsAttacking.setStateOfMove(statesOfMovement.STOP);
                                     HumanManagers.getSharedInstance().getHumans()[playerNumber].remove(this);
-//                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    humanIsAttacking.setHumanIsAttacking(null);
+                                    hasKilled = true;
                                     this.setAlive(false);
 //                                    System.out.println(HumanManagers.getSharedInstance().getHumans()[playerNumber]);
                                     break;
                                 }
 
                             }
-
-
-//                            if( humanIsAttacking.getHealth() > 0){
-//                                humanIsAttacking.setHealth(damageUnit);
-//                                stateOfMove = statesOfMovement.ATTACKING;
-//                            }else {
-//
-//
-//                                if( humanIsAttacking != null) {
-//                                    System.out.println("fuck fuck fuck");
-//                                    humanIsAttacking.setAlive(false);
-//                                    playPanel.remove(humanIsAttacking);
-//                                    HumanManagers.getSharedInstance().getHumans()[humanIsAttacking.getPlayerNumber()].remove(humanIsAttacking);
-//                                    HumanManagers.getSharedInstance().getThreadPoolExecutor().remove(humanIsAttacking);
-//                                    humanIsAttacking = null;
-//
-//                                    playPanel.removeNotify();
-//                                    playPanel.revalidate();
-//                                    playPanel.repaint();
-//                                    stateOfMove = statesOfMovement.STOP;
-//
-//                                }else stateOfMove = statesOfMovement.STOP;
 
 
                         } else stateOfMove = statesOfMovement.STOP;

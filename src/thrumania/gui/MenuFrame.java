@@ -1,7 +1,6 @@
 package thrumania.gui;
 
 import thrumania.utils.Constants;
-import thrumania.utils.ImageUtils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +21,7 @@ import java.awt.*;
 
 public class MenuFrame extends JFrame {
 
-    private Dimension d = new Dimension(getToolkit().getScreenSize().width, getToolkit().getScreenSize().height);
+    private Dimension d = new Dimension(getToolkit().getScreenSize().width , getToolkit().getScreenSize().height );
     private int verticalSpace = 100;
 
     public MenuFrame() throws HeadlessException {

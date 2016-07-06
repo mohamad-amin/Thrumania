@@ -17,7 +17,7 @@ public class State {
     public int[] giveMePossibleTasks(){
         switch (currentstate){
             case 0 :
-                int [] a0 = {0,1,2,3};
+                int [] a0 = {1,2,3};
                 return a0;
             case 1 :
                 //soldier
