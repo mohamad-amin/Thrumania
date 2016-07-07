@@ -67,6 +67,7 @@ public class Farm extends LiveElements implements  Runnable {
     public void destroy() {
         super.destroy();
         this.isAlive = false;
+        playPanel.repaint();
     }
 
     @Override

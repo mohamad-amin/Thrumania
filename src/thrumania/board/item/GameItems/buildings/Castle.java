@@ -141,5 +141,6 @@ public class Castle extends LiveElements {
 
 
         }
+        playPanel.repaint();
     }
 }

@@ -708,7 +708,7 @@ public class Worker extends Human {
                 break;
             }
             case DESTRUCTION_BUILDINGS: {
-                System.out.println("****************");
+                System.out.println("()()(()()()()()()()()(()())()()())()");
                 if (humanIsAttacking == null)
                     if (canLookForOpponent) {
                         humanIsAttacking = seeAnyFoes();
@@ -723,7 +723,7 @@ public class Worker extends Human {
                 if (!pathOfCoordinates.isEmpty())
                     stateOfMove = statesOfMovement.MOVING_BY_ORDERED;
                 else if (pathOfCoordinates.isEmpty()) {
-
+                    System.out.println("lets go destructing");
                     if (((LiveElements) onTheWayBuilding).isUnderConstructed()) {
                         try {
                             Thread.sleep(3000);
@@ -735,6 +735,7 @@ public class Worker extends Human {
                         stateOfMove = statesOfMovement.STOP;
                         playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
                     } else {
+                        System.out.println();
 
                         try {
                             Thread.sleep(5000);
@@ -742,8 +743,8 @@ public class Worker extends Human {
                             e.printStackTrace();
                         }
                         System.out.println("nononononnonononnonoonn");
-
                         ((LiveElements) onTheWayBuilding).destroy();
+
                         onTheWayBuilding = null;
                         stateOfMove = statesOfMovement.STOP;
                         playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));

@@ -45,6 +45,7 @@ public  abstract  class LiveElements extends DeadElements{
         winterPictureName = pictureName;
     }
 
+
     public Coordinate getRealPosition() {
         return realPosition;
     }
@@ -53,8 +54,9 @@ public  abstract  class LiveElements extends DeadElements{
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(true);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(true);
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setInsideElementsItems(null);
-    }
 
+
+    }
     public Side getSide() {
         return side;
     }
