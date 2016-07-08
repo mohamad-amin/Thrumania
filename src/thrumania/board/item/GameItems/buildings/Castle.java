@@ -10,9 +10,6 @@ import thrumania.gui.PlayFrame;
 import thrumania.gui.PlayPanel;
 import thrumania.managers.HumanManagers;
 import thrumania.managers.ShipsManager;
-import thrumania.messages.Messages;
-import thrumania.messages.RemovingShipsFromPanel;
-import thrumania.messages.SimpleMessages;
 import thrumania.utils.Constants;
 import thrumania.utils.Coordinate;
 import thrumania.utils.ImageUtils;
@@ -122,25 +119,22 @@ public class Castle extends LiveElements {
 
     @Override
     public void destroy() {
+        //super.destroy not working because inside adresses are wrong
         super.destroy();
+        playFrame.getVirtals().kill(playerNumber);
         synchronized (HumanManagers.getSharedInstance().getHumans()) {
             for (int i = 0; i < HumanManagers.getSharedInstance().getHumans()[playerNumber].size() ; i++) {
                 HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).setAlive(false);
                 HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getHumanIsAttacking().setHumanIsAttacking(null);
                 HumanManagers.getSharedInstance().getHumans()[playerNumber].get(i).getHumanIsAttacking().setStateOfMove(Human.statesOfMovement.STOP);
-                playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
-                playFrame.getVirtals().kill(playerNumber);
+                //playPanel.dispatchEvent( new SimpleMessages(playPanel , Messages.REPAINT));
             }
         }
 
         for ( int i =0  ;  i< ShipsManager.getShipInstance().getShips()[playerNumber].size() ; i++){
-
-
             ShipsManager.getShipInstance().getShips()[playerNumber].get(i).setAlive(false);
             ShipsManager.getShipInstance().getShips()[playerNumber].remove(i);
-            playPanel.dispatchEvent(new RemovingShipsFromPanel(playPanel,ShipsManager.getShipInstance().getShips()[playerNumber].get(i)));
-
-
+            //playPanel.dispatchEvent(new RemovingShipsFromPanel(playPanel,ShipsManager.getShipInstance().getShips()[playerNumber].get(i)));
         }
         playPanel.repaint();
     }

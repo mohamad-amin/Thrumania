@@ -460,7 +460,6 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
                     System.out.println(" you clicked here \t " + IntegerUtils.getCoordinateWithXAndY(x, y));
                     //TODO : finding which element is clicked
                     gameSelectedElement = findingwhichElementIsClicked(x, y, realx, realy);
-                    System.out.println(gameSelectedElement);
                     if( gameSelectedElement instanceof LiveElements )
                     System.out.println( "Starting point is " + ( (LiveElements)  gameSelectedElement ).getStartingPoint());
                     playBottomPanel.repaint();
@@ -914,7 +913,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     }
 
     public void building(int realx, int realy) {
-        Coordinate realPosition = new Coordinate(realx, realy);
+        Coordinate realPosition = new Coordinate(realy, realx);
         switch (buildSomething) {
             case port:
                 if (map.getCell(realy, realx) != null && !(map.getCell(realy, realx) instanceof Sea)) {

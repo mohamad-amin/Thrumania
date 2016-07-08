@@ -9,7 +9,7 @@ import thrumania.utils.IntegerUtils;
  * Created by mohamadamin on 5/18/16.
  */
 
-public abstract class Cell {
+public class Cell {
     public boolean getCanSetBuilding(){return canSetBuilding;}
 
     public void setCanSetBuilding(boolean canSetBuilding) {
