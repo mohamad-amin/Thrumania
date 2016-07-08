@@ -34,6 +34,7 @@ public class PlayFrame extends JFrame {
     protected AIManager virtals;
     protected boolean multi;
 
+
     public AIManager getVirtals() {
         return virtals;
     }
@@ -76,6 +77,7 @@ public class PlayFrame extends JFrame {
         //Todo should handle playernumber
         playBottomPanel = new PlayBottomPanel();
         playPanel = new PlayPanel(map, miniMapPanel,0, null);
+        playPanel.setTempNumber_Of_people(Constants.NUMBER_OF_PLAYERS);
         playBottomPanel.setPlayPanel(playPanel);
         playPanel.setPlayBottomPanel(playBottomPanel);
         loadStrongholds();
@@ -96,7 +98,7 @@ public class PlayFrame extends JFrame {
 
 
         //Todo handle player number
-        if (!multi) virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
+//        if (!multi) virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
 
     }
 

@@ -57,7 +57,7 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
     private int ZeroScale = Constants.giveMeZeroScale();
     private int playernumber;
     private Network network;
-
+    private int tempNumber_Of_people ;
     public Constants.BuildSomething getBuildSomething() {
         return buildSomething;
     }
@@ -353,7 +353,9 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
     @Override
     public void run() {
+
         while (gameIsON) {
+            this.checkWetherTheGameIsFinished();
 
             synchronized (HumanManagers.getSharedInstance().getHumans()) {
                 this.addingHumansToMap();
@@ -372,6 +374,8 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
 
 
         }
+
+        MenuFrame fram = new MenuFrame();
     }
 
     private Human findingwhichHumanIsClicked(int x, int y) {
@@ -1009,6 +1013,11 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         });
 
     }
+    private void checkWetherTheGameIsFinished(){
+
+        if( tempNumber_Of_people == 1)
+            gameIsON = false;
+    }
 
     public Constants.DayTime getDayTime() {
         return dayTime;
@@ -1018,6 +1027,12 @@ public class PlayPanel extends Panels implements MouseMotionListener, Runnable {
         this.dayTime = dayTime;
     }
 
+    public int getTempNumber_Of_people() {
+        return tempNumber_Of_people;
+    }
 
+    public void setTempNumber_Of_people(int tempNumber_Of_people) {
+        this.tempNumber_Of_people = tempNumber_Of_people;
+    }
 
 }

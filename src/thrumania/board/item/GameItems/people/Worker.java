@@ -742,7 +742,6 @@ public class Worker extends Human {
                         stateOfMove = statesOfMovement.STOP;
                         playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
                     } else {
-                        System.out.println();
 
                         try {
                             Thread.sleep(5000);
@@ -750,6 +749,7 @@ public class Worker extends Human {
                             e.printStackTrace();
                         }
                         System.out.println("nononononnonononnonoonn");
+                        // calling destroy here
                         ((LiveElements) onTheWayBuilding).destroy();
 
                         onTheWayBuilding = null;
