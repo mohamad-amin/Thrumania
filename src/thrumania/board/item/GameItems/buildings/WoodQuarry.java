@@ -69,7 +69,6 @@ public class WoodQuarry extends LiveElements {
     @Override
     public void paintingOptions(Graphics g) {
         super.paint(g);
-
         Font myFont = new Font("Party Business", Font.BOLD, 20);
         g.setFont(myFont);
         g.setColor(Color.WHITE);

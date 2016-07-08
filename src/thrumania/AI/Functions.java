@@ -137,27 +137,29 @@ public class Functions {
 
     //1
     public void collectingWood(Human human , Map map){
-        int startx = (-(Constants.RANDOMMOVERANGE))+ human.getCoordinate().getColumn();
-        int starty = (-(Constants.RANDOMMOVERANGE))+ human.getCoordinate().getRow();
-        int endx = (Constants.RANDOMMOVERANGE)+ human.getCoordinate().getColumn();
-        int endy = (Constants.RANDOMMOVERANGE)+ human.getCoordinate().getRow();
-        if (startx < 0 ) startx =0;
-        if (starty < 0) starty = 0;
-        if (endx >= Constants.MATRIX_HEIGHT) endx = Constants.MATRIX_HEIGHT -1;
-        if (endy >= Constants.MATRIX_WIDTH) endy = Constants.MATRIX_WIDTH -1;
-        int sourcepointx = -1;
-        int sourcepointy = -1;
-        boolean found = false;
-        for (int i = startx; i<=endx ;i++) {
-            for (int j = starty; j <= endy; j++) {
-                if (map.getCell(i,j).getInsideElementsItems() instanceof Tree){
-                    sourcepointx = i;
-                    sourcepointy = j;
-                    found =true;
+        if(human.getStateOfMove()== Human.statesOfMovement.STOP) {
+            int startx = (-(Constants.RANDOMMOVERANGE)) + human.getCoordinate().getColumn();
+            int starty = (-(Constants.RANDOMMOVERANGE)) + human.getCoordinate().getRow();
+            int endx = (Constants.RANDOMMOVERANGE) + human.getCoordinate().getColumn();
+            int endy = (Constants.RANDOMMOVERANGE) + human.getCoordinate().getRow();
+            if (startx < 0) startx = 0;
+            if (starty < 0) starty = 0;
+            if (endx >= Constants.MATRIX_HEIGHT) endx = Constants.MATRIX_HEIGHT - 1;
+            if (endy >= Constants.MATRIX_WIDTH) endy = Constants.MATRIX_WIDTH - 1;
+            int sourcepointx = -1;
+            int sourcepointy = -1;
+            boolean found = false;
+            for (int i = startx; i <= endx; i++) {
+                for (int j = starty; j <= endy; j++) {
+                    if (map.getCell(i, j).getInsideElementsItems() instanceof Tree) {
+                        sourcepointx = i;
+                        sourcepointy = j;
+                        found = true;
+                    }
                 }
             }
+            if (found) setHumanMove(sourcepointy * Constants.CELL_SIZE, sourcepointx * Constants.CELL_SIZE, human);
         }
-        if (found) setHumanMove(sourcepointy *Constants.CELL_SIZE,sourcepointx*Constants.CELL_SIZE,human);
     }
 
     //2

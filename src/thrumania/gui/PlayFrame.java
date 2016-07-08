@@ -96,7 +96,7 @@ public class PlayFrame extends JFrame {
 
 
         //Todo handle player number
-//        if (!multi) virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
+        if (!multi) virtals = new AIManager(Constants.NUMBER_OF_PLAYERS-1,playPanel);
 
     }
 

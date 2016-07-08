@@ -35,6 +35,7 @@ public class Castle extends LiveElements {
     private int teamId;
 
     public Castle(Coordinate realPosition, Coordinate startingPoint , int sideNumber, PlayBottomPanel playBottomPanel ,PlayPanel playPanel,PlayFrame playFrame, Map map) {
+        this.map=map;
         map.getCell(realPosition.getRow(),realPosition.getColumn()).setCanSetBuilding(false);
         map.getCell(startingPoint.getRow(),startingPoint.getColumn()).setCanSetBuilding(false);
         this.playFrame = playFrame;

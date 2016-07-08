@@ -33,6 +33,19 @@ import java.util.TimerTask;
 public class Worker extends Human {
     // TODO : worker's Order
     private int capacityOfCollectingWood = 0;
+
+    public int getCapacityOfCollectingWood() {
+        return capacityOfCollectingWood;
+    }
+
+    public int getCapacityOfCollectingStone() {
+        return capacityOfCollectingStone;
+    }
+
+    public int getCapacityOfCollectingGold() {
+        return capacityOfCollectingGold;
+    }
+
     private int capacityOfCollectingStone = 0;
     private int capacityOfCollectingGold = 0;
 
@@ -144,12 +157,6 @@ public class Worker extends Human {
 
     }
 
-
-
-
-    public int getCapacityOfCollectinWood() {
-        return capacityOfCollectingWood;
-    }
 
     public void setCapacityOfCollectingItems(int capacityOfCollectingWood) {
         this.capacityOfCollectingWood = capacityOfCollectingWood;
@@ -828,6 +835,12 @@ public class Worker extends Human {
         g.drawString((Integer.toString(health)), 300, 30);
         g.drawString("Side :", 150, 60);
         g.drawString((Integer.toString(playerNumber + 1)), 300, 60);
+        g.drawString("wood :", 150, 90);
+        g.drawString((Integer.toString(getCapacityOfCollectingWood())), 300, 90);
+        g.drawString("iron :", 150, 120);
+        g.drawString((Integer.toString(getCapacityOfCollectingStone())), 300, 120);
+        g.drawString("gold :", 150, 150);
+        g.drawString((Integer.toString(getCapacityOfCollectingGold())), 300, 150);
 
         int elementCounter = Constants.sizeOfInformationBar;
         if (!b1IsSelected)
