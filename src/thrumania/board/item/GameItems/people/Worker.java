@@ -273,7 +273,7 @@ public class Worker extends Human {
 
                         // TODO : handling construnting buildings by using another if ( map...... cell ...inside element is building ... state is constructuin
 
-                    } else if (!pathOfCoordinates.isEmpty() && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())) {
+                    } else if (pathOfCoordinates.size() == 1 && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())) {
                         if (onTheWayBuilding != null && ((LiveElements) onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber) {
                             if (((LiveElements) onTheWayBuilding).isUnderConstructed()) {
                                 if (((LiveElements) onTheWayBuilding).getConstructorsWorking() < ((LiveElements) onTheWayBuilding).getMaxOfConstructor()) {
@@ -283,7 +283,7 @@ public class Worker extends Human {
 
                                 } else {
 
-                                    while (!pathOfCoordinates.isEmpty())
+                                    if (!pathOfCoordinates.isEmpty())
                                         pathOfCoordinates.pop();
                                     stateOfMove = statesOfMovement.STOP;
 
@@ -291,13 +291,13 @@ public class Worker extends Human {
 
 
                             } else {
-                                while (!pathOfCoordinates.isEmpty())
+                                if (!pathOfCoordinates.isEmpty())
                                     pathOfCoordinates.pop();
                                 stateOfMove = statesOfMovement.STOP;
                             }
 
                         } else {
-                            while (! pathOfCoordinates.isEmpty())
+                            if (! pathOfCoordinates.isEmpty())
                                 pathOfCoordinates.pop();
                             stateOfMove = statesOfMovement.DESTRUCTION_BUILDINGS;
                         }

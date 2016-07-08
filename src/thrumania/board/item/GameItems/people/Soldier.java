@@ -27,7 +27,7 @@ public class Soldier extends Human {
     private Map map;
     private Dimension d = new Dimension(Constants.CELL_SIZE - 5, Constants.CELL_SIZE - 5);
     private Human humanIsAttacking = null;
-    private InsideElementsItems onTheWayBuilding ;
+    private InsideElementsItems onTheWayBuilding;
     private boolean hasKilled = false;
     private boolean dontGoKilling = false;
 
@@ -47,7 +47,7 @@ public class Soldier extends Human {
 
         // aks :
         // TODO : changing picure of shape
-        super.picutreName ="S" + playerNumber %4 + "00.png";
+        super.picutreName = "S" + playerNumber % 4 + "00.png";
 
         // TODO:
 
@@ -123,8 +123,6 @@ public class Soldier extends Human {
     }
 
 
-
-
     private void examiningPath() {
 //        System.out.println("state is \t"+ stateOfMove);
 
@@ -166,30 +164,31 @@ public class Soldier extends Human {
                         pathOfCoordinates.pop();
                     canLookForOpponent = false;
                     stateOfMove = statesOfMovement.ATTACKING;
-                }else if( !pathOfCoordinates.isEmpty()) {
+                } else if (!pathOfCoordinates.isEmpty()) {
 
-                    if ( pathOfCoordinates.peek().equals(coordinate))
+                    if (pathOfCoordinates.peek().equals(coordinate))
                         pathOfCoordinates.pop();
 
+                    if (pathOfCoordinates.size() == 1 && checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())) {
+                        System.out.println("soldier : the goal cell is a building");
 
-                    if (canGoMountain || !this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
+                        if (onTheWayBuilding != null && ((LiveElements) onTheWayBuilding).getSide().getNumberOfPlayer() != this.playerNumber) {
+                            if( ! pathOfCoordinates.isEmpty())
+                                pathOfCoordinates.pop();
 
-                        regularMove(pathOfCoordinates.pop());
-                    }else if ( pathOfCoordinates.size() == 1 &&  checkWetherTheGoalCellIsBullidng(pathOfCoordinates.peek())){
-
-                        if( onTheWayBuilding != null &&  ((LiveElements)onTheWayBuilding).getSide().getNumberOfPlayer() == this.playerNumber){
-
-                            this.stateOfMove  = statesOfMovement.DESTRUCTION_BUILDINGS;
+                            this.stateOfMove = statesOfMovement.DESTRUCTION_BUILDINGS;
                         } else {
 
-                            while (! pathOfCoordinates.isEmpty())
+                            while (!pathOfCoordinates.isEmpty())
                                 pathOfCoordinates.pop();
                             stateOfMove = statesOfMovement.STOP;
                         }
 
 
+                    } else if ( ! pathOfCoordinates.isEmpty() && canGoMountain || !this.checkWheterTheGoalCellIsWaterOrNot(pathOfCoordinates.peek())) {
 
-                    } else{
+                        regularMove(pathOfCoordinates.pop());
+                    } else {
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
                         stateOfMove = statesOfMovement.STOP;
@@ -216,8 +215,8 @@ public class Soldier extends Human {
                     if (IntegerUtils.getDistanceOfTWoIntegers(xCord, humanIsAttacking.getxCord()) <= distanceShouldKeepWhenAttacking && IntegerUtils.getDistanceOfTWoIntegers(yCord, humanIsAttacking.getyCord()) <= distanceShouldKeepWhenAttacking) {
                         while (!pathOfCoordinates.isEmpty())
                             pathOfCoordinates.pop();
-                        if ( !dontGoKilling)
-                        this.stateOfMove = statesOfMovement.KILLING;
+                        if (!dontGoKilling)
+                            this.stateOfMove = statesOfMovement.KILLING;
 
                     } else {
                         if (isThisHumanVisible(humanIsAttacking))
@@ -250,16 +249,16 @@ public class Soldier extends Human {
                             e.printStackTrace();
                         }
                         hasAttacked = false;
-                        if( ! hasKilled) {
-                        if (humanIsAttacking != null) {
-                            if (this.health > 0) {
+                        if (!hasKilled) {
+                            if (humanIsAttacking != null) {
+                                if (this.health > 0) {
 
-                                System.out.println("Soldier " + getHealth());
-                                this.setHealth(humanIsAttacking.getDamageUnit());
-                                stateOfMove = statesOfMovement.ATTACKING;
+                                    System.out.println("Soldier " + getHealth());
+                                    this.setHealth(humanIsAttacking.getDamageUnit());
+                                    stateOfMove = statesOfMovement.ATTACKING;
 
-                            } else stateOfMove = statesOfMovement.STOP;
-                        }
+                                } else stateOfMove = statesOfMovement.STOP;
+                            }
                             if (health <= 0) {
 
 
@@ -276,8 +275,6 @@ public class Soldier extends Human {
                                     break;
                                 }
                             }
-
-
 
 
 //                            if( humanIsAttacking.getHealth() > 0){
@@ -366,41 +363,40 @@ public class Soldier extends Human {
                 }
                 break;
             }
-            case  DESTRUCTION_BUILDINGS:{
+            case DESTRUCTION_BUILDINGS: {
+                System.out.println("now sldier is going to destruct enemies building");
 
-                if (   ((LiveElements) onTheWayBuilding).isUnderConstructed()){
+                if (((LiveElements) onTheWayBuilding).isUnderConstructed()) {
 
                     try {
-                        Thread.sleep( 1000);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    System.out.println("soldeir : lets destroy  under constructed building");
 
                     ((LiveElements) onTheWayBuilding).destroy();
                     onTheWayBuilding = null;
                     stateOfMove = statesOfMovement.STOP;
-                    playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT));
+                    playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
 
 
-
-                }else {
+                } else {
 
                     try {
                         Thread.sleep(2000);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
+                    System.out.println("soldier  : lets destory constructed building");
 
                     ((LiveElements) onTheWayBuilding).destroy();
                     onTheWayBuilding = null;
                     stateOfMove = statesOfMovement.STOP;
-                    playPanel.dispatchEvent(new SimpleMessages(playPanel , Messages.REPAINT));
-
+                    playPanel.dispatchEvent(new SimpleMessages(playPanel, Messages.REPAINT));
 
 
                 }
-
-
 
 
                 break;
@@ -458,13 +454,12 @@ public class Soldier extends Human {
 
 
     protected boolean checkWetherTheGoalCellIsBullidng(Coordinate crd) {
-        System.out.println("coordinate of this check i s\t" + crd);
-        System.out.println("map is\t" + map);
-        System.out.println(map.getCell(crd.getRow() , crd.getColumn()));
-        if(  map.getCell(crd.getRow() , crd.getColumn())  instanceof LowLand || map.getCell(crd.getRow() , crd.getColumn()) instanceof HighLand){
+
+        System.out.println("soldier we are checcking that is next cell a building");
+        if (map.getCell(crd.getRow(), crd.getColumn()) instanceof LowLand || map.getCell(crd.getRow(), crd.getColumn()) instanceof HighLand) {
             Cell cell = map.getCell(crd.getRow(), crd.getColumn());
-            System.out.println(cell);
-            if( cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+            if (cell.getInsideElementsItems() != null && cell.getInsideElementsItems() instanceof LiveElements) {
+                System.out.println("soldier : yes it is a building");
                 this.onTheWayBuilding = cell.getInsideElementsItems();
                 return true;
             }
