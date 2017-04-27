@@ -1,5 +1,5 @@
 # Thrumania
-This is our ([Mohamad Amin Mohamadi](https://github.com/mohamad-amin) and [Sina Malakouti](https://github.com/sinamalakouti) and [Amirhosein Beheshti](https://github.com/A-H-B-Gh)).
+This is our ([Mohamad Amin Mohamadi](https://github.com/mohamad-amin) and [Sina Malakouti](https://github.com/sinamalakouti) and [Amirhosein Beheshti](https://github.com/A-H-B-Gh)) Advance programming project. 
 In this project we developed a game similar to famous game Age of Empires in 2D environment.
 Main Features of this project are :
 
